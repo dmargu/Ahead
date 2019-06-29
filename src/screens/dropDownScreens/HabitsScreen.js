@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Header from '../../components/common/Header';
 
 class HabitsScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 50 }}>HABITS SCREEN</Text>
+        <Header navigation={this.props.navigation} />
       </View>
     );
   }

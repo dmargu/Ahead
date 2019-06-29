@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MenuButton from '../components/menuButton';
+import Header from '../components/common/Header';
 
 class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <MenuButton navigation={this.props.navigation} />
+      <View style={{ flex: 1 }}>
+        <Header navigation={this.props.navigation} />
       </View>
     );
   }
