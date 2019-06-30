@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   Dimensions,
   StyleSheet,
+  ScrollView,
   View,
   Text,
   TouchableOpacity
@@ -16,9 +16,6 @@ import {
   aheadArrow
 } from '../../assets/InAppIcons';
 
-
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').width;
 
 class MenuDrawer extends Component {
   navLink(nav, text, icon) {
@@ -36,18 +33,25 @@ class MenuDrawer extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-            {aheadArrow}
-            <Text style={styles.sloganStyle}>get ahead.</Text>
-        </View>
-        <View style={styles.bottomLinks}>
-          {this.navLink('Home', 'Home', homeIcon)}
-          {this.navLink('Calendar', 'Calendar', calendarIcon)}
-          {this.navLink('Todo', 'Todo\'s', todoIcon)}
-          {this.navLink('Habits', 'Habits', habitIcon)}
-          {this.navLink('Settings', 'Settings', settingsIcon)}
-        </View>
+        <ScrollView style={styles.scroller}>
+          <View style={styles.topLinks}>
+              {aheadArrow}
+              <Text style={styles.sloganStyle}>get ahead.</Text>
+          </View>
+          <View style={styles.bottomLinks}>
+            {this.navLink('Home', 'Home', homeIcon)}
+            {this.navLink('Calendar', 'Calendar', calendarIcon)}
+            {this.navLink('Todo', 'Todo\'s', todoIcon)}
+            {this.navLink('Habits', 'Habits', habitIcon)}
+            {this.navLink('Settings', 'Settings', settingsIcon)}
+          </View>
+        </ScrollView>
+          <View style={styles.footer}>
+            <Text style={styles.description}>Ahead</Text>
+            <Text style={styles.version}>v1.0</Text>
+          </View>
       </View>
+
     );
   }
 }
@@ -56,6 +60,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightgrey'
+  },
+  scroller: {
+    flex: 1
   },
   link: {
     flex: 1,
@@ -89,6 +96,26 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 25,
     color: '#ff5330'
+  },
+  footer: {
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'lightgrey',
+    backgroundColor: '#0f1626'
+  },
+  description: {
+    flex: 1,
+    marginLeft: 20,
+    fontSize: 16,
+    color: 'lightgrey'
+  },
+  version: {
+    flex: 1,
+    textAlign: 'right',
+    marginRight: 20,
+    color: 'lightgrey'
   }
 });
 
