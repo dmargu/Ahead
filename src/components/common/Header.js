@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 70,
     paddingTop: 35,
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingLeft: 25,
+    paddingRight: 25
   },
   textStyle: {
     fontSize: 20
