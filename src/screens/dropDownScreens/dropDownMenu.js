@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { createDrawerNavigator, createAppContainer } from 'react-navigation';
 import HomeScreen from '../HomeScreen';
 import CalendarScreen from './CalendarScreen';
@@ -14,7 +14,7 @@ const dropDownConfig = {
   drawerWidth: WIDTH * 0.83,
   contentComponent: ({ navigation }) => { // takes navigation props so it can change screens
     return <MenuDrawer navigation={navigation} />;
-  }
+  },
 };
 // creates drop down menu with all of screens, home needs to be first
 const dropDownMenu = createAppContainer(createDrawerNavigator(
@@ -23,9 +23,9 @@ const dropDownMenu = createAppContainer(createDrawerNavigator(
     Calendar: CalendarScreen,
     Todo: TodoScreen,
     Habits: HabitsScreen,
-    Settings: SettingsScreen
+    Settings: SettingsScreen,
   },
-  dropDownConfig
+  dropDownConfig,
 ));
 
 export default dropDownMenu;

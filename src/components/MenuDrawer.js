@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
   StyleSheet,
   ScrollView,
   View,
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
   },
   topLinks: {
     height: 140,
-    backgroundColor: '#ab987a',
+    backgroundColor: '#ff5330',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
   sloganStyle: {
     paddingLeft: 10,
     fontSize: 25,
-    color: '#ff5330'
+    color: '#f5f5f5'
   },
   footer: {
     height: 50,

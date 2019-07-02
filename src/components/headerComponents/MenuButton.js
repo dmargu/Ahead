@@ -5,7 +5,7 @@ class MenuButton extends Component {
   render() {
     return (
       <Ionicons
-        name='md-menu'
+        name="md-menu"
         size={32}
         onPress={() => this.props.navigation.toggleDrawer()}
       />

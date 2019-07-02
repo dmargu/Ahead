@@ -12,17 +12,17 @@ export default class App extends Component {
   render() {
     const AppContainer = createAppContainer(createBottomTabNavigator({
       welcome: {
-          screen: WelcomeScreen,
-          // navigationOptions: { tabBarVisible: false }
-        },
-        auth: {
-          screen: AuthScreen,
-          // navigationOptions: { tabBarVisible: false }
-        },
-        main: {
-          navigationOptions: { tabBarVisible: false },
-          screen: dropDownMenu
-        }
+        screen: WelcomeScreen,
+        // navigationOptions: { tabBarVisible: false }
+      },
+      auth: {
+        screen: AuthScreen,
+        // navigationOptions: { tabBarVisible: false }
+      },
+      main: {
+        navigationOptions: { tabBarVisible: false },
+        screen: dropDownMenu,
+      },
     }));
 
     return (

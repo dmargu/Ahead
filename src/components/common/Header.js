@@ -32,5 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//make the component available to other parts of the App
 export default Header;
