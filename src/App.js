@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import {
   createAppContainer,
   createBottomTabNavigator,
@@ -6,6 +8,7 @@ import {
 import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
+import reducers from './reducers';
 
 
 export default class App extends Component {
@@ -25,8 +28,12 @@ export default class App extends Component {
       },
     }));
 
+    const store = createStore(reducers, {});
+
     return (
+      <Provider store={store}>
         <AppContainer />
+      </Provider>
     );
   }
 }

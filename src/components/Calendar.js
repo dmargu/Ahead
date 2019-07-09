@@ -6,7 +6,7 @@ class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: { '2019-07-05': [{ text: 'EXAMPLE' }],
+      items: { '2019-07-05': [{ text: 'EXAMPLE', time: '10:30 AM' }],
     '2019-07-02': [{ text: 'item 2 - any js object' }] }
     };
   }
@@ -37,7 +37,7 @@ class Calendar extends Component {
       <View
         style={[styles.item, { height: item.height }]}
       >
-        <Text>{item.text}</Text>
+        <Text>{item.time}{item.text}</Text>
       </View>
     );
   }
