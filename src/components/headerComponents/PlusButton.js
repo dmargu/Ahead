@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import AddEventModal from '../AddEventModal';
 
 class PlusButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showModal: false };
-  }
-
   render() {
     return (
       <View>
         <Ionicons
           name='md-add'
           size={32}
-          onPress={() => { this.setState({ showModal: !this.state.showModal }); }}
+          onPress={() => this.props.openModal()}
         />
-        <AddEventModal isVisible={this.state.showModal} />
+        <AddEventModal />
       </View>
     );
   }
 }
 
-export default PlusButton;
+function mapStateToProps({ ModalReducer }) {
+  return { ModalReducer };
+}
+
+export default connect(mapStateToProps, actions)(PlusButton);

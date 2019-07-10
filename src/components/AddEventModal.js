@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet, Modal, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import CardSection from './common/CardSection';
 
-const AddEventModal = ({ isVisible }) => {
-  return (
-    <Modal
-    transparent
-    animationType='fade'
-    onRequestClose={() => {}}
-    visible={isVisible}
-    >
-      <View style={styles.containerStyle}>
-        <CardSection style={styles.CardSection}>
-          <View style={styles.headerStyle}>
-            <Text>Create...</Text>
-            <Button onPress={() => {}} />
-          </View>
-          <View style={styles.buttons}>
-            <Button title='Todo' />
-            <Button title='Homework Assignment' />
-            <Button title='Test' />
-          </View>
-        </CardSection>
-      </View>
-    </Modal>
-  );
-};
+class AddEventModal extends Component {
+  render() {
+    return (
+      <Modal
+      transparent
+      animationType='fade'
+      onRequestClose={() => {}}
+      visible={this.props.ModalReducer.modalVisible}
+      >
+        <View style={styles.containerStyle}>
+          <CardSection style={styles.CardSection}>
+            <View style={styles.modalContent}>
+              <View style={styles.headerStyle}>
+                <View style={styles.createStyle}>
+                  <Text style={{ fontSize: 20 }}>Create...</Text>
+                </View>
+                <Button
+                style={styles.exitStyle}
+                title='X'
+                onPress={() => this.props.closeModal()}
+                />
+              </View>
+              <Button title='Todo' style={styles.buttons} />
+              <Button title='Homework Assignment' style={styles.buttons} />
+              <Button title='Test' style={styles.buttons} />
+            </View>
+          </CardSection>
+        </View>
+      </Modal>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -44,10 +54,23 @@ const styles = StyleSheet.create({
   headerStyle: {
     flexDirection: 'row'
   },
-  buttons: {
+  modalContent: {
     flexDirection: 'column'
+  },
+  createStyle: {
+    justifyContent: 'center',
+    start: 70,
+  },
+  exitStyle: {
+    start: 100,
+  },
+  buttons: {
+    paddingTop: 10
   }
 });
 
+function mapStateToProps({ ModalReducer }) {
+  return { ModalReducer };
+}
 
-export default AddEventModal;
+export default connect(mapStateToProps, actions)(AddEventModal);
