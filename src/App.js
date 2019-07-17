@@ -5,6 +5,7 @@ import {
   createAppContainer,
   createBottomTabNavigator,
 } from 'react-navigation';
+import { LinearGradient } from 'expo-linear-gradient';
 import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
@@ -27,12 +28,15 @@ export default class App extends Component {
         screen: dropDownMenu,
       },
     }));
-
-    const store = createStore(reducers, {});
-
+    /* eslint-disable no-underscore-dangle */
+    const store = createStore(reducers, {},
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    /* eslint-enable */
     return (
       <Provider store={store}>
-        <AppContainer />
+        <LinearGradient colors={['#B993D6', '#8CA6DB']} style={{ flex: 1 }}>
+          <AppContainer />
+        </LinearGradient>
       </Provider>
     );
   }

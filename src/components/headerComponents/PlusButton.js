@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -9,11 +9,13 @@ class PlusButton extends Component {
   render() {
     return (
       <View>
-        <Ionicons
-          name='md-add'
-          size={32}
-          onPress={() => this.props.openModal()}
-        />
+        <TouchableOpacity>
+          <Ionicons
+            name='md-add'
+            size={32}
+            onPress={() => this.props.openModal()}
+          />
+        </TouchableOpacity>
         <AddEventModal />
       </View>
     );

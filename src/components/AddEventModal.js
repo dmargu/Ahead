@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Modal, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { openModal, closeModal } from '../actions';
 import CardSection from './common/CardSection';
 
 class AddEventModal extends Component {
@@ -18,9 +18,7 @@ class AddEventModal extends Component {
           <CardSection style={styles.CardSection}>
             <View style={styles.modalContent}>
               <View style={styles.headerStyle}>
-                <View style={styles.createStyle}>
-                  <Text style={{ fontSize: 20 }}>Create...</Text>
-                </View>
+                  <Text style={styles.createStyle}>Create...</Text>
                 <Button
                 style={styles.exitStyle}
                 title='X'
@@ -58,11 +56,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   createStyle: {
-    justifyContent: 'center',
-    start: 70,
+    justifyContent: 'center', //this shouldn't be hardcoded to center
+    fontSize: 20,
+    start: 70
   },
   exitStyle: {
-    start: 100,
+    start: 100, //this shouldn't be hardcoded to right
   },
   buttons: {
     paddingTop: 10
@@ -73,4 +72,4 @@ function mapStateToProps({ ModalReducer }) {
   return { ModalReducer };
 }
 
-export default connect(mapStateToProps, actions)(AddEventModal);
+export default connect(mapStateToProps, { openModal, closeModal })(AddEventModal);

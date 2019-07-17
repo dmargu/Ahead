@@ -10,9 +10,9 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <MenuButton navigation={this.props.navigation} />
-        <PlusButton />
-        <ReminderToggle />
+          <MenuButton navigation={this.props.navigation} />
+          <PlusButton />
+          <ReminderToggle />
       </View>
     );
   }
