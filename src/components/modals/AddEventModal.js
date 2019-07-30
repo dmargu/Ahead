@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Modal, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { openModal, closeModal } from '../actions';
-import CardSection from './common/CardSection';
+import { closePlusModal } from '../../actions';
+import CardSection from '../common/CardSection';
 
 class AddEventModal extends Component {
   render() {
@@ -11,8 +11,7 @@ class AddEventModal extends Component {
       <Modal
       transparent
       animationType='fade'
-      onRequestClose={() => {}}
-      visible={this.props.ModalReducer.modalVisible}
+      visible={this.props.ModalReducer.plusModalVisible}
       >
         <View style={styles.containerStyle}>
           <CardSection style={styles.CardSection}>
@@ -22,7 +21,7 @@ class AddEventModal extends Component {
                 <Button
                 style={styles.exitStyle}
                 title='X'
-                onPress={() => this.props.closeModal()}
+                onPress={() => this.props.closePlusModal()}
                 />
               </View>
               <Button title='Todo' style={styles.buttons} />
@@ -72,4 +71,4 @@ function mapStateToProps({ ModalReducer }) {
   return { ModalReducer };
 }
 
-export default connect(mapStateToProps, { openModal, closeModal })(AddEventModal);
+export default connect(mapStateToProps, { closePlusModal })(AddEventModal);

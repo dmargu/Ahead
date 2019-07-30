@@ -1,11 +1,13 @@
 import {
   ADD_TODO,
-  TOGGLE_TODO,
-  REMOVE_TODO
+  CHANGE_DATE,
+  REMOVE_TODO,
+  OPEN_ITEM_MODAL
 } from '../actions/types';
 
 const initialState = {
-  todos: []
+  todos: [],
+  currItem: {}
 };
 
 const todos = (state = initialState, action) => {
@@ -14,21 +16,33 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         todos: [...state.todos, {
-          id: action.id,
+          id: state.todos.length,
           text: action.text,
-          completed: false
-        }] };
-    case TOGGLE_TODO:
+          completed: false,
+          date: null
+        }]
+      };
+    case CHANGE_DATE:
       return {
         ...state,
-        todos: state.todos.map(todo => ((todo.id === action.id)
-          ? { ...todo, completed: !todo.completed } : todo))
+        todos: state.todos.map(todo => ((todo.id === state.currItem.id)
+          ? { ...todo, date: action.payload } : todo))
       };
-    case REMOVE_TODO:
+    case REMOVE_TODO: {
+      const newList = state.todos.filter(item => item.id !== action.id);
+      for (let i = 0, newId = 0; i < newList.length; i++, newId++) {
+        newList[i].id = newId;
+      }
       return {
       ...state,
-      todos: state.todos.filter(item => item.id !== action.id)
-    };
+      todos: newList
+      };
+    }
+    case OPEN_ITEM_MODAL:
+      return {
+        ...state,
+        currItem: state.todos.find((todo) => todo.id === action.id)
+      };
     default:
       return state;
   }

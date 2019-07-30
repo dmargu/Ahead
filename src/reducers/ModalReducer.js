@@ -1,16 +1,28 @@
-import { OPEN_MODAL, CLOSE_MODAL } from '../actions/types';
+import {
+  OPEN_PLUS_MODAL,
+  CLOSE_PLUS_MODAL,
+  OPEN_ITEM_MODAL,
+  CLOSE_ITEM_MODAL
+} from '../actions/types';
 
 
 const initialState = {
-  modalVisible: false
+  plusModalVisible: false,
+  itemModalVisible: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_MODAL:
-      return { ...state, modalVisible: action.payload };
-    case CLOSE_MODAL:
-      return { ...state, modalVisible: action.payload };
+    case OPEN_PLUS_MODAL:
+      return { ...state, plusModalVisible: action.payload };
+    case CLOSE_PLUS_MODAL:
+      return { ...state, plusModalVisible: action.payload };
+    case OPEN_ITEM_MODAL:
+      return { ...state,
+        itemModalVisible: action.payload
+      };
+      case CLOSE_ITEM_MODAL:
+        return { ...state, itemModalVisible: action.payload };
     default:
       return state;
   }

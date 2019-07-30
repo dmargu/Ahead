@@ -34,7 +34,7 @@ export default class App extends Component {
     /* eslint-enable */
     return (
       <Provider store={store}>
-        <LinearGradient colors={['#B993D6', '#8CA6DB']} style={{ flex: 1 }}>
+        <LinearGradient colors={['#3a4347', '#3a4347']} style={{ flex: 1 }}>
           <AppContainer />
         </LinearGradient>
       </Provider>

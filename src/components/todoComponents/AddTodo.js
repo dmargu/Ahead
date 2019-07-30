@@ -8,6 +8,7 @@ const AddTodo = (props) => {
         style={styles.input}
         onChangeText={(textInput) => props.textChange(textInput)}
         value={props.textInput}
+        autoCapitalize='sentences'
       />
       <TouchableOpacity style={styles.addButton} onPress={props.addNewTodo}>
         <Text style={styles.addButtonText}>ADD</Text>
@@ -18,18 +19,21 @@ const AddTodo = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    height: 50,
+    borderBottomColor: '#DDD',
+    borderTopColor: '#DDD',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    shadowOffset: { width: 0, height: 3 },
-    shadowColor: '#171717',
-    shadowOpacity: 0.1,
-    paddingTop: 2
+    alignItems: 'center',
+    paddingLeft: 15
   },
   input: {
-    backgroundColor: '#f3f3f3',
     flex: 1,
     fontSize: 18,
-    height: 35
+    height: 35,
+    color: 'white'
   },
   addButton: {
     width: 100,

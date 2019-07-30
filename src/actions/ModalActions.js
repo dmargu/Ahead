@@ -1,15 +1,35 @@
-import { OPEN_MODAL, CLOSE_MODAL } from './types';
+import {
+  OPEN_PLUS_MODAL,
+  CLOSE_PLUS_MODAL,
+  OPEN_ITEM_MODAL,
+  CLOSE_ITEM_MODAL
+} from './types';
 
-export const openModal = () => {
+export const openPlusModal = () => {
   return {
-    type: OPEN_MODAL,
+    type: OPEN_PLUS_MODAL,
     payload: true
   };
 };
 
-export const closeModal = () => {
+export const closePlusModal = () => {
   return {
-    type: CLOSE_MODAL,
+    type: CLOSE_PLUS_MODAL,
+    payload: false
+  };
+};
+
+export const openItemModal = (id) => {
+  return {
+    type: OPEN_ITEM_MODAL,
+    payload: true,
+    id
+  };
+};
+
+export const closeItemModal = () => {
+  return {
+    type: CLOSE_ITEM_MODAL,
     payload: false
   };
 };

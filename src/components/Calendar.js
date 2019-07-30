@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { Agenda } from 'react-native-calendars';
 import { View, StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 class Calendar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: { '2019-07-05': [{ text: 'EXAMPLE', time: '10:30 AM' }],
-    '2019-07-02': [{ text: 'item 2 - any js object' }] }
-    };
-  }
-
   render() {
+    const calItemsArray = Object.assign({}, //this needs to be optimized,
+      ...this.props.todos.map(item =>
+        ({ [moment(item.date).format('YYYY-MM-DD')]: [{
+          text: item.text, time: moment(item.date).format('h:mm a') }] }))
+      ); //need to make sure calendar can load everything fine (check the console log to see)
+    console.log(calItemsArray);
     return (
       <Agenda
-        items={this.state.items}
+        items={calItemsArray}
         //loadItemsForMonth={this.loadItems.bind(this)}
         renderItem={this.renderItem.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
+        renderEmptyData={this.renderEmptyDate.bind(this)}
       />
     );
   }
@@ -31,13 +32,19 @@ class Calendar extends Component {
     return r1.name !== r2.name;
   }
 
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}><Text>This is an empty day!</Text></View>
+    );
+  }
+
 
   renderItem(item) {
     return (
       <View
         style={[styles.item, { height: item.height }]}
       >
-        <Text>{item.time}{item.text}</Text>
+        <Text>{item.time} {item.text}</Text>
       </View>
     );
   }
@@ -59,4 +66,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Calendar;
+function mapStateToProps(state) {
+  return {
+    todos: state.TodoReducer.todos
+  };
+}
+
+export default connect(mapStateToProps)(Calendar);

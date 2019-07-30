@@ -4,5 +4,5 @@
     "arrow-body-style": 0,
     "react/sort-comp": 0,
     "max-len": ["error", { "code": 105 }]
-  }
+  },
 }

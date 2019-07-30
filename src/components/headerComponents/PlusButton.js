@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import AddEventModal from '../AddEventModal';
+import { openPlusModal } from '../../actions';
+import AddEventModal from '../modals/AddEventModal';
 
 class PlusButton extends Component {
   render() {
@@ -13,7 +13,8 @@ class PlusButton extends Component {
           <Ionicons
             name='md-add'
             size={32}
-            onPress={() => this.props.openModal()}
+            onPress={() => this.props.openPlusModal()}
+            color='#f5f5f5'
           />
         </TouchableOpacity>
         <AddEventModal />
@@ -26,4 +27,4 @@ function mapStateToProps({ ModalReducer }) {
   return { ModalReducer };
 }
 
-export default connect(mapStateToProps, actions)(PlusButton);
+export default connect(mapStateToProps, { openPlusModal })(PlusButton);

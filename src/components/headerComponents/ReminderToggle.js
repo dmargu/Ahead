@@ -9,6 +9,7 @@ class ReminderToggle extends Component {
       <Ionicons
         name='md-checkbox-outline'
         size={32}
+        color='#f5f5f5'
       />
       </View>
     );

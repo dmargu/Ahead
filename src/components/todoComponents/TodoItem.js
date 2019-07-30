@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, Button, TouchableOpacity, View } from 'react-native';
+import { connect } from 'react-redux';
+import ItemInformationModal from '../modals/ItemInformationModal';
+import { openItemModal } from '../../actions/ModalActions';
 
-class TodoItem extends Component {
+class TodoItem extends Component { //consider changing to react-native-elements list item
   render() {
     const todoItem = this.props.todoItem;
     return (
       <View>
         <TouchableOpacity
           style={styles.todoItem}
-          onPress={this.props.pressToToggle}
+          onPress={() => this.props.openItemModal(todoItem.id)} //sending id for modal to open
         >
           <Text
             style={{
-              color: todoItem.completed ? '#aaaaaa' : '#f5f5f5',
-              textDecorationLine: todoItem.completed ? 'line-through' : 'none',
+              color: '#f5f5f5',
               fontSize: 16 }}
           >
             {todoItem.text}
@@ -24,6 +26,7 @@ class TodoItem extends Component {
               onPress={this.props.deleteTodo}
             />
         </TouchableOpacity>
+        <ItemInformationModal />
       </View>
     );
   }
@@ -43,4 +46,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TodoItem;
+/*function mapStateToProps({ ModalReducer }) {
+  return { ModalReducer };
+}*/
+
+export default connect(null, { openItemModal })(TodoItem);
