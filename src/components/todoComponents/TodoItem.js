@@ -1,34 +1,42 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Button, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+import moment from 'moment';
 import ItemInformationModal from '../modals/ItemInformationModal';
 import { openItemModal } from '../../actions/ModalActions';
 
-class TodoItem extends Component { //consider changing to react-native-elements list item
+class TodoItem extends Component {
   render() {
     const todoItem = this.props.todoItem;
     return (
       <View>
-        <TouchableOpacity
-          style={styles.todoItem}
-          onPress={() => this.props.openItemModal(todoItem.id)} //sending id for modal to open
-        >
-          <Text
-            style={{
-              color: '#f5f5f5',
-              fontSize: 16 }}
-          >
-            {todoItem.text}
-          </Text>
-            <Button
-              title='Remove'
-              color='#ff5330'
-              onPress={this.props.deleteTodo}
-            />
-        </TouchableOpacity>
+      <ListItem
+        containerStyle={styles.todoItem}
+        title={todoItem.text}
+        titleStyle={{ color: '#f5f5f5', fontSize: 16 }}
+        titleNumberOfLines={0} //for subtitle need to call function- why it is .bind(this)()
+        subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
+        onPress={() => this.props.openItemModal(todoItem.id)}
+        rightIcon={
+          <Ionicons
+            name='md-checkbox'
+            color='#ff5330'
+            onPress={this.props.deleteTodo}
+            size={35}
+          />
+        }
+      />
         <ItemInformationModal />
       </View>
     );
+  }
+  renderDate() {
+    const todoItem = this.props.todoItem;
+    return moment(todoItem.date).format('YYYY MM DD') === moment(new Date()).format('YYYY MM DD') ?
+      <Text>{moment(todoItem.date).format('h:mm a')}</Text> :
+      <Text>{moment(todoItem.date).format('MMM DD')}</Text>;
   }
 }
 
@@ -36,13 +44,11 @@ class TodoItem extends Component { //consider changing to react-native-elements 
 const styles = StyleSheet.create({
   todoItem: {
     width: '100%',
-    height: 50,
+    height: 60,
     borderBottomColor: '#DDD',
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 15
+    paddingLeft: 15,
+    backgroundColor: null
   }
 });
 

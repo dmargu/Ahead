@@ -13,3 +13,5 @@ export const TOGGLE_TODO = 'toggleTodo';
 export const REMOVE_TODO = 'removeTodo';
 
 export const CHANGE_DATE = 'changeDate';
+
+export const TOGGLE_REMINDERS = 'toggleReminders';

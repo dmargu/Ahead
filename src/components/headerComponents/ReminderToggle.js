@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { toggleReminders } from '../../actions/ReminderActions';
 
 class ReminderToggle extends Component {
   render() {
     return (
       <View>
-      <Ionicons
-        name='md-checkbox-outline'
+      <MaterialCommunityIcons
+        name={this.props.reminderToggleActive ? 'bell-ring' : 'bell'}
         size={32}
-        color='#f5f5f5'
+        color={this.props.reminderToggleActive ? '#33cccc' : '#f5f5f5'}
+        onPress={() => this.props.toggleReminders(this.props.reminderToggleActive)}
       />
       </View>
     );
   }
 }
 
-export default ReminderToggle;
+function mapStateToProps(state) {
+  return {
+    reminderToggleActive: state.RemindersReducer.reminderToggleActive
+  };
+}
+
+export default connect(mapStateToProps, { toggleReminders })(ReminderToggle);

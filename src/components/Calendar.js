@@ -3,30 +3,37 @@ import { Agenda } from 'react-native-calendars';
 import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import _ from 'lodash';
 
 class Calendar extends Component {
   render() {
-    const calItemsArray = Object.assign({}, //this needs to be optimized,
+    const calItemsArray = Object.assign({},
       ...this.props.todos.map(item =>
         ({ [moment(item.date).format('YYYY-MM-DD')]: [{
-          text: item.text, time: moment(item.date).format('h:mm a') }] }))
-      ); //need to make sure calendar can load everything fine (check the console log to see)
+          text: item.text,
+          time: moment(item.date).format('h:mm a')
+        }]
+        }))
+      );
+
+    const calItems = _.groupBy(this.props.todos, (date) => {
+      return moment(date).format('YYYY-MM-DD');
+    }
+  );
+    console.log(calItems);
+    console.log('--------------------');
     console.log(calItemsArray);
+
     return (
-      <Agenda
-        items={calItemsArray}
-        //loadItemsForMonth={this.loadItems.bind(this)}
-        renderItem={this.renderItem.bind(this)}
+      <Agenda //currently loads all upcoming days if there is something on that day
+        items={calItems} //but loads nothing if there is nothing on that day
+        renderItem={this.renderItem.bind(this)} //check github issues for solution it's there
         rowHasChanged={this.rowHasChanged.bind(this)}
         renderEmptyData={this.renderEmptyDate.bind(this)}
       />
     );
   }
 
-  timeToString(time) {
-    const date = new Date(time);
-    return date.toISOString().split('T')[0];
-  }
 
   rowHasChanged(r1, r2) {
     return r1.name !== r2.name;
