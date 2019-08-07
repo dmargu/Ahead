@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import Header from '../components/common/Header';
 import TodayIncludes from '../components/TodayIncludes';
 import MainTodo from '../components/todoComponents/mainTodo';
@@ -10,11 +10,9 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, height: HEIGHT }}>
-        <ScrollView>
-          <Header navigation={this.props.navigation} />
-          <TodayIncludes />
-          <MainTodo />
-        </ScrollView>
+        <Header navigation={this.props.navigation} />
+        <TodayIncludes />
+        <MainTodo />
       </View>
     );
   }

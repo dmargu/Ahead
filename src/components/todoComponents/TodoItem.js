@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
 import ItemInformationModal from '../modals/ItemInformationModal';
 import { openItemModal } from '../../actions/ModalActions';
+import ReminderToggleButtons from '../ReminderToggleButtons';
 
 class TodoItem extends Component {
   render() {
@@ -19,7 +20,7 @@ class TodoItem extends Component {
         titleNumberOfLines={0} //for subtitle need to call function- why it is .bind(this)()
         subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
         onPress={() => this.props.openItemModal(todoItem.id)}
-        rightIcon={
+        rightIcon={this.props.reminderToggleActive ? null :
           <Ionicons
             name='md-checkbox'
             color='#ff5330'
@@ -27,6 +28,7 @@ class TodoItem extends Component {
             size={35}
           />
         }
+        rightElement={this.props.reminderToggleActive ? <ReminderToggleButtons /> : null}
       />
         <ItemInformationModal />
       </View>
@@ -52,8 +54,10 @@ const styles = StyleSheet.create({
   }
 });
 
-/*function mapStateToProps({ ModalReducer }) {
-  return { ModalReducer };
-}*/
+function mapStateToProps(state) {
+  return {
+    reminderToggleActive: state.RemindersReducer.reminderToggleActive
+  };
+}
 
-export default connect(null, { openItemModal })(TodoItem);
+export default connect(mapStateToProps, { openItemModal })(TodoItem);
