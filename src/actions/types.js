@@ -15,3 +15,13 @@ export const REMOVE_TODO = 'removeTodo';
 export const CHANGE_DATE = 'changeDate';
 
 export const TOGGLE_REMINDERS = 'toggleReminders';
+
+export const TEN_MIN_REMINDER = 'tenMinReminder';
+
+export const THIRTY_MIN_REMINDER = 'thirtyMinReminder';
+
+export const ONE_HOUR_REMINDER = 'oneHourReminder';
+
+export const ONE_DAY_REMINDER = 'oneDayReminder';
+
+export const CHANGE_NOTES = 'changeNotes';

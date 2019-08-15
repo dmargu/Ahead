@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Modal, Platform, TextInput, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { closeItemModal } from '../../actions';
+import { closeItemModal, notesChanged } from '../../actions';
 import CardSection from '../common/CardSection';
 import DatePickerIOS from '../common/DatePickerIOS';
 
 class ItemInformationModal extends Component {
+  onNotesChange(text) {
+    this.props.notesChanged(text);
+    console.log(this.props.currItem.notes);
+  }
+
   render() {
     return (
       <Modal
@@ -31,9 +36,11 @@ class ItemInformationModal extends Component {
                 />
               </View>
               <TextInput
-                placeholder='Add notes'
+                placeholder={'Add notes'}
+                value={this.props.currItem.notes}
                 multiline
                 style={styles.notesInput}
+                onChangeText={this.onNotesChange.bind(this)}
               />
               <Button
                 title='Add Reminder'
@@ -70,8 +77,8 @@ function mapStateToProps(state) {
   return {
     itemModalVisible: state.ModalReducer.itemModalVisible,
     todos: state.TodoReducer.todos,
-    currItem: state.TodoReducer.currItem
+    currItem: state.TodoReducer.currItem,
   };
 }
 
-export default connect(mapStateToProps, { closeItemModal })(ItemInformationModal);
+export default connect(mapStateToProps, { closeItemModal, notesChanged })(ItemInformationModal);

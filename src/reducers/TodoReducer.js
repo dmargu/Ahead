@@ -2,7 +2,12 @@ import {
   ADD_TODO,
   CHANGE_DATE,
   REMOVE_TODO,
-  OPEN_ITEM_MODAL
+  OPEN_ITEM_MODAL,
+  TEN_MIN_REMINDER,
+  THIRTY_MIN_REMINDER,
+  ONE_HOUR_REMINDER,
+  ONE_DAY_REMINDER,
+  CHANGE_NOTES
 } from '../actions/types';
 
 const initialState = {
@@ -18,8 +23,13 @@ const todos = (state = initialState, action) => {
         todos: [...state.todos, {
           id: state.todos.length,
           text: action.text,
+          notes: null,
           completed: false,
-          date: null
+          date: null,
+          tenMinReminder: false,
+          thirtyMinReminder: false,
+          oneHourReminder: false,
+          oneDayReminder: false
         }]
       };
     case CHANGE_DATE:
@@ -42,6 +52,36 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         currItem: state.todos.find((todo) => todo.id === action.id)
+      };
+    case TEN_MIN_REMINDER:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, tenMinReminder: !item.tenMinReminder } : item))
+      };
+    case THIRTY_MIN_REMINDER:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, thirtyMinReminder: !item.thirtyMinReminder } : item))
+      };
+    case ONE_HOUR_REMINDER:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, oneHourReminder: !item.oneHourReminder } : item))
+      };
+    case ONE_DAY_REMINDER:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
+      };
+    case CHANGE_NOTES:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === state.currItem.id)
+          ? { ...item, notes: action.payload } : item))
       };
     default:
       return state;

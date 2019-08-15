@@ -8,8 +8,8 @@ import ItemInformationModal from '../modals/ItemInformationModal';
 import { openItemModal } from '../../actions/ModalActions';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 
-class TodoItem extends Component {
-  render() {
+class TodoItem extends Component { //should make the ListItem bigger if reminder toggle is active
+  render() { //this way can see more of the title and buttons actually fit
     const todoItem = this.props.todoItem;
     return (
       <View>
@@ -17,10 +17,10 @@ class TodoItem extends Component {
         containerStyle={styles.todoItem}
         title={todoItem.text}
         titleStyle={{ color: '#f5f5f5', fontSize: 16 }}
-        titleNumberOfLines={0} //for subtitle need to call function- why it is .bind(this)()
+        titleNumberOfLines={0} //for subtitle need to call function- why it's .bind(this)()
         subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
         onPress={() => this.props.openItemModal(todoItem.id)}
-        rightIcon={this.props.reminderToggleActive ? null :
+        rightIcon={this.props.reminderToggleActive && todoItem.date ? null :
           <Ionicons
             name='md-checkbox'
             color='#ff5330'
@@ -28,7 +28,8 @@ class TodoItem extends Component {
             size={35}
           />
         }
-        rightElement={this.props.reminderToggleActive ? <ReminderToggleButtons /> : null}
+        rightElement={this.props.reminderToggleActive && todoItem.date ?
+          <ReminderToggleButtons item={todoItem} /> : null}
       />
         <ItemInformationModal />
       </View>

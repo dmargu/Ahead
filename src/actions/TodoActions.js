@@ -1,4 +1,10 @@
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, CHANGE_DATE } from './types';
+import {
+  ADD_TODO,
+  TOGGLE_TODO,
+  REMOVE_TODO,
+  CHANGE_DATE,
+  CHANGE_NOTES
+} from './types';
 
 export const addTodo = (text) => {
   return {
@@ -25,5 +31,12 @@ export const changeDate = (date) => {
   return {
     type: CHANGE_DATE,
     payload: date
+  };
+};
+
+export const notesChanged = (text) => {
+  return {
+    type: CHANGE_NOTES,
+    payload: text
   };
 };
