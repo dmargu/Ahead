@@ -7,6 +7,7 @@ import {
   THIRTY_MIN_REMINDER,
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
+  START_REMINDER,
   CHANGE_NOTES
 } from '../actions/types';
 
@@ -29,7 +30,8 @@ const todos = (state = initialState, action) => {
           tenMinReminder: false,
           thirtyMinReminder: false,
           oneHourReminder: false,
-          oneDayReminder: false
+          oneDayReminder: false,
+          startReminder: false
         }]
       };
     case CHANGE_DATE:
@@ -76,6 +78,12 @@ const todos = (state = initialState, action) => {
         ...state,
         todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
+      };
+    case START_REMINDER:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, startReminder: !item.startReminder } : item))
       };
     case CHANGE_NOTES:
       return {

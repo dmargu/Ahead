@@ -11,7 +11,7 @@ class ReminderToggle extends Component {
       <MaterialCommunityIcons
         name={this.props.reminderToggleActive ? 'bell-ring' : 'bell'}
         size={32}
-        color={this.props.reminderToggleActive ? '#33cccc' : '#f5f5f5'}
+        color={this.props.reminderToggleActive ? '#db5461' : '#CDD2C9'}
         onPress={() => this.props.toggleReminders(this.props.reminderToggleActive)}
       />
       </View>

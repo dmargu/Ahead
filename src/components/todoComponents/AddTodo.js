@@ -1,18 +1,37 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ListItem } from 'react-native-elements';
+
 
 const AddTodo = (props) => {
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={(textInput) => props.textChange(textInput)}
-        value={props.textInput}
-        autoCapitalize='sentences'
-      />
-      <TouchableOpacity style={styles.addButton} onPress={props.addNewTodo}>
-        <Text style={styles.addButtonText}>ADD</Text>
-      </TouchableOpacity>
+    <View>
+    <ListItem
+      containerStyle={styles.container}
+      title={
+        <TextInput
+          style={styles.input}
+          onChangeText={(textInput) => props.textChange(textInput)}
+          value={props.textInput}
+          autoCapitalize='sentences'
+        />
+      }
+      titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
+      titleNumberOfLines={0}
+      rightIcon={
+        <TouchableHighlight
+          underlayColor='#ed828d'
+          onPress={props.addNewTodo}
+        >
+          <MaterialIcons
+            name='add-box'
+            size={35}
+            color='#82ff9e'
+          />
+        </TouchableHighlight>
+      }
+    />
     </View>
   );
 };
@@ -20,32 +39,19 @@ const AddTodo = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 50,
+    height: 60,
     borderBottomColor: '#DDD',
     borderTopColor: '#DDD',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 15
+    paddingLeft: 15,
+    backgroundColor: null
   },
   input: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     height: 35,
-    color: 'white'
-  },
-  addButton: {
-    width: 100,
-    height: 35,
-    backgroundColor: 'powderblue',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  addButtonText: {
-    color: '#171717',
-    fontSize: 18,
-    fontWeight: '700'
+    color: '#FCEFEF'
   }
 });
 

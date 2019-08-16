@@ -3,7 +3,8 @@ import {
   TEN_MIN_REMINDER,
   THIRTY_MIN_REMINDER,
   ONE_HOUR_REMINDER,
-  ONE_DAY_REMINDER
+  ONE_DAY_REMINDER,
+  START_REMINDER
 } from './types';
 
 export const toggleReminders = (toggleState) => {
@@ -38,5 +39,12 @@ export const oneDayReminder = (item) => {
   return {
     type: ONE_DAY_REMINDER,
     id: item.id,
+  };
+};
+
+export const startReminder = (item) => {
+  return {
+    type: START_REMINDER,
+    id: item.id
   };
 };

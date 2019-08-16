@@ -9,7 +9,6 @@ import DatePickerIOS from '../common/DatePickerIOS';
 class ItemInformationModal extends Component {
   onNotesChange(text) {
     this.props.notesChanged(text);
-    console.log(this.props.currItem.notes);
   }
 
   render() {

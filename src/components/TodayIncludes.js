@@ -12,11 +12,12 @@ const TodayIncludes = () => {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 25,
-    color: '#f5f5f5'
+    color: '#FCEFEF'
   },
   viewStyle: {
     justifyContent: 'center',
     paddingTop: 5,
+    paddingBottom: 5,
     flexDirection: 'row'
   }
 });

@@ -11,7 +11,7 @@ const styles = {
     containerStyle: {
       padding: 5,
       backgroundColor: 'grey',
-      borderColor: '#ddd',
+      borderColor: '#838587',
       position: 'relative',
     }
 };

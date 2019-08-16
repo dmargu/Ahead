@@ -14,7 +14,7 @@ class PlusButton extends Component {
             name='md-add'
             size={32}
             onPress={() => this.props.openPlusModal()}
-            color='#f5f5f5'
+            color='#CDD2C9'
           />
         </TouchableOpacity>
         <AddEventModal />

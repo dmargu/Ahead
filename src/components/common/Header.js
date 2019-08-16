@@ -22,10 +22,15 @@ const styles = StyleSheet.create({
   viewStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 70,
-    paddingTop: 35,
-    paddingLeft: 25,
-    paddingRight: 25
+    height: 60,
+    paddingTop: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    shadowColor: 'black',
+    borderBottomWidth: 0,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   textStyle: {
     fontSize: 20

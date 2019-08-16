@@ -8,7 +8,7 @@ class MenuButton extends Component {
         name="md-menu"
         size={32}
         onPress={() => this.props.navigation.toggleDrawer()}
-        color='#f5f5f5'
+        color='#CDD2C9'
       />
     );
   }

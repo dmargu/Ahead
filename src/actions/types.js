@@ -24,4 +24,6 @@ export const ONE_HOUR_REMINDER = 'oneHourReminder';
 
 export const ONE_DAY_REMINDER = 'oneDayReminder';
 
+export const START_REMINDER = 'startReminder';
+
 export const CHANGE_NOTES = 'changeNotes';
