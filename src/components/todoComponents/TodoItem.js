@@ -19,11 +19,7 @@ class TodoItem extends Component { //should make the ListItem bigger if reminder
         >
           <View style={styles.container}>
             <ListItem
-              containerStyle={[styles.todoItem,
-                { height: this.props.reminderToggleActive && todoItem.date ?
-                  60 : 60
-                }
-              ]}
+              containerStyle={styles.todoItem}
               title={todoItem.text}
               titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
               titleNumberOfLines={0} //for subtitle need to call function- why it's .bind(this)()
@@ -32,7 +28,7 @@ class TodoItem extends Component { //should make the ListItem bigger if reminder
                 <View style={{ paddingRight: 4 }}>
                   <TouchableHighlight
                     onPress={this.props.deleteTodo}
-                    underlayColor={'#86fcc9'}
+                    underlayColor={'#db5461'}
                   >
                     <Ionicons
                       name='md-checkbox'
@@ -69,7 +65,8 @@ const styles = StyleSheet.create({
   todoItem: {
     width: '100%',
     paddingLeft: 15,
-    backgroundColor: null
+    backgroundColor: null,
+    height: 60
   },
   container: {
     width: '100%',

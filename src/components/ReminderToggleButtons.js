@@ -14,16 +14,15 @@ class ReminderToggleButtons extends Component {
     const item = this.props.item;
     const colors = {
       gunmetal: '#28313b',
-      red: '#db5461'
+      red: '#db5461',
+      green: '#82ff9e'
     };
     return (
-      <View
-        style={{ flexDirection: 'row', justifyContent: 'center', }}
-      >
+      <View style={styles.container}>
         <TouchableOpacity
           style={[styles.button,
             { borderColor: item.startReminder ? colors.gunmetal : colors.red,
-              backgroundColor: item.startReminder ? colors.red : null
+              backgroundColor: item.startReminder ? colors.green : null
             }
           ]}
           onPress={() => this.props.startReminder(item)}
@@ -40,7 +39,7 @@ class ReminderToggleButtons extends Component {
         <TouchableOpacity
           style={[styles.button,
             { borderColor: item.tenMinReminder ? colors.gunmetal : colors.red,
-              backgroundColor: item.tenMinReminder ? colors.red : null
+              backgroundColor: item.tenMinReminder ? colors.green : null
             }
           ]}
           onPress={() => this.props.tenMinReminder(item)}
@@ -57,7 +56,7 @@ class ReminderToggleButtons extends Component {
         <TouchableOpacity
           style={[styles.button,
             { borderColor: item.thirtyMinReminder ? colors.gunmetal : colors.red,
-              backgroundColor: item.thirtyMinReminder ? colors.red : null
+              backgroundColor: item.thirtyMinReminder ? colors.green : null
             }
           ]}
           onPress={() => this.props.thirtyMinReminder(item)}
@@ -74,7 +73,7 @@ class ReminderToggleButtons extends Component {
         <TouchableOpacity
           style={[styles.button,
             { borderColor: item.oneHourReminder ? colors.gunmetal : colors.red,
-              backgroundColor: item.oneHourReminder ? colors.red : null
+              backgroundColor: item.oneHourReminder ? colors.green : null
             }
           ]}
           onPress={() => this.props.oneHourReminder(item)}
@@ -91,7 +90,7 @@ class ReminderToggleButtons extends Component {
         <TouchableOpacity
           style={[styles.button,
             { borderColor: item.oneDayReminder ? colors.gunmetal : colors.red,
-              backgroundColor: item.oneDayReminder ? colors.red : null
+              backgroundColor: item.oneDayReminder ? colors.green : null
             }
           ]}
           onPress={() => this.props.oneDayReminder(item)}
@@ -118,7 +117,15 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 2,
-    fontSize: 16
+    fontSize: 18
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 5
   }
 });
 
