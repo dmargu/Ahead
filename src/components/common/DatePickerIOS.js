@@ -31,30 +31,34 @@ class IosDatePicker extends Component {
           <View style={styles.pickerModalConfig}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 10 }}>
               <Feather
-                name="x-circle"
+                name="x-square"
                 size={35}
-                color={'#ff4040'}
+                color={'#db5461'}
                 onPress={() => this.setState({ showDatePicker: !this.state.showDatePicker })}
               />
             </View>
-            <DatePickerIOS
-              date={this.props.date ? this.props.date : new Date()}
-              onDateChange={(date) => this.props.changeDate(date)}
-              minuteInterval={5}
-              minimumDate={new Date()}
-            />
+            <View style={{ padding: 5 }}>
+              <DatePickerIOS
+                date={this.props.date ? this.props.date : new Date()}
+                onDateChange={(date) => this.props.changeDate(date)}
+                minuteInterval={5}
+                minimumDate={new Date()}
+              />
+            </View>
           </View>
         </View>
       </Modal>)
       : <View />;
     return (
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity
           onPress={() => this.setState({ showDatePicker: !this.state.showDatePicker })}
         >
           {(this.props.date) ?
-            <Text>{moment(this.props.date).format('MMM DD h:mm a')}</Text>
-            : <Text>Set Time</Text>}
+            <Text style={styles.dateStyle}>{
+              moment(this.props.date).format('MMM DD h:mm a')}
+            </Text>
+            : <Text style={styles.dateStyle}>Set Time</Text>}
         </TouchableOpacity>
         {showDatePicker}
       </View>
@@ -63,22 +67,22 @@ class IosDatePicker extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 5,
-  },
   pickerModal: {
     position: 'absolute',
-    borderRadius: 30,
-    backgroundColor: 'white',
-    bottom: 75,
+    borderRadius: 15,
+    backgroundColor: '#cdd2c9',
+    bottom: 60,
     justifyContent: 'center',
+    alignSelf: 'center'
   },
   pickerModalConfig: {
-    height: 200,
-    width: 350,
+    height: 220,
+    width: 315,
     marginBottom: 35
+  },
+  dateStyle: {
+    color: '#db5461',
+    fontSize: 20
   }
 });
 

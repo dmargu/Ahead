@@ -49,7 +49,7 @@ class ReminderToggleButtons extends Component {
               { color: item.tenMinReminder ? colors.gunmetal : colors.red, padding: 2 }
             ]}
           >
-            10 min
+            10 Min
           </Text>
         </TouchableOpacity>
 
@@ -66,7 +66,7 @@ class ReminderToggleButtons extends Component {
               { color: item.thirtyMinReminder ? colors.gunmetal : colors.red, padding: 2 }
             ]}
           >
-            30 min
+            30 Min
           </Text>
         </TouchableOpacity>
 
@@ -83,7 +83,7 @@ class ReminderToggleButtons extends Component {
               { color: item.oneHourReminder ? colors.gunmetal : colors.red, padding: 2 }
             ]}
           >
-            1 hour
+            1 Hour
           </Text>
         </TouchableOpacity>
 
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderRadius: 7
+    borderRadius: 7,
   },
   text: {
     padding: 2,

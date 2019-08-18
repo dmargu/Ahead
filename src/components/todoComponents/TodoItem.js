@@ -8,8 +8,8 @@ import ItemInformationModal from '../modals/ItemInformationModal';
 import { openItemModal } from '../../actions/ModalActions';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 
-class TodoItem extends Component { //should make the ListItem bigger if reminder toggle is active
-  render() { //this way can see more of the title and buttons actually fit
+class TodoItem extends Component {
+  render() {
     const todoItem = this.props.todoItem;
     return (
       <View>

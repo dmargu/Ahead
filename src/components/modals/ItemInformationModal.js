@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, Platform, TextInput, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, StyleSheet, Modal, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { Feather } from '@expo/vector-icons';
 import { closeItemModal, notesChanged } from '../../actions';
-import CardSection from '../common/CardSection';
 import DatePickerIOS from '../common/DatePickerIOS';
 
 class ItemInformationModal extends Component {
@@ -19,21 +18,24 @@ class ItemInformationModal extends Component {
         visible={this.props.itemModalVisible}
       >
         <View style={styles.containerStyle}>
-          <View style={{ height: 300, width: '75%' }}>
-            <CardSection>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ flexDirection: 'column', flex: 1 }}>
-                  { this.props.currItem.text ?
-                    <Text>{this.props.currItem.text}</Text>
-                    : <TextInput placeholder='Event Title' multiline style={styles.titleInput} />
-                  }
+          <View style={styles.modalContainer}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'column', flex: 1 }}>
+                <Text style={styles.itemTitle}>{this.props.currItem.text}</Text>
+                <View style={{ paddingLeft: 5 }}>
                   <DatePickerIOS />
                 </View>
-                <Button
-                  title='X'
+              </View>
+              <View style={{ padding: 5 }}>
+                <Feather
+                  name="x-square"
+                  size={35}
+                  color={'#db5461'}
                   onPress={() => this.props.closeItemModal()}
                 />
               </View>
+            </View>
+            <View style={{ padding: 5 }}>
               <TextInput
                 placeholder={'Add notes'}
                 value={this.props.currItem.notes}
@@ -41,10 +43,7 @@ class ItemInformationModal extends Component {
                 style={styles.notesInput}
                 onChangeText={this.onNotesChange.bind(this)}
               />
-              <Button
-                title='Add Reminder'
-              />
-            </CardSection>
+            </View>
           </View>
         </View>
       </Modal>
@@ -54,20 +53,28 @@ class ItemInformationModal extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: Platform.OS === 'ios' ? 30 : 0,
-    shadowRadius: 10,
-    flex: 1,
-    position: 'relative',
   },
-  titleInput: {
-    maxHeight: 40,
-    padding: 10,
+  modalContainer: {
+    width: '75%',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#cdd2c9',
+    backgroundColor: '#cdd2c9',
   },
   notesInput: {
-    height: 100,
+    height: 130,
     borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#28313b',
+    padding: 10,
+    color: '#28313b'
+  },
+  itemTitle: {
+    fontSize: 20,
+    color: '#28313b',
     padding: 10
   }
 });
