@@ -7,6 +7,7 @@ import {
   USER_LOGIN_FAIL,
   LOGIN_USER
 } from './types';
+import NavigationService from '../NavigationService';
 
 export const emailChanged = (text) => {
   return {
@@ -31,8 +32,7 @@ export const loginUser = (email, password) => {
       .catch(() => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
           .then((user) => {
-            const dbRoot = firebase.firestore().collection('users');
-            dbRoot.doc(user.user.uid).set({ email })
+            global.dbRoot.doc(user.user.uid).set({ email })
             .then(() => {
               loginUserSuccess(dispatch, user);
             })
@@ -55,4 +55,5 @@ const loginUserSuccess = (dispatch, user) => {
     type: USER_LOGIN_SUCCESS,
     payload: user
   });
+  NavigationService.navigate('main', null);
 };

@@ -2,23 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52b59c77-8ad8-4670-a651-91a6d1df14ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/ModalActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/ModalActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddEventModal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TodayIncludes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TodayIncludes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/CardSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/CardSection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/headerComponents/MenuButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/headerComponents/MenuButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/headerComponents/PlusButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/headerComponents/PlusButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/headerComponents/ReminderToggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/headerComponents/ReminderToggle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/todoComponents/AddTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/todoComponents/AddTodo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/todoComponents/TodoItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/todoComponents/TodoItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/todoComponents/mainTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/todoComponents/mainTodo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/ModalReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/ModalReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/TodoReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/TodoReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/DatePicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/DatePickerIOS.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/DatePickerIOS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loginForm.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,8 +38,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane" />
       <pane id="PackagesPane" />
     </panes>
@@ -86,7 +77,7 @@
     <frame x="140" y="43" width="1400" height="916" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.34462446" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.35493374" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -96,8 +87,8 @@
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.4970545" visible="true" weight="0.3288835" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5029455" side_tool="true" visible="true" weight="0.3288835" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" sideWeight="0.49558175" visible="true" weight="0.3288835" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50441825" side_tool="true" visible="true" weight="0.3288835" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Gradle" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />

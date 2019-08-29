@@ -10,7 +10,6 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.2",
     "@firebase/firestore": "^1.4.10",
-    "@react-native-community/datetimepicker": "^1.0.0",
     "eslint": "^6.1.0",
     "eslint-plugin-react-native": "^3.7.0",
     "expo": "^33.0.0",

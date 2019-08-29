@@ -13,6 +13,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import reducers from './reducers';
+import NavigationService from './NavigationService';
 
 
 export default class App extends Component {
@@ -27,7 +28,8 @@ export default class App extends Component {
       appId: '1:281124008705:web:085d4c79834530b4'
     };
     firebase.initializeApp(firebaseConfig);
-  }
+    global.dbRoot = firebase.firestore().collection('users');
+  } //call global.dbRoot
   render() {
     const AppContainer = createAppContainer(createBottomTabNavigator({
       welcome: {
@@ -51,7 +53,11 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <LinearGradient colors={['#28313B', '#485461']} style={{ flex: 1 }}>
-          <AppContainer />
+          <AppContainer
+            ref={navigatorRef => {
+              NavigationService.setNavigator(navigatorRef);
+            }}
+          />
         </LinearGradient>
       </Provider>
     );

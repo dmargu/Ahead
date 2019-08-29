@@ -98,11 +98,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00b5ec',
   },
   inputContainer: {
       borderBottomColor: '#F5FCFF',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#fcefef',
       borderRadius: 30,
       borderBottomWidth: 1,
       width: 250,
@@ -133,10 +132,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   signupButton: {
-    backgroundColor: '#FF4DFF',
+    backgroundColor: '#db5461',
   },
   signUpText: {
-    color: 'white',
+    color: '#fcefef',
   }
 });
 

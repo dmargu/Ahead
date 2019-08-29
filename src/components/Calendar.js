@@ -20,13 +20,9 @@ class Calendar extends Component {
       return moment(date).format('YYYY-MM-DD');
     }
   );
-    console.log(calItems);
-    console.log('--------------------');
-    console.log(calItemsArray);
-
     return (
       <Agenda //currently loads all upcoming days if there is something on that day
-        items={calItems} //but loads nothing if there is nothing on that day
+        items={calItemsArray} //but loads nothing if there is nothing on that day
         renderItem={this.renderItem.bind(this)} //check github issues for solution it's there
         rowHasChanged={this.rowHasChanged.bind(this)}
         renderEmptyData={this.renderEmptyDate.bind(this)}

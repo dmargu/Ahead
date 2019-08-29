@@ -5,18 +5,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Modal
+  Modal,
+  Platform,
 } from 'react-native';
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { changeDate } from '../../actions/TodoActions';
+import AndroidDatePicker from './AndroidDatePicker';
 
 class IosDatePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDatePicker: false
+      showDatePicker: false,
     };
   }
 
@@ -38,12 +40,16 @@ class IosDatePicker extends Component {
               />
             </View>
             <View style={{ padding: 5 }}>
-              <DatePickerIOS
-                date={this.props.date ? this.props.date : new Date()}
-                onDateChange={(date) => this.props.changeDate(date)}
-                minuteInterval={5}
-                minimumDate={new Date()}
-              />
+              {Platform.OS === 'ios' ?
+                <DatePickerIOS
+                  date={this.props.date ? this.props.date : new Date()}
+                  onDateChange={(date) => this.props.changeDate(date)}
+                  minuteInterval={5}
+                  minimumDate={new Date()}
+                />
+                :
+                <AndroidDatePicker />
+              }
             </View>
           </View>
         </View>

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   viewStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 60,
+    height: 65,
     paddingTop: 30,
     paddingLeft: 20,
     paddingRight: 20,
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
+    backgroundColor: '#252e38'
   },
   textStyle: {
     fontSize: 20
