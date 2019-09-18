@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 import '@firebase/firestore';
 import {
@@ -12,9 +10,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
-import reducers from './reducers';
 import NavigationService from './NavigationService';
-
+import AppStore from './store';
 
 export default class App extends Component {
   componentDidMount() {
@@ -45,13 +42,8 @@ export default class App extends Component {
         screen: dropDownMenu,
       },
     }));
-    /*eslint-disable no-undef*/
-    //eslint-disable-next-line no-underscore-dangle
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    /*eslint-enable no-undef*/
-    const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(ReduxThunk)));
     return (
-      <Provider store={store}>
+      <Provider store={AppStore}>
         <LinearGradient colors={['#28313B', '#485461']} style={{ flex: 1 }}>
           <AppContainer
             ref={navigatorRef => {
