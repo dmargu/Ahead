@@ -7,7 +7,6 @@ import '@firebase/firestore';
 export async function registerForPushNotificationsAsync() {
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
-  console.log(finalStatus);
 
   // only ask if permissions have not already been determined, because
   // iOS won't necessarily prompt the user a second time.
@@ -23,10 +22,7 @@ export async function registerForPushNotificationsAsync() {
 
   // Get the token that uniquely identifies this device
   try {
-    console.log('I am trying');
     const token = await Notifications.getExpoPushTokenAsync();
-    console.log('I got the push token');
-    console.log(token);
     const uid = await firebase.auth().currentUser.uid;
 
     // post notification token to firestore

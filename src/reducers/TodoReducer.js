@@ -1,3 +1,4 @@
+import { PERSIST_REHYDRATE } from 'redux-persist/lib/constants';
 import {
   ADD_TODO,
   CHANGE_DATE,
@@ -18,6 +19,8 @@ const initialState = {
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
+    case PERSIST_REHYDRATE:
+      return action.payload.TodoReducer || [];
     case ADD_TODO:
       return {
         ...state,

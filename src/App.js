@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import firebase from 'firebase';
 import '@firebase/firestore';
 import {
@@ -11,7 +12,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import NavigationService from './NavigationService';
-import AppStore from './store';
+import storeConfiguration from './store';
 
 export default class App extends Component {
   componentDidMount() {
@@ -35,15 +36,18 @@ export default class App extends Component {
       },
       auth: {
         screen: AuthScreen,
-        // navigationOptions: { tabBarVisible: false }
+        navigationOptions: { tabBarVisible: false }
       },
       main: {
         navigationOptions: { tabBarVisible: false },
         screen: dropDownMenu,
       },
     }));
+
+    const { persistor, store } = storeConfiguration();
     return (
-      <Provider store={AppStore}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
         <LinearGradient colors={['#28313B', '#485461']} style={{ flex: 1 }}>
           <AppContainer
             ref={navigatorRef => {
@@ -51,6 +55,7 @@ export default class App extends Component {
             }}
           />
         </LinearGradient>
+        </PersistGate>
       </Provider>
     );
   }
