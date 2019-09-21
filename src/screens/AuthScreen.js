@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import LoginForm from '../components/loginForm';
+import LoginForm from '../components/authComponents/loginForm';
 
 class AuthScreen extends Component {
-  render() {
+  render() { //make this a stack navigator for proper sign in/sign up screens
     return (
       <LoginForm />
     );

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { Spinner } from './common/Spinner';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
+import { Spinner } from '../common/Spinner';
 
 class LoginForm extends Component {
   renderError() {

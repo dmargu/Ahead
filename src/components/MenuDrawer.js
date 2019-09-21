@@ -35,7 +35,7 @@ class MenuDrawer extends Component {
         <ScrollView style={styles.scroller}>
           <View style={styles.topLinks}>
               {aheadArrow}
-              <Text style={styles.sloganStyle}>get ahead.</Text>
+              <Text style={styles.sloganStyle}>stay ahead.</Text>
           </View>
           <View style={styles.bottomLinks}>
             {this.navLink('Home', 'Home', homeIcon)}

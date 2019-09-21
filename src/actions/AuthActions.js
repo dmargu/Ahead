@@ -5,7 +5,8 @@ import {
   PASSWORD_CHANGED,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  LOGIN_USER
+  LOGIN_USER,
+  LOGOUT_USER
 } from './types';
 import NavigationService from '../NavigationService';
 
@@ -56,4 +57,13 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user
   });
   NavigationService.navigate('main', null);
+};
+
+export const logoutUser = () => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_USER });
+    //logout user and bring them to auth screen
+    firebase.auth().signOut();
+    NavigationService.navigate('auth', null);
+  };
 };

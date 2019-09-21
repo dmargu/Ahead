@@ -8,7 +8,7 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 import { LinearGradient } from 'expo-linear-gradient';
-import WelcomeScreen from './screens/WelcomeScreen';
+//import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import NavigationService from './NavigationService';
@@ -27,13 +27,18 @@ export default class App extends Component {
     };
     firebase.initializeApp(firebaseConfig);
     global.dbRoot = firebase.firestore().collection('users');
-  } //call global.dbRoot
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        NavigationService.navigate('main', null);
+      }
+    });
+  }
   render() {
     const AppContainer = createAppContainer(createBottomTabNavigator({
-      welcome: {
+    /*  welcome: {
         screen: WelcomeScreen,
         // navigationOptions: { tabBarVisible: false }
-      },
+      }, */
       auth: {
         screen: AuthScreen,
         navigationOptions: { tabBarVisible: false }

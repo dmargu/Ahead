@@ -3,7 +3,8 @@ import {
   PASSWORD_CHANGED,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  LOGIN_USER
+  LOGIN_USER,
+  LOGOUT_USER
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,8 @@ export default (state = initialState, action) => {
       //make password empty after failed attempt for better security
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
+    case LOGOUT_USER:
+      return { ...state };
     default:
       return state;
   }
