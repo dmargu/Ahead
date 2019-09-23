@@ -10,7 +10,6 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { SplashScreen } from 'expo';
 //import WelcomeScreen from './screens/WelcomeScreen';
-import LoginPersistCheck from './components/authComponents/LoginPersistCheck';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import NavigationService from './NavigationService';
