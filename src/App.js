@@ -8,13 +8,19 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SplashScreen } from 'expo';
 //import WelcomeScreen from './screens/WelcomeScreen';
+import LoginPersistCheck from './components/authComponents/LoginPersistCheck';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import NavigationService from './NavigationService';
 import storeConfiguration from './store';
 
 export default class App extends Component {
+  constructor() {
+    super();
+    SplashScreen.preventAutoHide();
+  }
   componentDidMount() {
     const firebaseConfig = {
       apiKey: 'AIzaSyB8pL-BYXOFV1yDAJwKAY_1U4Ol9pZF5fI',
@@ -26,12 +32,13 @@ export default class App extends Component {
       appId: '1:281124008705:web:085d4c79834530b4'
     };
     firebase.initializeApp(firebaseConfig);
-    global.dbRoot = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         NavigationService.navigate('main', null);
       }
+      SplashScreen.hide();
     });
+    global.dbRoot = firebase.firestore().collection('users');
   }
   render() {
     const AppContainer = createAppContainer(createBottomTabNavigator({
@@ -39,6 +46,9 @@ export default class App extends Component {
         screen: WelcomeScreen,
         // navigationOptions: { tabBarVisible: false }
       }, */
+      /*loginCheck: {
+        screen: LoginPersistCheck
+      },*/
       auth: {
         screen: AuthScreen,
         navigationOptions: { tabBarVisible: false }
