@@ -10,7 +10,7 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.2",
     "@firebase/firestore": "^1.4.10",
-    "eslint": "^6.1.0",
+    "eslint": "^6.4.0",
     "eslint-plugin-react-native": "^3.7.0",
     "expo": "^34.0.3",
     "expo-linear-gradient": "^6.0.0",

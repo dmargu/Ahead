@@ -6,6 +6,7 @@ import {
   ONE_DAY_REMINDER,
   START_REMINDER
 } from './types';
+import { scheduleNotification } from '../functions/ScheduleNotification';
 
 export const toggleReminders = (toggleState) => {
   return {
@@ -15,36 +16,71 @@ export const toggleReminders = (toggleState) => {
 };
 
 export const tenMinReminder = (item) => {
-  return {
-    type: TEN_MIN_REMINDER,
-    id: item.id,
+  return (dispatch) => {
+    dispatch({
+      type: TEN_MIN_REMINDER,
+      id: item.id
+    });
+    scheduleNotification.tenMinReminder(item)
+      .then(console.log('notification ready'))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 };
 
 export const thirtyMinReminder = (item) => {
-  return {
-    type: THIRTY_MIN_REMINDER,
-    id: item.id,
+  return (dispatch) => {
+    dispatch({
+      type: THIRTY_MIN_REMINDER,
+      id: item.id
+    });
+    scheduleNotification.thirtyMinReminder(item)
+      .then(console.log('notification ready'))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 };
 
 export const oneHourReminder = (item) => {
-  return {
-    type: ONE_HOUR_REMINDER,
-    id: item.id,
+  return (dispatch) => {
+    dispatch({
+      type: ONE_HOUR_REMINDER,
+      id: item.id
+    });
+    scheduleNotification.oneHourReminder(item)
+      .then(console.log('notification ready'))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 };
 
 export const oneDayReminder = (item) => {
-  return {
-    type: ONE_DAY_REMINDER,
-    id: item.id,
+  return (dispatch) => {
+    dispatch({
+      type: ONE_DAY_REMINDER,
+      id: item.id
+    });
+    scheduleNotification.oneDayReminder(item)
+      .then(console.log('notification ready'))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 };
 
 export const startReminder = (item) => {
-  return {
-    type: START_REMINDER,
-    id: item.id
+  return (dispatch) => {
+    dispatch({
+      type: START_REMINDER,
+      id: item.id
+    });
+    scheduleNotification.startReminder(item)
+      .then(console.log('notification ready'))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 };

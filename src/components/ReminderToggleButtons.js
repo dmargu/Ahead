@@ -8,6 +8,7 @@ import {
   oneDayReminder,
   startReminder
 } from '../actions/ReminderActions';
+import scheduleNotification from '../functions/ScheduleNotification';
 
 class ReminderToggleButtons extends Component {
   render() {
@@ -25,7 +26,7 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.startReminder ? colors.green : null
             }
           ]}
-          onPress={() => this.props.startReminder(item)}
+          onPress={() => { this.props.startReminder(item); }}
         >
           <Text
             style={[styles.text,

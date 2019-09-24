@@ -1,4 +1,3 @@
-import React from 'react';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import firebase from 'firebase';
@@ -18,7 +17,7 @@ export async function registerForPushNotificationsAsync() {
   }
 
   // Stop here if the user did not grant permissions
-  if (finalStatus !== 'granted') { return; }
+  if (finalStatus !== 'granted') { return false; }
 
   // Get the token that uniquely identifies this device
   try {
@@ -30,4 +29,5 @@ export async function registerForPushNotificationsAsync() {
   } catch (e) {
     console.log(e);
   }
+  return true;
 };
