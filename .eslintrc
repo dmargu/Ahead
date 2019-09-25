@@ -5,4 +5,5 @@
     "react/sort-comp": 0,
     "max-len": ["error", { "code": 105 }]
   },
+  "parser": "babel-eslint"
 }
