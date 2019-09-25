@@ -3,13 +3,11 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import firebase from 'firebase';
 import '@firebase/firestore';
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-} from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SplashScreen } from 'expo';
-//import WelcomeScreen from './screens/WelcomeScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
 import NavigationService from './NavigationService';
@@ -41,13 +39,10 @@ export default class App extends Component {
   }
   render() {
     const AppContainer = createAppContainer(createBottomTabNavigator({
-    /*  welcome: {
+      welcome: {
         screen: WelcomeScreen,
         // navigationOptions: { tabBarVisible: false }
-      }, */
-      /*loginCheck: {
-        screen: LoginPersistCheck
-      },*/
+      },
       auth: {
         screen: AuthScreen,
         navigationOptions: { tabBarVisible: false }

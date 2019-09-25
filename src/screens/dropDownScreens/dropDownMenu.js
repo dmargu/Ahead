@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import { createDrawerNavigator, createAppContainer } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from '../HomeScreen';
 import CalendarScreen from './CalendarScreen';
 import HabitsScreen from './HabitsScreen';

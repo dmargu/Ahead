@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import {
   tenMinReminder,
   thirtyMinReminder,
@@ -8,11 +9,11 @@ import {
   oneDayReminder,
   startReminder
 } from '../actions/ReminderActions';
-import scheduleNotification from '../functions/ScheduleNotification';
 
 class ReminderToggleButtons extends Component {
   render() {
     const item = this.props.item;
+    console.log(item);
     const colors = {
       gunmetal: '#28313b',
       red: '#db5461',
@@ -26,7 +27,11 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.startReminder ? colors.green : null
             }
           ]}
-          onPress={() => { this.props.startReminder(item); }}
+          onPress={() => {
+            if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
+              this.props.startReminder(item);
+            }
+          }}
         >
           <Text
             style={[styles.text,
@@ -43,7 +48,13 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.tenMinReminder ? colors.green : null
             }
           ]}
-          onPress={() => this.props.tenMinReminder(item)}
+          onPress={() => {
+            if (item.tenMinReminder === false
+              && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate())
+            ) {
+              this.props.tenMinReminder(item);
+            }
+          }}
         >
           <Text
             style={[styles.text,
@@ -60,7 +71,13 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.thirtyMinReminder ? colors.green : null
             }
           ]}
-          onPress={() => this.props.thirtyMinReminder(item)}
+          onPress={() => {
+            if (item.thirtyMinReminder === false
+              && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate())
+            ) {
+              this.props.thirtyMinReminder(item);
+            }
+          }}
         >
           <Text
             style={[styles.text,
@@ -77,7 +94,13 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.oneHourReminder ? colors.green : null
             }
           ]}
-          onPress={() => this.props.oneHourReminder(item)}
+          onPress={() => {
+            if (item.oneHourReminder === false
+              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate())
+            ) {
+              this.props.oneHourReminder(item);
+            }
+          }}
         >
           <Text
             style={[styles.text,
@@ -94,7 +117,13 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.oneDayReminder ? colors.green : null
             }
           ]}
-          onPress={() => this.props.oneDayReminder(item)}
+          onPress={() => {
+            if (item.oneDayReminder === false
+              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate())
+            ) {
+              this.props.oneDayReminder(item);
+            }
+          }}
         >
           <Text
             style={[styles.text,

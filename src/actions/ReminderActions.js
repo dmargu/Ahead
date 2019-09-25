@@ -21,11 +21,7 @@ export const tenMinReminder = (item) => {
       type: TEN_MIN_REMINDER,
       id: item.id
     });
-    scheduleNotification.tenMinReminder(item)
-      .then(console.log('notification ready'))
-      .catch((e) => {
-        console.log(e);
-      });
+    scheduleNotification.tenMinReminder(item);
   };
 };
 
@@ -35,11 +31,7 @@ export const thirtyMinReminder = (item) => {
       type: THIRTY_MIN_REMINDER,
       id: item.id
     });
-    scheduleNotification.thirtyMinReminder(item)
-      .then(console.log('notification ready'))
-      .catch((e) => {
-        console.log(e);
-      });
+    scheduleNotification.thirtyMinReminder(item);
   };
 };
 
@@ -49,11 +41,7 @@ export const oneHourReminder = (item) => {
       type: ONE_HOUR_REMINDER,
       id: item.id
     });
-    scheduleNotification.oneHourReminder(item)
-      .then(console.log('notification ready'))
-      .catch((e) => {
-        console.log(e);
-      });
+    scheduleNotification.oneHourReminder(item);
   };
 };
 
@@ -63,11 +51,7 @@ export const oneDayReminder = (item) => {
       type: ONE_DAY_REMINDER,
       id: item.id
     });
-    scheduleNotification.oneDayReminder(item)
-      .then(console.log('notification ready'))
-      .catch((e) => {
-        console.log(e);
-      });
+    scheduleNotification.oneDayReminder(item);
   };
 };
 
@@ -77,10 +61,6 @@ export const startReminder = (item) => {
       type: START_REMINDER,
       id: item.id
     });
-    scheduleNotification.startReminder(item)
-      .then(console.log('notification ready'))
-      .catch((e) => {
-        console.log(e);
-      });
+    scheduleNotification.startReminder(item);
   };
 };
