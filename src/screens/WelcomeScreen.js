@@ -8,7 +8,7 @@ const slideData = [
   { text: 'To add reminders, make sure your item has a date, then press the bell in the top right',
     color: '' },
   { text: 'You can\'t cancel reminders yet (tragic I know)', color: '' },
-  { text: 'Also if you set a reminder and change the date it will go off at the original date',
+  { text: 'Also if you set a reminder and change the date, it will go off at the original date',
     color: '' },
   { text: 'But if you change the date and then set another reminder that will work fine',
     color: '' },
@@ -20,6 +20,7 @@ const slideData = [
     color: '' },
   { text: 'But feel free to give me feedback on anything it\'s all going to change over time',
     color: '' },
+  { text: 'Also if anything crashes please let me know how it happened', color: '' },
   { text: '', color: '' }
 ];
 

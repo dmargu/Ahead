@@ -13,7 +13,6 @@ import {
 class ReminderToggleButtons extends Component {
   render() {
     const item = this.props.item;
-    console.log(item);
     const colors = {
       gunmetal: '#28313b',
       red: '#db5461',

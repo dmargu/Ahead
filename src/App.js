@@ -41,7 +41,7 @@ export default class App extends Component {
     const AppContainer = createAppContainer(createBottomTabNavigator({
       welcome: {
         screen: WelcomeScreen,
-        // navigationOptions: { tabBarVisible: false }
+        navigationOptions: { tabBarVisible: false }
       },
       auth: {
         screen: AuthScreen,
