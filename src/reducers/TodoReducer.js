@@ -45,7 +45,8 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         todos: state.todos.map(todo => ((todo.id === action.id)
-          ? { ...todo, date: action.payload } : todo))
+          ? { ...todo, date: action.payload } : todo)),
+        currItem: { ...state.currItem, date: action.payload } 
       };
     case REMOVE_TODO: {
       const newList = state.todos.filter(item => item.id !== action.id);

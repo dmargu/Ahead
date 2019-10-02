@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingLeft: 30,
+    paddingRight: 30
   }
 });
 

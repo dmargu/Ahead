@@ -61,7 +61,7 @@ class TodoItem extends Component {
         {moment(todoItem.date).format('h:mm a')}
       </Text> :
       <Text style={{ color: '#cdd2c9', fontSize: 16 }}>
-        {moment(todoItem.date).format('MMM DD')}
+        {moment(todoItem.date).format('MMM DD h:mm a')}
       </Text>;
   }
 }
