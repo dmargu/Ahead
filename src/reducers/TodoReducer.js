@@ -9,7 +9,8 @@ import {
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
   START_REMINDER,
-  CHANGE_NOTES
+  CHANGE_NOTES,
+  ITEM_MENU_TOGGLED
 } from '../actions/types';
 
 const initialState = {
@@ -34,7 +35,8 @@ const todos = (state = initialState, action) => {
           thirtyMinReminder: false,
           oneHourReminder: false,
           oneDayReminder: false,
-          startReminder: false
+          startReminder: false,
+          itemMenuToggled: false
         }]
       };
     case CHANGE_DATE:
@@ -93,6 +95,13 @@ const todos = (state = initialState, action) => {
         ...state,
         todos: state.todos.map(item => ((item.id === state.currItem.id)
           ? { ...item, notes: action.payload } : item))
+      };
+    case ITEM_MENU_TOGGLED:
+      console.log('im being called');
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.payload)
+          ? { ...item, itemMenuToggled: !item.itemMenuToggled } : item))
       };
     default:
       return state;

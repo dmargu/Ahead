@@ -13,7 +13,7 @@ class PlusButton extends Component {
           <Ionicons
             name='md-add'
             size={32}
-            onPress={() => this.props.openPlusModal()}
+            //onPress={() => this.props.openPlusModal()}
             color='#CDD2C9'
           />
         </TouchableOpacity>

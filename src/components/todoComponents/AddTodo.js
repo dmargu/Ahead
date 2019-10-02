@@ -15,6 +15,8 @@ const AddTodo = (props) => {
           onChangeText={(textInput) => props.textChange(textInput)}
           value={props.textInput}
           autoCapitalize='sentences'
+          placeholder='I want to...'
+          placeholderTextColor='#cdd2c9'
         />
       }
       titleStyle={{ color: '#FCEFEF', fontSize: 16 }}

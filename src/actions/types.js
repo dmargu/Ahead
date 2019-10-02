@@ -39,3 +39,5 @@ export const USER_LOGIN_FAIL = 'userLoginFail';
 export const LOGIN_USER = 'loginUser';
 
 export const LOGOUT_USER = 'logoutUser';
+
+export const ITEM_MENU_TOGGLED = 'itemMenuToggled';

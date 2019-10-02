@@ -3,7 +3,6 @@ import {
   View,
   TouchableOpacity,
   Text,
-  StyleSheet,
   DatePickerAndroid,
   TimePickerAndroid
 } from 'react-native';

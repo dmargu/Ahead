@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -12,7 +13,8 @@ class MainTodo extends Component {
   constructor() {
     super();
     this.state = {
-      textInput: ''
+      textInput: '',
+      items: []
     };
   }
 
@@ -23,7 +25,7 @@ class MainTodo extends Component {
     this.setState({ textInput: '' });
     return;
   }
-
+  
   render() {
     return (
       <View style={{ height: HEIGHT }}>
@@ -34,8 +36,10 @@ class MainTodo extends Component {
           />
           <View style={styles.listContainer}>
             <FlatList
-              data={this.props.todos}
-              extraData={this.state}
+              data={_.sortBy(this.props.todos, (item) => {
+                return item.date;
+              })}
+              extraData={this.props.todos}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => {
                 return (
@@ -55,7 +59,7 @@ class MainTodo extends Component {
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
-    marginBottom: 115
+    marginBottom: 120
   }
 });
 

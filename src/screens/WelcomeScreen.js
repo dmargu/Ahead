@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import WelcomeSlides from '../components/WelcomeSlides';
 
 const slideData = [
-  { text: 'Welcome to Ahead', color: '' },
+  { text: 'Welcome to Ahead, swipe to continue', color: '' },
   { text: 'Some quick things to note before you get started', color: '' },
   { text: 'To add reminders, make sure your item has a date, then press the bell in the top right',
     color: '' },

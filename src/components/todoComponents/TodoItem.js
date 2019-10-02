@@ -4,8 +4,9 @@ import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
-import ItemInformationModal from '../modals/ItemInformationModal';
-import { openItemModal } from '../../actions/ModalActions';
+import NotesModal from '../modals/NotesModal';
+import { toggleItemMenu } from '../../actions/ModalActions';
+import ItemMenuBar from '../ItemMenuBar';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 
 class TodoItem extends Component {
@@ -14,8 +15,8 @@ class TodoItem extends Component {
     return (
       <View>
         <TouchableHighlight
-          onPress={() => this.props.openItemModal(todoItem.id)}
-          underlayColor={'#dbdbdb'}
+          onPress={() => this.props.toggleItemMenu(todoItem.id)}
+          underlayColor={null}
         >
           <View style={styles.container}>
             <ListItem
@@ -39,12 +40,15 @@ class TodoItem extends Component {
                 </View>
               }
             />
+            {todoItem.itemMenuToggled ?
+              <ItemMenuBar /> : null
+            }
             {this.props.reminderToggleActive && todoItem.date ?
               <ReminderToggleButtons item={todoItem} /> : null
             }
           </View>
         </TouchableHighlight>
-        <ItemInformationModal />
+        <NotesModal item={todoItem} />
       </View>
     );
   }
@@ -77,8 +81,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    reminderToggleActive: state.RemindersReducer.reminderToggleActive
+    reminderToggleActive: state.RemindersReducer.reminderToggleActive,
   };
 }
 
-export default connect(mapStateToProps, { openItemModal })(TodoItem);
+export default connect(mapStateToProps, { toggleItemMenu })(TodoItem);

@@ -2,7 +2,8 @@ import {
   OPEN_PLUS_MODAL,
   CLOSE_PLUS_MODAL,
   OPEN_ITEM_MODAL,
-  CLOSE_ITEM_MODAL
+  CLOSE_ITEM_MODAL,
+  ITEM_MENU_TOGGLED
 } from './types';
 
 export const openPlusModal = () => {
@@ -31,5 +32,13 @@ export const closeItemModal = () => {
   return {
     type: CLOSE_ITEM_MODAL,
     payload: false
+  };
+};
+
+
+export const toggleItemMenu = (id) => {
+  return {
+    type: ITEM_MENU_TOGGLED,
+    payload: id
   };
 };
