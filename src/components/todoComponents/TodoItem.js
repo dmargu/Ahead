@@ -41,7 +41,7 @@ class TodoItem extends Component {
               }
             />
             {todoItem.itemMenuToggled ?
-              <ItemMenuBar /> : null
+              <ItemMenuBar item={todoItem} /> : null
             }
             {this.props.reminderToggleActive && todoItem.date ?
               <ReminderToggleButtons item={todoItem} /> : null

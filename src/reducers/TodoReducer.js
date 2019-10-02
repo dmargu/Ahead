@@ -10,7 +10,8 @@ import {
   ONE_DAY_REMINDER,
   START_REMINDER,
   CHANGE_NOTES,
-  ITEM_MENU_TOGGLED
+  ITEM_MENU_TOGGLED,
+  OPEN_NOTES_MODAL
 } from '../actions/types';
 
 const initialState = {
@@ -55,6 +56,8 @@ const todos = (state = initialState, action) => {
       todos: newList
       };
     }
+    case OPEN_NOTES_MODAL:
+      return { ...state, currItem: action.payload };
     case OPEN_ITEM_MODAL:
       return {
         ...state,
@@ -93,11 +96,10 @@ const todos = (state = initialState, action) => {
     case CHANGE_NOTES:
       return {
         ...state,
-        todos: state.todos.map(item => ((item.id === state.currItem.id)
+        todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, notes: action.payload } : item))
       };
     case ITEM_MENU_TOGGLED:
-      console.log('im being called');
       return {
         ...state,
         todos: state.todos.map(item => ((item.id === action.payload)

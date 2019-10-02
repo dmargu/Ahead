@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { openNotesModal } from '../actions';
 
 class ItemMenuBar extends Component {
   render() {
+    const item = this.props.item;
     return (
       <View style={styles.container}>
         <View style={styles.icon}>
@@ -25,6 +28,7 @@ class ItemMenuBar extends Component {
             name='pencil'
             size={32}
             color='#db5461'
+            onPress={() => this.props.openNotesModal(item)}
           />
         </View>
       </View>
@@ -44,4 +48,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ItemMenuBar;
+export default connect(null, { openNotesModal })(ItemMenuBar);

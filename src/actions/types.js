@@ -41,3 +41,7 @@ export const LOGIN_USER = 'loginUser';
 export const LOGOUT_USER = 'logoutUser';
 
 export const ITEM_MENU_TOGGLED = 'itemMenuToggled';
+
+export const OPEN_NOTES_MODAL = 'OpenNotesModal';
+
+export const CLOSE_NOTES_MODAL = 'closeNotesModal';

@@ -34,9 +34,10 @@ export const changeDate = (date) => {
   };
 };
 
-export const notesChanged = (text) => {
+export const notesChanged = (text, id) => {
   return {
     type: CHANGE_NOTES,
-    payload: text
+    payload: text,
+    id
   };
 };
