@@ -27,10 +27,11 @@ export const removeTodo = (item) => {
   };
 };
 
-export const changeDate = (date) => {
+export const changeDate = (date, id) => {
   return {
     type: CHANGE_DATE,
-    payload: date
+    payload: date,
+    id
   };
 };
 

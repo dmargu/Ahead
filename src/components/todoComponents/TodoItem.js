@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
+import DatePickerModal from '../modals/DatePickerModal';
 import { toggleItemMenu } from '../../actions/ModalActions';
 import ItemMenuBar from '../ItemMenuBar';
 import ReminderToggleButtons from '../ReminderToggleButtons';
@@ -49,6 +50,7 @@ class TodoItem extends Component {
           </View>
         </TouchableHighlight>
         <NotesModal item={todoItem} />
+        <DatePickerModal item={todoItem} />
       </View>
     );
   }

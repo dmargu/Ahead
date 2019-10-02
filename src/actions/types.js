@@ -45,3 +45,7 @@ export const ITEM_MENU_TOGGLED = 'itemMenuToggled';
 export const OPEN_NOTES_MODAL = 'OpenNotesModal';
 
 export const CLOSE_NOTES_MODAL = 'closeNotesModal';
+
+export const OPEN_DATE_MODAL = 'openDateModal';
+
+export const CLOSE_DATE_MODAL = 'closeDateModal';

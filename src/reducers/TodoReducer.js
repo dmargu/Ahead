@@ -11,7 +11,8 @@ import {
   START_REMINDER,
   CHANGE_NOTES,
   ITEM_MENU_TOGGLED,
-  OPEN_NOTES_MODAL
+  OPEN_NOTES_MODAL,
+  OPEN_DATE_MODAL
 } from '../actions/types';
 
 const initialState = {
@@ -43,7 +44,7 @@ const todos = (state = initialState, action) => {
     case CHANGE_DATE:
       return {
         ...state,
-        todos: state.todos.map(todo => ((todo.id === state.currItem.id)
+        todos: state.todos.map(todo => ((todo.id === action.id)
           ? { ...todo, date: action.payload } : todo))
       };
     case REMOVE_TODO: {
@@ -56,6 +57,8 @@ const todos = (state = initialState, action) => {
       todos: newList
       };
     }
+    case OPEN_DATE_MODAL:
+      return { ...state, currItem: action.payload };
     case OPEN_NOTES_MODAL:
       return { ...state, currItem: action.payload };
     case OPEN_ITEM_MODAL:

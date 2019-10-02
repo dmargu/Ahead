@@ -23,7 +23,6 @@ class IosDatePicker extends Component {
   }
 
   render() {
-    console.log(this.props.date);
     const showDatePicker = this.state.showDatePicker ?
       (<Modal
         visible={this.state.showDatePicker}

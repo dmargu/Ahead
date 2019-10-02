@@ -5,7 +5,9 @@ import {
   CLOSE_ITEM_MODAL,
   ITEM_MENU_TOGGLED,
   OPEN_NOTES_MODAL,
-  CLOSE_NOTES_MODAL
+  CLOSE_NOTES_MODAL,
+  OPEN_DATE_MODAL,
+  CLOSE_DATE_MODAL
 } from './types';
 
 export const openPlusModal = () => {
@@ -55,5 +57,18 @@ export const openNotesModal = (item) => {
 export const closeNotesModal = () => {
   return {
     type: CLOSE_NOTES_MODAL
+  };
+};
+
+export const openDateModal = (item) => {
+  return {
+    type: OPEN_DATE_MODAL,
+    payload: item
+  };
+};
+
+export const closeDateModal = () => {
+  return {
+    type: CLOSE_DATE_MODAL
   };
 };
