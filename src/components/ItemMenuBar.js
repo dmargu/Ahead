@@ -19,13 +19,6 @@ class ItemMenuBar extends Component {
         </View>
         <View style={styles.icon}>
           <MaterialCommunityIcons
-            name='bell'
-            size={32}
-            color='#db5461'
-          />
-        </View>
-        <View style={styles.icon}>
-          <MaterialCommunityIcons
             name='pencil'
             size={32}
             color='#db5461'

@@ -6,7 +6,6 @@ import { changeDate } from '../../actions';
 
 class IosDatePicker extends Component {
   render() {
-    console.log(this.props.currItem.date);
     return (
       <DatePickerIOS
         date={this.props.currItem.date ? moment(this.props.currItem.date).toDate() : new Date()}
