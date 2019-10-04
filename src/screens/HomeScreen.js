@@ -14,7 +14,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, height: HEIGHT }}>
-        <Header navigation={this.props.navigation} />
+        <Header navigation={this.props.navigation} screenName='Home' />
         <TodayIncludes />
         <MainTodo />
       </View>

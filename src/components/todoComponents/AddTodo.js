@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { ListItem } from 'react-native-elements';
 
 
-const AddTodo = (props) => {
+const AddTodo = React.forwardRef((props, ref) => {
   return (
     <View>
     <ListItem
@@ -17,6 +17,7 @@ const AddTodo = (props) => {
           autoCapitalize='sentences'
           placeholder='I want to...'
           placeholderTextColor='#cdd2c9'
+          ref={ref}
         />
       }
       titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
@@ -36,7 +37,7 @@ const AddTodo = (props) => {
     />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
