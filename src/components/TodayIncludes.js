@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 5,
     paddingBottom: 5,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    right: 5
   }
 });
 export default TodayIncludes;

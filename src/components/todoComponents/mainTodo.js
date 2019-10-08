@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { View, FlatList, Dimensions, StyleSheet } from 'react-native';
+import {
+  FlatList,
+  Dimensions,
+  StyleSheet,
+  InputAccessoryView,
+  KeyboardAvoidingView
+} from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { KeyboardAccessoryView } from 'react-native-keyboard-accessory';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -16,7 +21,7 @@ class MainTodo extends Component {
     super();
     this.state = {
       textInput: '',
-      items: []
+      inputVisible: false
     };
   }
 
@@ -28,23 +33,14 @@ class MainTodo extends Component {
     return;
   }
 
-  onFloatingButtonPress() {
+  async onFloatingButtonPress() {
+    await this.setState({ inputVisible: true });
     this.textInputField.focus();
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <KeyboardAccessoryView>
-          <View>
-            <AddTodo
-              textChange={textInput => this.setState({ textInput })}
-              addNewTodo={this.addTodo.bind(this)}
-              textInput={this.state.textInput}
-              ref={(ref) => { this.textInputField = ref; }}
-            />
-          </View>
-        </KeyboardAccessoryView>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <FlatList
           data={_.sortBy(this.props.todos, (item) => {
             return item.date;
@@ -60,17 +56,30 @@ class MainTodo extends Component {
             );
           }}
         />
-        <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
-      </View>
+        {this.state.inputVisible ?
+          <InputAccessoryView>
+            <AddTodo
+              textChange={textInput => this.setState({ textInput })}
+              addNewTodo={this.addTodo.bind(this)}
+              textInput={this.state.textInput}
+              ref={(ref) => { this.textInputField = ref; }}
+            />
+          </InputAccessoryView>
+          :
+          <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
+        }
+      </KeyboardAvoidingView>
     );
   }
-}
-
+} //use react native keybord accessory for cross-platform solution
+  // will need to move add todo to the root view component in home screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 10,
-    height: HEIGHT
+    height: HEIGHT,
+    position: 'relative',
+    zIndex: 10
   }
 });
 

@@ -44,6 +44,20 @@ class LoginForm extends Component {
       </TouchableHighlight>
     );
   }
+
+  emailChangeHandle(textInput) {
+    const goodInput = textInput.replace(/\s/g, '');
+    return (
+      this.props.emailChanged(goodInput)
+    );
+  }
+
+  passwordChangeHandle(textInput) {
+    const goodInput = textInput.replace(/\s/g, '');
+    return (
+      this.props.passwordChanged(goodInput)
+    );
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -61,7 +75,7 @@ class LoginForm extends Component {
             keyboardType="email-address"
             underlineColorAndroid='transparent'
             autoCapitalize='none'
-            onChangeText={(text) => this.props.emailChanged(text)}
+            onChangeText={(text) => this.emailChangeHandle(text)}
             value={this.props.email}
           />
         </View>
@@ -80,7 +94,7 @@ class LoginForm extends Component {
             secureTextEntry
             underlineColorAndroid='transparent'
             autoCapitalize='none'
-            onChangeText={(password) => this.props.passwordChanged(password)}
+            onChangeText={(password) => this.passwordChangeHandle(password)}
             value={this.props.password}
           />
         </View>

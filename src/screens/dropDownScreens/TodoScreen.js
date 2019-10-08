@@ -7,7 +7,7 @@ class TodoScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Header navigation={this.props.navigation} />
+        <Header navigation={this.props.navigation} screenName='Todo List' />
           <MainTodo />
       </View>
     );

@@ -12,7 +12,8 @@ const AddTodo = React.forwardRef((props, ref) => {
       title={
         <TextInput
           style={styles.input}
-          onChangeText={(textInput) => props.textChange(textInput)}
+          //onChangeText={(textInput) => props.textChange(textInput)}
+          onChangeText={(textInput) => textChangeHandle(textInput, props)}
           value={props.textInput}
           autoCapitalize='sentences'
           placeholder='I want to...'
@@ -20,7 +21,7 @@ const AddTodo = React.forwardRef((props, ref) => {
           ref={ref}
         />
       }
-      titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
+      titleStyle={{ color: '#cdd2c9', fontSize: 16 }}
       titleNumberOfLines={0}
       rightIcon={
         <TouchableHighlight
@@ -28,9 +29,9 @@ const AddTodo = React.forwardRef((props, ref) => {
           onPress={props.addNewTodo}
         >
           <MaterialIcons
-            name='add-box'
+            name={props.textInput ? 'add-box' : 'add'}
             size={35}
-            color='#82ff9e'
+            color={'#82ff9e'}
           />
         </TouchableHighlight>
       }
@@ -39,22 +40,30 @@ const AddTodo = React.forwardRef((props, ref) => {
   );
 });
 
+function textChangeHandle(textInput, props) {
+  const goodInput = textInput.trimLeft();
+  return (
+    props.textChange(goodInput)
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 60,
-    borderBottomColor: '#DDD',
-    borderTopColor: '#DDD',
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
+    shadowColor: 'black',
+    borderBottomWidth: 0,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
     paddingLeft: 15,
-    backgroundColor: null
+    backgroundColor: '#28313b'
   },
   input: {
     flex: 1,
     fontSize: 16,
     height: 35,
-    color: '#FCEFEF'
+    color: '#cdd2c9'
   }
 });
 
