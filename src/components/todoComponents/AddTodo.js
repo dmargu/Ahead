@@ -7,35 +7,34 @@ import { ListItem } from 'react-native-elements';
 const AddTodo = React.forwardRef((props, ref) => {
   return (
     <View>
-    <ListItem
-      containerStyle={styles.container}
-      title={
-        <TextInput
-          style={styles.input}
-          //onChangeText={(textInput) => props.textChange(textInput)}
-          onChangeText={(textInput) => textChangeHandle(textInput, props)}
-          value={props.textInput}
-          autoCapitalize='sentences'
-          placeholder='I want to...'
-          placeholderTextColor='#cdd2c9'
-          ref={ref}
-        />
-      }
-      titleStyle={{ color: '#cdd2c9', fontSize: 16 }}
-      titleNumberOfLines={0}
-      rightIcon={
-        <TouchableHighlight
-          underlayColor='#ed828d'
-          onPress={props.addNewTodo}
-        >
-          <MaterialIcons
-            name={props.textInput ? 'add-box' : 'add'}
-            size={35}
-            color={'#82ff9e'}
+      <ListItem
+        containerStyle={styles.container}
+        title={
+          <TextInput
+            style={styles.input}
+            //onChangeText={(textInput) => props.textChange(textInput)}
+            onChangeText={(textInput) => textChangeHandle(textInput, props)}
+            value={props.textInput}
+            autoCapitalize='sentences'
+            placeholder='I want to...'
+            placeholderTextColor='#cdd2c9'
+            ref={ref}
           />
-        </TouchableHighlight>
-      }
-    />
+        }
+        titleNumberOfLines={0}
+        rightIcon={
+          <TouchableHighlight
+            underlayColor='#ed828d'
+            onPress={props.addNewTodo}
+          >
+            <MaterialIcons
+              name={props.textInput ? 'add-box' : 'add'}
+              size={35}
+              color={'#82ff9e'}
+            />
+          </TouchableHighlight>
+        }
+      />
     </View>
   );
 });
@@ -57,13 +56,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     paddingLeft: 15,
-    backgroundColor: '#28313b'
+    backgroundColor: '#28313b',
   },
   input: {
     flex: 1,
     fontSize: 16,
     height: 35,
-    color: '#cdd2c9'
+    color: '#fcefef'
   }
 });
 

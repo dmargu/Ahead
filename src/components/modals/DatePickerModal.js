@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     width: '75%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#cdd2c9',
-    backgroundColor: '#cdd2c9',
+    borderColor: '#28313b',
+    backgroundColor: '#28313b'
   },
   notesInput: {
     height: 130,

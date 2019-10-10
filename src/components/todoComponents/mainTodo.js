@@ -4,7 +4,8 @@ import {
   Dimensions,
   StyleSheet,
   InputAccessoryView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -25,6 +26,27 @@ class MainTodo extends Component {
     };
   }
 
+  componentDidMount() {
+    this.keyboardDidShowListener =
+      Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
+    this.keyboardDidHideListener =
+      Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidShow() {
+    console.log('Keyboard Shown');
+  }
+
+  keyboardDidHide() {
+    console.log('Keyboard Hidden');
+    this.setState({ inputVisible: false });
+  }
+
   addTodo() {
     if (this.state.textInput !== '') {
       this.props.addTodo(this.state.textInput);
@@ -33,9 +55,8 @@ class MainTodo extends Component {
     return;
   }
 
-  async onFloatingButtonPress() {
-    await this.setState({ inputVisible: true });
-    this.textInputField.focus();
+  onFloatingButtonPress() {
+    this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
   }
 
   render() {

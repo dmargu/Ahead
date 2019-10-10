@@ -31,6 +31,7 @@ class NotesModal extends Component {
             <View style={{ padding: 5 }}>
               <TextInput
                 placeholder={'Add notes'}
+                placeholderTextColor='#cdd2c9'
                 value={this.props.currItem.notes}
                 multiline
                 style={styles.notesInput}
@@ -54,16 +55,16 @@ const styles = StyleSheet.create({
     width: '75%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#cdd2c9',
-    backgroundColor: '#cdd2c9',
+    borderColor: '#28313b',
+    backgroundColor: '#28313b',
   },
   notesInput: {
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#28313b',
+    borderColor: '#cdd2c9',
     padding: 10,
-    color: '#28313b'
+    color: '#fcefef'
   },
 });
 

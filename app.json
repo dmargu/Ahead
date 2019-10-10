@@ -25,7 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "app.Ahead.Ahead"
+      "bundleIdentifier": "app.Ahead.Ahead",
+      "userInterfaceStyle": "automatic",
     }
   }
 }

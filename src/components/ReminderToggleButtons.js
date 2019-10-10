@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -137,12 +137,16 @@ class ReminderToggleButtons extends Component {
   }
 }
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 7,
+    width: HEIGHT > 667 ? WIDTH * 0.175 : null
   },
   text: {
     padding: 2,
