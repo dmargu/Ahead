@@ -23,10 +23,14 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    right: 25,
-    bottom: 25,
+    right: 20,
+    bottom: 15,
     backgroundColor: '#db5461',
     borderRadius: 100,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4
   }
 });
 

@@ -27,23 +27,15 @@ class MainTodo extends Component {
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener =
-      Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
     this.keyboardDidHideListener =
       Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
   }
 
   componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
-  keyboardDidShow() {
-    console.log('Keyboard Shown');
-  }
-
   keyboardDidHide() {
-    console.log('Keyboard Hidden');
     this.setState({ inputVisible: false });
   }
 

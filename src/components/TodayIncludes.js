@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
-    right: 5
+    right: 5,
+    borderBottomColor: '#DDD',
+    borderBottomWidth: 0.25
   }
 });
 export default TodayIncludes;

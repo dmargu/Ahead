@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 35,
     color: '#fcefef'
-  }
+  },
 });
 
 export default AddTodo;

@@ -40,7 +40,7 @@ class MenuDrawer extends Component {
           <View style={styles.bottomLinks}>
             {this.navLink('Home', 'Home', homeIcon)}
             {this.navLink('Calendar', 'Calendar', calendarIcon)}
-            {this.navLink('Todo', 'Todo\'s', todoIcon)}
+            {this.navLink('Todo', 'To-Do\'s', todoIcon)}
             {this.navLink('Habits', 'Habits', habitIcon)}
             {this.navLink('Settings', 'Settings', settingsIcon)}
           </View>

@@ -77,9 +77,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     borderBottomColor: '#DDD',
-    borderBottomWidth: 0.5,
-    borderTopColor: '#DDD',
-    borderTopWidth: 0.5
+    borderBottomWidth: 0.25,
   }
 });
 
