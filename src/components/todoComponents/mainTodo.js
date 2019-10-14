@@ -22,13 +22,14 @@ class MainTodo extends Component {
     super();
     this.state = {
       textInput: '',
-      inputVisible: false
+      inputVisible: true
     };
   }
 
   componentDidMount() {
     this.keyboardDidHideListener =
       Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
+    this.setState({ inputVisible: false });
   }
 
   componentWillUnmount() {
@@ -69,18 +70,20 @@ class MainTodo extends Component {
             );
           }}
         />
-        {this.state.inputVisible ?
           <InputAccessoryView>
-            <AddTodo
-              textChange={textInput => this.setState({ textInput })}
-              addNewTodo={this.addTodo.bind(this)}
-              textInput={this.state.textInput}
-              ref={(ref) => { this.textInputField = ref; }}
-            />
+            { this.state.inputVisible &&
+              <AddTodo
+                textChange={textInput => this.setState({ textInput })}
+                addNewTodo={this.addTodo.bind(this)}
+                textInput={this.state.textInput}
+                ref={(ref) => { this.textInputField = ref; }}
+              />
+            }
           </InputAccessoryView>
-          :
-          <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
-        }
+          { !this.state.inputVisible &&
+            <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
+          }
+
       </KeyboardAvoidingView>
     );
   }
