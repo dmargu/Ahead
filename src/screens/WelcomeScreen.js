@@ -16,12 +16,10 @@ const slideData = [
     color: '' },
   { text: 'Thank you for using it and even though it\'s pretty empty now it will improve over time',
     color: '' },
-  { text: 'Main thing I would like feedback on is the way the reminders work',
+  { text: 'But feel free to give me feedback on anything and ask me any questions you have',
     color: '' },
-  { text: 'But feel free to give me feedback on anything it\'s all going to change over time',
-    color: '' },
-  { text: 'Also if anything crashes please let me know how it happened', color: '' },
-  { text: '', color: '' }
+  { text: 'Also please make sure you are using dark mode for IOS 13 to see the datepicker better',
+    color: '' }
 ];
 
 class WelcomeScreen extends Component {

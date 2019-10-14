@@ -22,13 +22,13 @@ class TodoItem extends Component {
           <View style={styles.container}>
             <ListItem
               containerStyle={styles.todoItem}
+              contentContainerStyle={styles.contentStyle}
               title={todoItem.text}
               titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
-              titleNumberOfLines={0} //for subtitle need to call function- why it's .bind(this)()
               subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
               rightIcon={this.props.reminderToggleActive && todoItem.date ? null :
                 <View style={{ paddingRight: 4 }}>
-                  <TouchableHighlight
+                  <TouchableHighlight //for subtitle need to call function- why it's .bind(this)()
                     onPress={this.props.deleteTodo}
                     underlayColor={'#db5461'}
                   >
@@ -71,13 +71,15 @@ const styles = StyleSheet.create({
   todoItem: {
     width: '100%',
     paddingLeft: 15,
-    backgroundColor: null,
-    height: 60
+    backgroundColor: null
   },
   container: {
     width: '100%',
     borderBottomColor: '#6c7a86',
     borderBottomWidth: 0.25,
+  },
+  contentStyle: {
+    flex: 1
   }
 });
 
