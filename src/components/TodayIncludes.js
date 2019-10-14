@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     flexDirection: 'row',
     right: 5,
-    borderBottomColor: '#DDD',
+    borderBottomColor: '#6c7a86',
     borderBottomWidth: 0.25
   }
 });
