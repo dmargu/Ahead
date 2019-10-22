@@ -19,6 +19,7 @@ const AddTodo = React.forwardRef((props, ref) => {
             placeholder='I want to...'
             placeholderTextColor='#cdd2c9'
             ref={ref}
+            onSubmitEditing={props.onSubmitEditing}
           />
         }
         titleNumberOfLines={0}

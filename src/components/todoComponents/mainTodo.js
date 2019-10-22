@@ -5,10 +5,15 @@ import {
   StyleSheet,
   InputAccessoryView,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
+  View,
+  Text,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import moment from 'moment';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -52,24 +57,136 @@ class MainTodo extends Component {
     this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
   }
 
+  todayListItems() {
+    return this.props.todos.filter(item => moment().isSame(item.date, 'day'));
+  }
+
+  tomorrowListItems() {
+    return this.props.todos.filter(item => moment().add(1, 'day').isSame(item.date, 'day'));
+  }
+
+  upcomingListItems() {
+    return this.props.todos.filter(item => moment().add(1, 'day').isBefore(item.date, 'day'));
+  }
+
+  sometimeListItems() {
+    return this.props.todos.filter(
+      item => moment().isAfter(item.date, 'day') || item.date === null
+    );
+  }
+
   render() {
+    const todayItems = this.todayListItems.bind(this)();
+    const tomorrowItems = this.tomorrowListItems.bind(this)();
+    const upcomingItems = this.upcomingListItems.bind(this)();
+    const sometimeItems = this.sometimeListItems.bind(this)();
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <FlatList
-          data={_.sortBy(this.props.todos, (item) => {
-            return item.date;
-          })}
-          extraData={this.props.todos}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => {
-            return (
-              <TodoItem
-                todoItem={item}
-                deleteTodo={() => this.props.removeTodo(item)}
-              />
-            );
-          }}
-        />
+        <ScrollView>
+          <View style={styles.headerViewStyle}>
+            <Text style={styles.headerTextStyle}>Today</Text>
+          </View>
+
+          <FlatList
+            data={_.sortBy(todayItems, (item) => {
+              return item.date;
+            })}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem
+                  todoItem={item}
+                  deleteTodo={() => this.props.removeTodo(item)}
+                />
+              );
+            }}
+          />
+
+          <View style={styles.headerViewStyle}>
+            <Text style={styles.headerTextStyle}>Tomorrow</Text>
+          </View>
+
+          <FlatList
+            data={_.sortBy(tomorrowItems, (item) => {
+              return item.date;
+            })}
+            extraData={this.props.todos}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem
+                  todoItem={item}
+                  deleteTodo={() => this.props.removeTodo(item)}
+                />
+              );
+            }}
+          />
+
+          <View style={styles.headerViewStyle}>
+            <Text style={styles.headerTextStyle}>Upcoming</Text>
+          </View>
+
+          <FlatList
+            data={_.sortBy(upcomingItems, (item) => {
+              return item.date;
+            })}
+            extraData={this.props.todos}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem
+                  todoItem={item}
+                  deleteTodo={() => this.props.removeTodo(item)}
+                />
+              );
+            }}
+          />
+
+          <View style={styles.headerViewStyle}>
+            <Text style={styles.headerTextStyle}>Sometime</Text>
+          </View>
+
+          <FlatList
+            data={_.sortBy(sometimeItems, (item) => {
+              return item.date;
+            })}
+            extraData={this.props.todos}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem
+                  todoItem={item}
+                  deleteTodo={() => this.props.removeTodo(item)}
+                />
+              );
+            }}
+          />
+        </ScrollView>
+
+        {/*<SwipeListView
+            useFlatList
+            data={_.sortBy(this.props.todos, (item) => {
+              return item.date;
+            })}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem
+                  todoItem={item}
+                  deleteTodo={() => this.props.removeTodo(item)}
+                />
+              );
+            }}
+            renderHiddenItem={(data, rowMap) => (
+                <View style={styles.rowBack}>
+                    <Text>Left</Text>
+                    <Text>Right</Text>
+                </View>
+            )}
+            leftOpenValue={75}
+            rightOpenValue={-75}
+        />*/}
+
+
           <InputAccessoryView>
             { this.state.inputVisible &&
               <AddTodo
@@ -77,6 +194,7 @@ class MainTodo extends Component {
                 addNewTodo={this.addTodo.bind(this)}
                 textInput={this.state.textInput}
                 ref={(ref) => { this.textInputField = ref; }}
+                onSubmitEditing={this.addTodo.bind(this)}
               />
             }
           </InputAccessoryView>
@@ -96,6 +214,28 @@ const styles = StyleSheet.create({
     height: HEIGHT,
     position: 'relative',
     zIndex: 10
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+  },
+  headerTextStyle: {
+    fontSize: 20,
+    color: '#FCEFEF',
+    fontWeight: 'bold'
+  },
+  headerViewStyle: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    height: 40,
+    flexDirection: 'row',
+    borderBottomColor: '#6c7a86',
+    borderBottomWidth: 0.25
   }
 });
 

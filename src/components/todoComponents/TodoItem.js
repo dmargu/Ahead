@@ -23,12 +23,12 @@ class TodoItem extends Component {
             <ListItem
               containerStyle={styles.todoItem}
               contentContainerStyle={styles.contentStyle}
-              title={todoItem.text}
+              title={todoItem.text} //for subtitle need to call function- why it's .bind(this)()
               titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
               subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
               rightIcon={this.props.reminderToggleActive && todoItem.date ? null :
                 <View style={{ paddingRight: 4 }}>
-                  <TouchableHighlight //for subtitle need to call function- why it's .bind(this)()
+                  <TouchableHighlight
                     onPress={this.props.deleteTodo}
                     underlayColor={'#db5461'}
                   >

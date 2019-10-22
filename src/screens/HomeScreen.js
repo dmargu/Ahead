@@ -15,7 +15,7 @@ class HomeScreen extends Component {
     return (
       <View style={{ flex: 1, height: HEIGHT }}>
         <Header navigation={this.props.navigation} screenName='Home' />
-        <TodayIncludes />
+        {/*<TodayIncludes />*/}
         <MainTodo />
       </View>
     );
