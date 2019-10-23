@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { SwipeListView } from 'react-native-swipe-list-view';
 import moment from 'moment';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
@@ -91,6 +90,7 @@ class MainTodo extends Component {
             data={_.sortBy(todayItems, (item) => {
               return item.date;
             })}
+            extraData={this.todayItems}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
               return (
@@ -110,7 +110,7 @@ class MainTodo extends Component {
             data={_.sortBy(tomorrowItems, (item) => {
               return item.date;
             })}
-            extraData={this.props.todos}
+            extraData={tomorrowItems}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
               return (
@@ -130,7 +130,7 @@ class MainTodo extends Component {
             data={_.sortBy(upcomingItems, (item) => {
               return item.date;
             })}
-            extraData={this.props.todos}
+            extraData={upcomingItems}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
               return (
@@ -150,7 +150,7 @@ class MainTodo extends Component {
             data={_.sortBy(sometimeItems, (item) => {
               return item.date;
             })}
-            extraData={this.props.todos}
+            extraData={sometimeItems}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
               return (
@@ -162,46 +162,20 @@ class MainTodo extends Component {
             }}
           />
         </ScrollView>
-
-        {/*<SwipeListView
-            useFlatList
-            data={_.sortBy(this.props.todos, (item) => {
-              return item.date;
-            })}
-            renderItem={({ item }) => {
-              return (
-                <TodoItem
-                  todoItem={item}
-                  deleteTodo={() => this.props.removeTodo(item)}
-                />
-              );
-            }}
-            renderHiddenItem={(data, rowMap) => (
-                <View style={styles.rowBack}>
-                    <Text>Left</Text>
-                    <Text>Right</Text>
-                </View>
-            )}
-            leftOpenValue={75}
-            rightOpenValue={-75}
-        />*/}
-
-
-          <InputAccessoryView>
-            { this.state.inputVisible &&
-              <AddTodo
-                textChange={textInput => this.setState({ textInput })}
-                addNewTodo={this.addTodo.bind(this)}
-                textInput={this.state.textInput}
-                ref={(ref) => { this.textInputField = ref; }}
-                onSubmitEditing={this.addTodo.bind(this)}
-              />
-            }
-          </InputAccessoryView>
-          { !this.state.inputVisible &&
-            <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
+        <InputAccessoryView>
+          { this.state.inputVisible &&
+            <AddTodo
+              textChange={textInput => this.setState({ textInput })}
+              addNewTodo={this.addTodo.bind(this)}
+              textInput={this.state.textInput}
+              ref={(ref) => { this.textInputField = ref; }}
+              onSubmitEditing={this.addTodo.bind(this)}
+            />
           }
-
+        </InputAccessoryView>
+        { !this.state.inputVisible &&
+          <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
+        }
       </KeyboardAvoidingView>
     );
   }

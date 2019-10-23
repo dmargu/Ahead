@@ -4,6 +4,7 @@ import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
 import { toggleItemMenu } from '../../actions/ModalActions';
@@ -15,15 +16,15 @@ class TodoItem extends Component {
     const todoItem = this.props.todoItem;
     return (
       <View>
-        <TouchableHighlight
-          onPress={() => this.props.toggleItemMenu(todoItem.id)}
-          underlayColor={null}
-        >
-          <View style={styles.container}>
+        <View style={styles.container}>
+          <SwipeRow
+            onRowPress={() => this.props.toggleItemMenu(todoItem.id)}
+          >
+            <View style={styles.backRow} />
             <ListItem
               containerStyle={styles.todoItem}
               contentContainerStyle={styles.contentStyle}
-              title={todoItem.text} //for subtitle need to call function- why it's .bind(this)()
+              title={todoItem.text}
               titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
               subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
               rightIcon={this.props.reminderToggleActive && todoItem.date ? null :
@@ -41,14 +42,14 @@ class TodoItem extends Component {
                 </View>
               }
             />
-            {todoItem.itemMenuToggled ?
-              <ItemMenuBar item={todoItem} /> : null
-            }
-            {this.props.reminderToggleActive && todoItem.date ?
-              <ReminderToggleButtons item={todoItem} /> : null
-            }
-          </View>
-        </TouchableHighlight>
+          </SwipeRow>
+          {todoItem.itemMenuToggled ?
+            <ItemMenuBar item={todoItem} /> : null
+          }
+          {this.props.reminderToggleActive && todoItem.date ?
+            <ReminderToggleButtons item={todoItem} /> : null
+          }
+        </View>
         <NotesModal item={todoItem} />
         <DatePickerModal item={todoItem} />
       </View>
@@ -56,13 +57,22 @@ class TodoItem extends Component {
   }
   renderDate() {
     const todoItem = this.props.todoItem;
-    return moment(todoItem.date).format('YYYY MM DD') === moment(new Date()).format('YYYY MM DD') ?
-      <Text style={{ color: '#cdd2c9', fontSize: 16 }}>
-        {moment(todoItem.date).format('h:mm a')}
-      </Text> :
-      <Text style={{ color: '#cdd2c9', fontSize: 16 }}>
+    if (moment().isSame(todoItem.date, 'day') || moment().add(1, 'day').isSame(todoItem.date, 'day')) {
+      return (
+        <Text style={styles.dateSubtitle}>
+          {moment(todoItem.date).format('h:mm a')}
+        </Text>
+      );
+    } else if (moment().isAfter(todoItem.date, 'day')) {
+      return (
+        <Text style={styles.overdueSubtitle}>Overdue</Text>
+      );
+    }
+    return (
+      <Text style={styles.dateSubtitle}>
         {moment(todoItem.date).format('MMM DD h:mm a')}
-      </Text>;
+      </Text>
+    );
   }
 }
 
@@ -73,6 +83,10 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     backgroundColor: null
   },
+  backRow: {
+    width: '100%',
+    backgroundColor: '#82ff9e'
+  },
   container: {
     width: '100%',
     borderBottomColor: '#6c7a86',
@@ -80,6 +94,15 @@ const styles = StyleSheet.create({
   },
   contentStyle: {
     flex: 1
+  },
+  dateSubtitle: {
+    color: '#cdd2c9',
+    fontSize: 16
+  },
+  overdueSubtitle: {
+    color: '#db5461',
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 });
 
