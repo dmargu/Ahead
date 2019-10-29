@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fcefef'
+    color: '#cdd2c9'
   }
 });
 

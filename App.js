@@ -7,11 +7,11 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SplashScreen } from 'expo';
-import WelcomeScreen from './screens/WelcomeScreen';
-import AuthScreen from './screens/AuthScreen';
-import dropDownMenu from './screens/dropDownScreens/dropDownMenu';
-import NavigationService from './NavigationService';
-import storeConfiguration from './store';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import AuthScreen from './src/screens/AuthScreen';
+import dropDownMenu from './src/screens/dropDownScreens/dropDownMenu';
+import NavigationService from './src/NavigationService';
+import storeConfiguration from './src/store';
 
 export default class App extends Component {
   constructor() {
