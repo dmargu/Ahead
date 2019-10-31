@@ -27,11 +27,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     shadowColor: 'black',
-    borderBottomWidth: 0,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0.5, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    backgroundColor: '#252e38'
   },
   textStyle: {
     fontSize: 20

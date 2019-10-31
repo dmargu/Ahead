@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
@@ -17,7 +16,10 @@ class TodoItem extends Component {
 
     return (
         <View>
-          <ItemSwipeRow>
+          <ItemSwipeRow
+            item={todoItem}
+            completeItem={this.props.deleteTodo}
+          >
             <TouchableHighlight
               onPress={() => this.props.toggleItemMenu(todoItem.id)}
               underlayColor={null}
@@ -27,21 +29,7 @@ class TodoItem extends Component {
                 contentContainerStyle={styles.contentStyle}
                 title={todoItem.text}
                 titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
-                subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
-                rightIcon={this.props.reminderToggleActive && todoItem.date ? null :
-                  <View style={{ paddingRight: 4 }}>
-                    <TouchableHighlight
-                      onPress={this.props.deleteTodo}
-                      underlayColor={'#db5461'}
-                    >
-                      <Ionicons
-                        name='md-checkbox'
-                        color='#82ff9e'
-                        size={35}
-                      />
-                    </TouchableHighlight>
-                  </View>
-                }
+                rightElement={todoItem.date ? this.renderDate.bind(this)() : null}
               />
             </TouchableHighlight>
           </ItemSwipeRow>
