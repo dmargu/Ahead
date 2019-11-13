@@ -1,26 +1,16 @@
 import {
-  OPEN_ITEM_MODAL,
-  CLOSE_ITEM_MODAL,
-  OPEN_NOTES_MODAL,
-  CLOSE_NOTES_MODAL,
+  TOGGLE_DATE_MODAL
 } from '../actions/types';
 
 
 const initialState = {
-  itemModalVisible: false,
-  notesModalVisible: false,
+  dateModalVisible: false
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) {
-    case OPEN_ITEM_MODAL:
-      return { ...state, itemModalVisible: action.payload };
-    case CLOSE_ITEM_MODAL:
-      return { ...state, itemModalVisible: action.payload };
-    case OPEN_NOTES_MODAL:
-      return { ...state, notesModalVisible: true };
-    case CLOSE_NOTES_MODAL:
-      return { ...state, notesModalVisible: false };
+  switch (action.type) { //plan here is to stop flatlist from updating when visible
+    case TOGGLE_DATE_MODAL: //not working though it mess up whole thing
+      return { ...state, dateModalVisible: !state.dateModalVisible };
     default:
       return state;
   }

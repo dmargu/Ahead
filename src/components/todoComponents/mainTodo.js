@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-//import moment from 'moment';
+import moment from 'moment';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -39,6 +39,13 @@ class MainTodo extends Component {
   componentWillUnmount() {
     this.keyboardDidHideListener.remove();
   }
+  //this component isn't working right.
+  /*shouldComponentUpdate() {
+    if (this.props.dateModalVisible) {
+      return false;
+    }
+    return true;
+  }*/
 
   keyboardDidHide() {
     this.setState({ inputVisible: false });
@@ -57,32 +64,32 @@ class MainTodo extends Component {
   }
 
   render() {
-    const todoString = 'To-Do\'s';
+    const headerString = 'To-Do\'s';
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <ScrollView>
+    {/*<ScrollView>*/}
           <View style={styles.headerViewStyle}>
-            <Text style={styles.headerTextStyle}>{todoString}</Text>
+            <Text style={styles.headerTextStyle}>{headerString}</Text>
           </View>
 
-          <FlatList//flatlist for today, using it for whole list though while rest is bugged
+          <FlatList
             data={_.sortBy(this.props.todos, (item) => {
               return item.date;
             })}
             extraData={this.props.todos}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => {
-              //if (moment().isSame(item.date, 'day')) {
+            //  if (moment().isSame(item.date, 'day')) {
                 return (
                   <TodoItem
                     todoItem={item}
                     deleteTodo={() => this.props.removeTodo(item)}
                   />
                 );
-              //}
+            //  }
             }}
           />
-          {/*<View style={styles.headerViewStyle}>
+    {/*      <View style={styles.headerViewStyle}>
             <Text style={styles.headerTextStyle}>Tomorrow</Text>
           </View>
 
@@ -146,8 +153,8 @@ class MainTodo extends Component {
                 );
               }
             }}
-          />*/}
-        </ScrollView>
+          />
+        </ScrollView>*/}
         <InputAccessoryView>
           { this.state.inputVisible &&
             <AddTodo
@@ -191,7 +198,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    todos: state.TodoReducer.todos
+    todos: state.TodoReducer.todos,
+    dateModalVisible: state.ModalReducer.dateModalVisible
   };
 }
 

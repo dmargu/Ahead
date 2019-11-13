@@ -45,15 +45,28 @@ class TodoItem extends Component {
           {todoItem.dateModalVisible ?
             <DatePickerModal item={todoItem} /> : null
           }
+
         </View>
     );
   }
   renderDate() {
     const todoItem = this.props.todoItem;
-    if (moment().isSame(todoItem.date, 'day') || moment().add(1, 'day').isSame(todoItem.date, 'day')) {
+    if (moment().isSame(todoItem.date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
           {moment(todoItem.date).format('h:mm a')}
+        </Text>
+      );
+    } else if (moment().add(1, 'day').isSame(todoItem.date, 'day')) {
+      return (
+        <Text style={styles.dateSubtitle}>
+          Tomorrow {moment(todoItem.date).format('h:mm a')}
+        </Text>
+      );
+    } else if (moment().add(7, 'day').isAfter(todoItem.date, 'day')) {
+      return (
+        <Text style={styles.dateSubtitle}>
+          {moment(todoItem.date).format('dddd h:mm a')}
         </Text>
       );
     } else if (moment().isAfter(todoItem.date, 'day')) {
@@ -92,10 +105,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  return {
-    reminderToggleActive: state.RemindersReducer.reminderToggleActive,
-  };
-}
-
-export default connect(mapStateToProps, { toggleItemMenu })(TodoItem);
+export default connect(null, { toggleItemMenu })(TodoItem);
