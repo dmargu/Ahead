@@ -14,6 +14,8 @@ export const REMOVE_TODO = 'removeTodo';
 
 export const CHANGE_DATE = 'changeDate';
 
+export const CLEAR_DATE = 'clearDate';
+
 export const TOGGLE_REMINDERS = 'toggleReminders';
 
 export const TEN_MIN_REMINDER = 'tenMinReminder';
@@ -42,10 +44,6 @@ export const LOGOUT_USER = 'logoutUser';
 
 export const ITEM_MENU_TOGGLED = 'itemMenuToggled';
 
-export const OPEN_NOTES_MODAL = 'OpenNotesModal';
+export const TOGGLE_NOTES_MODAL = 'OpenNotesModal';
 
-export const CLOSE_NOTES_MODAL = 'closeNotesModal';
-
-export const OPEN_DATE_MODAL = 'openDateModal';
-
-export const CLOSE_DATE_MODAL = 'closeDateModal';
+export const TOGGLE_DATE_MODAL = 'toggleDateModal';

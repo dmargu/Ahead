@@ -3,7 +3,8 @@ import {
   TOGGLE_TODO,
   REMOVE_TODO,
   CHANGE_DATE,
-  CHANGE_NOTES
+  CHANGE_NOTES,
+  CLEAR_DATE
 } from './types';
 
 export const addTodo = (text) => {
@@ -35,10 +36,17 @@ export const changeDate = (date, id) => {
   };
 };
 
-export const notesChanged = (text, id) => {
+export const clearDate = (item) => {
+  return {
+    type: CLEAR_DATE,
+    id: item.id
+  };
+};
+
+export const notesChanged = (text, item) => {
   return {
     type: CHANGE_NOTES,
     payload: text,
-    id
+    id: item.id
   };
 };

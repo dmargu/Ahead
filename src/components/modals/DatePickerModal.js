@@ -1,35 +1,47 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, Platform } from 'react-native';
+import { View, StyleSheet, Modal, Platform, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { closeDateModal } from '../../actions';
+import { toggleDateModal, clearDate } from '../../actions';
 import IosDatePicker from '../common/IosDatePicker';
 import AndroidDatePicker from '../common/AndroidDatePicker';
+import ReminderToggleButtons from '../ReminderToggleButtons';
 
 class DatePickerModal extends Component {
   render() {
+    const item = this.props.item;
     return (
-      <Modal
-        transparent
-        animationType='fade'
-        visible={this.props.dateModalVisible}
-      >
+      <Modal transparent animationType='fade'>
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+              <View style={{ padding: 10 }}>
+                <TouchableOpacity
+                  style={[styles.clearDateButton, { backgroundColor: item.date ? '#db5461' : null }]}
+                  onPress={() => this.props.clearDate(item)}
+                >
+                  <Text style={[styles.clearDateText, { color: item.date ? '#fcefef' : '#db5461' }]}>
+                    Clear Date
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <View style={{ padding: 5 }}>
                 <Feather
                   name="x-square"
                   size={35}
                   color={'#db5461'}
-                  onPress={() => this.props.closeDateModal()}
+                  onPress={() => this.props.toggleDateModal(item)}
                 />
               </View>
             </View>
             <View style={{ padding: 5 }}>
               {Platform.OS === 'ios' ?
-                <IosDatePicker item={this.props.item} /> : <AndroidDatePicker />
+                <IosDatePicker item={item} /> : <AndroidDatePicker />
               }
+            </View>
+            <View style={styles.containerStyle}>
+              <Text style={styles.remindersText}>Reminders</Text>
+              <ReminderToggleButtons item={item} />
             </View>
           </View>
         </View>
@@ -45,27 +57,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '75%',
+    width: '90%',
+    height: 350,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#28313b',
-    backgroundColor: '#28313b'
+    backgroundColor: '#555B6E'
   },
-  notesInput: {
-    height: 130,
+  remindersText: {
+    fontSize: 20,
+    color: '#db5461',
+    fontWeight: 'bold',
+    paddingBottom: 5
+  },
+  clearDateButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#28313b',
-    padding: 10,
-    color: '#28313b'
+    borderRadius: 7,
+    borderColor: '#db5461'
   },
+  clearDateText: {
+    padding: 2,
+    fontSize: 18
+  }
 });
 
-function mapStateToProps(state) {
-  return {
-    currItem: state.TodoReducer.currItem,
-    dateModalVisible: state.ModalReducer.dateModalVisible
-  };
-}
-
-export default connect(mapStateToProps, { closeDateModal })(DatePickerModal);
+export default connect(null, { toggleDateModal, clearDate })(DatePickerModal);

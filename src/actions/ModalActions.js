@@ -4,10 +4,8 @@ import {
   OPEN_ITEM_MODAL,
   CLOSE_ITEM_MODAL,
   ITEM_MENU_TOGGLED,
-  OPEN_NOTES_MODAL,
-  CLOSE_NOTES_MODAL,
-  OPEN_DATE_MODAL,
-  CLOSE_DATE_MODAL
+  TOGGLE_NOTES_MODAL,
+  TOGGLE_DATE_MODAL,
 } from './types';
 
 export const openPlusModal = () => {
@@ -40,35 +38,23 @@ export const closeItemModal = () => {
 };
 
 
-export const toggleItemMenu = (id) => {
+export const toggleItemMenu = (item) => {
   return {
     type: ITEM_MENU_TOGGLED,
-    payload: id
-  };
-};
-
-export const openNotesModal = (item) => {
-  return {
-    type: OPEN_NOTES_MODAL,
     payload: item
   };
 };
 
-export const closeNotesModal = () => {
+export const toggleNotesModal = (item) => {
   return {
-    type: CLOSE_NOTES_MODAL
+    type: TOGGLE_NOTES_MODAL,
+    id: item.id
   };
 };
 
-export const openDateModal = (item) => {
+export const toggleDateModal = (item) => {
   return {
-    type: OPEN_DATE_MODAL,
-    payload: item
-  };
-};
-
-export const closeDateModal = () => {
-  return {
-    type: CLOSE_DATE_MODAL
+    type: TOGGLE_DATE_MODAL,
+    id: item.id
   };
 };

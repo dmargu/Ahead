@@ -29,6 +29,7 @@ class ReminderToggleButtons extends Component {
           onPress={() => {
             if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
               this.props.startReminder(item);
+              console.log(item.text);
             }
           }}
         >
@@ -146,7 +147,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 7,
-    width: HEIGHT > 667 ? WIDTH * 0.175 : null
+    width: HEIGHT > 667 ? WIDTH * 0.175 : null,
+    height: 40
   },
   text: {
     padding: 2,

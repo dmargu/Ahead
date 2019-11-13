@@ -57,7 +57,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <LinearGradient colors={['#28313B', '#485461']} style={{ flex: 1 }}>
+        <LinearGradient colors={['#28313B', '#28313B']} style={{ flex: 1 }}>
           <AppContainer
             ref={navigatorRef => {
               NavigationService.setNavigator(navigatorRef);

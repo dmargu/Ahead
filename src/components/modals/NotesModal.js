@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Modal, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { closeNotesModal, notesChanged } from '../../actions';
+import { toggleNotesModal, notesChanged } from '../../actions';
 
 class NotesModal extends Component {
   onNotesChange(text) {
-    this.props.notesChanged(text, this.props.currItem.id);
+    this.props.notesChanged(text, this.props.item);
   }
 
   render() {
+    const item = this.props.item;
     return (
-      <Modal
-        transparent
-        animationType='fade'
-        visible={this.props.notesModalVisible}
-      >
+      <Modal transparent animationType='fade'>
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
@@ -24,7 +21,7 @@ class NotesModal extends Component {
                   name="x-square"
                   size={35}
                   color={'#db5461'}
-                  onPress={() => this.props.closeNotesModal()}
+                  onPress={() => this.props.toggleNotesModal(item)}
                 />
               </View>
             </View>
@@ -32,7 +29,7 @@ class NotesModal extends Component {
               <TextInput
                 placeholder={'Add notes'}
                 placeholderTextColor='#cdd2c9'
-                value={this.props.currItem.notes}
+                value={item.notes}
                 multiline
                 style={styles.notesInput}
                 onChangeText={this.onNotesChange.bind(this)}
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#28313b',
-    backgroundColor: '#28313b',
+    backgroundColor: '#555B6E',
   },
   notesInput: {
     height: 130,
@@ -75,4 +72,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { closeNotesModal, notesChanged })(NotesModal);
+export default connect(mapStateToProps, { toggleNotesModal, notesChanged })(NotesModal);

@@ -4,15 +4,18 @@ import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { openNotesModal, openDateModal } from '../actions';
+import { toggleNotesModal, toggleDateModal } from '../actions';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
-class ItemSwipeRow extends Component { //something is just wrong here
-  constructor(props) { //item's dates are not changing right at all
-    super(props);
-    this.item = props.item;
-  }
+class ItemSwipeRow extends Component {
+  updateRef = ref => {
+    this.currItem = ref;
+  };
+
+  close = () => {
+    if (this.currItem !== null) { this.currItem.close(); }
+  };
 
   renderLeftActions = (progress, dragX) => {
     const trans = dragX.interpolate({
@@ -42,8 +45,10 @@ class ItemSwipeRow extends Component { //something is just wrong here
       outputRange: [x, 0],
     });
     const pressHandler = () => {
-      action(this.item);
-      console.log(action(this.item));
+      if (action !== this.props.toggleReminders) {
+        this.currItem.close();
+      }
+      action(this.props.item);
     };
     return (
       <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
@@ -62,25 +67,18 @@ class ItemSwipeRow extends Component { //something is just wrong here
   };
 
   renderRightActions = progress => (
-    <View style={{ width: 192, flexDirection: 'row' }}>
+    <View style={styles.rightSwipeButtons}>
       {this.renderRightAction(
-        this.props.openDateModal, 'calendar', '#B8B8F3', 192, progress
+        this.props.toggleDateModal, 'calendar', '#B8B8F3', 192, progress
       )}
       {this.renderRightAction(
-        this.props.openNotesModal, 'pencil', '#F0A202', 128, progress
+        this.props.toggleNotesModal, 'pencil', '#F0A202', 128, progress
       )}
       {this.renderRightAction(
-        this.props.openDateModal, 'bell', '#db5461', 64, progress
+        this.props.toggleDateModal, 'bell', '#db5461', 64, progress
       )}
     </View>
   );
-
-  updateRef = ref => {
-    this.currItem = ref;
-  };
-  close = () => {
-    if (this.currItem !== null) { this.currItem.close(); }
-  };
 
   onSwipeableLeftOpen = () => {
     this.props.completeItem();
@@ -116,6 +114,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  rightSwipeButtons: {
+    width: 192,
+    flexDirection: 'row'
+  }
 });
 
-export default connect(null, { openNotesModal, openDateModal })(ItemSwipeRow);
+
+export default connect(null, { toggleNotesModal, toggleDateModal })(ItemSwipeRow);

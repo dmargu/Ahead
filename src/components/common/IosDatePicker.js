@@ -6,10 +6,11 @@ import { changeDate } from '../../actions';
 
 class IosDatePicker extends Component {
   render() {
+    const item = this.props.item;
     return (
       <DatePickerIOS
-        date={this.props.currItem.date ? moment(this.props.currItem.date).toDate() : new Date()}
-        onDateChange={(date) => this.props.changeDate(date, this.props.currItem.id)}
+        date={item.date ? moment(item.date).toDate() : new Date()}
+        onDateChange={(date) => this.props.changeDate(date, item.id)}
         minuteInterval={5}
         minimumDate={new Date()}
       />
@@ -17,10 +18,4 @@ class IosDatePicker extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    currItem: state.TodoReducer.currItem
-  };
-}
-
-export default connect(mapStateToProps, { changeDate })(IosDatePicker);
+export default connect(null, { changeDate })(IosDatePicker);

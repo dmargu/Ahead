@@ -11,8 +11,9 @@ import {
   START_REMINDER,
   CHANGE_NOTES,
   ITEM_MENU_TOGGLED,
-  OPEN_NOTES_MODAL,
-  OPEN_DATE_MODAL
+  TOGGLE_NOTES_MODAL,
+  TOGGLE_DATE_MODAL,
+  CLEAR_DATE
 } from '../actions/types';
 
 const initialState = {
@@ -38,7 +39,9 @@ const todos = (state = initialState, action) => {
           oneHourReminder: false,
           oneDayReminder: false,
           startReminder: false,
-          itemMenuToggled: false
+          itemMenuToggled: false,
+          dateModalVisible: false,
+          notesModalVisible: false
         }]
       };
     case CHANGE_DATE:
@@ -46,7 +49,12 @@ const todos = (state = initialState, action) => {
         ...state,
         todos: state.todos.map(todo => ((todo.id === action.id)
           ? { ...todo, date: action.payload } : todo)),
-        currItem: { ...state.currItem, date: action.payload } 
+      };
+    case CLEAR_DATE:
+      return {
+        ...state,
+        todos: state.todos.map(todo => ((todo.id === action.id)
+          ? { ...todo, date: null } : todo)),
       };
     case REMOVE_TODO: {
       const newList = state.todos.filter(item => item.id !== action.id);
@@ -58,10 +66,18 @@ const todos = (state = initialState, action) => {
       todos: newList
       };
     }
-    case OPEN_DATE_MODAL:
-      return { ...state, currItem: action.payload };
-    case OPEN_NOTES_MODAL:
-      return { ...state, currItem: action.payload };
+    case TOGGLE_DATE_MODAL:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, dateModalVisible: !item.dateModalVisible } : item))
+      };
+    case TOGGLE_NOTES_MODAL:
+      return {
+        ...state,
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, notesModalVisible: !item.notesModalVisible } : item))
+      };
     case OPEN_ITEM_MODAL:
       return {
         ...state,
@@ -106,7 +122,7 @@ const todos = (state = initialState, action) => {
     case ITEM_MENU_TOGGLED:
       return {
         ...state,
-        todos: state.todos.map(item => ((item.id === action.payload)
+        todos: state.todos.map(item => ((item.id === action.payload.id)
           ? { ...item, itemMenuToggled: !item.itemMenuToggled } : item))
       };
     default:

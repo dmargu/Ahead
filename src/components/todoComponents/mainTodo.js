@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import moment from 'moment';
+//import moment from 'moment';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -56,69 +56,51 @@ class MainTodo extends Component {
     this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
   }
 
-  todayListItems() {
-    return this.props.todos.filter(item => moment().isSame(item.date, 'day'));
-  }
-
-  tomorrowListItems() {
-    return this.props.todos.filter(item => moment().add(1, 'day').isSame(item.date, 'day'));
-  }
-
-  upcomingListItems() {
-    return this.props.todos.filter(item => moment().add(1, 'day').isBefore(item.date, 'day'));
-  }
-
-  sometimeListItems() {
-    return this.props.todos.filter(
-      item => moment().isAfter(item.date, 'day') || item.date === null
-    );
-  }
-
   render() {
-    const todayItems = this.todayListItems.bind(this)();
-    const tomorrowItems = this.tomorrowListItems.bind(this)();
-    const upcomingItems = this.upcomingListItems.bind(this)();
-    const sometimeItems = this.sometimeListItems.bind(this)();
+    const todoString = 'To-Do\'s';
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <ScrollView>
           <View style={styles.headerViewStyle}>
-            <Text style={styles.headerTextStyle}>Today</Text>
+            <Text style={styles.headerTextStyle}>{todoString}</Text>
           </View>
 
-          <FlatList
-            data={_.sortBy(todayItems, (item) => {
+          <FlatList//flatlist for today, using it for whole list though while rest is bugged
+            data={_.sortBy(this.props.todos, (item) => {
               return item.date;
             })}
-            extraData={this.todayItems}
-            keyExtractor={(item, index) => index.toString()}
+            extraData={this.props.todos}
+            keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => {
-              return (
-                <TodoItem
-                  todoItem={item}
-                  deleteTodo={() => this.props.removeTodo(item)}
-                />
-              );
+              //if (moment().isSame(item.date, 'day')) {
+                return (
+                  <TodoItem
+                    todoItem={item}
+                    deleteTodo={() => this.props.removeTodo(item)}
+                  />
+                );
+              //}
             }}
           />
-
-          <View style={styles.headerViewStyle}>
+          {/*<View style={styles.headerViewStyle}>
             <Text style={styles.headerTextStyle}>Tomorrow</Text>
           </View>
 
           <FlatList
-            data={_.sortBy(tomorrowItems, (item) => {
+            data={_.sortBy(this.props.todos, (item) => {
               return item.date;
             })}
-            extraData={tomorrowItems}
-            keyExtractor={(item, index) => index.toString()}
+            extraData={this.props.todos}
+            keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => {
-              return (
-                <TodoItem
-                  todoItem={item}
-                  deleteTodo={() => this.props.removeTodo(item)}
-                />
-              );
+              if (moment().add(1, 'day').isSame(item.date, 'day')) {
+                return (
+                  <TodoItem
+                    todoItem={item}
+                    deleteTodo={() => this.props.removeTodo(item)}
+                  />
+                );
+              }
             }}
           />
 
@@ -127,18 +109,20 @@ class MainTodo extends Component {
           </View>
 
           <FlatList
-            data={_.sortBy(upcomingItems, (item) => {
+            data={_.sortBy(this.props.todos, (item) => {
               return item.date;
             })}
-            extraData={upcomingItems}
-            keyExtractor={(item, index) => index.toString()}
+            extraData={this.props.todos}
+            keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => {
-              return (
-                <TodoItem
-                  todoItem={item}
-                  deleteTodo={() => this.props.removeTodo(item)}
-                />
-              );
+              if (moment().add(1, 'day').isBefore(item.date, 'day')) {
+                return (
+                  <TodoItem
+                    todoItem={item}
+                    deleteTodo={() => this.props.removeTodo(item)}
+                  />
+                );
+              }
             }}
           />
 
@@ -147,20 +131,22 @@ class MainTodo extends Component {
           </View>
 
           <FlatList
-            data={_.sortBy(sometimeItems, (item) => {
+            data={_.sortBy(this.props.todos, (item) => {
               return item.date;
             })}
-            extraData={sometimeItems}
-            keyExtractor={(item, index) => index.toString()}
+            extraData={this.props.todos}
+            keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => {
-              return (
-                <TodoItem
-                  todoItem={item}
-                  deleteTodo={() => this.props.removeTodo(item)}
-                />
-              );
+              if (moment().isAfter(item.date, 'day') || item.date === null) {
+                return (
+                  <TodoItem
+                    todoItem={item}
+                    deleteTodo={() => this.props.removeTodo(item)}
+                  />
+                );
+              }
             }}
-          />
+          />*/}
         </ScrollView>
         <InputAccessoryView>
           { this.state.inputVisible &&
@@ -189,25 +175,17 @@ const styles = StyleSheet.create({
     position: 'relative',
     zIndex: 10
   },
-  rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-  },
   headerTextStyle: {
     fontSize: 20,
     color: '#FCEFEF',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   headerViewStyle: {
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 10,
     height: 40,
-    flexDirection: 'row'
+    flexDirection: 'row',
   }
 });
 

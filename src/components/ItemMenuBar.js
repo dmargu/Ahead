@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { openNotesModal, openDateModal } from '../actions';
+import { openNotesModal, toggleDateModal } from '../actions';
 
 class ItemMenuBar extends Component {
   render() {
@@ -14,7 +14,7 @@ class ItemMenuBar extends Component {
             name='md-calendar'
             size={32}
             color='#db5461'
-            onPress={() => this.props.openDateModal(item)}
+            onPress={() => this.props.toggleDateModal(item)}
           />
         </View>
         <View style={styles.icon}>
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { openNotesModal, openDateModal })(ItemMenuBar);
+export default connect(null, { openNotesModal, toggleDateModal })(ItemMenuBar);

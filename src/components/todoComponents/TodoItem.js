@@ -21,7 +21,7 @@ class TodoItem extends Component {
             completeItem={this.props.deleteTodo}
           >
             <TouchableHighlight
-              onPress={() => this.props.toggleItemMenu(todoItem.id)}
+              onPress={() => this.props.toggleItemMenu(todoItem)}
               underlayColor={null}
             >
               <ListItem
@@ -33,14 +33,17 @@ class TodoItem extends Component {
               />
             </TouchableHighlight>
           </ItemSwipeRow>
-          {todoItem.itemMenuToggled ?
-            <ItemMenuBar item={todoItem} /> : null
-          }
           {this.props.reminderToggleActive && todoItem.date ?
             <ReminderToggleButtons item={todoItem} /> : null
           }
-        <NotesModal item={todoItem} />
-        <DatePickerModal item={todoItem} />
+
+        {todoItem.notesModalVisible ?
+          <NotesModal item={todoItem} /> : null
+        }
+
+        {todoItem.dateModalVisible ?
+          <DatePickerModal item={todoItem} /> : null
+        }
       </View>
     );
   }
