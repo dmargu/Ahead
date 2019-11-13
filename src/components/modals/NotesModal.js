@@ -65,11 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-    notesModalVisible: state.ModalReducer.notesModalVisible,
-    currItem: state.TodoReducer.currItem
-  };
-}
-
-export default connect(mapStateToProps, { toggleNotesModal, notesChanged })(NotesModal);
+export default connect(null, { toggleNotesModal, notesChanged })(NotesModal);

@@ -12,12 +12,11 @@ const AddTodo = React.forwardRef((props, ref) => {
         title={
           <TextInput
             style={styles.input}
-            //onChangeText={(textInput) => props.textChange(textInput)}
             onChangeText={(textInput) => textChangeHandle(textInput, props)}
             value={props.textInput}
             autoCapitalize='sentences'
             placeholder='I want to...'
-            placeholderTextColor='#cdd2c9'
+            placeholderTextColor='#fcefef'
             ref={ref}
             onSubmitEditing={props.onSubmitEditing}
           />
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     paddingLeft: 15,
-    backgroundColor: '#28313b',
+    backgroundColor: '#555B6E',
   },
   input: {
     flex: 1,

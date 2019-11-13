@@ -6,7 +6,6 @@ import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
 import { toggleItemMenu } from '../../actions/ModalActions';
-import ItemMenuBar from '../ItemMenuBar';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from '../ItemSwipe';
 
@@ -33,18 +32,20 @@ class TodoItem extends Component {
               />
             </TouchableHighlight>
           </ItemSwipeRow>
-          {this.props.reminderToggleActive && todoItem.date ?
-            <ReminderToggleButtons item={todoItem} /> : null
+          <View style={{ paddingTop: 4 }}>
+            {todoItem.remindersToggled && todoItem.date ?
+              <ReminderToggleButtons item={todoItem} /> : null
+            }
+          </View>
+
+          {todoItem.notesModalVisible ?
+            <NotesModal item={todoItem} /> : null
           }
 
-        {todoItem.notesModalVisible ?
-          <NotesModal item={todoItem} /> : null
-        }
-
-        {todoItem.dateModalVisible ?
-          <DatePickerModal item={todoItem} /> : null
-        }
-      </View>
+          {todoItem.dateModalVisible ?
+            <DatePickerModal item={todoItem} /> : null
+          }
+        </View>
     );
   }
   renderDate() {

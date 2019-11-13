@@ -8,10 +8,10 @@ import {
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
-export const toggleReminders = (toggleState) => {
+export const toggleReminders = (item) => {
   return {
     type: TOGGLE_REMINDERS,
-    payload: !toggleState
+    id: item.id
   };
 };
 

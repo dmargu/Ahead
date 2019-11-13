@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MenuButton from '../headerComponents/MenuButton';
-import ReminderToggle from '../headerComponents/ReminderToggle';
 
-
-// make a component
 class Header extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
           <MenuButton navigation={this.props.navigation} />
           <Text style={styles.screenTitle}>{this.props.screenName}</Text>
-          <ReminderToggle />
+          <Text style={styles.premium}>P</Text>
       </View>
     );
   }
@@ -36,6 +33,11 @@ const styles = StyleSheet.create({
   },
   screenTitle: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#cdd2c9'
+  },
+  premium: {
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#cdd2c9'
   }

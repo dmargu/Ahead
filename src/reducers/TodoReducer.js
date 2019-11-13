@@ -3,7 +3,6 @@ import {
   ADD_TODO,
   CHANGE_DATE,
   REMOVE_TODO,
-  OPEN_ITEM_MODAL,
   TEN_MIN_REMINDER,
   THIRTY_MIN_REMINDER,
   ONE_HOUR_REMINDER,
@@ -13,12 +12,12 @@ import {
   ITEM_MENU_TOGGLED,
   TOGGLE_NOTES_MODAL,
   TOGGLE_DATE_MODAL,
-  CLEAR_DATE
+  CLEAR_DATE,
+  TOGGLE_REMINDERS
 } from '../actions/types';
 
 const initialState = {
   todos: [],
-  currItem: {}
 };
 
 const todos = (state = initialState, action) => {
@@ -41,7 +40,8 @@ const todos = (state = initialState, action) => {
           startReminder: false,
           itemMenuToggled: false,
           dateModalVisible: false,
-          notesModalVisible: false
+          notesModalVisible: false,
+          remindersToggled: false
         }]
       };
     case CHANGE_DATE:
@@ -78,11 +78,12 @@ const todos = (state = initialState, action) => {
         todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, notesModalVisible: !item.notesModalVisible } : item))
       };
-    case OPEN_ITEM_MODAL:
-      return {
-        ...state,
-        currItem: state.todos.find((todo) => todo.id === action.id)
-      };
+    case TOGGLE_REMINDERS:
+    return {
+      ...state,
+      todos: state.todos.map(item => ((item.id === action.id)
+        ? { ...item, remindersToggled: !item.remindersToggled } : item))
+    };
     case TEN_MIN_REMINDER:
       return {
         ...state,

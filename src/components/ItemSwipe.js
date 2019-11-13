@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { toggleNotesModal, toggleDateModal } from '../actions';
+import { toggleNotesModal, toggleDateModal, toggleReminders } from '../actions';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -75,7 +75,7 @@ class ItemSwipeRow extends Component {
         this.props.toggleNotesModal, 'pencil', '#F0A202', 128, progress
       )}
       {this.renderRightAction(
-        this.props.toggleDateModal, 'bell', '#db5461', 64, progress
+        this.props.toggleReminders, 'bell', '#db5461', 64, progress
       )}
     </View>
   );
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null, { toggleNotesModal, toggleDateModal })(ItemSwipeRow);
+export default connect(null, { toggleNotesModal, toggleDateModal, toggleReminders })(ItemSwipeRow);
