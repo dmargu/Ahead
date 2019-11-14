@@ -47,3 +47,5 @@ export const ITEM_MENU_TOGGLED = 'itemMenuToggled';
 export const TOGGLE_NOTES_MODAL = 'OpenNotesModal';
 
 export const TOGGLE_DATE_MODAL = 'toggleDateModal';
+
+export const ADD_NOTIFICATION_ID = 'addNotifiactionID';

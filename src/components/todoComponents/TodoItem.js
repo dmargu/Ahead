@@ -57,6 +57,10 @@ class TodoItem extends Component {
           {moment(todoItem.date).format('h:mm a')}
         </Text>
       );
+    } else if (moment().isAfter(todoItem.date, 'day')) {
+      return (
+        <Text style={styles.overdueSubtitle}>Overdue</Text>
+      );
     } else if (moment().add(1, 'day').isSame(todoItem.date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
@@ -68,10 +72,6 @@ class TodoItem extends Component {
         <Text style={styles.dateSubtitle}>
           {moment(todoItem.date).format('dddd h:mm a')}
         </Text>
-      );
-    } else if (moment().isAfter(todoItem.date, 'day')) {
-      return (
-        <Text style={styles.overdueSubtitle}>Overdue</Text>
       );
     }
     return (

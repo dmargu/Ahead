@@ -1,4 +1,5 @@
 import { PERSIST_REHYDRATE } from 'redux-persist/lib/constants';
+import shortid from 'shortid';
 import {
   ADD_TODO,
   CHANGE_DATE,
@@ -28,7 +29,7 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         todos: [...state.todos, {
-          id: state.todos.length,
+          id: shortid.generate(),
           text: action.text,
           notes: null,
           completed: false,
@@ -58,9 +59,6 @@ const todos = (state = initialState, action) => {
       };
     case REMOVE_TODO: {
       const newList = state.todos.filter(item => item.id !== action.id);
-      for (let i = 0, newId = 0; i < newList.length; i++, newId++) {
-        newList[i].id = newId;
-      }
       return {
       ...state,
       todos: newList

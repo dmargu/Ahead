@@ -4,7 +4,8 @@ import {
   THIRTY_MIN_REMINDER,
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
-  START_REMINDER
+  START_REMINDER,
+  ADD_NOTIFICATION_ID
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -62,5 +63,14 @@ export const startReminder = (item) => {
       id: item.id
     });
     scheduleNotification.startReminder(item);
+  };
+};
+
+export const addNotifiactionID = (item, reminderType, notificationID) => {
+  return {
+    type: ADD_NOTIFICATION_ID,
+    notificationID,
+    item,
+    reminderType
   };
 };
