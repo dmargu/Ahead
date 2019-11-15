@@ -8,11 +8,11 @@ import {
   Keyboard,
   View,
   Text,
-  ScrollView
+  //ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import moment from 'moment';
+//import moment from 'moment';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import { addTodo, removeTodo } from '../../actions';
@@ -39,13 +39,6 @@ class MainTodo extends Component {
   componentWillUnmount() {
     this.keyboardDidHideListener.remove();
   }
-  //this component isn't working right.
-  /*shouldComponentUpdate() {
-    if (this.props.dateModalVisible) {
-      return false;
-    }
-    return true;
-  }*/
 
   keyboardDidHide() {
     this.setState({ inputVisible: false });
@@ -199,7 +192,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     todos: state.TodoReducer.todos,
-    dateModalVisible: state.ModalReducer.dateModalVisible
+    //dateModalVisible: state.ModalReducer.dateModalVisible
   };
 }
 

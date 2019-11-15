@@ -8,8 +8,8 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) { //plan here is to stop flatlist from updating when visible
-    case TOGGLE_DATE_MODAL: //not working though it mess up whole thing
+  switch (action.type) { //this could be used to make modals work between multiple flatlists
+    case TOGGLE_DATE_MODAL: //leading to bugs so this is useless code for now
       return { ...state, dateModalVisible: !state.dateModalVisible };
     default:
       return state;

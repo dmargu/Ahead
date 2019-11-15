@@ -2,17 +2,7 @@ import { Notifications } from 'expo';
 import moment from 'moment';
 import { registerForPushNotificationsAsync } from './pushNotificationsRegister';
 import storeConfiguration from '../store';
-import { addNotifiactionID } from '../actions';
-//get the booleans of the reminders and if false register the notification and if true cancel it
-//This function returns a notificationID, haven't figured out what to do with
- //it yet so instead of notificationID = Notifications.etcetc
- //it won't do anything with the ID, in future need some
- //redux array organized by item where each item contains each reminder and is either
- //blank or has the notificationID if there's a scheduled reminder, then pull it off
- //when user tries to cancel notification, right now the false check
- //means nothing because the onPress of the reminders won't work if it is true, but
- //in future giving user's option to cancel should be implemented
- //otherwise it should cancel it right here in an else statement
+import { addNotifiactionID } from '../actions/StorageActions';
 
 const { store } = storeConfiguration();
 
@@ -20,7 +10,7 @@ export const scheduleNotification = {
   async startReminder(item) {
     const permission = await registerForPushNotificationsAsync();
     if (permission) {
-        const notificationID = Notifications.scheduleLocalNotificationAsync(
+        const notificationID = await Notifications.scheduleLocalNotificationAsync(
           (item.notes ?
             {
               title: 'Reminder:',
@@ -36,6 +26,7 @@ export const scheduleNotification = {
             time: item.date
           }
         );
+        store.dispatch(addNotifiactionID(item, 'start', notificationID));
     } else {
       console.log('cannot send notification without permission and an item date.');
     }
@@ -43,7 +34,7 @@ export const scheduleNotification = {
   async tenMinReminder(item) {
     const permission = registerForPushNotificationsAsync();
     if (permission) {
-      const notificationID = Notifications.scheduleLocalNotificationAsync(
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
           {
             title: 'Reminder:',
@@ -59,6 +50,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(10, 'minutes').toDate()
         }
       );
+      store.dispatch(addNotifiactionID(item, 'tenMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
@@ -66,7 +58,7 @@ export const scheduleNotification = {
   async thirtyMinReminder(item) {
     const permission = registerForPushNotificationsAsync();
     if (permission) {
-      const notificationID = Notifications.scheduleLocalNotificationAsync(
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
           {
             title: 'Reminder:',
@@ -82,6 +74,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(30, 'minutes').toDate()
         }
       );
+      store.dispatch(addNotifiactionID(item, 'thirtyMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
@@ -89,7 +82,7 @@ export const scheduleNotification = {
   async oneHourReminder(item) {
     const permission = registerForPushNotificationsAsync();
     if (permission) {
-      const notificationID = Notifications.scheduleLocalNotificationAsync(
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
           {
             title: 'Reminder:',
@@ -105,6 +98,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'hour').toDate()
         }
       );
+      store.dispatch(addNotifiactionID(item, 'oneHour', notificationID));
     } else {
       console.log('cannot send notification without permission.');
       }
@@ -112,7 +106,7 @@ export const scheduleNotification = {
   async oneDayReminder(item) {
     const permission = registerForPushNotificationsAsync();
     if (permission) {
-      const notificationID = Notifications.scheduleLocalNotificationAsync(
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
           {
             title: 'Reminder:',
@@ -128,6 +122,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'days').toDate()
         }
       );
+      store.dispatch(addNotifiactionID(item, 'oneDay', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
