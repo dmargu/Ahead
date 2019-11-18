@@ -15,10 +15,10 @@ export const toggleReminders = (item) => {
   };
 };
 
-export const tenMinReminder = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: TEN_MIN_REMINDER,
+export const tenMinReminder = (item) => { //I tried to refactor this to be very similar to
+  return (dispatch) => { //the way cancel notifications is set up but it didn't work because
+    dispatch({ //there are issues trying to pull in the schedule notification function into the
+      type: TEN_MIN_REMINDER, //todo reducer
       id: item.id
     });
     scheduleNotification.tenMinReminder(item);

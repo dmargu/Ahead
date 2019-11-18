@@ -40,7 +40,7 @@ const AddTodo = React.forwardRef((props, ref) => {
 });
 
 function textChangeHandle(textInput, props) {
-  const goodInput = textInput.trimLeft();
+  const goodInput = textInput.trimLeft(); //cuts off if space is first character (no input w/out character)
   return (
     props.textChange(goodInput)
   );
@@ -53,10 +53,11 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     borderBottomWidth: 0,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.5,
     shadowRadius: 2,
     paddingLeft: 15,
     backgroundColor: '#555B6E',
+    flexGrow: 1
   },
   input: {
     flex: 1,

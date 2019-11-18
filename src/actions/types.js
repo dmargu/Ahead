@@ -1,7 +1,3 @@
-export const OPEN_PLUS_MODAL = 'openModal';
-
-export const CLOSE_PLUS_MODAL = 'closeModal';
-
 export const OPEN_ITEM_MODAL = 'openItemModal';
 
 export const CLOSE_ITEM_MODAL = 'closeItemModal';
@@ -42,10 +38,14 @@ export const LOGIN_USER = 'loginUser';
 
 export const LOGOUT_USER = 'logoutUser';
 
-export const ITEM_MENU_TOGGLED = 'itemMenuToggled';
-
 export const TOGGLE_NOTES_MODAL = 'OpenNotesModal';
 
 export const TOGGLE_DATE_MODAL = 'toggleDateModal';
 
 export const ADD_NOTIFICATION_ID = 'addNotifiactionID';
+                                                        //cancels individual notification and makes that
+export const CANCEL_NOTIFICATION = 'cancelNotification'; //notification inactive
+
+export const CANCEL_ALL_NOTIFICATIONS = 'cancelAllNotifications'; //deletes all notifications for item
+//also conditionally checks if it's clear date (true or false) and if true makes reminders inactive
+export const RESCHEDULE_NOTIFICATIONS = 'rescheduleNotifications'; //reschedules active notifs after change

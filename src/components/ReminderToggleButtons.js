@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import {
   tenMinReminder,
   thirtyMinReminder,
   oneHourReminder,
   oneDayReminder,
-  startReminder
-} from '../actions/ReminderActions';
+  startReminder,
+  cancelNotification
+} from '../actions';
 
 class ReminderToggleButtons extends Component {
   render() {
@@ -18,6 +20,7 @@ class ReminderToggleButtons extends Component {
       red: '#db5461',
       green: '#82ff9e'
     };
+    const permission = registerForPushNotificationsAsync();
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -27,9 +30,11 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           onPress={() => {
-            if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
+            if (item.startReminder === false && moment(new Date()).isBefore(item.date) && permission) {
               this.props.startReminder(item);
-              console.log(item.text);
+            }
+            if (item.startReminder) {
+              this.props.cancelNotification(item, 'start');
             }
           }}
         >
@@ -50,9 +55,13 @@ class ReminderToggleButtons extends Component {
           ]}
           onPress={() => {
             if (item.tenMinReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate())
+              && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate()
+              && permission)
             ) {
               this.props.tenMinReminder(item);
+            }
+            if (item.tenMinReminder) {
+              this.props.cancelNotification(item, 'tenMin');
             }
           }}
         >
@@ -73,9 +82,13 @@ class ReminderToggleButtons extends Component {
           ]}
           onPress={() => {
             if (item.thirtyMinReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate())
+              && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate()
+              && permission)
             ) {
               this.props.thirtyMinReminder(item);
+            }
+            if (item.thirtyMinReminder) {
+              this.props.cancelNotification(item, 'thirtyMin');
             }
           }}
         >
@@ -96,9 +109,13 @@ class ReminderToggleButtons extends Component {
           ]}
           onPress={() => {
             if (item.oneHourReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate())
+              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate()
+              && permission)
             ) {
               this.props.oneHourReminder(item);
+            }
+            if (item.oneHourReminder) {
+              this.props.cancelNotification(item, 'oneHour');
             }
           }}
         >
@@ -119,9 +136,13 @@ class ReminderToggleButtons extends Component {
           ]}
           onPress={() => {
             if (item.oneDayReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate())
+              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate()
+              && permission)
             ) {
               this.props.oneDayReminder(item);
+            }
+            if (item.oneDayReminder) {
+              this.props.cancelNotification(item, 'oneDay');
             }
           }}
         >
@@ -169,5 +190,6 @@ export default connect(null,
     thirtyMinReminder,
     oneDayReminder,
     oneHourReminder,
-    startReminder
+    startReminder,
+    cancelNotification
   })(ReminderToggleButtons);

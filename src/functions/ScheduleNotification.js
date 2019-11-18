@@ -2,7 +2,7 @@ import { Notifications } from 'expo';
 import moment from 'moment';
 import { registerForPushNotificationsAsync } from './pushNotificationsRegister';
 import storeConfiguration from '../store';
-import { addNotifiactionID } from '../actions/StorageActions';
+import { addNotificationID } from '../actions/StorageActions';
 
 const { store } = storeConfiguration();
 
@@ -25,8 +25,9 @@ export const scheduleNotification = {
           {
             time: item.date
           }
-        );
-        store.dispatch(addNotifiactionID(item, 'start', notificationID));
+        ); //add id to state so we can grab it and cancel it if needed in future
+        store.dispatch(addNotificationID(item, 'start', notificationID));
+        console.log(item.id, 'start', notificationID);
     } else {
       console.log('cannot send notification without permission and an item date.');
     }
@@ -50,7 +51,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(10, 'minutes').toDate()
         }
       );
-      store.dispatch(addNotifiactionID(item, 'tenMin', notificationID));
+      store.dispatch(addNotificationID(item, 'tenMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
@@ -74,7 +75,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(30, 'minutes').toDate()
         }
       );
-      store.dispatch(addNotifiactionID(item, 'thirtyMin', notificationID));
+      store.dispatch(addNotificationID(item, 'thirtyMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
@@ -98,7 +99,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'hour').toDate()
         }
       );
-      store.dispatch(addNotifiactionID(item, 'oneHour', notificationID));
+      store.dispatch(addNotificationID(item, 'oneHour', notificationID));
     } else {
       console.log('cannot send notification without permission.');
       }
@@ -122,7 +123,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'days').toDate()
         }
       );
-      store.dispatch(addNotifiactionID(item, 'oneDay', notificationID));
+      store.dispatch(addNotificationID(item, 'oneDay', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }

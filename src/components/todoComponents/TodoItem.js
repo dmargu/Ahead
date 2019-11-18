@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
-import { toggleItemMenu } from '../../actions/ModalActions';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from '../ItemSwipe';
 
@@ -20,7 +18,6 @@ class TodoItem extends Component {
             completeItem={this.props.deleteTodo}
           >
             <TouchableHighlight
-              onPress={() => this.props.toggleItemMenu(todoItem)}
               underlayColor={null}
             >
               <ListItem
@@ -105,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { toggleItemMenu })(TodoItem);
+export default TodoItem;

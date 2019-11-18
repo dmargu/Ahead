@@ -6,7 +6,7 @@ import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
 
 class LoginForm extends Component {
-  renderError() {
+  renderError() { //make keyboard hide on press would look smoother
     if (this.props.error) { //if user enters wrong password it says email address is used by
       return Alert.alert( //another account. should change this to be incorrect password here
         'Error',
@@ -72,6 +72,7 @@ class LoginForm extends Component {
           <TextInput
             style={styles.inputs}
             placeholder="Email"
+            placeholderTextColor='#28313b'
             keyboardType="email-address"
             underlineColorAndroid='transparent'
             autoCapitalize='none'
@@ -91,6 +92,7 @@ class LoginForm extends Component {
           <TextInput
             style={styles.inputs}
             placeholder="Password"
+            placeholderTextColor='#28313b'
             secureTextEntry
             underlineColorAndroid='transparent'
             autoCapitalize='none'

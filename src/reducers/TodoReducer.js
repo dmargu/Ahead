@@ -1,4 +1,3 @@
-import { PERSIST_REHYDRATE } from 'redux-persist/lib/constants';
 import shortid from 'shortid';
 import {
   ADD_TODO,
@@ -10,11 +9,11 @@ import {
   ONE_DAY_REMINDER,
   START_REMINDER,
   CHANGE_NOTES,
-  ITEM_MENU_TOGGLED,
   TOGGLE_NOTES_MODAL,
   TOGGLE_DATE_MODAL,
   CLEAR_DATE,
-  TOGGLE_REMINDERS
+  TOGGLE_REMINDERS,
+  CANCEL_NOTIFICATION
 } from '../actions/types';
 
 const initialState = {
@@ -23,8 +22,6 @@ const initialState = {
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
-    case PERSIST_REHYDRATE:
-      return action.payload.TodoReducer || [];
     case ADD_TODO:
       return {
         ...state,
@@ -39,7 +36,6 @@ const todos = (state = initialState, action) => {
           oneHourReminder: false,
           oneDayReminder: false,
           startReminder: false,
-          itemMenuToggled: false,
           dateModalVisible: false,
           notesModalVisible: false,
           remindersToggled: false
@@ -118,12 +114,41 @@ const todos = (state = initialState, action) => {
         todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, notes: action.payload } : item))
       };
-    case ITEM_MENU_TOGGLED:
-      return {
-        ...state,
-        todos: state.todos.map(item => ((item.id === action.payload.id)
-          ? { ...item, itemMenuToggled: !item.itemMenuToggled } : item))
-      };
+    case CANCEL_NOTIFICATION:
+      switch (action.reminderType) {
+        case 'start':
+          return {
+            ...state,
+            todos: state.todos.map(item => ((item.id === action.id)
+              ? { ...item, startReminder: !item.startReminder } : item))
+          };
+        case 'tenMin':
+          return {
+            ...state,
+            todos: state.todos.map(item => ((item.id === action.id)
+              ? { ...item, tenMinReminder: !item.tenMinReminder } : item))
+          };
+        case 'thirtyMin':
+          return {
+            ...state,
+            todos: state.todos.map(item => ((item.id === action.id)
+              ? { ...item, thirtyMinReminder: !item.thirtyMinReminder } : item))
+          };
+        case 'oneHour':
+          return {
+            ...state,
+            todos: state.todos.map(item => ((item.id === action.id)
+              ? { ...item, oneHourReminder: !item.oneHourReminder } : item))
+          };
+        case 'oneDay':
+          return {
+            ...state,
+            todos: state.todos.map(item => ((item.id === action.id)
+              ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
+          };
+        default:
+          return state;
+      }
     default:
       return state;
   }
