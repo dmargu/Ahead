@@ -7,7 +7,7 @@ export const calendarIcon = <Ionicons name='md-calendar' size={32} color='#ff533
 
 export const habitIcon = <Ionicons name='md-repeat' size={32} color='#ff5330' />;
 
-export const settingsIcon = <Ionicons name='md-settings' size={32} color='#ff5330' />;
+export const settingsIcon = <Ionicons name='md-settings' size={32} color={'#ff5330'} />;
 
 export const todoIcon = <Ionicons name='md-clipboard' size={32} color='#ff5330' />;
 

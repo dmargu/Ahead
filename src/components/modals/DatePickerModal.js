@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Modal, Platform, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { toggleDateModal, clearDate } from '../../actions';
+import { toggleDateModal, clearDate, cancelAllNotifications } from '../../actions';
 import IosDatePicker from '../common/IosDatePicker';
 import AndroidDatePicker from '../common/AndroidDatePicker';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 
 class DatePickerModal extends Component {
+  onClearDatePress() {
+    //this.props.cancelAllNotifications(this.props.item);
+    this.props.clearDate(this.props.item);
+  }
   render() {
     const item = this.props.item;
     return (
@@ -18,7 +22,7 @@ class DatePickerModal extends Component {
               <View style={{ padding: 10 }}>
                 <TouchableOpacity
                   style={[styles.clearDateButton, { backgroundColor: item.date ? '#db5461' : null }]}
-                  onPress={() => this.props.clearDate(item)}
+                  onPress={this.onClearDatePress.bind(this)}
                 >
                   <Text style={[styles.clearDateText, { color: item.date ? '#fcefef' : '#db5461' }]}>
                     Clear Date
@@ -83,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { toggleDateModal, clearDate })(DatePickerModal);
+export default connect(null, { toggleDateModal, clearDate, cancelAllNotifications })(DatePickerModal);

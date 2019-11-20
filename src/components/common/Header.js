@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MenuButton from '../headerComponents/MenuButton';
+import SettingsButton from '../headerComponents/SettingsButton';
 
 class Header extends Component {
   render() {
@@ -8,7 +9,7 @@ class Header extends Component {
       <View style={styles.viewStyle}>
           <MenuButton navigation={this.props.navigation} />
           <Text style={styles.screenTitle}>{this.props.screenName}</Text>
-          <Text style={styles.premium}>P</Text>
+          <SettingsButton navigation={this.props.navigation} />
       </View>
     );
   }

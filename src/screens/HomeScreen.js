@@ -23,8 +23,7 @@ class HomeScreen extends Component {
   }
   componentDidMount() {
     registerForPushNotificationsAsync();
-    this.keyboardDidHideListener =
-      Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
     this.setState({ inputVisible: false });
   }
 

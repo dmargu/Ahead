@@ -7,6 +7,7 @@ import ModalReducer from '../reducers/ModalReducer';
 import TodoReducer from '../reducers/TodoReducer';
 import RemindersReducer from '../reducers/RemindersReducer';
 import AuthReducer from '../reducers/AuthReducer';
+import StorageReducer from '../reducers/StorageReducer';
 
 /*eslint-disable no-undef*/
 //eslint-disable-next-line no-underscore-dangle
@@ -14,9 +15,16 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /*eslint-enable no-undef*/
 
 const todoPersistConfig = {
-  key: 'todoReducer',
+  key: 'TodoReducer',
   storage: AsyncStorage,
   whitelist: ['todos'],
+  stateReconciler: autoMergeLevel2
+};
+
+const storageConfig = {
+  key: 'StorageReducer',
+  storage: AsyncStorage,
+  whitelist: ['IDs'],
   stateReconciler: autoMergeLevel2
 };
 
@@ -27,25 +35,17 @@ const remindersPersistConfig = {
   stateReconciler: autoMergeLevel2
 };
 
-const rootPersistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['TodoReducer', 'RemindersReducer'],
-  stateReconciler: autoMergeLevel2
-};
-
 const reducers = combineReducers({
   ModalReducer,
-  TodoReducer: persistReducer(todoPersistConfig, TodoReducer),
   RemindersReducer: persistReducer(remindersPersistConfig, RemindersReducer),
+  StorageReducer: persistReducer(storageConfig, StorageReducer),
+  TodoReducer: persistReducer(todoPersistConfig, TodoReducer),
   AuthReducer
 });
 
-const persistedReducer = persistReducer(rootPersistConfig, reducers);
-
 export default function storeConfiguration() {
   const store = createStore(
-    persistedReducer,
+    reducers,
     {},
     composeEnhancers(
       applyMiddleware(ReduxThunk)

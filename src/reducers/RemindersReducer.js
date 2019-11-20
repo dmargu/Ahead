@@ -1,8 +1,11 @@
 import { Notifications } from 'expo';
 import {
   ADD_NOTIFICATION_ID,
-  CANCEL_NOTIFICATION
+  CANCEL_NOTIFICATION,
+  CANCEL_ALL_NOTIFICATIONS,
+  RESCHEDULE_NOTIFICATIONS
 } from '../actions/types';
+//import { scheduleNotification } from '../functions/ScheduleNotification';
 
 const initialState = {
   notificationIDs: []
@@ -12,7 +15,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_NOTIFICATION_ID:
       return {
-        ...state,
         notificationIDs: [...state.notificationIDs,
           {
             itemID: action.item.id,
@@ -20,16 +22,37 @@ export default (state = initialState, action) => {
             notificationID: action.notificationID
           }]
       };
-    case CANCEL_NOTIFICATION: { //works perfectly if different session, same session doesn't work
-      const notificationData = state.notificationIDs.find(
-        obj => (obj.itemID === action.id && obj.reminderType === action.reminderType)
-      ); //notification data will turn up undefined even though it is in the redux store. makes no sense.
-      console.log(notificationData);
-      Notifications.cancelScheduledNotificationAsync(notificationData.notificationID);
-
-      const newList = state.notificationIDs.filter(obj => obj !== notificationData);
-      return { ...state, notificationIDs: newList };
+    case CANCEL_NOTIFICATION: {
+      console.log(state.notificationIDs);
+      return { ...state };
     }
+    case CANCEL_ALL_NOTIFICATIONS: {
+      const notificationData = state.notificationIDs.filter(obj => (obj.itemID === action.id));
+      console.log(notificationData);
+      if (notificationData) {
+        for (let x = 0; x < notificationData.length; x++) {
+            Notifications.cancelScheduledNotificationAsync(notificationData[x].notificationID);
+        }
+        const newList = state.notificationIDs.filter(obj => obj.itemID !== action.id);
+        return { notificationIDs: newList };
+      }
+      return { ...state };
+    }
+    /*case RESCHEDULE_NOTIFICATIONS: {
+      const notificationData = state.notificationIDs.filter(obj => (obj.itemID === action.item.id));
+      console.log(notificationData);
+      if (notificationData) {
+        for (let x = 0; x < notificationData.length; x++) {
+            Notifications.cancelScheduledNotificationAsync(notificationData[x].notificationID);
+        }
+        if (action.item.startReminder) {
+          scheduleNotification.startReminder(action.item);
+        }
+        const newList = state.notificationIDs.filter(obj => !obj.includes(notificationData));
+        return { notificationIDs: newList };
+      }
+      return { ...state };
+    }*/
     default:
       return state;
   }

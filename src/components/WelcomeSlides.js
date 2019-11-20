@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, Text, FlatList, StyleSheet, Dimensions, TouchableHighlight } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -8,14 +7,12 @@ class WelcomeSlides extends Component {
   renderLastSlide(index) {
     if (index === this.props.data.length - 1) {
       return (
-        <Button
-          title='Bring me to signup'
-          buttonStyle={styles.buttonStyle}
-          onPress={this.props.onComplete} // use parentheses on callback when you want function
-                                          // to be called once the button is rendered, without the
-                                         // parens the callback is only called when button
-                                         // is pressed
-        />
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          onPress={this.props.onComplete}
+        >
+          <Text style={styles.signUpText}>Take me to signup</Text>
+        </TouchableHighlight>
       );
     }
   }
@@ -57,9 +54,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white'
   },
-  buttonStyle: {
-    backgroundColor: '#0288d1',
-    marginTop: 15
+  buttonContainer: {
+    height: 45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 50,
+    width: 250,
+    borderRadius: 30,
+    backgroundColor: '#db5461',
+  },
+  signUpText: {
+    color: '#fcefef',
   }
 });
 

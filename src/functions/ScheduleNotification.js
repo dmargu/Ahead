@@ -26,14 +26,16 @@ export const scheduleNotification = {
             time: item.date
           }
         ); //add id to state so we can grab it and cancel it if needed in future
-        store.dispatch(addNotificationID(item, 'start', notificationID));
-        console.log(item.id, 'start', notificationID);
+        //store.dispatch(addNotificationID(item, 'start', notificationID));
+        //console.log(item.id, 'start', notificationID);
+        //console.log(store.getState().StorageReducer.IDs);
+        //console.log(store.getState().RemindersReducer.notificationIDs);
     } else {
       console.log('cannot send notification without permission and an item date.');
     }
   },
   async tenMinReminder(item) {
-    const permission = registerForPushNotificationsAsync();
+    const permission = await registerForPushNotificationsAsync();
     if (permission) {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
@@ -51,13 +53,13 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(10, 'minutes').toDate()
         }
       );
-      store.dispatch(addNotificationID(item, 'tenMin', notificationID));
+      //store.dispatch(addNotificationID(item, 'tenMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
   },
   async thirtyMinReminder(item) {
-    const permission = registerForPushNotificationsAsync();
+    const permission = await registerForPushNotificationsAsync();
     if (permission) {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
@@ -75,13 +77,13 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(30, 'minutes').toDate()
         }
       );
-      store.dispatch(addNotificationID(item, 'thirtyMin', notificationID));
+      //store.dispatch(addNotificationID(item, 'thirtyMin', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }
   },
   async oneHourReminder(item) {
-    const permission = registerForPushNotificationsAsync();
+    const permission = await registerForPushNotificationsAsync();
     if (permission) {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
@@ -99,13 +101,13 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'hour').toDate()
         }
       );
-      store.dispatch(addNotificationID(item, 'oneHour', notificationID));
+      //store.dispatch(addNotificationID(item, 'oneHour', notificationID));
     } else {
       console.log('cannot send notification without permission.');
       }
   },
   async oneDayReminder(item) {
-    const permission = registerForPushNotificationsAsync();
+    const permission = await registerForPushNotificationsAsync();
     if (permission) {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
         (item.notes ?
@@ -123,7 +125,7 @@ export const scheduleNotification = {
           time: moment(item.date).subtract(1, 'days').toDate()
         }
       );
-      store.dispatch(addNotificationID(item, 'oneDay', notificationID));
+      //store.dispatch(addNotificationID(item, 'oneDay', notificationID));
     } else {
       console.log('cannot send notification without permission.');
     }

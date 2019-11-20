@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, TextInput } from 'react-native';
+import { View, StyleSheet, Modal, TextInput, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { toggleNotesModal, notesChanged } from '../../actions';
+import { toggleNotesModal, notesChanged, cancelAllNotifications } from '../../actions';
+//import { scheduleNotification } from '../../functions/ScheduleNotification';
 
 class NotesModal extends Component {
+  /*componentDidMount() {
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidHide() {
+    this.props.cancelAllNotifications(this.props.item);
+    if (this.props.item.startReminder) {
+      scheduleNotification.startReminder(this.props.item);
+    }
+    if (this.props.item.tenMinReminder) {
+      scheduleNotification.tenMinReminder(this.props.item);
+    }
+    if (this.props.item.thirtyMinReminder) {
+      scheduleNotification.thirtyMinReminder(this.props.item);
+    }
+    if (this.props.oneHourReminder) {
+      scheduleNotification.oneHourReminder(this.props.item);
+    }
+    if (this.props.oneDayReminder) {
+      scheduleNotification.oneDayReminder(this.props.item);
+    }
+  }*/
+
   onNotesChange(text) {
     this.props.notesChanged(text, this.props.item);
   }
-
   render() {
     const item = this.props.item;
     return (
@@ -65,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { toggleNotesModal, notesChanged })(NotesModal);
+export default connect(null, { toggleNotesModal, notesChanged, cancelAllNotifications })(NotesModal);

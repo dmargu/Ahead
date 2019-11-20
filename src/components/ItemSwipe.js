@@ -4,7 +4,12 @@ import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { toggleNotesModal, toggleDateModal, toggleReminders } from '../actions';
+import {
+  toggleNotesModal,
+  toggleDateModal,
+  toggleReminders,
+  cancelAllNotifications
+} from '../actions';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -82,6 +87,7 @@ class ItemSwipeRow extends Component {
 
   onSwipeableLeftOpen = () => {
     this.props.completeItem();
+    //this.props.cancelAllNotifications(this.props.item);
     this.close();
   }
 
@@ -121,4 +127,9 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null, { toggleNotesModal, toggleDateModal, toggleReminders })(ItemSwipeRow);
+export default connect(null, {
+  toggleNotesModal,
+  toggleDateModal,
+  toggleReminders,
+  cancelAllNotifications
+})(ItemSwipeRow);
