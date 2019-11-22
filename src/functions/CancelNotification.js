@@ -2,20 +2,18 @@ import storeConfiguration from '../store';
 
 function cancelSingleNotification(item, reminderType) {
   const { store } = storeConfiguration();
-  const state = store.getState().RemindersReducer.notificationIDs;
-  //console.log(state);
-  const storage = store.getState().StorageReducer.IDs;
-  //console.log(storage);
-  const notificationData = state.find(
+  const notificationIDs = store.getState().StorageReducer.notificationIDs;
+  console.log(notificationIDs);
+  /*const notificationData = notificationIDs.find(
     obj => (obj.itemID === item.id && obj.reminderType === reminderType)
   );
-  //console.log(notificationData);
-  return notificationData;
+  console.log(notificationData);
+  return notificationData;*/
 }
 
 export default cancelSingleNotification;
 
-/*
+
 case CANCEL_NOTIFICATION: { //works perfectly if different session, same session doesn't work
   console.log(state.notificationIDs);
   const notificationData = state.notificationIDs.find(
@@ -30,4 +28,4 @@ case CANCEL_NOTIFICATION: { //works perfectly if different session, same session
   }
   console.log('did not work');
   return { ...state };
-}*/
+}

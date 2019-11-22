@@ -11,9 +11,18 @@ import {
   cancelNotification,
   testing
 } from '../actions';
-import { scheduleNotification } from '../functions/ScheduleNotification';
 
 class ReminderToggleButtons extends Component {
+  constructor() {
+    super();
+    this.state = {
+      startButtonDisabled: false,
+      tenMinButtonDisabled: false,
+      thirtyMinButtonDisabled: false,
+      oneHourButtonDisabled: false,
+      oneDayButtonDisabled: false
+    };
+  }
   render() {
     const item = this.props.item;
     const colors = {
@@ -29,13 +38,15 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.startReminder ? colors.green : null
             }
           ]}
+          disabled={this.state.startButtonDisabled}
           onPress={() => {
+            this.setState({ startButtonDisabled: true });
+            setTimeout(() => this.setState({ startButtonDisabled: false }), 1500);
             if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
-              this.props.startReminder(item, 'start');
+              this.props.startReminder(item);
             }
             if (item.startReminder) {
-              this.props.cancelNotification();
-              //this.props.cancelNotification(item, 'start');
+              this.props.cancelNotification(item, 'start');
             }
           }}
         >
@@ -54,14 +65,17 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.tenMinReminder ? colors.green : null
             }
           ]}
+          disabled={this.state.tenMinButtonDisabled}
           onPress={() => {
+            this.setState({ tenMinButtonDisabled: true });
+            setTimeout(() => this.setState({ tenMinButtonDisabled: false }), 1500);
             if (item.tenMinReminder === false
               && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate())
             ) {
               this.props.tenMinReminder(item);
             }
             if (item.tenMinReminder) {
-              //this.props.cancelNotification(item, 'tenMin');
+              this.props.cancelNotification(item, 'tenMin');
             }
           }}
         >
@@ -80,14 +94,17 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.thirtyMinReminder ? colors.green : null
             }
           ]}
+          disabled={this.state.thirtyMinButtonDisabled}
           onPress={() => {
+            this.setState({ thirtyMinButtonDisabled: true });
+            setTimeout(() => this.setState({ thirtyMinButtonDisabled: false }), 1500);
             if (item.thirtyMinReminder === false
               && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate())
             ) {
               this.props.thirtyMinReminder(item);
             }
             if (item.thirtyMinReminder) {
-              //this.props.cancelNotification(item, 'thirtyMin');
+              this.props.cancelNotification(item, 'thirtyMin');
             }
           }}
         >
@@ -106,14 +123,17 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.oneHourReminder ? colors.green : null
             }
           ]}
+          disabled={this.state.oneHourButtonDisabled}
           onPress={() => {
+            this.setState({ oneHourButtonDisabled: true });
+            setTimeout(() => this.setState({ oneHourButtonDisabled: false }), 1500);
             if (item.oneHourReminder === false
               && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate())
             ) {
               this.props.oneHourReminder(item);
             }
             if (item.oneHourReminder) {
-              //this.props.cancelNotification(item, 'oneHour');
+              this.props.cancelNotification(item, 'oneHour');
             }
           }}
         >
@@ -132,14 +152,17 @@ class ReminderToggleButtons extends Component {
               backgroundColor: item.oneDayReminder ? colors.green : null
             }
           ]}
+          disabled={this.state.oneDayButtonDisabled}
           onPress={() => {
+            this.setState({ oneDayButtonDisabled: true });
+            setTimeout(() => this.setState({ oneDayButtonDisabled: false }), 1500);
             if (item.oneDayReminder === false
               && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate())
             ) {
               this.props.oneDayReminder(item);
             }
             if (item.oneDayReminder) {
-              //this.props.cancelNotification(item, 'oneDay');
+              this.props.cancelNotification(item, 'oneDay');
             }
           }}
         >

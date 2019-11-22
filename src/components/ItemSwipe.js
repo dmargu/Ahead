@@ -87,7 +87,7 @@ class ItemSwipeRow extends Component {
 
   onSwipeableLeftOpen = () => {
     this.props.completeItem();
-    //this.props.cancelAllNotifications(this.props.item);
+    this.props.cancelAllNotifications(this.props.item);
     this.close();
   }
 

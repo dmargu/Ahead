@@ -17,46 +17,70 @@ export const toggleReminders = (item) => {
 };
 
 export const tenMinReminder = (item) => { //I tried to refactor this to be very similar to
-  return (dispatch) => { //the way cancel notifications is set up but it didn't work because
+  return async (dispatch) => { //the way cancel notifications is set up but it didn't work because
     dispatch({ //there are issues trying to pull in the schedule notification function into the
       type: TEN_MIN_REMINDER, //todo reducer
       id: item.id
     });
-    scheduleNotification.tenMinReminder(item);
+    const notificationID = await scheduleNotification.tenMinReminder(item);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      item,
+      reminderType: 'tenMin',
+      notificationID
+    });
   };
 };
 
 export const thirtyMinReminder = (item) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: THIRTY_MIN_REMINDER,
       id: item.id
     });
-    scheduleNotification.thirtyMinReminder(item);
+    const notificationID = await scheduleNotification.thirtyMinReminder(item);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      item,
+      reminderType: 'thirtyMin',
+      notificationID
+    });
   };
 };
 
 export const oneHourReminder = (item) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: ONE_HOUR_REMINDER,
       id: item.id
     });
-    scheduleNotification.oneHourReminder(item);
+    const notificationID = await scheduleNotification.oneHourReminder(item);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      item,
+      reminderType: 'oneHour',
+      notificationID
+    });
   };
 };
 
 export const oneDayReminder = (item) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: ONE_DAY_REMINDER,
       id: item.id
     });
-    scheduleNotification.oneDayReminder(item);
+    const notificationID = await scheduleNotification.oneDayReminder(item);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      item,
+      reminderType: 'oneDay',
+      notificationID
+    });
   };
 };
 
-export const startReminder = (item, reminderType) => {
+export const startReminder = (item) => {
   return async (dispatch) => {
     dispatch({
       type: START_REMINDER,
@@ -67,7 +91,7 @@ export const startReminder = (item, reminderType) => {
     dispatch({
       type: ADD_NOTIFICATION_ID,
       item,
-      reminderType,
+      reminderType: 'start',
       notificationID
     });
   };

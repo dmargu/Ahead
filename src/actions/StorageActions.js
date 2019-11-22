@@ -4,7 +4,6 @@ import {
   CANCEL_ALL_NOTIFICATIONS,
   RESCHEDULE_NOTIFICATIONS
 } from './types';
-import cancelSingleNotification from '../functions/CancelNotification';
 
 export const addNotificationID = (item, reminderType, notificationID) => {
   return {
@@ -15,28 +14,11 @@ export const addNotificationID = (item, reminderType, notificationID) => {
   };
 };
 
-export const testing = (number) => {
+export const cancelNotification = (item, reminderType) => {
   return {
-    type: 'testing',
-    number
-  };
-};
-
-/*export const cancelNotification = (item, reminderType) => {
-  return (dispatch) => {
-    //cancelSingleNotification(item, reminderType);
-    dispatch({
-      type: CANCEL_NOTIFICATION,
-      item,
-      reminderType,
-      //newList
-    });
-  };
-};*/
-
-export const cancelNotification = () => {
-  return {
-    type: CANCEL_NOTIFICATION
+    type: CANCEL_NOTIFICATION,
+    id: item.id,
+    reminderType,
   };
 };
 
