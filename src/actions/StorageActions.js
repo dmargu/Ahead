@@ -15,7 +15,14 @@ export const addNotificationID = (item, reminderType, notificationID) => {
   };
 };
 
-export const cancelNotification = (item, reminderType) => {
+export const testing = (number) => {
+  return {
+    type: 'testing',
+    number
+  };
+};
+
+/*export const cancelNotification = (item, reminderType) => {
   return (dispatch) => {
     //cancelSingleNotification(item, reminderType);
     dispatch({
@@ -24,6 +31,12 @@ export const cancelNotification = (item, reminderType) => {
       reminderType,
       //newList
     });
+  };
+};*/
+
+export const cancelNotification = () => {
+  return {
+    type: CANCEL_NOTIFICATION
   };
 };
 

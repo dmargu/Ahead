@@ -6,9 +6,9 @@ import { changeDate, cancelAllNotifications } from '../../actions';
 import { scheduleNotification } from '../../functions/ScheduleNotification';
 
 class IosDatePicker extends Component {
-  onDateChangeHandle(date) {
-    //this.props.cancelAllNotifications(this.props.item);
-    this.props.changeDate(date, this.props.item.id);
+  async onDateChangeHandle(date) {
+    //await this.props.cancelAllNotifications(this.props.item);
+    await this.props.changeDate(date, this.props.item.id);
     /*if (this.props.item.startReminder) {
       scheduleNotification.startReminder(this.props.item);
     }

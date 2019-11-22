@@ -24,7 +24,7 @@ const todoPersistConfig = {
 const storageConfig = {
   key: 'StorageReducer',
   storage: AsyncStorage,
-  whitelist: ['IDs'],
+  whitelist: ['notificationIDs'],
   stateReconciler: autoMergeLevel2
 };
 
@@ -37,7 +37,7 @@ const remindersPersistConfig = {
 
 const reducers = combineReducers({
   ModalReducer,
-  RemindersReducer: persistReducer(remindersPersistConfig, RemindersReducer),
+  //RemindersReducer: persistReducer(remindersPersistConfig, RemindersReducer),
   StorageReducer: persistReducer(storageConfig, StorageReducer),
   TodoReducer: persistReducer(todoPersistConfig, TodoReducer),
   AuthReducer

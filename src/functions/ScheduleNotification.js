@@ -2,7 +2,7 @@ import { Notifications } from 'expo';
 import moment from 'moment';
 import { registerForPushNotificationsAsync } from './pushNotificationsRegister';
 import storeConfiguration from '../store';
-import { addNotificationID } from '../actions/StorageActions';
+import { addNotificationID, testing } from '../actions/StorageActions';
 
 const { store } = storeConfiguration();
 
@@ -26,13 +26,9 @@ export const scheduleNotification = {
             time: item.date
           }
         ); //add id to state so we can grab it and cancel it if needed in future
-        //store.dispatch(addNotificationID(item, 'start', notificationID));
-        //console.log(item.id, 'start', notificationID);
-        //console.log(store.getState().StorageReducer.IDs);
-        //console.log(store.getState().RemindersReducer.notificationIDs);
-    } else {
-      console.log('cannot send notification without permission and an item date.');
+        return notificationID;
     }
+    console.log('cannot send notification without permission and an item date.');
   },
   async tenMinReminder(item) {
     const permission = await registerForPushNotificationsAsync();

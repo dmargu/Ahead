@@ -8,8 +8,10 @@ import {
   oneHourReminder,
   oneDayReminder,
   startReminder,
-  cancelNotification
+  cancelNotification,
+  testing
 } from '../actions';
+import { scheduleNotification } from '../functions/ScheduleNotification';
 
 class ReminderToggleButtons extends Component {
   render() {
@@ -29,9 +31,10 @@ class ReminderToggleButtons extends Component {
           ]}
           onPress={() => {
             if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
-              this.props.startReminder(item);
+              this.props.startReminder(item, 'start');
             }
             if (item.startReminder) {
+              this.props.cancelNotification();
               //this.props.cancelNotification(item, 'start');
             }
           }}
@@ -185,5 +188,6 @@ export default connect(null,
     oneDayReminder,
     oneHourReminder,
     startReminder,
-    cancelNotification
+    cancelNotification,
+    testing
   })(ReminderToggleButtons);

@@ -1,7 +1,8 @@
 import { ADD_NOTIFICATION_ID, CANCEL_NOTIFICATION } from '../actions/types';
 
 const initialState = {
-  IDs: []
+  notificationIDs: [],
+  numbers: []
 };
 
 const storage = (state = initialState, action) => {
@@ -9,9 +10,9 @@ const storage = (state = initialState, action) => {
     case ADD_NOTIFICATION_ID:
       return {
         ...state,
-        IDs:
+        notificationIDs:
         [
-          ...state.IDs,
+          ...state.notificationIDs,
           {
             itemID: action.item.id,
             reminderType: action.reminderType,
@@ -20,8 +21,16 @@ const storage = (state = initialState, action) => {
         ]
       };
     case CANCEL_NOTIFICATION:
-      console.log(state.IDs);
+      console.log(state.notificationIDs);
       return { ...state };
+    case 'testing':
+      return {
+        ...state,
+        numbers: [
+          ...state.numbers,
+          action.number
+        ]
+      };
     default:
       return state;
   }

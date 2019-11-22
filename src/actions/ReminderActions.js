@@ -5,6 +5,7 @@ import {
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
   START_REMINDER,
+  ADD_NOTIFICATION_ID
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -55,12 +56,19 @@ export const oneDayReminder = (item) => {
   };
 };
 
-export const startReminder = (item) => {
-  return (dispatch) => {
+export const startReminder = (item, reminderType) => {
+  return async (dispatch) => {
     dispatch({
       type: START_REMINDER,
       id: item.id
     });
-    scheduleNotification.startReminder(item);
+
+    const notificationID = await scheduleNotification.startReminder(item);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      item,
+      reminderType,
+      notificationID
+    });
   };
 };
