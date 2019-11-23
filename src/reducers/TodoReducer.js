@@ -11,6 +11,8 @@ import {
   CHANGE_NOTES,
   TOGGLE_NOTES_MODAL,
   TOGGLE_DATE_MODAL,
+  TOGGLE_ITEM_MODAL,
+  TOGGLE_ITEM_MODAL_DATE_PICKER,
   CLEAR_DATE,
   TOGGLE_REMINDERS,
   CANCEL_NOTIFICATION,
@@ -38,6 +40,8 @@ const todos = (state = initialState, action) => {
           startReminder: false,
           dateModalVisible: false,
           notesModalVisible: false,
+          itemModalVisible: false,
+          itemModalDatePickerVisible: false,
           remindersToggled: false
         }]
       };
@@ -79,6 +83,16 @@ const todos = (state = initialState, action) => {
       return {
         todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, notesModalVisible: !item.notesModalVisible } : item))
+      };
+    case TOGGLE_ITEM_MODAL:
+      return {
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, itemModalVisible: !item.itemModalVisible } : item))
+      };
+    case TOGGLE_ITEM_MODAL_DATE_PICKER:
+      return {
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, itemModalDatePickerVisible: !item.itemModalDatePickerVisible } : item))
       };
     case TOGGLE_REMINDERS:
     return {

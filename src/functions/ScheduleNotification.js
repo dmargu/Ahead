@@ -1,4 +1,5 @@
 import { Notifications } from 'expo';
+import { Alert } from 'react-native';
 import moment from 'moment';
 import { registerForPushNotificationsAsync } from './pushNotificationsRegister';
 
@@ -24,7 +25,14 @@ export const scheduleNotification = {
         );
         return notificationID;
     }
-    console.log('cannot send notification without permission and an item date.');
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   },
   async tenMinReminder(item) {
     const permission = await registerForPushNotificationsAsync();
@@ -47,7 +55,14 @@ export const scheduleNotification = {
       );
       return notificationID;
     }
-    console.log('cannot send notification without permission.');
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   },
   async thirtyMinReminder(item) {
     const permission = await registerForPushNotificationsAsync();
@@ -70,7 +85,14 @@ export const scheduleNotification = {
       );
       return notificationID;
     }
-    console.log('cannot send notification without permission.');
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   },
   async oneHourReminder(item) {
     const permission = await registerForPushNotificationsAsync();
@@ -93,7 +115,14 @@ export const scheduleNotification = {
       );
       return notificationID;
     }
-    console.log('cannot send notification without permission.');
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   },
   async oneDayReminder(item) {
     const permission = await registerForPushNotificationsAsync();
@@ -116,6 +145,13 @@ export const scheduleNotification = {
       );
       return notificationID;
     }
-    console.log('cannot send notification without permission.');
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   }
 };

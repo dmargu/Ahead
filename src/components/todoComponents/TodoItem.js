@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux';
 import { ListItem } from 'react-native-elements';
 import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
+import MainItemModal from '../modals/MainItemModal';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from '../ItemSwipe';
+import { toggleItemModal } from '../../actions';
 
 class TodoItem extends Component {
   render() {
@@ -19,6 +22,7 @@ class TodoItem extends Component {
           >
             <TouchableHighlight
               underlayColor={null}
+              onPress={() => this.props.toggleItemModal(todoItem)}
             >
               <ListItem
                 containerStyle={styles.todoItem}
@@ -41,6 +45,10 @@ class TodoItem extends Component {
 
           {todoItem.dateModalVisible ?
             <DatePickerModal item={todoItem} /> : null
+          }
+
+          {todoItem.itemModalVisible ?
+            <MainItemModal item={todoItem} /> : null
           }
 
         </View>
@@ -102,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TodoItem;
+export default connect(null, { toggleItemModal })(TodoItem);

@@ -1,6 +1,4 @@
-export const OPEN_ITEM_MODAL = 'openItemModal';
-
-export const CLOSE_ITEM_MODAL = 'closeItemModal';
+export const TOGGLE_ITEM_MODAL = 'toggleItemModal';
 
 export const ADD_TODO = 'addTodo';
 
@@ -41,6 +39,8 @@ export const LOGOUT_USER = 'logoutUser';
 export const TOGGLE_NOTES_MODAL = 'OpenNotesModal';
 
 export const TOGGLE_DATE_MODAL = 'toggleDateModal';
+
+export const TOGGLE_ITEM_MODAL_DATE_PICKER = 'toggleItemModalDatePicker';
 
 export const ADD_NOTIFICATION_ID = 'addNotifiactionID';
                                                         //cancels individual notification and makes that
