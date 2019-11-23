@@ -5,7 +5,6 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { AsyncStorage } from 'react-native';
 import ModalReducer from '../reducers/ModalReducer';
 import TodoReducer from '../reducers/TodoReducer';
-import RemindersReducer from '../reducers/RemindersReducer';
 import AuthReducer from '../reducers/AuthReducer';
 import StorageReducer from '../reducers/StorageReducer';
 
@@ -28,16 +27,8 @@ const storageConfig = {
   stateReconciler: autoMergeLevel2
 };
 
-const remindersPersistConfig = {
-  key: 'remindersreducer',
-  storage: AsyncStorage,
-  whitelist: ['notificationIDs'],
-  stateReconciler: autoMergeLevel2
-};
-
 const reducers = combineReducers({
   ModalReducer,
-  //RemindersReducer: persistReducer(remindersPersistConfig, RemindersReducer),
   StorageReducer: persistReducer(storageConfig, StorageReducer),
   TodoReducer: persistReducer(todoPersistConfig, TodoReducer),
   AuthReducer

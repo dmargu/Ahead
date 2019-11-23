@@ -14,6 +14,7 @@ import {
   CLEAR_DATE,
   TOGGLE_REMINDERS,
   CANCEL_NOTIFICATION,
+  CANCEL_ALL_NOTIFICATIONS
 } from '../actions/types';
 
 const initialState = {
@@ -45,19 +46,23 @@ const todos = (state = initialState, action) => {
         todos: state.todos.map(todo => ((todo.id === action.id)
           ? { ...todo, date: action.payload } : todo)),
       };
+    case CANCEL_ALL_NOTIFICATIONS:
+    return {
+      todos: state.todos.map(todo => ((todo.id === action.id)
+        ? {
+          ...todo,
+          startReminder: false,
+          tenMinReminder: false,
+          thirtyMinReminder: false,
+          oneHourReminder: false,
+          oneDayReminder: false
+        }
+        : todo))
+    };
     case CLEAR_DATE:
       return {
         todos: state.todos.map(todo => ((todo.id === action.id)
-          ? {
-            ...todo,
-            date: null,
-            startReminder: false,
-            tenMinReminder: false,
-            thirtyMinReminder: false,
-            oneHourReminder: false,
-            oneDayReminder: false
-          }
-          : todo)),
+          ? { ...todo, date: null } : todo)),
       };
     case REMOVE_TODO: {
       const newList = state.todos.filter(item => item.id !== action.id);

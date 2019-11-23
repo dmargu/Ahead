@@ -2,7 +2,6 @@ import {
   ADD_NOTIFICATION_ID,
   CANCEL_NOTIFICATION,
   CANCEL_ALL_NOTIFICATIONS,
-  RESCHEDULE_NOTIFICATIONS
 } from './types';
 
 export const addNotificationID = (item, reminderType, notificationID) => {
@@ -26,12 +25,5 @@ export const cancelAllNotifications = (item) => {
   return {
     type: CANCEL_ALL_NOTIFICATIONS,
     id: item.id,
-  };
-};
-
-export const rescheduleNotifications = (item) => {
-  return {
-    type: RESCHEDULE_NOTIFICATIONS,
-    item
   };
 };

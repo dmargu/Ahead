@@ -9,7 +9,7 @@ import ReminderToggleButtons from '../ReminderToggleButtons';
 
 class DatePickerModal extends Component {
   onClearDatePress() {
-    //this.props.cancelAllNotifications(this.props.item);
+    this.props.cancelAllNotifications(this.props.item);
     this.props.clearDate(this.props.item);
   }
   render() {

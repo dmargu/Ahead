@@ -29,7 +29,6 @@ const storage = (state = initialState, action) => {
         obj => (obj.itemID === action.id && obj.reminderType === action.reminderType)
       );
       Notifications.cancelScheduledNotificationAsync(notificationData.notificationID);
-      console.log(notificationData);
       const newList = state.notificationIDs.filter(obj => obj !== notificationData);
       return { notificationIDs: newList };
     }

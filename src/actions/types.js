@@ -47,5 +47,3 @@ export const ADD_NOTIFICATION_ID = 'addNotifiactionID';
 export const CANCEL_NOTIFICATION = 'cancelNotification'; //notification inactive
 
 export const CANCEL_ALL_NOTIFICATIONS = 'cancelAllNotifications'; //deletes all notifications for item
-
-export const RESCHEDULE_NOTIFICATIONS = 'rescheduleNotifications'; //reschedules active notifs after change

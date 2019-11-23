@@ -2,28 +2,12 @@ import React, { Component } from 'react';
 import { DatePickerIOS } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { changeDate, cancelAllNotifications } from '../../actions';
-import { scheduleNotification } from '../../functions/ScheduleNotification';
+import { changeDate, cancelAllNotifications, addNotificationID } from '../../actions';
 
 class IosDatePicker extends Component {
   async onDateChangeHandle(date) {
-    //await this.props.cancelAllNotifications(this.props.item);
+    await this.props.cancelAllNotifications(this.props.item);
     await this.props.changeDate(date, this.props.item.id);
-    /*if (this.props.item.startReminder) {
-      scheduleNotification.startReminder(this.props.item);
-    }
-    if (this.props.item.tenMinReminder) {
-      scheduleNotification.tenMinReminder(this.props.item);
-    }
-    if (this.props.item.thirtyMinReminder) {
-      scheduleNotification.thirtyMinReminder(this.props.item);
-    }
-    if (this.props.oneHourReminder) {
-      scheduleNotification.oneHourReminder(this.props.item);
-    }
-    if (this.props.oneDayReminder) {
-      scheduleNotification.oneDayReminder(this.props.item);
-    }*/
   }
   render() {
     const item = this.props.item;
@@ -38,4 +22,4 @@ class IosDatePicker extends Component {
   }
 }
 
-export default connect(null, { changeDate, cancelAllNotifications })(IosDatePicker);
+export default connect(null, { changeDate, cancelAllNotifications, addNotificationID })(IosDatePicker);

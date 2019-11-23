@@ -1,41 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, TextInput, Keyboard } from 'react-native';
+import { View, StyleSheet, Modal, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { toggleNotesModal, notesChanged, cancelAllNotifications } from '../../actions';
-//import { scheduleNotification } from '../../functions/ScheduleNotification';
+import { toggleNotesModal, notesChanged } from '../../actions';
 
-class NotesModal extends Component {
-  /*componentDidMount() {
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidHideListener.remove();
-  }
-
-  keyboardDidHide() {
-    this.props.cancelAllNotifications(this.props.item);
-    if (this.props.item.startReminder) {
-      scheduleNotification.startReminder(this.props.item);
-    }
-    if (this.props.item.tenMinReminder) {
-      scheduleNotification.tenMinReminder(this.props.item);
-    }
-    if (this.props.item.thirtyMinReminder) {
-      scheduleNotification.thirtyMinReminder(this.props.item);
-    }
-    if (this.props.oneHourReminder) {
-      scheduleNotification.oneHourReminder(this.props.item);
-    }
-    if (this.props.oneDayReminder) {
-      scheduleNotification.oneDayReminder(this.props.item);
-    }
-  }*/
-
-  onNotesChange(text) {
-    this.props.notesChanged(text, this.props.item);
-  }
+class NotesModal extends Component { //right now I don't know how to reschedule notifications after cancelling
+  onNotesChange(text) { //the async functions to do that with expo take like a second so it's too much of a
+    this.props.notesChanged(text, this.props.item); //process to do that now didn't work on change date
+  } //something to fix with the future so for now notifications will send with old notes unless cancelled
   render() {
     const item = this.props.item;
     return (
@@ -92,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { toggleNotesModal, notesChanged, cancelAllNotifications })(NotesModal);
+export default connect(null, { toggleNotesModal, notesChanged })(NotesModal);
