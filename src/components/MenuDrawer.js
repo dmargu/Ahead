@@ -9,7 +9,8 @@ import {
 import {
   homeIcon,
   calendarIcon,
-  habitIcon,
+  //habitIcon,
+  classesIcon,
   settingsIcon,
   todoIcon,
   aheadArrow
@@ -41,13 +42,13 @@ class MenuDrawer extends Component {
             {this.navLink('Home', 'Home', homeIcon)}
             {this.navLink('Calendar', 'Calendar', calendarIcon)}
             {this.navLink('Todo', 'To-Do\'s', todoIcon)}
-            {this.navLink('Habits', 'Habits', habitIcon)}
+            {this.navLink('Classes', 'Classes', classesIcon)}
             {this.navLink('Settings', 'Settings', settingsIcon)}
           </View>
         </ScrollView>
           <View style={styles.footer}>
             <Text style={styles.description}>Ahead</Text>
-            <Text style={styles.version}>v1.0.3</Text>
+            <Text style={styles.version}>v1.0.4</Text>
           </View>
       </View>
 

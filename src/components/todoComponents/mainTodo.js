@@ -18,14 +18,9 @@ const HEIGHT = Dimensions.get('window').height;
 
 class MainTodo extends Component {
   render() {
-    const headerString = 'To-Do\'s';
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
     {/*<ScrollView>*/}
-          <View style={styles.headerViewStyle}>
-            <Text style={styles.headerTextStyle}>{headerString}</Text>
-          </View>
-
           <FlatList
             data={_.sortBy(this.props.todos, (item) => {
               return item.date;

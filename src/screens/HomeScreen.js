@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, Keyboard, InputAccessoryView, StyleSheet } from 'react-native';
+import { View, Dimensions, Keyboard, InputAccessoryView, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 //import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 import Header from '../components/common/Header';
@@ -47,10 +47,14 @@ class HomeScreen extends Component {
     this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
   }
   render() { //in future change inputAccessory to <KeyboardAccessoryView hideBorder> for android function
-    return ( //doesn't work right now though for some reason the button won't press
+    const headerString = 'To-Do\'s'; //doesn't work right now though for some reason the button won't press
+    return (
       <View style={styles.container}>
         <Header navigation={this.props.navigation} screenName='Home' />
         {/*<TodayIncludes />*/}
+        <View style={styles.headerViewStyle}>
+          <Text style={styles.headerTextStyle}>{headerString}</Text>
+        </View>
         <MainTodo />
         <InputAccessoryView>
           { this.state.inputVisible &&
@@ -74,7 +78,19 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT,
+    height: HEIGHT
+  },
+  headerTextStyle: {
+      fontSize: 20,
+      color: '#FCEFEF',
+      fontWeight: 'bold',
+  },
+  headerViewStyle: {
+      paddingTop: 5,
+      paddingBottom: 5,
+      paddingLeft: 10,
+      height: 40,
+      flexDirection: 'row',
   }
 });
 

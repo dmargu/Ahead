@@ -4,7 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from '../HomeScreen';
 import CalendarScreen from './CalendarScreen';
-import HabitsScreen from './HabitsScreen';
+import ClassesScreen from './ClassesScreen';
 import SettingsScreen from './SettingsScreen';
 import TodoScreen from './TodoScreen';
 import MenuDrawer from '../../components/MenuDrawer';
@@ -23,7 +23,7 @@ const dropDownMenu = createAppContainer(createDrawerNavigator(
     Home: HomeScreen,
     Calendar: CalendarScreen,
     Todo: TodoScreen,
-    Habits: HabitsScreen,
+    Classes: ClassesScreen,
     Settings: SettingsScreen,
   },
   dropDownConfig,

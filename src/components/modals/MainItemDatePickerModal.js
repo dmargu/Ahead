@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   pickerModal: {
     position: 'absolute',
     borderRadius: 15,
-    backgroundColor: '#28313b',
+    backgroundColor: '#cdd2c9',
     bottom: HEIGHT / 3,
     justifyContent: 'center',
     alignSelf: 'center'

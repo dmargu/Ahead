@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '90%',
-    height: 300,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#28313b',
