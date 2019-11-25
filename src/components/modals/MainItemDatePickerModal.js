@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import {
   changeDate,
   toggleItemModalDatePicker,
@@ -53,7 +54,7 @@ class MainItemDatePickerModal extends Component {
             </View>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
-                date={item.date ? item.date : new Date()}
+                date={item.date ? moment(item.date).toDate() : new Date()}
                 onDateChange={this.onDateChangeHandle.bind(this)}
                 minuteInterval={5}
                 minimumDate={new Date()}
