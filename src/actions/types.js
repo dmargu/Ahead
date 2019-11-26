@@ -47,3 +47,9 @@ export const ADD_NOTIFICATION_ID = 'addNotifiactionID';
 export const CANCEL_NOTIFICATION = 'cancelNotification'; //notification inactive
 
 export const CANCEL_ALL_NOTIFICATIONS = 'cancelAllNotifications'; //deletes all notifications for item
+
+export const TOGGLE_CREATE_CLASS_MODAL = 'toggleCreateclassModal';
+
+export const TOGGLE_CREATE_HOMEWORK_MODAL = 'toggleCreateHomeworkModal';
+
+export const TOGGLE_CREATE_TEST_MODAL = 'toggleCreateTestModal';
