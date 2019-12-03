@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
+
+const validationSchema = yup.object().shape({
+  email: yup.string().email().label('Email').required(),
+  password: yup.string().label('Password').required().min(6, 'Seems a bit short...')
+});
 
 class LoginForm extends Component {
   renderError() { //make keyboard hide on press would look smoother
@@ -19,89 +26,81 @@ class LoginForm extends Component {
     }
   }
 
-  onButtonPress() {
-    this.props.loginUser(this.props.email, this.props.password);
-    this.renderError();
-  }
-
-  renderButton() {
-    if (this.props.loading) {
-      return (
-        <TouchableHighlight
-          style={[styles.buttonContainer, styles.signupButton]}
-          onPress={this.onButtonPress.bind(this)}
-        >
-          <Spinner size='large' />
-        </TouchableHighlight>
-      );
-    }
-    return (
-      <TouchableHighlight
-        style={[styles.buttonContainer, styles.signupButton]}
-        onPress={this.onButtonPress.bind(this)}
-      >
-        <Text style={styles.signUpText}>Log In/Sign Up</Text>
-      </TouchableHighlight>
-    );
-  }
-
-  emailChangeHandle(textInput) {
-    const goodInput = textInput.replace(/\s/g, '');
-    return (
-      this.props.emailChanged(goodInput)
-    );
-  }
-
-  passwordChangeHandle(textInput) {
-    const goodInput = textInput.replace(/\s/g, '');
-    return (
-      this.props.passwordChanged(goodInput)
-    );
-  }
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <View style={{ paddingLeft: 10 }}>
-            <MaterialCommunityIcons
-              name='email'
-              size={30}
-              color='#28313b'
-            />
-          </View>
-          <TextInput
-            style={styles.inputs}
-            placeholder="Email"
-            placeholderTextColor='#28313b'
-            keyboardType="email-address"
-            underlineColorAndroid='transparent'
-            autoCapitalize='none'
-            onChangeText={(text) => this.emailChangeHandle(text)}
-            value={this.props.email}
-          />
-        </View>
+        <Formik
+          initialValues={{
+            email: '',
+            password: ''
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, actions) => {
+            this.props.loginUser(values.email, values.password, actions);
+            this.renderError();
+          }}
+        >
+          {formikProps => (
+            <View>
+              <View style={styles.inputContainer}>
+                <View style={{ paddingLeft: 10 }}>
+                  <MaterialCommunityIcons
+                    name='email'
+                    size={30}
+                    color='#28313b'
+                  />
+                </View>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Email"
+                  placeholderTextColor='#28313b'
+                  keyboardType="email-address"
+                  underlineColorAndroid='transparent'
+                  autoCapitalize='none'
+                  onChangeText={formikProps.handleChange('email')}
+                />
+              </View>
+              <Text style={styles.textError}>{formikProps.errors.email}</Text>
 
-        <View style={styles.inputContainer}>
-          <View style={{ paddingLeft: 10 }}>
-            <MaterialCommunityIcons
-              name='account-key'
-              size={30}
-              color='#28313b'
-            />
-          </View>
-          <TextInput
-            style={styles.inputs}
-            placeholder="Password"
-            placeholderTextColor='#28313b'
-            secureTextEntry
-            underlineColorAndroid='transparent'
-            autoCapitalize='none'
-            onChangeText={(password) => this.passwordChangeHandle(password)}
-            value={this.props.password}
-          />
-        </View>
+              <View style={styles.inputContainer}>
+                <View style={{ paddingLeft: 10 }}>
+                  <MaterialCommunityIcons
+                    name='account-key'
+                    size={30}
+                    color='#28313b'
+                  />
+                </View>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Password"
+                  placeholderTextColor='#28313b'
+                  secureTextEntry
+                  underlineColorAndroid='transparent'
+                  autoCapitalize='none'
+                  onChangeText={formikProps.handleChange('password')}
+                />
+              </View>
+              <Text style={styles.textError}>{formikProps.errors.password}</Text>
 
-        {this.renderButton()}
+              {formikProps.isSubmitting ? (
+                <TouchableHighlight
+                  style={styles.buttonContainer}
+                >
+                  <Spinner size='large' />
+                </TouchableHighlight>
+              ) :
+              (
+                <TouchableHighlight
+                  style={styles.buttonContainer}
+                  onPress={formikProps.handleSubmit}
+                  underlayColor={'#db5461'} //need this or else it causes bug where underlay becomes color
+                >
+                  <Text style={styles.signUpText}>Log In/Sign Up</Text>
+                </TouchableHighlight>
+              )}
+            </View>
+          )}
+        </Formik>
 
         {this.renderError()}
       </View>
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       width: 250,
       height: 45,
-      marginBottom: 20,
       flexDirection: 'row',
       alignItems: 'center'
   },
@@ -146,21 +144,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 30,
-  },
-  signupButton: {
-    backgroundColor: '#db5461',
+    backgroundColor: '#db5461'
   },
   signUpText: {
     color: '#fcefef',
+  },
+  textError: {
+    color: '#db5461',
+    padding: 5
   }
 });
 
 function mapStateToProps(state) {
   return {
-    email: state.AuthReducer.email,
-    password: state.AuthReducer.password,
     error: state.AuthReducer.error,
-    loading: state.AuthReducer.loading
   };
 }
 

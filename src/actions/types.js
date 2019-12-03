@@ -24,10 +24,6 @@ export const START_REMINDER = 'startReminder';
 
 export const CHANGE_NOTES = 'changeNotes';
 
-export const EMAIL_CHANGED = 'emailChanged';
-
-export const PASSWORD_CHANGED = 'passwordChanged';
-
 export const USER_LOGIN_SUCCESS = 'userLoginSuccess';
 
 export const USER_LOGIN_FAIL = 'userLoginFail';

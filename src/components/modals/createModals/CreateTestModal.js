@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, Text } from 'react-native';
+import { View, StyleSheet, Modal, Text, TextInput, Button, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import { Feather } from '@expo/vector-icons';
 import { toggleCreateTestModal } from '../../../actions';
+
+const validationSchema = yup.object().shape({
+  testName: yup.string().required('C\'mon, how do you forget the name.')
+});
 
 class CreateTestModal extends Component {
   render() {
@@ -23,6 +29,39 @@ class CreateTestModal extends Component {
                 />
               </View>
             </View>
+            <Formik
+              initialValues={{ testName: '' }}
+              validationSchema={validationSchema}
+              onSubmit={(values, actions) => {
+                console.log(values);
+                setTimeout(() => {
+                  actions.setSubmitting(false);
+                }, 1000);
+              }}
+            >
+              {formikProps => (
+                <View>
+                  <View style={styles.inputView}>
+                    <View style={styles.inputBorder}>
+                      <TextInput
+                        style={styles.textInput}
+                        onChangeText={formikProps.handleChange('testName')}
+                        autoCapitalize='sentences'
+                        placeholder='Test Name'
+                        placeholderTextColor='#fcefef'
+                      />
+                    </View>
+                  </View>
+                  <Text style={styles.textError}>{formikProps.errors.testName}</Text>
+                  {formikProps.isSubmitting ? (
+                    <ActivityIndicator />
+                  )
+                  : (
+                    <Button title={'Create'} onPress={formikProps.handleSubmit} />
+                  )}
+                </View>
+              )}
+            </Formik>
           </View>
         </View>
       </Modal>
@@ -48,6 +87,28 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fcefef',
     fontWeight: 'bold'
+  },
+  inputView: {
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  inputBorder: {
+    borderBottomWidth: 1,
+    borderColor: '#28313b',
+    left: 5,
+    width: 250
+  },
+  textInput: {
+    fontSize: 16,
+    height: 35,
+    width: 250,
+    color: '#fcefef',
+  },
+  textError: {
+    color: '#db5461',
+    left: 8
   }
 });
 

@@ -58,10 +58,10 @@ class MainItemModal extends Component {
                 onChangeText={this.onNotesChange.bind(this)}
               />
             </View>
-            <View style={styles.containerStyle}>
+            { item.date && <View style={styles.containerStyle}>
               <Text style={styles.remindersText}>Reminders</Text>
               <ReminderToggleButtons item={item} />
-            </View>
+            </View>}
           </View>
         </View>
         {item.itemModalDatePickerVisible ?

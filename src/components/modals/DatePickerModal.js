@@ -43,10 +43,10 @@ class DatePickerModal extends Component {
                 <IosDatePicker item={item} /> : <AndroidDatePicker />
               }
             </View>
-            <View style={styles.containerStyle}>
+            { item.date && <View style={styles.containerStyle}>
               <Text style={styles.remindersText}>Reminders</Text>
               <ReminderToggleButtons item={item} />
-            </View>
+            </View>}
           </View>
         </View>
       </Modal>
