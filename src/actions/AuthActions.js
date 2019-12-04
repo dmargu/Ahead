@@ -33,7 +33,7 @@ const loginUserFail = (dispatch, e, actions) => {
     type: USER_LOGIN_FAIL,
     payload: e
   });
-  actions.setSubmitting(false);
+  actions.setSubmitting(false); //this is for button in login form
 };
 
 const loginUserSuccess = (dispatch, user, actions) => {

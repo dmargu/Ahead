@@ -7,10 +7,10 @@ import * as yup from 'yup';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
 
-const validationSchema = yup.object().shape({
+const validationSchema = yup.object().shape({ //FIX errors appear right when user starts typing
   email: yup.string().email().label('Email').required(),
   password: yup.string().label('Password').required().min(6, 'Seems a bit short...')
-});
+}); //make password validation something funny?
 
 class LoginForm extends Component {
   renderError() { //make keyboard hide on press would look smoother
@@ -58,9 +58,13 @@ class LoginForm extends Component {
                   underlineColorAndroid='transparent'
                   autoCapitalize='none'
                   onChangeText={formikProps.handleChange('email')}
+                  onBlur={formikProps.handleBlur('email')}
+                  autoFocus
                 />
               </View>
-              <Text style={styles.textError}>{formikProps.errors.email}</Text>
+              <Text style={styles.textError}>
+                {formikProps.touched.email && formikProps.errors.email}
+              </Text>
 
               <View style={styles.inputContainer}>
                 <View style={{ paddingLeft: 10 }}>
@@ -78,9 +82,12 @@ class LoginForm extends Component {
                   underlineColorAndroid='transparent'
                   autoCapitalize='none'
                   onChangeText={formikProps.handleChange('password')}
+                  onBlur={formikProps.handleBlur('password')}
                 />
               </View>
-              <Text style={styles.textError}>{formikProps.errors.password}</Text>
+              <Text style={styles.textError}>
+                {formikProps.touched.password && formikProps.errors.password}
+              </Text>
 
               {formikProps.isSubmitting ? (
                 <TouchableHighlight
