@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
 
-const validationSchema = yup.object().shape({ //FIX errors appear right when user starts typing
+const validationSchema = yup.object().shape({
   email: yup.string().email().label('Email').required(),
   password: yup.string().label('Password').required().min(6, 'Seems a bit short...')
 }); //make password validation something funny?

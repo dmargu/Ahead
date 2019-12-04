@@ -30,7 +30,7 @@ class TimePickerModal extends Component {
                 mode={'time'}
                 minuteInterval={5}
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
-                onDateChange={(date) => this.props.dateChangeHandle(date)}
+                onDateChange={(date) => this.props.formikProps.setFieldValue(this.props.value, date)}
               />
             </View>
           </View>

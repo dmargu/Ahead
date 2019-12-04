@@ -2,44 +2,61 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Modal, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import moment from 'moment';
 import TimePickerModal from '../TimePickerModal';
 import { toggleCreateClassModal } from '../../../actions';
+
+const validationSchema = yup.object().shape({ //THIS VALIDATION IS NOT FINISHED
+  className: yup.string().required(),
+  firstDayOfClass: yup.string().required(),
+  lastDayOfClass: yup.string().required(),
+  classStartTime: yup.date().required(),
+  classEndTime: yup.date().required()
+});
+
+const ClassDatePicker = (props) => {
+  return (
+    <View style={styles.datePickerRow}>
+      <Text style={styles.textStyle}>{props.textTitle}</Text>
+      <View style={styles.inputDateBorder}>
+        <View style={{ justifyContent: 'center', padding: 3 }}>
+          <TextInput
+            style={styles.dateTextInput}
+            onChangeText={props.changeHandle}
+            placeholder='mm/dd/yyyy'
+            placeholderTextColor='#fcefef'
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const ClassTimePicker = (props) => {
+  return (
+    <View style={styles.datePickerRow}>
+      <Text style={styles.textStyle}>{props.textTitle}</Text>
+      <TouchableOpacity onPress={props.onPress}>
+        {props.value ?
+          <Text style={styles.addTime}>
+            {moment(props.value).format('h:mm a')}
+          </Text>
+          : <Text style={styles.addTime}>Add Time</Text>
+        }
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 class CreateClassModal extends Component {
   constructor() {
     super();
     this.state = {
-      className: '',
-      firstDayOfClass: '',
-      lastDayOfClass: '',
-      classStartTime: null,
-      classEndTime: null,
       startPickerVisible: false,
       endPickerVisible: false
     };
-  }
-
-  classNameHandle(textInput) {
-    const goodInput = textInput.trimLeft(); //cuts off if space is first character (no input w/out character)
-    return (
-      this.setState({ className: goodInput })
-    );
-  }
-  firstDayOfClassHandle(textInput) {
-    const goodInput = textInput.trimLeft();
-    return (
-      this.setState({ firstDayOfClass: goodInput })
-    );
-  }
-  lastDayOfClassHandle(textInput) {
-    const goodInput = textInput.trimLeft();
-    return (
-      this.setState({ lastDayOfClass: goodInput })
-    );
-  }
-  onCreatePress() { //need to check here for proper date input
-
   }
   closeHandleStart() {
     return (
@@ -51,18 +68,8 @@ class CreateClassModal extends Component {
       this.setState({ endPickerVisible: false })
     );
   }
-  startDateChangeHandle(date) {
-    return (
-      this.setState({ classStartTime: date })
-    );
-  }
-  endDateChangeHandle(date) {
-    return (
-      this.setState({ classEndTime: date })
-    );
-  }
-  classEndTimeOnPress() {
-    return (this.state.classStartTime ? this.setState({ endPickerVisible: true })
+  classEndTimeOnPress(classStartTime) { //do this in form validation
+    return (classStartTime ? this.setState({ endPickerVisible: true })
       : Alert.alert(
         'Set a start time first.',
         null,
@@ -91,88 +98,85 @@ class CreateClassModal extends Component {
                 />
               </View>
             </View>
-            <View style={styles.inputView}>
-              <View style={styles.inputBorder}>
-                <TextInput
-                  style={styles.textInput}
-                  onChangeText={this.classNameHandle.bind(this)}
-                  value={this.state.className}
-                  autoCapitalize='sentences'
-                  placeholder='Class Name'
-                  placeholderTextColor='#fcefef'
-                />
-              </View>
-            </View>
-            <View style={styles.dateContainerView}>
-              <View style={styles.datePickerRow}>
-                <Text style={styles.textStyle}>First Day Of Class:</Text>
-                <View style={styles.inputDateBorder}>
-                  <View style={{ justifyContent: 'center', padding: 3 }}>
-                    <TextInput
-                      style={styles.dateTextInput}
-                      onChangeText={this.firstDayOfClassHandle.bind(this)}
-                      value={this.state.firstDayOfClass}
-                      autoCapitalize='sentences'
-                      placeholder='mm/dd/yyyy'
-                      placeholderTextColor='#fcefef'
+            <Formik
+              initialValues={{
+                className: '',
+                firstDayOfClass: '',
+                lastDayOfClass: '',
+                classStartTime: null,
+                classEndTime: null,
+              }}
+              validationSchema={validationSchema}
+              //onSubmit{(values) => {
+                //console.log(values);
+            //  }}
+            >
+              {formikProps => (
+                <View>
+                  <View style={styles.inputView}>
+                    <View style={styles.inputBorder}>
+                      <TextInput
+                        style={styles.textInput}
+                        onChangeText={formikProps.handleChange('className')}
+                        onBlur={formikProps.handleBlur('className')}
+                        autoCapitalize='sentences'
+                        placeholder='Class Name'
+                        placeholderTextColor='#fcefef'
+                      />
+                    </View>
+                    <Text style={styles.textError}>
+                      {formikProps.touched.className && formikProps.errors.className}
+                    </Text>
+                  </View>
+
+                  <View style={styles.dateContainerView}>
+                    <ClassDatePicker
+                      textTitle={'First Day Of Class:'}
+                      changeHandle={formikProps.handleChange('firstDayOfClass')}
+                    />
+                    <ClassDatePicker
+                      textTitle={'Last Day Of Class:'}
+                      changeHandle={formikProps.handleChange('lastDayOfClass')}
                     />
                   </View>
-                </View>
-              </View>
-              <View style={styles.datePickerRow}>
-                <Text style={styles.textStyle}>Last Day Of Class:</Text>
-                <View style={styles.inputDateBorder}>
-                  <View style={{ justifyContent: 'center', padding: 3 }}>
-                    <TextInput
-                      style={styles.dateTextInput}
-                      onChangeText={this.lastDayOfClassHandle.bind(this)}
-                      value={this.state.lastDayOfClass}
-                      autoCapitalize='sentences'
-                      placeholder='mm/dd/yyyy'
-                      placeholderTextColor='#fcefef'
+
+                  <View style={styles.dateContainerView}>
+                    <ClassTimePicker
+                      textTitle={'Class Starts At:'}
+                      value={formikProps.values.classStartTime}
+                      onPress={() => this.setState({ startPickerVisible: true })}
+                    />
+                    <ClassTimePicker
+                      textTitle={'Class Ends At:'}
+                      value={formikProps.values.classEndTime}
+                      onPress={() => this.setState({ endPickerVisible: true })}
                     />
                   </View>
+
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={null}>
+                      <Text style={styles.textStyle}>Create</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <TimePickerModal
+                    isVisible={this.state.startPickerVisible}
+                    closeHandle={this.closeHandleStart.bind(this)}
+                    time={formikProps.values.classStartTime}
+                    formikProps={formikProps}
+                    value={'classStartTime'}
+                  />
+                  <TimePickerModal
+                    isVisible={this.state.endPickerVisible}
+                    closeHandle={this.closeHandleEnd.bind(this)}
+                    time={formikProps.values.classEndTime}
+                    formikProps={formikProps}
+                    value={'classEndTime'}
+                  />
                 </View>
-              </View>
-            </View>
-            <View style={styles.dateContainerView}>
-              <View style={styles.datePickerRow}>
-                <Text style={styles.textStyle}>Class Starts At:</Text>
-                <TouchableOpacity onPress={() => this.setState({ startPickerVisible: true })}>
-                  {this.state.classStartTime ?
-                    <Text style={styles.addTime}>{moment(this.state.classStartTime).format('h:mm a')}</Text>
-                    : <Text style={styles.addTime}>Add Time</Text>
-                  }
-                </TouchableOpacity>
-              </View>
-              <View style={styles.datePickerRow}>
-                <Text style={styles.textStyle}>Class Ends At:</Text>
-                <TouchableOpacity onPress={this.classEndTimeOnPress.bind(this)}>
-                  {this.state.classEndTime ?
-                    <Text style={styles.addTime}>{moment(this.state.classEndTime).format('h:mm a')}</Text>
-                    : <Text style={styles.addTime}>Add Time</Text>
-                  }
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <TouchableOpacity style={styles.buttonContainer} onPress={this.onCreatePress.bind(this)}>
-                <Text style={styles.textStyle}>Create</Text>
-              </TouchableOpacity>
-            </View>
+              )}
+            </Formik>
           </View>
-          <TimePickerModal
-            isVisible={this.state.startPickerVisible}
-            closeHandle={this.closeHandleStart.bind(this)}
-            time={this.state.classStartTime}
-            dateChangeHandle={this.startDateChangeHandle.bind(this)}
-          />
-          <TimePickerModal
-            isVisible={this.state.endPickerVisible}
-            closeHandle={this.closeHandleEnd.bind(this)}
-            time={this.state.classEndTime}
-            dateChangeHandle={this.endDateChangeHandle.bind(this)}
-          />
         </View>
       </Modal>
     );
@@ -200,9 +204,6 @@ const styles = StyleSheet.create({
   },
   inputView: {
     padding: 5,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
   },
   dateContainerView: {
     padding: 5,
@@ -237,6 +238,10 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 16,
     color: '#fcefef'
+  },
+  textError: {
+    color: '#db5461',
+    padding: 5
   },
   addTime: {
     fontSize: 16,
