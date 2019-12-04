@@ -31,6 +31,7 @@ class TimePickerModal extends Component {
                 minuteInterval={5}
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
                 onDateChange={(date) => this.props.formikProps.setFieldValue(this.props.value, date)}
+                minimumDate={(this.props.value === 'classEndTime') ? this.props.startTime : null}
               />
             </View>
           </View>
