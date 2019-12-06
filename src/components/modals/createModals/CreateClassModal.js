@@ -69,7 +69,7 @@ class CreateClassModal extends Component {
         )
     );
   }
-  render() { //do something to make sure end time isn't before start time for class time
+  render() {
     return (
       <Modal transparent animationType='fade' visible={this.props.createClassModalVisible}>
         <View style={styles.containerStyle}>
@@ -94,6 +94,15 @@ class CreateClassModal extends Component {
                 lastDayOfClass: '',
                 classStartTime: '',
                 classEndTime: '',
+                daysOfWeek: {
+                  m: false,
+                  t: false,
+                  w: false,
+                  r: false,
+                  f: false,
+                  sa: false,
+                  su: false
+                }
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
@@ -162,7 +171,7 @@ class CreateClassModal extends Component {
                     <Text style={styles.modalTitle}>Days Of The Week</Text>
                   </View>
                   <View style={styles.viewContainer}>
-                    <DaysInWeekPicker />
+                    <DaysInWeekPicker formikProps={formikProps} />
                   </View>
 
                   <View style={styles.createButton}>

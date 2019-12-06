@@ -40,8 +40,8 @@ class ReminderToggleButtons extends Component {
           ]}
           disabled={this.state.startButtonDisabled}
           onPress={() => {
-            this.setState({ startButtonDisabled: true });
-            setTimeout(() => this.setState({ startButtonDisabled: false }), 1500);
+            this.setState({ startButtonDisabled: true }); //timeout to make sure there's time to cancel notif
+            setTimeout(() => this.setState({ startButtonDisabled: false }), 1500); //before they set another
             if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
               this.props.startReminder(item);
             }

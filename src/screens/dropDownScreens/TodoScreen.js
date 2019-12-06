@@ -46,7 +46,7 @@ class TodoScreen extends Component {
   render() { //in future change inputAccessory to <KeyboardAccessoryView hideBorder> for android function
     return ( //doesn't work right now though for some reason the button won't press
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} screenName='To-do List' />
+        <Header navigation={this.props.navigation} screenName={'To-do\'s'} />
         {/*<TodayIncludes />*/}
         <MainTodo />
         <InputAccessoryView>

@@ -27,7 +27,7 @@ class DatePickerModal extends Component {
             </View>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
-                mode={'date'}
+                mode={'date'} //maximum date to make sure we don't let them make infinite data
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
                 onDateChange={(date) => this.props.formikProps.setFieldValue(this.props.value, date)}
                 minimumDate={(this.props.value === 'lastDayOfClass') ? this.props.startTime : new Date()}
