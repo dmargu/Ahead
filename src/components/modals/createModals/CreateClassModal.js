@@ -5,19 +5,20 @@ import { Feather } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
+import { CheckBox } from 'react-native-elements';
 import TimePickerModal from '../OnlyTimePickerModal';
 import DatePickerModal from '../OnlyDatePickerModal';
 import DaysInWeekPicker from '../../DaysInWeekPicker';
 import { toggleCreateClassModal } from '../../../actions';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
-  className: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER
+  className: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
   firstDayOfClass: yup.date().required('What day is the first class?'),
   lastDayOfClass: yup.date().required('What day is the last class?'),
   classStartTime: yup.date().required('What time of day does class start?'),
-  classEndTime: yup.date().required('What time of day does class end?')
-});
-
+  classEndTime: yup.date().required('What time of day does class end?'),
+}); //right now we aren't checking for days of the week bc if it's online class then there might not be a day
+ //in future maybe if they don't pick any days we just ask them if it's an online class and if they're sure
 const ClassTimePicker = (props) => {
   return (
     <View style={styles.datePickerRow}>
@@ -94,6 +95,7 @@ class CreateClassModal extends Component {
                 lastDayOfClass: '',
                 classStartTime: '',
                 classEndTime: '',
+                afterClassReminders: false,
                 daysOfWeek: {
                   m: false,
                   t: false,
@@ -102,11 +104,11 @@ class CreateClassModal extends Component {
                   f: false,
                   sa: false,
                   su: false
-                }
+                },
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log(values);
+                console.log(values.afterClassReminders);
               }}
             >
               {formikProps => (
@@ -174,6 +176,23 @@ class CreateClassModal extends Component {
                     <DaysInWeekPicker formikProps={formikProps} />
                   </View>
 
+                  <View style={styles.textContainer}>
+                    <Text style={styles.textStyle}>
+                      Would you like to be reminded after class to enter your homework?
+                    </Text>
+                  </View>
+                  <CheckBox
+                    title={'Yes'}
+                    textStyle={styles.textStyle}
+                    checked={formikProps.values.afterClassReminders}
+                    iconRight
+                    containerStyle={styles.checkBox}
+                    checkedColor='#82ff9e'
+                    onPress={() => formikProps.setFieldValue(
+                      'afterClassReminders', !formikProps.values.afterClassReminders
+                    )}
+                  />
+
                   <View style={styles.createButton}>
                     <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
                       <Text style={styles.textStyle}>Create</Text>
@@ -231,12 +250,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 3
   },
+  textContainer: {
+    justifyContent: 'flex-start',
+    left: 5,
+    paddingTop: 5
+  },
   modalContainer: {
     width: '90%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#555B6E',
-    height: 600,
+    height: 575,
     backgroundColor: '#555B6E'
   },
   modalTitle: {
@@ -279,7 +303,6 @@ const styles = StyleSheet.create({
   },
   datePickerRow: {
     flexDirection: 'row',
-    //paddingBottom: 10,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
@@ -297,7 +320,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 200
+    marginTop: 75
+  },
+  checkBox: {
+    backgroundColor: null,
+    borderWidth: 0,
+    right: 15,
+    padding: 0
   }
 });
 

@@ -3,8 +3,6 @@ import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 
 const DaysInWeekPicker = (props) => {
     const daysOfWeek = props.formikProps.values.daysOfWeek;
-    console.log(daysOfWeek);
-
     return (
       <View style={styles.container}>
         <TouchableWithoutFeedback
