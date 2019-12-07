@@ -107,8 +107,7 @@ class MainTodo extends Component {
       </KeyboardAvoidingView>
     );
   }
-} //use react native keybord accessory for cross-platform solution
-  // will need to move add todo to the root view component in home screen
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

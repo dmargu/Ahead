@@ -9,7 +9,7 @@ import { CheckBox } from 'react-native-elements';
 import TimePickerModal from '../OnlyTimePickerModal';
 import DatePickerModal from '../OnlyDatePickerModal';
 import DaysInWeekPicker from '../../DaysInWeekPicker';
-import { toggleCreateClassModal } from '../../../actions';
+import { toggleCreateClassModal, createClass } from '../../../actions';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
   className: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
@@ -19,8 +19,8 @@ const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED 
   classEndTime: yup.date().required('What time of day does class end?'),
 }); //right now we aren't checking for days of the week bc if it's online class then there might not be a day
  //in future maybe if they don't pick any days we just ask them if it's an online class and if they're sure
-const ClassTimePicker = (props) => {
-  return (
+const ClassTimePicker = (props) => { //also if it's an online class classStartTime/EndTime won't matter so
+  return ( //we can't force people to do it
     <View style={styles.datePickerRow}>
       <Text style={styles.textStyle}>{props.textTitle}</Text>
       <TouchableOpacity onPress={props.onPress}>
@@ -108,7 +108,8 @@ class CreateClassModal extends Component {
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log(values.afterClassReminders);
+                this.props.createClass(values);
+                this.props.toggleCreateClassModal();
               }}
             >
               {formikProps => (
@@ -336,4 +337,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { toggleCreateClassModal })(CreateClassModal);
+export default connect(mapStateToProps, { toggleCreateClassModal, createClass })(CreateClassModal);

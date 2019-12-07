@@ -13,7 +13,6 @@ const storage = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NOTIFICATION_ID:
       return {
-        ...state,
         notificationIDs:
         [
           ...state.notificationIDs,

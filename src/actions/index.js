@@ -3,3 +3,4 @@ export * from './TodoActions';
 export * from './ReminderActions';
 export * from './AuthActions';
 export * from './StorageActions';
+export * from './ClassActions';

@@ -7,6 +7,7 @@ import ModalReducer from '../reducers/ModalReducer';
 import TodoReducer from '../reducers/TodoReducer';
 import AuthReducer from '../reducers/AuthReducer';
 import StorageReducer from '../reducers/StorageReducer';
+import ClassesReducer from '../reducers/ClassesReducer';
 
 /*eslint-disable no-undef*/
 //eslint-disable-next-line no-underscore-dangle
@@ -27,11 +28,19 @@ const storageConfig = {
   stateReconciler: autoMergeLevel2
 };
 
+const classConfig = {
+  key: 'ClassesReducer',
+  storage: AsyncStorage,
+  whitelist: ['classes'],
+  stateReconciler: autoMergeLevel2
+};
+
 const reducers = combineReducers({
   ModalReducer,
   StorageReducer: persistReducer(storageConfig, StorageReducer),
   TodoReducer: persistReducer(todoPersistConfig, TodoReducer),
-  AuthReducer
+  AuthReducer,
+  ClassesReducer: persistReducer(classConfig, ClassesReducer)
 });
 
 export default function storeConfiguration() {
@@ -44,7 +53,6 @@ export default function storeConfiguration() {
   );
 
   const persistor = persistStore(store);
-  //persistor.purge();
 
   return { persistor, store };
 }
