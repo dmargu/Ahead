@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 import MenuButton from '../headerComponents/MenuButton';
-import SettingsButton from '../headerComponents/SettingsButton';
+//import SettingsButton from '../headerComponents/SettingsButton';
 
-class Header extends Component {
+class MainHeader extends Component {
   render() {
     return (
-      <View style={styles.viewStyle}>
-          <MenuButton navigation={this.props.navigation} />
-          <Text style={styles.screenTitle}>{this.props.screenName}</Text>
-          <SettingsButton navigation={this.props.navigation} />
+      <View>
+        <Header
+          leftComponent={<MenuButton navigation={this.props.navigation} />}
+          centerComponent={<Text style={styles.screenTitle}>{this.props.screenName}</Text>}
+          backgroundColor={'#db5461'}
+          containerStyle={styles.viewStyle}
+        />
       </View>
     );
   }
@@ -17,18 +21,10 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
   viewStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 65,
-    paddingTop: 30,
-    paddingLeft: 20,
-    paddingRight: 20,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.25,
     shadowRadius: 2,
-    //backgroundColor: '#fcefef'
   },
   textStyle: {
     fontSize: 20
@@ -36,13 +32,8 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#cdd2c9'
+    color: '#fcefef'
   },
-  premium: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#cdd2c9'
-  }
 });
 
-export default Header;
+export default MainHeader;

@@ -9,7 +9,6 @@ import {
   oneDayReminder,
   startReminder,
   cancelNotification,
-  testing
 } from '../actions';
 
 class ReminderToggleButtons extends Component {
@@ -212,5 +211,4 @@ export default connect(null,
     oneHourReminder,
     startReminder,
     cancelNotification,
-    testing
   })(ReminderToggleButtons);

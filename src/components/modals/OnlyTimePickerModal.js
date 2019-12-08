@@ -3,10 +3,9 @@ import {
   DatePickerIOS,
   View,
   StyleSheet,
-  Modal,
   Dimensions
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
 import moment from 'moment';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -14,17 +13,14 @@ const HEIGHT = Dimensions.get('window').height;
 class TimePickerModal extends Component {
   render() {
     return (
-      <Modal animationType='slide' transparent visible={this.props.isVisible}>
+      <Modal
+        animationType='slide'
+        transparent
+        visible={this.props.isVisible}
+        onBackdropPress={() => this.props.closeHandle()}
+      >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 10 }}>
-              <Feather
-                name="x-square"
-                size={35}
-                color={'#db5461'}
-                onPress={() => this.props.closeHandle()}
-              />
-            </View>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
                 mode={'time'}
@@ -53,7 +49,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   pickerModalConfig: {
-    height: 250,
+    height: 175,
     width: 215,
     marginBottom: 35
   },

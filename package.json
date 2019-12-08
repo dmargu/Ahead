@@ -14,6 +14,7 @@
     "eslint": "^6.6.0",
     "eslint-plugin-react-native": "^3.8.1",
     "expo": "^35.0.1",
+    "expo-image-picker": "^7.0.0",
     "expo-linear-gradient": "^7.0.1",
     "expo-permissions": "^7.0.0",
     "firebase": "^7.4.0",

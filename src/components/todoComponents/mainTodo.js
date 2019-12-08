@@ -22,7 +22,7 @@ class MainTodo extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
     {/*<ScrollView>*/}
           <FlatList
-            data={_.sortBy(this.props.todos, (item) => {
+            data={_.sortBy(this.props.todos, (item) => { //not working correctly
               return item.date;
             })}
             extraData={this.props.todos}

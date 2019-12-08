@@ -10,7 +10,6 @@ import {
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import moment from 'moment';
-import ReminderToggleButtons from '../ReminderToggleButtons';
 import MainItemDatePickerModal from './MainItemDatePickerModal';
 import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
 
@@ -58,10 +57,6 @@ class MainItemModal extends Component {
                 onChangeText={this.onNotesChange.bind(this)}
               />
             </View>
-            { item.date && <View style={styles.containerStyle}>
-              <Text style={styles.remindersText}>Reminders</Text>
-              <ReminderToggleButtons item={item} />
-            </View>}
           </View>
         </View>
         {item.itemModalDatePickerVisible ?
