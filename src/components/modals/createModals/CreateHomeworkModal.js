@@ -7,15 +7,17 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Image,
+  Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import ImageZoom from 'react-native-image-pan-zoom';
 import { toggleCreateHomeworkModal } from '../../../actions';
 import ImagePickerAndList from '../../ImagePickerAndList';
-import PictureModal from '../PictureModal';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -41,6 +43,30 @@ const CustomButton = (props) => {
   );
 };
 
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
+
+const FullPicture = (props) => {
+  return (
+    <View style={styles.fullPicture}>
+      <ImageZoom
+        cropWidth={WIDTH}
+        cropHeight={HEIGHT}
+        imageHeight={HEIGHT}
+        imageWidth={WIDTH}
+        enableSwipeDown
+        onSwipeDown={() => props.closeImage()}
+      >
+        <Image
+          style={{ height: HEIGHT, width: WIDTH }}
+          //resizeMode={'cover'}
+          source={{ uri: props.picture.uri }}
+        />
+      </ImageZoom>
+    </View>
+  );
+};
+
 class CreateHomeworkModal extends Component {
   constructor() {
     super();
@@ -54,181 +80,190 @@ class CreateHomeworkModal extends Component {
       oneWeekReminder: false,
       customReminder: false,
       pictures: [],
-      pictureModalVisible: false
+      pictureModalVisible: false,
+      selectedPicture: null
     };
   }
   render() {
     return (
-        <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
-          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.containerStyle}>
-              <View style={styles.modalContainer}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                  <View style={{ padding: 10 }}>
-                    <Text style={styles.modalTitle}>Create Homework</Text>
-                  </View>
-                  <View style={{ padding: 5 }}>
-                    <Feather
-                      name="x-square"
-                      size={35}
-                      color={'#db5461'}
-                      onPress={() => {
-                        this.props.toggleCreateHomeworkModal();
-                        //NEED TO CLEAR STATE HERE
-                      }}
-                    />
-                  </View>
+      <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
+        {this.state.pictureModalVisible &&
+          <FullPicture
+            picture={this.state.selectedPicture}
+            closeImage={() => this.setState({ pictureModalVisible: false })}
+          />
+        }
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.containerStyle}>
+            <View style={styles.modalContainer}>
+              <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={{ padding: 10 }}>
+                  <Text style={styles.modalTitle}>Create Homework</Text>
                 </View>
-                <Formik
-                  initialValues={{
-                    assignmentName: '',
-                    dueDate: null,
-                    reminders: [],
-                    notes: '',
-                    pictures: []
-                  }}
-                  validationSchema={validationSchema}
-                  onSubmit={(values) => {
-                    console.log(values);
-                  }}
-                >
-                  {formikProps => (
-                    <View>
-                      <View style={styles.inputView}>
-                        <View style={styles.inputBorder}>
-                          <TextInput
-                            style={styles.textInput}
-                            onChangeText={formikProps.handleChange('assignmentName')}
-                            onBlur={formikProps.handleBlur('assignmentName')}
-                            autoCapitalize='sentences'
-                            placeholder='Assignment Name'
-                            placeholderTextColor='#fcefef'
-                          />
-                        </View>
-                        <Text style={styles.textError}>
-                          {formikProps.touched.assignmentName && formikProps.errors.assignmentName}
-                        </Text>
+                <View style={{ padding: 5 }}>
+                  <Feather
+                    name="x-square"
+                    size={35}
+                    color={'#db5461'}
+                    onPress={() => {
+                      this.props.toggleCreateHomeworkModal();
+                      //NEED TO CLEAR STATE HERE
+                    }}
+                  />
+                </View>
+              </View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                          <View>
-                            <Text>Class</Text>
-                          </View>
+              <Formik
+                initialValues={{
+                  assignmentName: '',
+                  dueDate: null,
+                  reminders: [],
+                  notes: '',
+                  pictures: []
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                  console.log(values);
+                }}
+              >
+                {formikProps => (
+                  <View>
+                    <View style={styles.inputView}>
+                      <View style={styles.inputBorder}>
+                        <TextInput
+                          style={styles.textInput}
+                          onChangeText={formikProps.handleChange('assignmentName')}
+                          onBlur={formikProps.handleBlur('assignmentName')}
+                          autoCapitalize='sentences'
+                          placeholder='Assignment Name'
+                          placeholderTextColor='#fcefef'
+                        />
+                      </View>
+                      <Text style={styles.textError}>
+                        {formikProps.touched.assignmentName && formikProps.errors.assignmentName}
+                      </Text>
 
-                          <View style={{}}>
-                            <Text style={styles.textStyle}>Due Date:</Text>
-                            <CustomButton
-                              text={'Next Class'}
-                              onPress={() => {
-                                this.setState({ nextClassPressed: !this.state.nextClassPressed });
-                                if (this.state.nightBeforePressed || this.state.customPressed) {
-                                  this.setState({ nightBeforePressed: false });
-                                  this.setState({ customPressed: false });
-                                }
-                              }}
-                              isItemActive={this.state.nextClassPressed}
-                            />
-                            <CustomButton
-                              text={'Night Before Next Class'}
-                              onPress={() => {
-                                this.setState({ nightBeforePressed: !this.state.nightBeforePressed });
-                                if (this.state.nextClassPressed || this.state.customPressed) {
-                                  this.setState({ nextClassPressed: false });
-                                  this.setState({ customPressed: false });
-                                }
-                              }}
-                              isItemActive={this.state.nightBeforePressed}
-                            />
-                            <CustomButton
-                              text={'Custom'}
-                              onPress={() => {
-                                this.setState({ customPressed: !this.state.customPressed });
-                                if (this.state.nextClassPressed || this.state.nightBeforePressed) {
-                                  this.setState({ nextClassPressed: false });
-                                  this.setState({ nightBeforePressed: false });
-                                }
-                              }}
-                              isItemActive={this.state.customPressed}
-                            />
-                          </View>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View>
+                          <Text>Class</Text>
                         </View>
 
-                        <Text style={{ padding: 2, color: '#fcefef' }}>
-                          Reminders To Complete Assignment:
-                        </Text>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{}}>
+                          <Text style={styles.textStyle}>Due Date:</Text>
                           <CustomButton
-                            text={'1 Day Before'}
+                            text={'Next Class'}
                             onPress={() => {
-                              this.setState({ oneDayReminder: !this.state.oneDayReminder });
+                              this.setState({ nextClassPressed: !this.state.nextClassPressed });
+                              if (this.state.nightBeforePressed || this.state.customPressed) {
+                                this.setState({ nightBeforePressed: false });
+                                this.setState({ customPressed: false });
+                              }
                             }}
-                            isItemActive={this.state.oneDayReminder}
+                            isItemActive={this.state.nextClassPressed}
                           />
                           <CustomButton
-                            text={'2 Days Before'}
+                            text={'Night Before Next Class'}
                             onPress={() => {
-                              this.setState({ twoDayReminder: !this.state.twoDayReminder });
+                              this.setState({ nightBeforePressed: !this.state.nightBeforePressed });
+                              if (this.state.nextClassPressed || this.state.customPressed) {
+                                this.setState({ nextClassPressed: false });
+                                this.setState({ customPressed: false });
+                              }
                             }}
-                            isItemActive={this.state.twoDayReminder}
-                          />
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                          <CustomButton
-                            text={'3 Days Before'}
-                            onPress={() => {
-                              this.setState({ threeDayReminder: !this.state.threeDayReminder });
-                            }}
-                            isItemActive={this.state.threeDayReminder}
-                          />
-                          <CustomButton
-                            text={'1 Week Before'}
-                            onPress={() => {
-                              this.setState({ oneWeekReminder: !this.state.oneWeekReminder });
-                            }}
-                            isItemActive={this.state.oneWeekReminder}
+                            isItemActive={this.state.nightBeforePressed}
                           />
                           <CustomButton
                             text={'Custom'}
                             onPress={() => {
-                              this.setState({ customReminder: !this.state.customReminder });
+                              this.setState({ customPressed: !this.state.customPressed });
+                              if (this.state.nextClassPressed || this.state.nightBeforePressed) {
+                                this.setState({ nextClassPressed: false });
+                                this.setState({ nightBeforePressed: false });
+                              }
                             }}
-                            isItemActive={this.state.customReminder}
+                            isItemActive={this.state.customPressed}
                           />
-                        </View>
-
-                        <View style={{ padding: 5 }}>
-                          <TextInput
-                            placeholder={'Add notes'}
-                            placeholderTextColor='#cdd2c9'
-                            value={formikProps.values.notes}
-                            multiline
-                            style={styles.notesInput}
-                            onChangeText={formikProps.handleChange('notes')}
-                            onBlur={formikProps.handleBlur('notes')}
-                          />
-                        </View>
-
-                        <ImagePickerAndList
-                          pictures={this.state.pictures}
-                          addPicture={(newArr) => this.setState({ pictures: newArr })}
-                          pictureModalVisible={this.state.pictureModalVisible}
-                          modalCloseHandle={() => this.setState({ pictureModalVisible: false })}
-                          modalOpenHandle={() => this.setState({ pictureModalVisible: true })}
-                        />
-
-                        <View style={styles.createButton}>
-                          <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
-                            <Text style={styles.textStyle}>Create</Text>
-                          </TouchableOpacity>
                         </View>
                       </View>
-                    </View>
-                  )}
-                </Formik>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
 
+                      <Text style={{ padding: 2, color: '#fcefef' }}>
+                        Reminders To Complete Assignment:
+                      </Text>
+                      <View style={{ flexDirection: 'row' }}>
+                        <CustomButton
+                          text={'1 Day Before'}
+                          onPress={() => {
+                            this.setState({ oneDayReminder: !this.state.oneDayReminder });
+                          }}
+                          isItemActive={this.state.oneDayReminder}
+                        />
+                        <CustomButton
+                          text={'2 Days Before'}
+                          onPress={() => {
+                            this.setState({ twoDayReminder: !this.state.twoDayReminder });
+                          }}
+                          isItemActive={this.state.twoDayReminder}
+                        />
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <CustomButton
+                          text={'3 Days Before'}
+                          onPress={() => {
+                            this.setState({ threeDayReminder: !this.state.threeDayReminder });
+                          }}
+                          isItemActive={this.state.threeDayReminder}
+                        />
+                        <CustomButton
+                          text={'1 Week Before'}
+                          onPress={() => {
+                            this.setState({ oneWeekReminder: !this.state.oneWeekReminder });
+                          }}
+                          isItemActive={this.state.oneWeekReminder}
+                        />
+                        <CustomButton
+                          text={'Custom'}
+                          onPress={() => {
+                            this.setState({ customReminder: !this.state.customReminder });
+                          }}
+                          isItemActive={this.state.customReminder}
+                        />
+                      </View>
+
+                      <View style={{ padding: 5 }}>
+                        <TextInput
+                          placeholder={'Add notes'}
+                          placeholderTextColor='#cdd2c9'
+                          value={formikProps.values.notes}
+                          multiline
+                          style={styles.notesInput}
+                          onChangeText={formikProps.handleChange('notes')}
+                          onBlur={formikProps.handleBlur('notes')}
+                        />
+                      </View>
+
+                      <ImagePickerAndList
+                        pictures={this.state.pictures}
+                        addPicture={(newArr) => this.setState({ pictures: newArr })}
+                        pictureModalVisible={this.state.pictureModalVisible}
+                        modalOpenHandle={(picture) => {
+                          this.setState({ pictureModalVisible: true });
+                          this.setState({ selectedPicture: picture });
+                        }}
+                      />
+
+                      <View style={styles.createButton}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
+                          <Text style={styles.textStyle}>Create</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              </Formik>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     );
   }
 }
@@ -307,6 +342,14 @@ const styles = StyleSheet.create({
     padding: 10,
     color: '#fcefef'
   },
+  fullPicture: {
+    flex: 1,
+    justifyContent: 'center',
+    zIndex: 10,
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  }
 });
 
 function mapStateToProps(state) {

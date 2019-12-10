@@ -3,7 +3,6 @@ import { View, Platform, Alert, FlatList, Image, TouchableWithoutFeedback } from
 import { Ionicons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import PictureModal from './modals/PictureModal';
 
 async function selectImage(props) {
   const status = await getCameraRollPermission();
@@ -13,7 +12,7 @@ async function selectImage(props) {
     });
 
     if (!result.cancelled) {
-      const newArr = props.pictures.concat(result.uri);
+      const newArr = props.pictures.concat(result);
       props.addPicture(newArr);
     }
   }
@@ -27,7 +26,7 @@ async function openCamera(props) {
     });
 
     if (!result.cancelled) {
-      const newArr = props.pictures.concat(result.uri);
+      const newArr = props.pictures.concat(result);
       props.addPicture(newArr);
     }
   }
@@ -70,7 +69,7 @@ async function getCameraPermission() {
 const ImagePickerAndList = (props) => {
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={{ left: 5 }}>
+      <View style={{ left: 2 }}>
         <Ionicons
           name='ios-camera'
           size={40}
@@ -85,24 +84,18 @@ const ImagePickerAndList = (props) => {
         />
       </View>
 
-      <View style={{ left: 15, flex: 1 }}>
+      <View style={{ left: 5, flex: 1 }}>
         <FlatList
           data={props.pictures}
           extraData={props.pictures}
           horizontal
-          keyExtractor={picture => picture} //maybe change to arrays index in future
+          keyExtractor={picture => picture.uri} //maybe change to arrays index in future
           renderItem={({ item }) => {
             return (
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableWithoutFeedback onPress={() => props.modalOpenHandle()}>
-                  <Image source={{ uri: item }} style={{ width: 75, height: 75 }} />
+                <TouchableWithoutFeedback onPress={() => props.modalOpenHandle(item)}>
+                  <Image source={{ uri: item.uri }} style={{ width: 75, height: 75 }} />
                 </TouchableWithoutFeedback>
-
-                <PictureModal
-                  isVisible={props.pictureModalVisible}
-                  modalCloseHandle={props.modalCloseHandle}
-                  picture={item}
-                />
               </View>
             );
           }}
