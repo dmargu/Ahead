@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, Platform, Alert, FlatList, Image } from 'react-native';
+import { View, Platform, Alert, FlatList, Image, TouchableWithoutFeedback } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import PictureModal from './modals/PictureModal';
 
-async function selectImages(props) {
-  const status = await getCameraPermission();
+async function selectImage(props) {
+  const status = await getCameraRollPermission();
   if (status === 'granted') {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.cancelled) {
-      props.pictures.push(result);
+      const newArr = props.pictures.concat(result.uri);
+      props.addPicture(newArr);
     }
   }
 }
@@ -25,17 +27,35 @@ async function openCamera(props) {
     });
 
     if (!result.cancelled) {
-      props.pictures.push(result);
+      const newArr = props.pictures.concat(result.uri);
+      props.addPicture(newArr);
     }
+  }
+}
+
+async function getCameraRollPermission() {
+  if (Platform.OS === 'ios') {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        Alert.alert(
+          'Sorry, we need camera roll permissions to make this work!',
+          null,
+          [
+            { text: 'OK' }
+          ],
+            { cancelable: false }
+          );
+      }
+      return status;
   }
 }
 
 async function getCameraPermission() {
   if (Platform.OS === 'ios') {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL && Permissions.CAMERA);
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== 'granted') {
         Alert.alert(
-          'Sorry, we need camera roll permissions to make this work!',
+          'Sorry, we need camera permissions to make this work!',
           null,
           [
             { text: 'OK' }
@@ -61,24 +81,33 @@ const ImagePickerAndList = (props) => {
           name='ios-images'
           size={40}
           color={'#cdd2c9'}
-          onPress={() => selectImages(props)}
+          onPress={() => selectImage(props)}
         />
       </View>
 
-      <FlatList
-        data={props.pictures}
-        extraData={props.pictures}
-        horizontal
-        keyExtractor={picture => picture.uri} //no idea if this is a good practice or not
-        renderItem={({ picture }) => {
-          console.log(picture);
-          return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Image source={{ uri: picture }} style={{ width: 100, height: 100 }} />
-            </View>
-          );
-        }}
-      />
+      <View style={{ left: 15, flex: 1 }}>
+        <FlatList
+          data={props.pictures}
+          extraData={props.pictures}
+          horizontal
+          keyExtractor={picture => picture} //maybe change to arrays index in future
+          renderItem={({ item }) => {
+            return (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableWithoutFeedback onPress={() => props.modalOpenHandle()}>
+                  <Image source={{ uri: item }} style={{ width: 75, height: 75 }} />
+                </TouchableWithoutFeedback>
+
+                <PictureModal
+                  isVisible={props.pictureModalVisible}
+                  modalCloseHandle={props.modalCloseHandle}
+                  picture={item}
+                />
+              </View>
+            );
+          }}
+        />
+      </View>
     </View>
   );
 };

@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Modal,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard 
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -73,168 +83,170 @@ class CreateClassModal extends Component {
   render() {
     return (
       <Modal transparent animationType='fade' visible={this.props.createClassModalVisible}>
-        <View style={styles.containerStyle}>
-          <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-              <View style={{ padding: 10 }}>
-                <Text style={styles.modalTitle}>Create A Class</Text>
-              </View>
-              <View style={{ padding: 5 }}>
-                <Feather
-                  name="x-square"
-                  size={35}
-                  color={'#db5461'}
-                  onPress={() => this.props.toggleCreateClassModal()}
-                />
-              </View>
-            </View>
-            <Formik
-              initialValues={{
-                className: '',
-                firstDayOfClass: '',
-                lastDayOfClass: '',
-                classStartTime: '',
-                classEndTime: '',
-                afterClassReminders: false,
-                daysOfWeek: {
-                  m: false,
-                  t: false,
-                  w: false,
-                  r: false,
-                  f: false,
-                  sa: false,
-                  su: false
-                },
-              }}
-              validationSchema={validationSchema}
-              onSubmit={(values) => {
-                this.props.createClass(values);
-                this.props.toggleCreateClassModal();
-              }}
-            >
-              {formikProps => (
-                <View>
-                  <View style={styles.inputView}>
-                    <View style={styles.inputBorder}>
-                      <TextInput
-                        style={styles.textInput}
-                        onChangeText={formikProps.handleChange('className')}
-                        onBlur={formikProps.handleBlur('className')}
-                        autoCapitalize='sentences'
-                        placeholder='Class Name'
-                        placeholderTextColor='#fcefef'
-                      />
-                    </View>
-                    <Text style={styles.textError}>
-                      {formikProps.touched.className && formikProps.errors.className}
-                    </Text>
-                  </View>
-
-                  <View style={styles.dateContainerView}>
-                    <ClassTimePicker
-                      textTitle={'First Day Of Class:'}
-                      value={formikProps.values.firstDayOfClass}
-                      onPress={() => this.setState({ firstDatePickerVisible: true })}
-                      day
-                    />
-                    <Text style={styles.textError}>
-                      {formikProps.touched.firstDayOfClass && formikProps.errors.firstDayOfClass}
-                    </Text>
-
-                    <ClassTimePicker
-                      textTitle={'Last Day Of Class:'}
-                      value={formikProps.values.lastDayOfClass}
-                      onPress={() => this.classLastDateOnPress(formikProps.values.firstDayOfClass)}
-                      day
-                    />
-                    <Text style={styles.textError}>
-                      {formikProps.touched.lastDayOfClass && formikProps.errors.lastDayOfClass}
-                    </Text>
-
-                    <ClassTimePicker
-                      textTitle={'Class Starts At:'}
-                      value={formikProps.values.classStartTime}
-                      onPress={() => this.setState({ startTimePickerVisible: true })}
-                    />
-                    <Text style={styles.textError}>
-                      {formikProps.touched.classStartTime && formikProps.errors.classStartTime}
-                    </Text>
-
-                    <ClassTimePicker
-                      textTitle={'Class Ends At:'}
-                      value={formikProps.values.classEndTime}
-                      onPress={() => this.classEndTimeOnPress(formikProps.values.classStartTime)}
-                    />
-                    <Text style={styles.textError}>
-                      {formikProps.touched.classEndTime && formikProps.errors.classEndTime}
-                    </Text>
-                  </View>
-
-                  <View style={styles.viewContainer}>
-                    <Text style={styles.modalTitle}>Days Of The Week</Text>
-                  </View>
-                  <View style={styles.viewContainer}>
-                    <DaysInWeekPicker formikProps={formikProps} />
-                  </View>
-
-                  <View style={styles.textContainer}>
-                    <Text style={styles.textStyle}>
-                      Would you like to be reminded after class to enter your homework?
-                    </Text>
-                  </View>
-                  <CheckBox
-                    title={'Yes'}
-                    textStyle={styles.textStyle}
-                    checked={formikProps.values.afterClassReminders}
-                    iconRight
-                    containerStyle={styles.checkBox}
-                    checkedColor='#82ff9e'
-                    onPress={() => formikProps.setFieldValue(
-                      'afterClassReminders', !formikProps.values.afterClassReminders
-                    )}
-                  />
-
-                  <View style={styles.createButton}>
-                    <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
-                      <Text style={styles.textStyle}>Create</Text>
-                    </TouchableOpacity>
-                  </View>
-
-                  <TimePickerModal
-                    isVisible={this.state.startTimePickerVisible}
-                    closeHandle={() => this.setState({ startTimePickerVisible: false })}
-                    time={formikProps.values.classStartTime}
-                    formikProps={formikProps}
-                    value={'classStartTime'}
-                  />
-                  <TimePickerModal
-                    isVisible={this.state.endTimePickerVisible}
-                    closeHandle={() => this.setState({ endTimePickerVisible: false })}
-                    time={formikProps.values.classEndTime}
-                    formikProps={formikProps}
-                    value={'classEndTime'}
-                    startTime={formikProps.values.classStartTime}
-                  />
-                  <DatePickerModal
-                    isVisible={this.state.firstDatePickerVisible}
-                    closeHandle={() => this.setState({ firstDatePickerVisible: false })}
-                    time={formikProps.values.firstDayOfClass}
-                    formikProps={formikProps}
-                    value={'firstDayOfClass'}
-                  />
-                  <DatePickerModal
-                    isVisible={this.state.lastDatePickerVisible}
-                    closeHandle={() => this.setState({ lastDatePickerVisible: false })}
-                    time={formikProps.values.lastDayOfClass}
-                    formikProps={formikProps}
-                    value={'lastDayOfClass'}
-                    startTime={formikProps.values.firstDayOfClass}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.containerStyle}>
+            <View style={styles.modalContainer}>
+              <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={{ padding: 10 }}>
+                  <Text style={styles.modalTitle}>Create A Class</Text>
+                </View>
+                <View style={{ padding: 5 }}>
+                  <Feather
+                    name="x-square"
+                    size={35}
+                    color={'#db5461'}
+                    onPress={() => this.props.toggleCreateClassModal()}
                   />
                 </View>
-              )}
-            </Formik>
+              </View>
+              <Formik
+                initialValues={{
+                  className: '',
+                  firstDayOfClass: '',
+                  lastDayOfClass: '',
+                  classStartTime: '',
+                  classEndTime: '',
+                  afterClassReminders: false,
+                  daysOfWeek: {
+                    m: false,
+                    t: false,
+                    w: false,
+                    r: false,
+                    f: false,
+                    sa: false,
+                    su: false
+                  },
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                  this.props.createClass(values);
+                  this.props.toggleCreateClassModal();
+                }}
+              >
+                {formikProps => (
+                  <View>
+                    <View style={styles.inputView}>
+                      <View style={styles.inputBorder}>
+                        <TextInput
+                          style={styles.textInput}
+                          onChangeText={formikProps.handleChange('className')}
+                          onBlur={formikProps.handleBlur('className')}
+                          autoCapitalize='sentences'
+                          placeholder='Class Name'
+                          placeholderTextColor='#fcefef'
+                        />
+                      </View>
+                      <Text style={styles.textError}>
+                        {formikProps.touched.className && formikProps.errors.className}
+                      </Text>
+                    </View>
+
+                    <View style={styles.dateContainerView}>
+                      <ClassTimePicker
+                        textTitle={'First Day Of Class:'}
+                        value={formikProps.values.firstDayOfClass}
+                        onPress={() => this.setState({ firstDatePickerVisible: true })}
+                        day
+                      />
+                      <Text style={styles.textError}>
+                        {formikProps.touched.firstDayOfClass && formikProps.errors.firstDayOfClass}
+                      </Text>
+
+                      <ClassTimePicker
+                        textTitle={'Last Day Of Class:'}
+                        value={formikProps.values.lastDayOfClass}
+                        onPress={() => this.classLastDateOnPress(formikProps.values.firstDayOfClass)}
+                        day
+                      />
+                      <Text style={styles.textError}>
+                        {formikProps.touched.lastDayOfClass && formikProps.errors.lastDayOfClass}
+                      </Text>
+
+                      <ClassTimePicker
+                        textTitle={'Class Starts At:'}
+                        value={formikProps.values.classStartTime}
+                        onPress={() => this.setState({ startTimePickerVisible: true })}
+                      />
+                      <Text style={styles.textError}>
+                        {formikProps.touched.classStartTime && formikProps.errors.classStartTime}
+                      </Text>
+
+                      <ClassTimePicker
+                        textTitle={'Class Ends At:'}
+                        value={formikProps.values.classEndTime}
+                        onPress={() => this.classEndTimeOnPress(formikProps.values.classStartTime)}
+                      />
+                      <Text style={styles.textError}>
+                        {formikProps.touched.classEndTime && formikProps.errors.classEndTime}
+                      </Text>
+                    </View>
+
+                    <View style={styles.viewContainer}>
+                      <Text style={styles.modalTitle}>Days Of The Week</Text>
+                    </View>
+                    <View style={styles.viewContainer}>
+                      <DaysInWeekPicker formikProps={formikProps} />
+                    </View>
+
+                    <View style={styles.textContainer}>
+                      <Text style={styles.textStyle}>
+                        Would you like to be reminded after class to enter your homework?
+                      </Text>
+                    </View>
+                    <CheckBox
+                      title={'Yes'}
+                      textStyle={styles.textStyle}
+                      checked={formikProps.values.afterClassReminders}
+                      iconRight
+                      containerStyle={styles.checkBox}
+                      checkedColor='#82ff9e'
+                      onPress={() => formikProps.setFieldValue(
+                        'afterClassReminders', !formikProps.values.afterClassReminders
+                      )}
+                    />
+
+                    <View style={styles.createButton}>
+                      <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
+                        <Text style={styles.textStyle}>Create</Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    <TimePickerModal
+                      isVisible={this.state.startTimePickerVisible}
+                      closeHandle={() => this.setState({ startTimePickerVisible: false })}
+                      time={formikProps.values.classStartTime}
+                      formikProps={formikProps}
+                      value={'classStartTime'}
+                    />
+                    <TimePickerModal
+                      isVisible={this.state.endTimePickerVisible}
+                      closeHandle={() => this.setState({ endTimePickerVisible: false })}
+                      time={formikProps.values.classEndTime}
+                      formikProps={formikProps}
+                      value={'classEndTime'}
+                      startTime={formikProps.values.classStartTime}
+                    />
+                    <DatePickerModal
+                      isVisible={this.state.firstDatePickerVisible}
+                      closeHandle={() => this.setState({ firstDatePickerVisible: false })}
+                      time={formikProps.values.firstDayOfClass}
+                      formikProps={formikProps}
+                      value={'firstDayOfClass'}
+                    />
+                    <DatePickerModal
+                      isVisible={this.state.lastDatePickerVisible}
+                      closeHandle={() => this.setState({ lastDatePickerVisible: false })}
+                      time={formikProps.values.lastDayOfClass}
+                      formikProps={formikProps}
+                      value={'lastDayOfClass'}
+                      startTime={formikProps.values.firstDayOfClass}
+                    />
+                  </View>
+                )}
+              </Formik>
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     );
   }
