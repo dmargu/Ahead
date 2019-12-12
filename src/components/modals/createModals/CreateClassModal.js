@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   TouchableWithoutFeedback,
-  Keyboard 
+  Keyboard
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   modalContainer: {
-    width: '90%',
+    width: '100%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#555B6E',

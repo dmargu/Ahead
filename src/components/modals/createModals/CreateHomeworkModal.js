@@ -51,7 +51,6 @@ const initialState = { //doing this so you can clear state
   oneDayReminder: false,
   twoDayReminder: false,
   threeDayReminder: false,
-  oneWeekReminder: false,
   customReminder: false,
   pictures: [],
   fullPictureVisible: false,
@@ -128,13 +127,18 @@ class CreateHomeworkModal extends Component {
                       </Text>
 
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+                        <View style={{ flex: 1, bottom: 20 }}>
                           <Dropdown
                             label='Class'
+                            baseColor='#fcefef'
+                            data={this.props.classes}
+                            valueExtractor={(value) => value.name}
+                            onChangeText={formikProps.handleChange('class')}
+                            dropdownPosition={-2}
                           />
                         </View>
 
-                        <View style={{}}>
+                        <View style={{ padding: 2 }}>
                           <Text style={styles.textStyle}>Due Date:</Text>
                           <CustomButton
                             text={'Next Class'}
@@ -219,13 +223,6 @@ class CreateHomeworkModal extends Component {
                           isItemActive={this.state.threeDayReminder}
                         />
                         <CustomButton
-                          text={'1 Week Before'}
-                          onPress={() => {
-                            this.setState({ oneWeekReminder: !this.state.oneWeekReminder });
-                          }}
-                          isItemActive={this.state.oneWeekReminder}
-                        />
-                        <CustomButton
                           text={
                             this.state.customReminderDate ?
                             moment(this.state.customReminderDate).format('MMM DD h:mm a')
@@ -297,7 +294,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '90%',
+    width: '100%',
     height: 615,
     borderRadius: 10,
     borderWidth: 1,
