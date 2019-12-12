@@ -93,7 +93,7 @@ const ImagePickerAndList = (props) => {
           renderItem={({ item }) => {
             return (
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableWithoutFeedback onPress={() => props.modalOpenHandle(item)}>
+                <TouchableWithoutFeedback onPress={() => props.fullPictureOpenHandle(item)}>
                   <Image source={{ uri: item.uri }} style={{ width: 75, height: 75 }} />
                 </TouchableWithoutFeedback>
               </View>

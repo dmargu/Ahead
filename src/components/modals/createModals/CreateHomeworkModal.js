@@ -8,16 +8,17 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  Image,
-  Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import ImageZoom from 'react-native-image-pan-zoom';
+import moment from 'moment';
+import { Dropdown } from 'react-native-material-dropdown';
 import { toggleCreateHomeworkModal } from '../../../actions';
 import ImagePickerAndList from '../../ImagePickerAndList';
+import FullPicture from '../../FullPicture';
+import DateAndTimePickerModal from '../DateAndTimePicker';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -43,54 +44,36 @@ const CustomButton = (props) => {
   );
 };
 
-const HEIGHT = Dimensions.get('window').height;
-const WIDTH = Dimensions.get('window').width;
-
-const FullPicture = (props) => {
-  return (
-    <View style={styles.fullPicture}>
-      <ImageZoom
-        cropWidth={WIDTH}
-        cropHeight={HEIGHT}
-        imageHeight={HEIGHT}
-        imageWidth={WIDTH}
-        enableSwipeDown
-        onSwipeDown={() => props.closeImage()}
-      >
-        <Image
-          style={{ height: HEIGHT, width: WIDTH }}
-          //resizeMode={'cover'}
-          source={{ uri: props.picture.uri }}
-        />
-      </ImageZoom>
-    </View>
-  );
+const initialState = { //doing this so you can clear state
+  nextClassPressed: false,
+  nightBeforePressed: false,
+  customPressed: false,
+  oneDayReminder: false,
+  twoDayReminder: false,
+  threeDayReminder: false,
+  oneWeekReminder: false,
+  customReminder: false,
+  pictures: [],
+  fullPictureVisible: false,
+  selectedPicture: null,
+  customReminderPickerVisible: false,
+  customReminderDate: null,
+  customDueDatePickerVisible: false,
+  customDueDate: null
 };
 
 class CreateHomeworkModal extends Component {
   constructor() {
     super();
-    this.state = {
-      nextClassPressed: false,
-      nightBeforePressed: false,
-      customPressed: false,
-      oneDayReminder: false,
-      twoDayReminder: false,
-      threeDayReminder: false,
-      oneWeekReminder: false,
-      customReminder: false,
-      pictures: [],
-      pictureModalVisible: false,
-      selectedPicture: null
-    };
+    this.state = initialState;
   }
   render() {
     return (
       <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
-        {this.state.pictureModalVisible &&
+        {this.state.fullPictureVisible &&
           <FullPicture
             picture={this.state.selectedPicture}
-            closeImage={() => this.setState({ pictureModalVisible: false })}
+            closeImage={() => this.setState({ fullPictureVisible: false })}
           />
         }
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -107,7 +90,7 @@ class CreateHomeworkModal extends Component {
                     color={'#db5461'}
                     onPress={() => {
                       this.props.toggleCreateHomeworkModal();
-                      //NEED TO CLEAR STATE HERE
+                      this.setState(initialState); //clear state to initial state when user exits form
                     }}
                   />
                 </View>
@@ -119,7 +102,8 @@ class CreateHomeworkModal extends Component {
                   dueDate: null,
                   reminders: [],
                   notes: '',
-                  pictures: []
+                  pictures: [],
+                  class: null
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
@@ -144,8 +128,10 @@ class CreateHomeworkModal extends Component {
                       </Text>
 
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View>
-                          <Text>Class</Text>
+                        <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+                          <Dropdown
+                            label='Class'
+                          />
                         </View>
 
                         <View style={{}}>
@@ -173,15 +159,34 @@ class CreateHomeworkModal extends Component {
                             isItemActive={this.state.nightBeforePressed}
                           />
                           <CustomButton
-                            text={'Custom'}
+                            text={this.state.customDueDate ?
+                            moment(this.state.customDueDate).format('MMM DD h:mm a')
+                            : 'Custom'
+                            }
                             onPress={() => {
+                              if (!this.state.customPressed) {
+                                this.setState({ customDueDatePickerVisible: true });
+                              }
+
+                              if (this.state.customPressed) {
+                                this.setState({ customDueDate: null });
+                              }
+
                               this.setState({ customPressed: !this.state.customPressed });
+
                               if (this.state.nextClassPressed || this.state.nightBeforePressed) {
                                 this.setState({ nextClassPressed: false });
                                 this.setState({ nightBeforePressed: false });
                               }
                             }}
                             isItemActive={this.state.customPressed}
+                          />
+
+                          <DateAndTimePickerModal
+                            isVisible={this.state.customDueDatePickerVisible}
+                            closeHandle={() => this.setState({ customDueDatePickerVisible: false })}
+                            time={this.state.customDueDate}
+                            changeDate={(date) => this.setState({ customDueDate: date })}
                           />
                         </View>
                       </View>
@@ -221,13 +226,30 @@ class CreateHomeworkModal extends Component {
                           isItemActive={this.state.oneWeekReminder}
                         />
                         <CustomButton
-                          text={'Custom'}
+                          text={
+                            this.state.customReminderDate ?
+                            moment(this.state.customReminderDate).format('MMM DD h:mm a')
+                            : 'Custom'
+                          }
                           onPress={() => {
+                            if (!this.state.customReminder) {
+                              this.setState({ customReminderPickerVisible: true });
+                            }
+                            if (this.state.customReminder) {
+                              this.setState({ customReminderDate: null });
+                            }
                             this.setState({ customReminder: !this.state.customReminder });
                           }}
                           isItemActive={this.state.customReminder}
                         />
                       </View>
+
+                      <DateAndTimePickerModal
+                        isVisible={this.state.customReminderPickerVisible}
+                        closeHandle={() => this.setState({ customReminderPickerVisible: false })}
+                        time={this.state.customReminderDate}
+                        changeDate={(date) => this.setState({ customReminderDate: date })}
+                      />
 
                       <View style={{ padding: 5 }}>
                         <TextInput
@@ -244,9 +266,9 @@ class CreateHomeworkModal extends Component {
                       <ImagePickerAndList
                         pictures={this.state.pictures}
                         addPicture={(newArr) => this.setState({ pictures: newArr })}
-                        pictureModalVisible={this.state.pictureModalVisible}
-                        modalOpenHandle={(picture) => {
-                          this.setState({ pictureModalVisible: true });
+                        fullPictureVisible={this.state.fullPictureVisible}
+                        fullPictureOpenHandle={(picture) => {
+                          this.setState({ fullPictureVisible: true });
                           this.setState({ selectedPicture: picture });
                         }}
                       />
@@ -341,20 +363,13 @@ const styles = StyleSheet.create({
     borderColor: '#cdd2c9',
     padding: 10,
     color: '#fcefef'
-  },
-  fullPicture: {
-    flex: 1,
-    justifyContent: 'center',
-    zIndex: 10,
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
   }
 });
 
 function mapStateToProps(state) {
   return {
-    createHomeworkModalVisible: state.ModalReducer.createHomeworkModalVisible
+    createHomeworkModalVisible: state.ModalReducer.createHomeworkModalVisible,
+    classes: state.ClassesReducer.classes
   };
 }
 
