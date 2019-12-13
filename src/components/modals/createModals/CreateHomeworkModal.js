@@ -61,12 +61,13 @@ const initialState = { //doing this so you can clear state
   customDueDate: null
 };
 
-class CreateHomeworkModal extends Component {
-  constructor() {
+class CreateHomeworkModal extends Component { //this class has a bunch of warnings
+  constructor() { //I think it's coming from the material drop down and the Full picture which uses image zoom
     super();
     this.state = initialState;
   }
   render() {
+    console.log(this.props.classes);
     return (
       <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
         {this.state.fullPictureVisible &&
@@ -105,8 +106,8 @@ class CreateHomeworkModal extends Component {
                   class: null
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  console.log(values);
+                onSubmit={(values) => { //pass values and state object to redux action
+                  console.log(values); //which will handle the backend work
                 }}
               >
                 {formikProps => (
@@ -127,17 +128,18 @@ class CreateHomeworkModal extends Component {
                       </Text>
 
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flex: 1, bottom: 20 }}>
-                          <Dropdown
-                            label='Class'
-                            baseColor='#fcefef'
-                            data={this.props.classes}
-                            valueExtractor={(value) => value.name}
-                            onChangeText={formikProps.handleChange('class')}
-                            dropdownPosition={-2}
-                          />
-                        </View>
-
+                        { this.props.classes.length !== 0 &&
+                          <View style={{ flex: 1, bottom: 20 }}>
+                            <Dropdown
+                              label='Class'
+                              baseColor='#fcefef'
+                              data={this.props.classes}
+                              valueExtractor={(value) => value.name}
+                              onChangeText={formikProps.handleChange('class')}
+                              dropdownPosition={-2}
+                            />
+                          </View>
+                        }
                         <View style={{ padding: 2 }}>
                           <Text style={styles.textStyle}>Due Date:</Text>
                           <CustomButton
@@ -188,7 +190,12 @@ class CreateHomeworkModal extends Component {
 
                           <DateAndTimePickerModal
                             isVisible={this.state.customDueDatePickerVisible}
-                            closeHandle={() => this.setState({ customDueDatePickerVisible: false })}
+                            closeHandle={() => {
+                              this.setState({ customDueDatePickerVisible: false });
+                              if (!this.state.customDueDate) {
+                                this.setState({ customPressed: false });
+                              }
+                            }}
                             time={this.state.customDueDate}
                             changeDate={(date) => this.setState({ customDueDate: date })}
                           />
@@ -243,7 +250,12 @@ class CreateHomeworkModal extends Component {
 
                       <DateAndTimePickerModal
                         isVisible={this.state.customReminderPickerVisible}
-                        closeHandle={() => this.setState({ customReminderPickerVisible: false })}
+                        closeHandle={() => {
+                          this.setState({ customReminderPickerVisible: false });
+                          if (!this.state.customReminderDate) {
+                            this.setState({ customReminder: false });
+                          }
+                        }}
                         time={this.state.customReminderDate}
                         changeDate={(date) => this.setState({ customReminderDate: date })}
                       />

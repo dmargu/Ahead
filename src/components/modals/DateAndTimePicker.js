@@ -21,6 +21,7 @@ class DateAndTimePickerModal extends Component {
           <View style={styles.pickerModalConfig}>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
+                minuteInterval={5}
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
                 onDateChange={(date) => this.props.changeDate(date)}
                 minimumDate={new Date()}
