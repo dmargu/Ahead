@@ -153,5 +153,99 @@ export const scheduleNotification = {
       ],
         { cancelable: false }
     );
+  },
+  async homeworkReminder(dueDate, type, values) {
+    const permission = await registerForPushNotificationsAsync();
+    if (permission) {
+      switch (type) {
+        case 'oneDay': { //add in conditional check to make sure notification is before current time
+          const notificationID = await Notifications.scheduleLocalNotificationAsync(
+            (values.notes ?
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+              }
+              :
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day`
+              }
+            ),
+            {
+              time: moment(dueDate).subtract(1, 'days').toDate()
+            }
+          );
+          return notificationID;
+        }
+        case 'twoDay': {
+          const notificationID = await Notifications.scheduleLocalNotificationAsync(
+            (values.notes ?
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+              }
+              :
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day`
+              }
+            ),
+            {
+              time: moment(dueDate).subtract(2, 'days').toDate()
+            }
+          );
+          return notificationID;
+        }
+        case 'threeDay': {
+          const notificationID = await Notifications.scheduleLocalNotificationAsync(
+            (values.notes ?
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+              }
+              :
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day`
+              }
+            ),
+            {
+              time: moment(dueDate).subtract(3, 'days').toDate()
+            }
+          );
+          return notificationID;
+        }
+        case 'custom': {
+          const notificationID = await Notifications.scheduleLocalNotificationAsync(
+            (values.notes ?
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+              }
+              :
+              {
+                title: 'Reminder:',
+                body: `${values.assignmentName} in one day`
+              }
+            ),
+            {
+              time: moment(dueDate).toDate()
+            }
+          );
+          return notificationID;
+        }
+        default:
+          return;
+      }
+    }
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   }
+
 };

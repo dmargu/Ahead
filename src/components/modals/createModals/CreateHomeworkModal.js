@@ -93,8 +93,8 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
     super();
     this.state = initialState;
   }
-  render() {
-    return (
+  render() { //for now user will be allowed to enter 3 day reminder even if assignment is due before then
+    return ( //they can submit it but our action creator won't schedule it
       <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
         {this.state.fullPictureVisible &&
           <FullPicture

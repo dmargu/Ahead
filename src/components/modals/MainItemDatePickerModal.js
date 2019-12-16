@@ -22,11 +22,11 @@ const HEIGHT = Dimensions.get('window').height;
 
 class MainItemDatePickerModal extends Component {
   onClearDatePress() {
-    this.props.cancelAllNotifications(this.props.item);
+    this.props.cancelAllNotifications(this.props.item.id);
     this.props.clearDate(this.props.item);
   }
   async onDateChangeHandle(date) {
-    await this.props.cancelAllNotifications(this.props.item);
+    await this.props.cancelAllNotifications(this.props.item.id);
     await this.props.changeDate(date, this.props.item.id);
   }
   render() {

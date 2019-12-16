@@ -17,7 +17,7 @@ const storage = (state = initialState, action) => {
         [
           ...state.notificationIDs,
           {
-            itemID: action.item.id,
+            itemID: action.id,
             reminderType: action.reminderType,
             notificationID: action.notificationID
           }

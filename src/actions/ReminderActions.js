@@ -25,7 +25,7 @@ export const tenMinReminder = (item) => { //I tried to refactor this to be very 
     const notificationID = await scheduleNotification.tenMinReminder(item);
     dispatch({
       type: ADD_NOTIFICATION_ID,
-      item,
+      id: item.id,
       reminderType: 'tenMin',
       notificationID
     });
@@ -41,7 +41,7 @@ export const thirtyMinReminder = (item) => {
     const notificationID = await scheduleNotification.thirtyMinReminder(item);
     dispatch({
       type: ADD_NOTIFICATION_ID,
-      item,
+      id: item.id,
       reminderType: 'thirtyMin',
       notificationID
     });
@@ -57,7 +57,7 @@ export const oneHourReminder = (item) => {
     const notificationID = await scheduleNotification.oneHourReminder(item);
     dispatch({
       type: ADD_NOTIFICATION_ID,
-      item,
+      id: item.id,
       reminderType: 'oneHour',
       notificationID
     });
@@ -73,7 +73,7 @@ export const oneDayReminder = (item) => {
     const notificationID = await scheduleNotification.oneDayReminder(item);
     dispatch({
       type: ADD_NOTIFICATION_ID,
-      item,
+      id: item.id,
       reminderType: 'oneDay',
       notificationID
     });
@@ -90,7 +90,7 @@ export const startReminder = (item) => {
     const notificationID = await scheduleNotification.startReminder(item);
     dispatch({
       type: ADD_NOTIFICATION_ID,
-      item,
+      id: item.id,
       reminderType: 'start',
       notificationID
     });

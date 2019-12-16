@@ -45,7 +45,7 @@ class ReminderToggleButtons extends Component {
               this.props.startReminder(item);
             }
             if (item.startReminder) {
-              this.props.cancelNotification(item, 'start');
+              this.props.cancelNotification(item.id, 'start');
             }
           }}
         >
@@ -74,7 +74,7 @@ class ReminderToggleButtons extends Component {
               this.props.tenMinReminder(item);
             }
             if (item.tenMinReminder) {
-              this.props.cancelNotification(item, 'tenMin');
+              this.props.cancelNotification(item.id, 'tenMin');
             }
           }}
         >
@@ -103,7 +103,7 @@ class ReminderToggleButtons extends Component {
               this.props.thirtyMinReminder(item);
             }
             if (item.thirtyMinReminder) {
-              this.props.cancelNotification(item, 'thirtyMin');
+              this.props.cancelNotification(item.id, 'thirtyMin');
             }
           }}
         >
@@ -132,7 +132,7 @@ class ReminderToggleButtons extends Component {
               this.props.oneHourReminder(item);
             }
             if (item.oneHourReminder) {
-              this.props.cancelNotification(item, 'oneHour');
+              this.props.cancelNotification(item.id, 'oneHour');
             }
           }}
         >
@@ -161,7 +161,7 @@ class ReminderToggleButtons extends Component {
               this.props.oneDayReminder(item);
             }
             if (item.oneDayReminder) {
-              this.props.cancelNotification(item, 'oneDay');
+              this.props.cancelNotification(item.id, 'oneDay');
             }
           }}
         >

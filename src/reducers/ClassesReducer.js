@@ -33,7 +33,7 @@ const classes = (state = initialState, action) => {
         ...state,
         homework: [
           ...state.homework, {
-            id: shortid.generate(),
+            id: action.id,
             assignmentName: action.values.assignmentName,
             className: action.values.class,
             notes: action.values.notes,

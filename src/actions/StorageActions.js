@@ -4,26 +4,26 @@ import {
   CANCEL_ALL_NOTIFICATIONS,
 } from './types';
 
-export const addNotificationID = (item, reminderType, notificationID) => {
+export const addNotificationID = (id, reminderType, notificationID) => {
   return {
     type: ADD_NOTIFICATION_ID,
     notificationID,
-    item,
+    id,
     reminderType
   };
 };
 
-export const cancelNotification = (item, reminderType) => {
+export const cancelNotification = (id, reminderType) => {
   return {
     type: CANCEL_NOTIFICATION,
-    id: item.id,
+    id,
     reminderType,
   };
 };
 
-export const cancelAllNotifications = (item) => {
+export const cancelAllNotifications = (id) => {
   return {
     type: CANCEL_ALL_NOTIFICATIONS,
-    id: item.id,
+    id,
   };
 };
