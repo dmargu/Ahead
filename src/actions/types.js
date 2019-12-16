@@ -51,3 +51,5 @@ export const TOGGLE_CREATE_HOMEWORK_MODAL = 'toggleCreateHomeworkModal';
 export const TOGGLE_CREATE_TEST_MODAL = 'toggleCreateTestModal';
 
 export const CREATE_CLASS = 'createClass';
+
+export const CREATE_HOMEWORK = 'createHomework';

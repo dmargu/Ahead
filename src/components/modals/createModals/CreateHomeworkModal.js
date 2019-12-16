@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
@@ -15,7 +16,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import moment from 'moment';
 import { Dropdown } from 'react-native-material-dropdown';
-import { toggleCreateHomeworkModal } from '../../../actions';
+import { toggleCreateHomeworkModal, createHomework } from '../../../actions';
 import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
@@ -23,6 +24,32 @@ import DateAndTimePickerModal from '../DateAndTimePicker';
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
 });
+
+const PickClassFirstAlert = () => {
+  return (
+    Alert.alert(
+      'Pick A Class First.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    )
+  );
+};
+
+const SetDueDateFirstAlert = () => {
+  return (
+    Alert.alert(
+      'Set A Due Date First.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    )
+  );
+};
 
 const CustomButton = (props) => {
   return (
@@ -45,9 +72,9 @@ const CustomButton = (props) => {
 };
 
 const initialState = { //doing this so you can clear state
-  nextClassPressed: false,
-  nightBeforePressed: false,
-  customPressed: false,
+  dueNextClass: false,
+  dueNightBefore: false,
+  dueCustomTime: false,
   oneDayReminder: false,
   twoDayReminder: false,
   threeDayReminder: false,
@@ -67,7 +94,6 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
     this.state = initialState;
   }
   render() {
-    console.log(this.props.classes);
     return (
       <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
         {this.state.fullPictureVisible &&
@@ -99,15 +125,14 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
               <Formik
                 initialValues={{
                   assignmentName: '',
-                  dueDate: null,
-                  reminders: [],
                   notes: '',
-                  pictures: [],
                   class: null
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => { //pass values and state object to redux action
-                  console.log(values); //which will handle the backend work
+                onSubmit={(values) => {
+                  this.props.createHomework(values, this.state, this.props.classes);
+                  this.setState(initialState);
+                  this.props.toggleCreateHomeworkModal();
                 }}
               >
                 {formikProps => (
@@ -142,50 +167,62 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                         }
                         <View style={{ padding: 2 }}>
                           <Text style={styles.textStyle}>Due Date:</Text>
-                          <CustomButton
-                            text={'Next Class'}
-                            onPress={() => {
-                              this.setState({ nextClassPressed: !this.state.nextClassPressed });
-                              if (this.state.nightBeforePressed || this.state.customPressed) {
-                                this.setState({ nightBeforePressed: false });
-                                this.setState({ customPressed: false });
-                              }
-                            }}
-                            isItemActive={this.state.nextClassPressed}
-                          />
-                          <CustomButton
-                            text={'Night Before Next Class'}
-                            onPress={() => {
-                              this.setState({ nightBeforePressed: !this.state.nightBeforePressed });
-                              if (this.state.nextClassPressed || this.state.customPressed) {
-                                this.setState({ nextClassPressed: false });
-                                this.setState({ customPressed: false });
-                              }
-                            }}
-                            isItemActive={this.state.nightBeforePressed}
-                          />
+                          { this.props.classes.length !== 0 &&
+                            <View>
+                              <CustomButton
+                                text={'Next Class'}
+                                onPress={() => {
+                                  if (formikProps.values.class) {
+                                    this.setState({ dueNextClass: !this.state.dueNextClass });
+                                  } else {
+                                    PickClassFirstAlert();
+                                  }
+                                  if (this.state.dueNightBefore || this.state.dueCustomTime) {
+                                    this.setState({ dueNightBefore: false });
+                                    this.setState({ dueCustomTime: false });
+                                  }
+                                }}
+                                isItemActive={this.state.dueNextClass}
+                              />
+                              <CustomButton
+                                text={'Night Before Next Class'}
+                                onPress={() => {
+                                  if (formikProps.values.class) {
+                                    this.setState({ dueNightBefore: !this.state.dueNightBefore });
+                                  } else {
+                                    PickClassFirstAlert();
+                                  }
+                                  if (this.state.dueNextClass || this.state.dueCustomTime) {
+                                    this.setState({ dueNextClass: false });
+                                    this.setState({ dueCustomTime: false });
+                                  }
+                                }}
+                                isItemActive={this.state.dueNightBefore}
+                              />
+                            </View>
+                          }
                           <CustomButton
                             text={this.state.customDueDate ?
                             moment(this.state.customDueDate).format('MMM DD h:mm a')
                             : 'Custom'
                             }
                             onPress={() => {
-                              if (!this.state.customPressed) {
+                              if (!this.state.dueCustomTime) {
                                 this.setState({ customDueDatePickerVisible: true });
                               }
 
-                              if (this.state.customPressed) {
+                              if (this.state.dueCustomTime) {
                                 this.setState({ customDueDate: null });
                               }
 
-                              this.setState({ customPressed: !this.state.customPressed });
+                              this.setState({ dueCustomTime: !this.state.dueCustomTime });
 
-                              if (this.state.nextClassPressed || this.state.nightBeforePressed) {
-                                this.setState({ nextClassPressed: false });
-                                this.setState({ nightBeforePressed: false });
+                              if (this.state.dueNextClass || this.state.dueNightBefore) {
+                                this.setState({ dueNextClass: false });
+                                this.setState({ dueNightBefore: false });
                               }
                             }}
-                            isItemActive={this.state.customPressed}
+                            isItemActive={this.state.dueCustomTime}
                           />
 
                           <DateAndTimePickerModal
@@ -193,7 +230,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                             closeHandle={() => {
                               this.setState({ customDueDatePickerVisible: false });
                               if (!this.state.customDueDate) {
-                                this.setState({ customPressed: false });
+                                this.setState({ dueCustomTime: false });
                               }
                             }}
                             time={this.state.customDueDate}
@@ -205,30 +242,46 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                       <Text style={{ padding: 2, color: '#fcefef' }}>
                         Reminders To Complete Assignment:
                       </Text>
-                      <View style={{ flexDirection: 'row' }}>
+                      { this.props.classes.length !== 0 && <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={'1 Day Before'}
                           onPress={() => {
-                            this.setState({ oneDayReminder: !this.state.oneDayReminder });
+                            if (this.state.dueNextClass
+                              || this.state.dueNightBefore || this.state.dueCustomTime) {
+                              this.setState({ oneDayReminder: !this.state.oneDayReminder });
+                            } else {
+                              SetDueDateFirstAlert();
+                            }
                           }}
                           isItemActive={this.state.oneDayReminder}
                         />
                         <CustomButton
                           text={'2 Days Before'}
                           onPress={() => {
-                            this.setState({ twoDayReminder: !this.state.twoDayReminder });
+                            if (this.state.dueNextClass
+                              || this.state.dueNightBefore || this.state.dueCustomTime) {
+                              this.setState({ twoDayReminder: !this.state.twoDayReminder });
+                            } else {
+                              SetDueDateFirstAlert();
+                            }
                           }}
                           isItemActive={this.state.twoDayReminder}
                         />
-                      </View>
-                      <View style={{ flexDirection: 'row' }}>
+
                         <CustomButton
                           text={'3 Days Before'}
                           onPress={() => {
-                            this.setState({ threeDayReminder: !this.state.threeDayReminder });
+                            if (this.state.dueNextClass
+                              || this.state.dueNightBefore || this.state.dueCustomTime) {
+                              this.setState({ threeDayReminder: !this.state.threeDayReminder });
+                            } else {
+                              SetDueDateFirstAlert();
+                            }
                           }}
                           isItemActive={this.state.threeDayReminder}
                         />
+                      </View> }
+                      <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={
                             this.state.customReminderDate ?
@@ -382,4 +435,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { toggleCreateHomeworkModal })(CreateHomeworkModal);
+export default connect(mapStateToProps, { toggleCreateHomeworkModal, createHomework })(CreateHomeworkModal);

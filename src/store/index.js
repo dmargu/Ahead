@@ -31,7 +31,7 @@ const storageConfig = {
 const classConfig = {
   key: 'ClassesReducer',
   storage: AsyncStorage,
-  whitelist: ['classes'],
+  whitelist: ['classes', 'homework'],
   stateReconciler: autoMergeLevel2
 };
 
