@@ -19,16 +19,17 @@ export const createClass = (values) => {
 };
 
 export const createHomework = (values, state, classes) => {
-  const id = shortid.generate(); //generating id now se we can use it to schedule reminders
-  const dueDate = findDueDate(state, values.class, classes);
-  const reminders = scheduleReminders(state, dueDate, id, values);
-  return {
-    type: CREATE_HOMEWORK,
-    values,
-    state,
-    id,
-    dueDate,
-    reminders
+  return (dispatch) => {
+    const id = shortid.generate(); //generating id now se we can use it to schedule reminders
+    const dueDate = findDueDate(state, values.class, classes);
+    scheduleReminders(dispatch, state, dueDate, id, values);
+    dispatch({
+      type: CREATE_HOMEWORK,
+      values,
+      state,
+      id,
+      dueDate,
+    });
   };
 };
 //days of week
@@ -108,43 +109,54 @@ function findDueDate(state, className, classes) {
 }
 
 //schedule reminders
-function scheduleReminders(state, dueDate, id, values) {
-  return async (dispatch) => {
-    if (state.oneDayReminder) {
-      const notificationID = await scheduleNotification.homeWorkReminder(dueDate, 'oneDay', values);
-      dispatch({
-        type: ADD_NOTIFICATION_ID,
-        id,
-        reminderType: 'homeworkOneDay', //use these keys to cancel them from homework item
-        notificationID
-      });
-    }
-    if (state.twoDayReminder) {
-      const notificationID = await scheduleNotification.homeWorkReminder(dueDate, 'twoDay', values);
-      dispatch({
-        type: ADD_NOTIFICATION_ID,
-        id,
-        reminderType: 'homeworkTwoDay',
-        notificationID
-      });
-    }
-    if (state.threeDayReminder) {
-      const notificationID = await scheduleNotification.homeWorkReminder(dueDate, 'threeDay', values);
-      dispatch({
-        type: ADD_NOTIFICATION_ID,
-        id,
-        reminderType: 'homeworkThreeDay',
-        notificationID
-      });
-    }
-    if (state.customReminder) {
-      const notificationID = await scheduleNotification.homeWorkReminder(dueDate, 'custom', values);
-      dispatch({
-        type: ADD_NOTIFICATION_ID,
-        id,
-        reminderType: 'homeworkCustom',
-        notificationID
-      });
-    }
-  };
+async function scheduleReminders(dispatch, state, dueDate, id, values) {
+  if (state.oneDayReminder &&
+    (moment(dueDate).subtract(1, 'days').isAfter(moment(new Date())) || //check if duedate is at least
+     moment(dueDate).subtract(1, 'days').isSame(moment(new Date())) //1 day away, same for 2 and 3
+    )
+    ) {
+    const notificationID = await scheduleNotification.homeworkReminder(dueDate, 'oneDay', values);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      id,
+      reminderType: 'homeworkOneDay', //use these keys to cancel them from homework item
+      notificationID
+    });
+  }
+  if (state.twoDayReminder &&
+    (moment(dueDate).subtract(2, 'days').isAfter(moment(new Date())) ||
+     moment(dueDate).subtract(2, 'days').isSame(moment(new Date()))
+    )
+    ) {
+    const notificationID = await scheduleNotification.homeworkReminder(dueDate, 'twoDay', values);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      id,
+      reminderType: 'homeworkTwoDay',
+      notificationID
+    });
+  }
+  if (state.threeDayReminder &&
+    (moment(dueDate).subtract(3, 'days').isAfter(moment(new Date())) ||
+     moment(dueDate).subtract(3, 'days').isSame(moment(new Date()))
+    )
+    ) {
+    const notificationID = await scheduleNotification.homeworkReminder(dueDate, 'threeDay', values);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      id,
+      reminderType: 'homeworkThreeDay',
+      notificationID
+    });
+  }
+  if (state.customReminder) {
+    const notificationID =
+      await scheduleNotification.customHomeWorkReminder(state.customReminderDate, values);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      id,
+      reminderType: 'homeworkCustom',
+      notificationID
+    });
+  }
 }

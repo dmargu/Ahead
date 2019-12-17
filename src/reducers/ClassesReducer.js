@@ -31,15 +31,14 @@ const classes = (state = initialState, action) => {
     case CREATE_HOMEWORK:
       return {
         ...state,
-        homework: [
-          ...state.homework, {
+        homework: [ //get the active reminders by looking through storage and see what reminders are there
+          ...state.homework, { //with the same id and then you can find the type
             id: action.id,
             assignmentName: action.values.assignmentName,
             className: action.values.class,
             notes: action.values.notes,
             pictures: action.state.pictures,
             dueDate: action.dueDate,
-            reminders: action.reminders
           }
         ]
       };

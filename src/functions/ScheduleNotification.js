@@ -158,17 +158,17 @@ export const scheduleNotification = {
     const permission = await registerForPushNotificationsAsync();
     if (permission) {
       switch (type) {
-        case 'oneDay': { //add in conditional check to make sure notification is before current time
+        case 'oneDay': {
           const notificationID = await Notifications.scheduleLocalNotificationAsync(
             (values.notes ?
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+                body: `${values.assignmentName} due in one day\nNotes: ${values.notes}`
               }
               :
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day`
+                body: `${values.assignmentName} due in one day`
               }
             ),
             {
@@ -182,12 +182,12 @@ export const scheduleNotification = {
             (values.notes ?
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+                body: `${values.assignmentName} due in two days\nNotes: ${values.notes}`
               }
               :
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day`
+                body: `${values.assignmentName} due in two days`
               }
             ),
             {
@@ -201,12 +201,12 @@ export const scheduleNotification = {
             (values.notes ?
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
+                body: `${values.assignmentName} due in three days\nNotes: ${values.notes}`
               }
               :
               {
                 title: 'Reminder:',
-                body: `${values.assignmentName} in one day`
+                body: `${values.assignmentName} due in three days`
               }
             ),
             {
@@ -215,28 +215,39 @@ export const scheduleNotification = {
           );
           return notificationID;
         }
-        case 'custom': {
-          const notificationID = await Notifications.scheduleLocalNotificationAsync(
-            (values.notes ?
-              {
-                title: 'Reminder:',
-                body: `${values.assignmentName} in one day\nNotes: ${values.notes}`
-              }
-              :
-              {
-                title: 'Reminder:',
-                body: `${values.assignmentName} in one day`
-              }
-            ),
-            {
-              time: moment(dueDate).toDate()
-            }
-          );
-          return notificationID;
-        }
         default:
           return;
       }
+    }
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
+  },
+  async customHomeWorkReminder(reminderDate, values) {
+    const permission = await registerForPushNotificationsAsync();
+    if (permission) {
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
+        (values.notes ?
+          {
+            title: 'Reminder:',
+            body: `Complete ${values.assignmentName}\nNotes: ${values.notes}`
+          }
+          :
+          {
+            title: 'Reminder:',
+            body: `Complete ${values.assignmentName}`
+          }
+        ),
+        {
+          time: moment(reminderDate).toDate()
+        }
+      );
+      return notificationID;
     }
     Alert.alert(
       'Cannot send notification without permission.',
