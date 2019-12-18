@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK
@@ -16,7 +15,7 @@ const classes = (state = initialState, action) => {
         ...state,
         classes: [
           ...state.classes, {
-            id: shortid.generate(),
+            id: action.id,
             name: action.payload.className,
             firstDayOfClass: action.payload.firstDayOfClass,
             lastDayOfClass: action.payload.lastDayOfClass,

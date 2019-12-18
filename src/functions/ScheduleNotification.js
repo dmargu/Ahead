@@ -257,6 +257,32 @@ export const scheduleNotification = {
       ],
         { cancelable: false }
     );
+  },
+  async afterClassReminder(classDate, classEndTime, className) {
+    const permission = await registerForPushNotificationsAsync();
+    if (permission) {
+      const notificationID = await Notifications.scheduleLocalNotificationAsync(
+        {
+          title: `Do you have homework for ${className}?`,
+          body: 'Follow me to enter it'
+        },
+        {
+          time: moment(classDate)
+            .hour(moment(classEndTime).hour())
+            .minute(moment(classEndTime).minute())
+            .subtract(10, 'minutes') //send the notification 10 minutes before end of class
+            .toDate()
+        }
+      );
+      return notificationID;
+    }
+    Alert.alert(
+      'Cannot send notification without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    );
   }
-
 };

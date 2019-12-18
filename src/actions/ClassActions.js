@@ -7,14 +7,21 @@ import {
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
-export const createClass = (values) => {
-  const daysOfWeek = findDaysOfWeek(values.daysOfWeek);
-  const classDays = findClassDays(values, daysOfWeek);
-  return {
-    type: CREATE_CLASS,
-    payload: values,
-    daysOfWeek,
-    classDays
+export const createClass = (values) => { //add after class notifications
+  return (dispatch) => {
+    const id = shortid.generate(); //generating id now se we can use it to schedule reminders
+    const daysOfWeek = findDaysOfWeek(values.daysOfWeek);
+    const classDays = findClassDays(values, daysOfWeek);
+    if (values.afterClassReminders) {
+      scheduleAfterClassReminders(dispatch, values, classDays, id);
+    }
+    dispatch({
+      type: CREATE_CLASS,
+      payload: values,
+      daysOfWeek,
+      classDays,
+      id
+    });
   };
 };
 
@@ -81,6 +88,19 @@ function getDates(startDate, stopDate) { //helper function to populate range of 
       currentDate = moment(currentDate).add(1, 'days');
   }
   return dateArray;
+}
+
+async function scheduleAfterClassReminders(dispatch, values, classDates, id) {
+  for (let x = 0; x < classDates.length; x++) {
+    const notificationID =
+      await scheduleNotification.afterClassReminder(classDates[x], values.classEndTime, values.className);
+    dispatch({
+      type: ADD_NOTIFICATION_ID,
+      id,
+      reminderType: 'afterclassReminder',
+      notificationID
+    });
+  }
 }
 
 //find due date for Homework

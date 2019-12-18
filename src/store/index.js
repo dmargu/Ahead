@@ -53,7 +53,7 @@ export default function storeConfiguration() {
   );
 
   const persistor = persistStore(store);
-  //persistor.purge();
+  persistor.purge();
 
   return { persistor, store };
 }
