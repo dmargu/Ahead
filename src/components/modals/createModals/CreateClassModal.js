@@ -20,6 +20,7 @@ import TimePickerModal from '../OnlyTimePickerModal';
 import DatePickerModal from '../OnlyDatePickerModal';
 import DaysInWeekPicker from '../../DaysInWeekPicker';
 import { toggleCreateClassModal, createClass } from '../../../actions';
+import { Spinner } from '../../common/Spinner';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
   className: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
@@ -118,10 +119,7 @@ class CreateClassModal extends Component {
                   },
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  this.props.createClass(values);
-                  this.props.toggleCreateClassModal();
-                }}
+                onSubmit={(values, actions) => this.props.createClass(values, actions)}
               >
                 {formikProps => (
                   <View>
@@ -205,11 +203,20 @@ class CreateClassModal extends Component {
                       )}
                     />
 
-                    <View style={styles.createButton}>
+                    {formikProps.isSubmitting ? (
+                      <View style={styles.createButton}>
+                        <TouchableOpacity
+                          style={styles.buttonContainer}
+                        >
+                          <Spinner size='large' />
+                        </TouchableOpacity>
+                      </View>
+                    ) :
+                    (<View style={styles.createButton}>
                       <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
                         <Text style={styles.textStyle}>Create</Text>
                       </TouchableOpacity>
-                    </View>
+                    </View>)}
 
                     <TimePickerModal
                       isVisible={this.state.startTimePickerVisible}

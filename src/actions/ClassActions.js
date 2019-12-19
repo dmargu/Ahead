@@ -3,17 +3,19 @@ import shortid from 'shortid';
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK,
-  ADD_NOTIFICATION_ID
+  ADD_NOTIFICATION_ID,
+  TOGGLE_CREATE_CLASS_MODAL,
+  TOGGLE_CREATE_HOMEWORK_MODAL
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
-export const createClass = (values) => { //add after class notifications
-  return (dispatch) => {
+export const createClass = (values, actions) => { //add after class notifications
+  return async (dispatch) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     const daysOfWeek = findDaysOfWeek(values.daysOfWeek);
     const classDays = findClassDays(values, daysOfWeek);
     if (values.afterClassReminders) {
-      scheduleAfterClassReminders(dispatch, values, classDays, id);
+      await scheduleAfterClassReminders(dispatch, values, classDays, id);
     }
     dispatch({
       type: CREATE_CLASS,
@@ -22,20 +24,28 @@ export const createClass = (values) => { //add after class notifications
       classDays,
       id
     });
+    actions.setSubmitting(false);
+    dispatch({
+      type: TOGGLE_CREATE_CLASS_MODAL
+    });
   };
 };
 
-export const createHomework = (values, state, classes) => {
-  return (dispatch) => {
+export const createHomework = (values, state, classes, actions) => {
+  return async (dispatch) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     const dueDate = findDueDate(state, values.class, classes);
-    scheduleReminders(dispatch, state, dueDate, id, values);
+    await scheduleReminders(dispatch, state, dueDate, id, values);
     dispatch({
       type: CREATE_HOMEWORK,
       values,
       state,
       id,
       dueDate,
+    });
+    actions.setSubmitting(false);
+    dispatch({
+      type: TOGGLE_CREATE_HOMEWORK_MODAL
     });
   };
 };

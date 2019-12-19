@@ -20,6 +20,7 @@ import { toggleCreateHomeworkModal, createHomework } from '../../../actions';
 import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
+import { Spinner } from '../../common/Spinner';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -126,13 +127,12 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                 initialValues={{
                   assignmentName: '',
                   notes: '',
-                  class: null
+                  class: this.props.classNameFromNotification ? this.props.classNameFromNotification : null
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  this.props.createHomework(values, this.state, this.props.classes);
+                onSubmit={(values, actions) => {
+                  this.props.createHomework(values, this.state, this.props.classes, actions);
                   this.setState(initialState);
-                  this.props.toggleCreateHomeworkModal();
                 }}
               >
                 {formikProps => (
@@ -160,6 +160,9 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                               baseColor='#fcefef'
                               data={this.props.classes}
                               valueExtractor={(value) => value.name}
+                              value={this.props.classNameFromNotification ?
+                                this.props.classNameFromNotification : ''
+                              }
                               onChangeText={formikProps.handleChange('class')}
                               dropdownPosition={-2}
                             />
@@ -335,11 +338,20 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                         }}
                       />
 
-                      <View style={styles.createButton}>
+                      {formikProps.isSubmitting ? (
+                        <View style={styles.createButton}>
+                          <TouchableOpacity
+                            style={styles.buttonContainer}
+                          >
+                            <Spinner size='large' />
+                          </TouchableOpacity>
+                        </View>
+                      ) :
+                      (<View style={styles.createButton}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
                           <Text style={styles.textStyle}>Create</Text>
                         </TouchableOpacity>
-                      </View>
+                      </View>)}
                     </View>
                   </View>
                 )}

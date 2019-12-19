@@ -264,7 +264,11 @@ export const scheduleNotification = {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
         {
           title: `Do you have homework for ${className}?`,
-          body: 'Follow me to enter it'
+          body: 'Tap to enter it',
+          data: {
+            type: 'afterClassReminder',
+            className
+          }
         },
         {
           time: moment(classDate)

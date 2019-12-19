@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Dimensions, Keyboard, InputAccessoryView, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { Notifications } from 'expo';
 //import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 import Header from '../components/common/Header';
 //import TodayIncludes from '../components/TodayIncludes';
@@ -8,7 +9,8 @@ import MainTodo from '../components/todoComponents/mainTodo';
 import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import AddTodo from '../components/todoComponents/AddTodo';
 import FloatingPlusButton from '../components/FloatingPlusButton';
-import { addTodo } from '../actions';
+import CreateHomeworkModal from '../components/modals/createModals/CreateHomeworkModal';
+import { addTodo, toggleCreateHomeworkModal } from '../actions';
 
 
 const HEIGHT = Dimensions.get('window').height;
@@ -18,17 +20,27 @@ class HomeScreen extends Component {
     super();
     this.state = {
       textInput: '',
-      inputVisible: true
+      inputVisible: true,
+      classNameFromNotification: ''
     };
   }
   componentDidMount() {
     registerForPushNotificationsAsync();
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
     this.setState({ inputVisible: false });
+    this.notificationSubscription = Notifications.addListener(n => this.handleNotification(n));
+  }
+
+  handleNotification(n) {
+    if (n.origin === 'selected' && n.data.type === 'afterClassReminder') {
+      this.setState({ classNameFromNotification: n.data.className });
+      this.props.toggleCreateHomeworkModal();
+    }
   }
 
   componentWillUnmount() {
     this.keyboardDidHideListener.remove();
+    this.notificationSubscription.remove();
   }
 
   keyboardDidHide() {
@@ -56,6 +68,9 @@ class HomeScreen extends Component {
           <Text style={styles.headerTextStyle}>{headerString}</Text>
         </View>
         <MainTodo />
+        <CreateHomeworkModal
+          classNameFromNotification={this.state.classNameFromNotification}
+        />
         <InputAccessoryView>
           { this.state.inputVisible &&
             <AddTodo
@@ -94,4 +109,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { addTodo })(HomeScreen);
+function mapStateToProps(state) {
+  return {
+    createHomeworkModalVisible: state.ModalReducer.createHomeworkModalVisible
+  };
+}
+
+export default connect(mapStateToProps, { addTodo, toggleCreateHomeworkModal })(HomeScreen);
