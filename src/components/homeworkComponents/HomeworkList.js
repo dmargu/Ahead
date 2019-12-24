@@ -7,26 +7,26 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import TodoItem from './TodoItem';
-import { removeTodo } from '../../actions';
+import HomeworkItem from './HomeworkItem';
+import { removeHomework } from '../../actions';
 
 const HEIGHT = Dimensions.get('window').height;
 
-class MainTodo extends Component {
+class HomeworkList extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <FlatList
-          data={_.sortBy(this.props.todos, (item) => { //not working correctly
+          data={_.sortBy(this.props.homework, (item) => { //not working correctly
             return item.date;
           })}
-          extraData={this.props.todos}
+          extraData={this.props.homework}
           keyExtractor={item => item.id}
           renderItem={({ item }) => {
             return (
-              <TodoItem
-                todoItem={item}
-                deleteTodo={() => this.props.removeTodo(item)}
+              <HomeworkItem
+                homeworkItem={item}
+                deleteHomework={() => this.props.removeHomework(item)}
               />
             );
           }}
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    todos: state.TodoReducer.todos,
+    homework: state.ClassesReducer.homework,
   };
 }
 
-export default connect(mapStateToProps, { removeTodo })(MainTodo);
+export default connect(mapStateToProps, { removeHomework })(HomeworkList);

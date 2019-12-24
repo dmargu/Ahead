@@ -1,6 +1,7 @@
 import {
   CREATE_CLASS,
-  CREATE_HOMEWORK
+  CREATE_HOMEWORK,
+  REMOVE_HOMEWORK
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,13 @@ const classes = (state = initialState, action) => {
           }
         ]
       };
+    case REMOVE_HOMEWORK: {
+      const newList = state.homework.filter(item => item.id !== action.id);
+      return {
+        ...state,
+        homework: newList
+      };
+    }
     default:
       return state;
   }

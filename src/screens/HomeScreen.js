@@ -6,6 +6,7 @@ import { Notifications } from 'expo';
 import Header from '../components/common/Header';
 //import TodayIncludes from '../components/TodayIncludes';
 import MainTodo from '../components/todoComponents/mainTodo';
+import HomeworkList from '../components/homeworkComponents/HomeworkList';
 import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import AddTodo from '../components/todoComponents/AddTodo';
 import FloatingPlusButton from '../components/FloatingPlusButton';
@@ -64,10 +65,17 @@ class HomeScreen extends Component {
       <View style={styles.container}>
         <Header navigation={this.props.navigation} screenName='Home' />
         {/*<TodayIncludes />*/}
+
         <View style={styles.headerViewStyle}>
           <Text style={styles.headerTextStyle}>{headerString}</Text>
         </View>
         <MainTodo />
+
+        <View style={styles.headerViewStyle}>
+          <Text style={styles.headerTextStyle}>Homework</Text>
+        </View>
+        <HomeworkList />
+
         <CreateHomeworkModal
           classNameFromNotification={this.state.classNameFromNotification}
         />

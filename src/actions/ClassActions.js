@@ -5,7 +5,8 @@ import {
   CREATE_HOMEWORK,
   ADD_NOTIFICATION_ID,
   TOGGLE_CREATE_CLASS_MODAL,
-  TOGGLE_CREATE_HOMEWORK_MODAL
+  TOGGLE_CREATE_HOMEWORK_MODAL,
+  REMOVE_HOMEWORK
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -49,6 +50,14 @@ export const createHomework = (values, state, classes, actions) => {
     });
   };
 };
+
+export const removeHomework = (item) => {
+  return {
+    type: REMOVE_HOMEWORK,
+    id: item.id
+  };
+};
+
 //days of week
 function findDaysOfWeek(daysOfWeek) {
   const daysArray = [];

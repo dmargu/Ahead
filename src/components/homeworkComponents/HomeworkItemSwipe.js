@@ -9,7 +9,7 @@ import {
   toggleDateModal,
   toggleReminders,
   cancelAllNotifications
-} from '../actions';
+} from '../../actions';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
