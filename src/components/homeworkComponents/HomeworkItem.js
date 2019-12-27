@@ -5,15 +5,21 @@ import { ListItem } from 'react-native-elements';
 import moment from 'moment';
 import NotesModal from '../modals/NotesModal';
 import DatePickerModal from '../modals/DatePickerModal';
-import MainItemModal from '../modals/MainItemModal';
-import ReminderToggleButtons from '../ReminderToggleButtons';
+import MainHomeworkModal from './MainHomeworkModal';
 import HomeworkSwipeRow from './HomeworkItemSwipe';
+import { homeworkIcon } from '../../../assets/InAppIcons';
 import { toggleItemModal } from '../../actions';
 
 class HomeworkItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      homeworkModalVisible: false
+    };
+  }
   render() {
+    console.log(this.state.homeworkModalVisible);
     const homeworkItem = this.props.homeworkItem;
-
     return (
         <View>
           <HomeworkSwipeRow
@@ -22,18 +28,30 @@ class HomeworkItem extends Component {
           >
             <TouchableHighlight
               underlayColor={null}
-              onPress={() => this.props.toggleItemModal(homeworkItem)}
+              onPress={() => this.setState({ homeworkModalVisible: true })}
             >
               <ListItem
                 containerStyle={styles.homeworkItem}
                 contentContainerStyle={styles.contentStyle}
-                title={homeworkItem.text}
-                titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
-                rightElement={homeworkItem.date ? this.renderDate.bind(this)() : null}
+                title={
+                  <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
+                    {homeworkItem.assignmentName}
+                  </Text>
+                }
+                leftAvatar={this.props.todayListItem ? homeworkIcon : null}
+                subtitle={homeworkItem.dueDate ? this.renderDate.bind(this)() : null}
+                rightTitle={homeworkItem.className ? homeworkItem.className : null}
+                rightTitleStyle={styles.dateSubtitle}
               />
             </TouchableHighlight>
           </HomeworkSwipeRow>
-          <View style={{ paddingTop: 4 }}>
+
+          <MainHomeworkModal
+            item={homeworkItem}
+            isVisible={this.state.homeworkModalVisible}
+            closeHandle={() => this.setState({ homeworkModalVisible: false })}
+          />
+          {/*<View style={{ paddingTop: 4 }}>
             {homeworkItem.remindersToggled && homeworkItem.date ?
               <ReminderToggleButtons item={homeworkItem} /> : null
             }
@@ -49,39 +67,39 @@ class HomeworkItem extends Component {
 
           {homeworkItem.itemModalVisible ?
             <MainItemModal item={homeworkItem} /> : null
-          }
+          }*/}
 
         </View>
     );
   }
   renderDate() {
     const homeworkItem = this.props.homeworkItem;
-    if (moment().isSame(homeworkItem.date, 'day')) {
+    if (moment().isSame(homeworkItem.dueDate, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          {moment(homeworkItem.date).format('h:mm a')}
+          due {moment(homeworkItem.dueDate).format('h:mm a')}
         </Text>
       );
-    } else if (moment().isAfter(homeworkItem.date, 'day')) {
+    } else if (moment().isAfter(homeworkItem.dueDate, 'day')) {
       return (
         <Text style={styles.overdueSubtitle}>Overdue</Text>
       );
-    } else if (moment().add(1, 'day').isSame(homeworkItem.date, 'day')) {
+    } else if (moment().add(1, 'day').isSame(homeworkItem.dueDate, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Tomorrow {moment(homeworkItem.date).format('h:mm a')}
+          due Tomorrow {moment(homeworkItem.dueDate).format('h:mm a')}
         </Text>
       );
-    } else if (moment().add(7, 'day').isAfter(homeworkItem.date, 'day')) {
+    } else if (moment().add(7, 'day').isAfter(homeworkItem.dueDate, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          {moment(homeworkItem.date).format('dddd h:mm a')}
+          due {moment(homeworkItem.dueDate).format('dddd h:mm a')}
         </Text>
       );
     }
     return (
       <Text style={styles.dateSubtitle}>
-        {moment(homeworkItem.date).format('MMM DD h:mm a')}
+        due {moment(homeworkItem.dueDate).format('MMM DD h:mm a')}
       </Text>
     );
   }

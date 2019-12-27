@@ -13,7 +13,7 @@ import {
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
-class ItemSwipeRow extends Component {
+class TodoSwipeRow extends Component {
   updateRef = ref => {
     this.currItem = ref;
   };
@@ -132,4 +132,4 @@ export default connect(null, {
   toggleDateModal,
   toggleReminders,
   cancelAllNotifications
-})(ItemSwipeRow);
+})(TodoSwipeRow);

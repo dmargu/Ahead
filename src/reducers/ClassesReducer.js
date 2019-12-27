@@ -1,7 +1,9 @@
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK,
-  REMOVE_HOMEWORK
+  REMOVE_HOMEWORK,
+  CHANGE_NOTES,
+  ADD_PICTURE
 } from '../actions/types';
 
 const initialState = {
@@ -49,6 +51,18 @@ const classes = (state = initialState, action) => {
         homework: newList
       };
     }
+    case CHANGE_NOTES:
+      return {
+        ...state,
+        homework: state.homework.map(item => ((item.id === action.id)
+          ? { ...item, notes: action.payload } : item))
+      };
+    case ADD_PICTURE:
+      return {
+        ...state,
+        homework: state.homework.map(item => ((item.id === action.id)
+          ? { ...item, pictures: action.payload } : item))
+      };
     default:
       return state;
   }

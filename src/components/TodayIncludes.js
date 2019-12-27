@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const TodayIncludes = () => {
+const TodayIncludes = () => { //MAKE SURE YOU CALL THE LISTS WITH THE ITEM ICON TRUE SO IT SHOWS UP
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>Today</Text>

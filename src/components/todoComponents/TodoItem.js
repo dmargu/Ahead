@@ -8,6 +8,7 @@ import DatePickerModal from '../modals/DatePickerModal';
 import MainItemModal from '../modals/MainItemModal';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from './TodoItemSwipe';
+import { todoIcon } from '../../../assets/InAppIcons';
 import { toggleItemModal } from '../../actions';
 
 class TodoItem extends Component {
@@ -27,9 +28,13 @@ class TodoItem extends Component {
               <ListItem
                 containerStyle={styles.todoItem}
                 contentContainerStyle={styles.contentStyle}
-                title={todoItem.text}
-                titleStyle={{ color: '#FCEFEF', fontSize: 16 }}
-                rightElement={todoItem.date ? this.renderDate.bind(this)() : null}
+                title={
+                  <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
+                    {todoItem.text}
+                  </Text>
+                }
+                leftAvatar={this.props.todayListItem ? todoIcon : null}
+                subtitle={todoItem.date ? this.renderDate.bind(this)() : null}
               />
             </TouchableHighlight>
           </ItemSwipeRow>

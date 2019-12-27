@@ -4,7 +4,8 @@ import {
   REMOVE_TODO,
   CHANGE_DATE,
   CHANGE_NOTES,
-  CLEAR_DATE
+  CLEAR_DATE,
+  ADD_PICTURE
 } from './types';
 
 export const addTodo = (text) => {
@@ -47,6 +48,14 @@ export const notesChanged = (text, item) => {
   return {
     type: CHANGE_NOTES,
     payload: text,
+    id: item.id
+  };
+};
+
+export const addPicture = (newArr, item) => {
+  return {
+    type: ADD_PICTURE,
+    payload: newArr,
     id: item.id
   };
 };
