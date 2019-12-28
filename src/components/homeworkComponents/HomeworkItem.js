@@ -18,7 +18,6 @@ class HomeworkItem extends Component {
     };
   }
   render() {
-    console.log(this.state.homeworkModalVisible);
     const homeworkItem = this.props.homeworkItem;
     return (
         <View>
@@ -39,7 +38,7 @@ class HomeworkItem extends Component {
                   </Text>
                 }
                 leftAvatar={this.props.todayListItem ? homeworkIcon : null}
-                subtitle={homeworkItem.dueDate ? this.renderDate.bind(this)() : null}
+                subtitle={homeworkItem.date ? this.renderDate.bind(this)() : null}
                 rightTitle={homeworkItem.className ? homeworkItem.className : null}
                 rightTitleStyle={styles.dateSubtitle}
               />
@@ -74,32 +73,32 @@ class HomeworkItem extends Component {
   }
   renderDate() {
     const homeworkItem = this.props.homeworkItem;
-    if (moment().isSame(homeworkItem.dueDate, 'day')) {
+    if (moment().isSame(homeworkItem.date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          due {moment(homeworkItem.dueDate).format('h:mm a')}
+          Due {moment(homeworkItem.date).format('h:mm a')}
         </Text>
       );
-    } else if (moment().isAfter(homeworkItem.dueDate, 'day')) {
+    } else if (moment().isAfter(homeworkItem.date, 'day')) {
       return (
         <Text style={styles.overdueSubtitle}>Overdue</Text>
       );
-    } else if (moment().add(1, 'day').isSame(homeworkItem.dueDate, 'day')) {
+    } else if (moment().add(1, 'day').isSame(homeworkItem.date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          due Tomorrow {moment(homeworkItem.dueDate).format('h:mm a')}
+          Due Tomorrow {moment(homeworkItem.date).format('h:mm a')}
         </Text>
       );
-    } else if (moment().add(7, 'day').isAfter(homeworkItem.dueDate, 'day')) {
+    } else if (moment().add(7, 'day').isAfter(homeworkItem.date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          due {moment(homeworkItem.dueDate).format('dddd h:mm a')}
+          Due {moment(homeworkItem.date).format('dddd h:mm a')}
         </Text>
       );
     }
     return (
       <Text style={styles.dateSubtitle}>
-        due {moment(homeworkItem.dueDate).format('MMM DD h:mm a')}
+        Due {moment(homeworkItem.date).format('MMM DD h:mm a')}
       </Text>
     );
   }

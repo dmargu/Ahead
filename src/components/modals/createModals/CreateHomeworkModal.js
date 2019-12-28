@@ -176,6 +176,12 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                                 text={'Next Class'}
                                 onPress={() => {
                                   if (formikProps.values.class) {
+                                    if (this.state.dueNextClass) {
+                                      this.setState({ oneDayReminder: false });
+                                      this.setState({ twoDayReminder: false });
+                                      this.setState({ threeDayReminder: false });
+                                      this.setState({ customReminder: false });
+                                    }
                                     this.setState({ dueNextClass: !this.state.dueNextClass });
                                   } else {
                                     PickClassFirstAlert();
@@ -191,6 +197,12 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                                 text={'Night Before Next Class'}
                                 onPress={() => {
                                   if (formikProps.values.class) {
+                                    if (this.state.dueNextClass) {
+                                      this.setState({ oneDayReminder: false });
+                                      this.setState({ twoDayReminder: false });
+                                      this.setState({ threeDayReminder: false });
+                                      this.setState({ customReminder: false });
+                                    }
                                     this.setState({ dueNightBefore: !this.state.dueNightBefore });
                                   } else {
                                     PickClassFirstAlert();
@@ -216,6 +228,10 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
 
                               if (this.state.dueCustomTime) {
                                 this.setState({ customDueDate: null });
+                                this.setState({ oneDayReminder: false });
+                                this.setState({ twoDayReminder: false });
+                                this.setState({ threeDayReminder: false });
+                                this.setState({ customReminder: false });
                               }
 
                               this.setState({ dueCustomTime: !this.state.dueCustomTime });
@@ -245,7 +261,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                       <Text style={{ padding: 2, color: '#fcefef' }}>
                         Reminders To Complete Assignment:
                       </Text>
-                      { this.props.classes.length !== 0 && <View style={{ flexDirection: 'row' }}>
+                      <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={'1 Day Before'}
                           onPress={() => {
@@ -283,7 +299,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           }}
                           isItemActive={this.state.threeDayReminder}
                         />
-                      </View> }
+                      </View>
                       <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={

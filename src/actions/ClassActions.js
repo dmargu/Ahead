@@ -37,7 +37,6 @@ export const createHomework = (values, state, classes, actions) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     const dueDate = findDueDate(state, values.class, classes);
     const reminders = await scheduleReminders(dispatch, state, dueDate, id, values);
-    console.log(reminders);
     dispatch({
       type: CREATE_HOMEWORK,
       values,
@@ -151,7 +150,9 @@ function findDueDate(state, className, classes) {
 
 //schedule reminders
 async function scheduleReminders(dispatch, state, dueDate, id, values) {
-  const reminders = [];
+  const reminders = {
+    oneDay: false, twoDay: false, threeDay: false, custom: false
+  };
   if (state.oneDayReminder &&
     (moment(dueDate).subtract(1, 'days').isAfter(moment(new Date())) || //check if duedate is at least
      moment(dueDate).subtract(1, 'days').isSame(moment(new Date())) //1 day away, same for 2 and 3
@@ -164,7 +165,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
       reminderType: 'homeworkOneDay', //use these keys to cancel them from homework item
       notificationID
     });
-    reminders.push('oneDay');
+    reminders.oneDay = true;
   }
   if (state.twoDayReminder &&
     (moment(dueDate).subtract(2, 'days').isAfter(moment(new Date())) ||
@@ -178,7 +179,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
       reminderType: 'homeworkTwoDay',
       notificationID
     });
-    reminders.push('twoDay');
+    reminders.twoDay = true;
   }
   if (state.threeDayReminder &&
     (moment(dueDate).subtract(3, 'days').isAfter(moment(new Date())) ||
@@ -192,7 +193,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
       reminderType: 'homeworkThreeDay',
       notificationID
     });
-    reminders.push('threeDay');
+    reminders.threeDay = true;
   }
   if (state.customReminder) {
     const notificationID =
@@ -203,7 +204,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
       reminderType: 'homeworkCustom',
       notificationID
     });
-    reminders.push('custom');
+    reminders.custom = true;
   }
   return reminders;
 }

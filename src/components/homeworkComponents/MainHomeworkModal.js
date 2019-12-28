@@ -12,14 +12,25 @@ import moment from 'moment';
 import MainItemDatePickerModal from '../modals/MainItemDatePickerModal';
 import ImagePickerAndList from '../ImagePickerAndList';
 import FullPicture from '../FullPicture';
-import { toggleItemModal, toggleItemModalDatePicker, notesChanged, addPicture } from '../../actions';
+import ReminderButton from '../ReminderButton';
+import {
+  toggleItemModal,
+  toggleItemModalDatePicker,
+  notesChanged,
+  addPicture,
+  defaultHomeworkReminder
+} from '../../actions';
 
 class MainHomeworkModal extends Component {
   constructor() {
     super();
     this.state = {
       fullPictureVisible: false,
-      selectedPicture: null
+      selectedPicture: null,
+      oneDayButtonDisabled: false,
+      twoDayButtonDisabled: false,
+      threeDayButtonDisabled: false,
+      customButtonDisabled: false
     };
   }
   render() {
@@ -37,7 +48,7 @@ class MainHomeworkModal extends Component {
               closeImage={() => this.setState({ fullPictureVisible: false })}
             />
         }
-        <View style={styles.containerStyle}>
+        <View style={styles.container}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between' }}>
               <Text>{item.assignmentName}</Text>
@@ -48,7 +59,7 @@ class MainHomeworkModal extends Component {
               >
                 {item.dueDate ?
                   <Text>
-                    Due: {moment(item.dueDate).format('MMM DD h:mm a')}
+                    Due: {moment(item.date).format('MMM DD h:mm a')}
                   </Text>
                   : <Text>Set Due Date</Text>
                 }
@@ -74,6 +85,28 @@ class MainHomeworkModal extends Component {
               }}
             />
 
+            <View style={styles.container}>
+              <Text style={styles.remindersText}>Reminders</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <ReminderButton
+                text='1 Day'
+                buttonDisabledState={this.state.oneDayButtonDisabled}
+                addReminderFunction={this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
+                isReminderActive={item.oneDayReminder}
+                item
+              />
+              <ReminderButton
+                text='2 Day'
+              />
+              <ReminderButton
+                text='3 Day'
+              />
+              <ReminderButton
+                text='Custom'
+              />
+            </View>
+
           </View>
         </View>
         {item.itemModalDatePickerVisible ?
@@ -85,7 +118,7 @@ class MainHomeworkModal extends Component {
 }
 
 const styles = StyleSheet.create({
-  containerStyle: {
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -128,5 +161,6 @@ export default connect(null, {
   toggleItemModal,
   toggleItemModalDatePicker,
   notesChanged,
-  addPicture
+  addPicture,
+  defaultHomeworkReminder
 })(MainHomeworkModal);

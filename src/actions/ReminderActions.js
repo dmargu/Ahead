@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   TOGGLE_REMINDERS,
   TEN_MIN_REMINDER,
@@ -5,7 +6,8 @@ import {
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
   START_REMINDER,
-  ADD_NOTIFICATION_ID
+  ADD_NOTIFICATION_ID,
+  HOMEWORK_REMINDER
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -95,4 +97,26 @@ export const startReminder = (item) => {
       notificationID
     });
   };
+};
+
+export const defaultHomeworkReminder = (item, reminderType, reminderDays) => {
+  return async (dispatch) => {
+    dispatch({
+      type: HOMEWORK_REMINDER,
+      id: item.id,
+      reminderType
+    });
+
+    if (moment(item.date).subtract(reminderDays, 'days').isAfter(moment(new Date())) ||
+       moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date()))
+      ) {
+      const notificationID = await scheduleNotification.homeworkReminder(item.date, reminderType, item);
+      dispatch({
+        type: ADD_NOTIFICATION_ID,
+        id: item.id,
+        reminderType,
+        notificationID
+      });
+  }
+};
 };

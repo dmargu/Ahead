@@ -3,7 +3,8 @@ import {
   CREATE_HOMEWORK,
   REMOVE_HOMEWORK,
   CHANGE_NOTES,
-  ADD_PICTURE
+  ADD_PICTURE,
+  HOMEWORK_REMINDER
 } from '../actions/types';
 
 const initialState = {
@@ -40,8 +41,11 @@ const classes = (state = initialState, action) => {
             className: action.values.class,
             notes: action.values.notes,
             pictures: action.state.pictures,
-            dueDate: action.dueDate,
-            reminders: action.reminders
+            date: action.dueDate,
+            oneDayReminder: action.reminders.oneDay,
+            twoDayReminder: action.reminders.twoDay,
+            threeDayReminder: action.reminders.threeDay,
+            customReminder: action.reminders.custom
           }
         ]
       };
@@ -64,6 +68,35 @@ const classes = (state = initialState, action) => {
         homework: state.homework.map(item => ((item.id === action.id)
           ? { ...item, pictures: action.payload } : item))
       };
+    case HOMEWORK_REMINDER:
+      switch (action.reminderType) {
+        case 'oneDay':
+          return {
+            ...state,
+            homework: state.homework.find(item => ((item.id === action.id)
+              ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
+          };
+        case 'twoDay':
+          return {
+            ...state,
+            homework: state.homework.find(item => ((item.id === action.id)
+              ? { ...item, twoDayReminder: !item.twoDayReminder } : item))
+          };
+        case 'threeDay':
+          return {
+            ...state,
+            homework: state.homework.find(item => ((item.id === action.id)
+              ? { ...item, threeDayReminder: !item.threeDayReminder } : item))
+          };
+        case 'custom':
+          return {
+            ...state,
+            homework: state.homework.find(item => ((item.id === action.id)
+              ? { ...item, customReminder: !item.customReminder } : item))
+          };
+        default:
+          return state;
+      }
     default:
       return state;
   }
