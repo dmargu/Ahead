@@ -43,7 +43,7 @@ class MainHomeworkModal extends Component {
               <Text>{item.assignmentName}</Text>
               {item.className && <Text>{item.className}</Text>}
               <TouchableHighlight
-                onPress={() => console.log('penis')}
+                onPress={() => console.log('pressed')}
                 underlayColor={null}
               >
                 {item.dueDate ?
@@ -73,6 +73,7 @@ class MainHomeworkModal extends Component {
                 this.setState({ selectedPicture: picture });
               }}
             />
+
           </View>
         </View>
         {item.itemModalDatePickerVisible ?
