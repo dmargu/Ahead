@@ -197,7 +197,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
   }
   if (state.customReminder) {
     const notificationID =
-      await scheduleNotification.customHomeWorkReminder(state.customReminderDate, values);
+      await scheduleNotification.customHomeworkReminder(state.customReminderDate, values);
     dispatch({
       type: ADD_NOTIFICATION_ID,
       id,

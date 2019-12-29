@@ -18,7 +18,8 @@ import {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
-  defaultHomeworkReminder
+  defaultHomeworkReminder,
+  //customHomeworkReminder
 } from '../../actions';
 
 class MainHomeworkModal extends Component {
@@ -57,7 +58,7 @@ class MainHomeworkModal extends Component {
                 onPress={() => console.log('pressed')}
                 underlayColor={null}
               >
-                {item.dueDate ?
+                {item.date ?
                   <Text>
                     Due: {moment(item.date).format('MMM DD h:mm a')}
                   </Text>
@@ -92,26 +93,42 @@ class MainHomeworkModal extends Component {
               <ReminderButton
                 text='1 Day'
                 buttonDisabledState={this.state.oneDayButtonDisabled}
-                addReminderFunction={this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
+                changeButtonDisabledState={(value) => this.setState({ oneDayButtonDisabled: value })}
+                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
                 isReminderActive={item.oneDayReminder}
                 item
               />
               <ReminderButton
                 text='2 Day'
+                buttonDisabledState={this.state.twoDayButtonDisabled}
+                changeButtonDisabledState={(value) => this.setState({ twoDayButtonDisabled: value })}
+                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'twoDay', 2)}
+                isReminderActive={item.twoDayReminder}
+                item
               />
               <ReminderButton
                 text='3 Day'
+                buttonDisabledState={this.state.threeDayButtonDisabled}
+                changeButtonDisabledState={(value) => this.setState({ threeDayButtonDisabled: value })}
+                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'threeDay', 3)}
+                isReminderActive={item.threeDayReminder}
+                item
               />
               <ReminderButton
                 text='Custom'
+                buttonDisabledState={this.state.customButtonDisabled}
+                changeButtonDisabledState={(value) => this.setState({ customButtonDisabled: value })}
+                //addReminderFunction={this.props.customHomeworkReminder(item)}
+                isReminderActive={item.customReminder}
+                item
               />
             </View>
 
           </View>
         </View>
-        {item.itemModalDatePickerVisible ?
+        {/*{item.itemModalDatePickerVisible ?
           <MainItemDatePickerModal item={item} /> : <View />
-        }
+        }*/}
       </Modal>
     );
   }
@@ -162,5 +179,6 @@ export default connect(null, {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
-  defaultHomeworkReminder
+  defaultHomeworkReminder,
+  //customHomeworkReminder
 })(MainHomeworkModal);

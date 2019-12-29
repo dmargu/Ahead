@@ -73,25 +73,25 @@ const classes = (state = initialState, action) => {
         case 'oneDay':
           return {
             ...state,
-            homework: state.homework.find(item => ((item.id === action.id)
+            homework: state.homework.map(item => ((item.id === action.id)
               ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
           };
         case 'twoDay':
           return {
             ...state,
-            homework: state.homework.find(item => ((item.id === action.id)
+            homework: state.homework.map(item => ((item.id === action.id)
               ? { ...item, twoDayReminder: !item.twoDayReminder } : item))
           };
         case 'threeDay':
           return {
             ...state,
-            homework: state.homework.find(item => ((item.id === action.id)
+            homework: state.homework.map(item => ((item.id === action.id)
               ? { ...item, threeDayReminder: !item.threeDayReminder } : item))
           };
         case 'custom':
           return {
             ...state,
-            homework: state.homework.find(item => ((item.id === action.id)
+            homework: state.homework.map(item => ((item.id === action.id)
               ? { ...item, customReminder: !item.customReminder } : item))
           };
         default:

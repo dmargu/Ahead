@@ -21,12 +21,12 @@ const ReminderButton = (props) => {
           backgroundColor: props.isReminderActive ? colors.green : null
         }
       ]}
-      disabled={props.buttonDisabledState} //timout ensures there's enough time to cancel notif
-      onPress={() => {
-        this.setState({ [props.buttonDisabledState]: true });
-        setTimeout(() => this.setState({ [props.buttonDisabledState]: false }), 1500);
+      disabled={props.buttonDisabledState}
+      onPress={() => { //timeout ensures there's enough time to cancel notif
+        props.changeButtonDisabledState(true);
+        setTimeout(() => props.changeButtonDisabledState(false), 1500);
         if (props.isReminderActive === false && moment(new Date()).isBefore(props.item.date)) {
-          props.addReminderFunction(props.item);
+          props.addReminderFunction();
         }
         if (props.isReminderActive) {
           this.props.cancelNotification(props.item.id, 'start');

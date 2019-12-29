@@ -62,43 +62,39 @@ class HomeworkItem extends Component {
 
           {homeworkItem.dateModalVisible ?
             <DatePickerModal item={homeworkItem} /> : null
-          }
-
-          {homeworkItem.itemModalVisible ?
-            <MainItemModal item={homeworkItem} /> : null
           }*/}
 
         </View>
     );
   }
   renderDate() {
-    const homeworkItem = this.props.homeworkItem;
-    if (moment().isSame(homeworkItem.date, 'day')) {
+    const date = this.props.homeworkItem.date;
+    if (moment().isSame(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due {moment(homeworkItem.date).format('h:mm a')}
+          Due {moment(date).format('h:mm a')}
         </Text>
       );
-    } else if (moment().isAfter(homeworkItem.date, 'day')) {
+    } else if (moment().isAfter(date, 'day')) {
       return (
         <Text style={styles.overdueSubtitle}>Overdue</Text>
       );
-    } else if (moment().add(1, 'day').isSame(homeworkItem.date, 'day')) {
+    } else if (moment().add(1, 'day').isSame(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due Tomorrow {moment(homeworkItem.date).format('h:mm a')}
+          Due Tomorrow {moment(date).format('h:mm a')}
         </Text>
       );
-    } else if (moment().add(7, 'day').isAfter(homeworkItem.date, 'day')) {
+    } else if (moment().add(7, 'day').isAfter(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due {moment(homeworkItem.date).format('dddd h:mm a')}
+          Due {moment(date).format('dddd h:mm a')}
         </Text>
       );
     }
     return (
       <Text style={styles.dateSubtitle}>
-        Due {moment(homeworkItem.date).format('MMM DD h:mm a')}
+        Due {moment(date).format('MMM DD h:mm a')}
       </Text>
     );
   }

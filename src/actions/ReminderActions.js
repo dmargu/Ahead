@@ -101,15 +101,14 @@ export const startReminder = (item) => {
 
 export const defaultHomeworkReminder = (item, reminderType, reminderDays) => {
   return async (dispatch) => {
-    dispatch({
-      type: HOMEWORK_REMINDER,
-      id: item.id,
-      reminderType
-    });
-
     if (moment(item.date).subtract(reminderDays, 'days').isAfter(moment(new Date())) ||
-       moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date()))
-      ) {
+      moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date()))
+    ) {
+      dispatch({
+        type: HOMEWORK_REMINDER,
+        id: item.id,
+        reminderType
+      });
       const notificationID = await scheduleNotification.homeworkReminder(item.date, reminderType, item);
       dispatch({
         type: ADD_NOTIFICATION_ID,
@@ -119,4 +118,25 @@ export const defaultHomeworkReminder = (item, reminderType, reminderDays) => {
       });
   }
 };
+};
+
+export default customHomeworkReminder = (item) => {
+  return async (dispatch) => {
+    if (moment(item.date).subtract(reminderDays, 'days').isAfter(moment(new Date())) ||
+      moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date()))
+    ) {
+      dispatch({
+        type: HOMEWORK_REMINDER,
+        id: item.id,
+        reminderType: 'custom'
+      });
+      const notificationID = await scheduleNotification.customHomeworkReminder(item.date, 'custom', item);
+      dispatch({
+        type: ADD_NOTIFICATION_ID,
+        id: item.id,
+        reminderType: 'custom',
+        notificationID
+      });
+    }
+  };
 };

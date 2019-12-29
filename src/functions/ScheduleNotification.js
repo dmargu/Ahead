@@ -228,7 +228,7 @@ export const scheduleNotification = {
         { cancelable: false }
     );
   },
-  async customHomeWorkReminder(reminderDate, values) {
+  async customHomeworkReminder(reminderDate, values) {
     const permission = await registerForPushNotificationsAsync();
     if (permission) {
       const notificationID = await Notifications.scheduleLocalNotificationAsync(
