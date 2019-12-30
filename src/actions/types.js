@@ -59,3 +59,5 @@ export const REMOVE_HOMEWORK = 'removeHomework';
 export const ADD_PICTURE = 'addPicture';
 
 export const HOMEWORK_REMINDER = 'homeworkReminder';
+
+export const CHANGE_CUSTOM_REMINDER = 'changeCustomReminder';

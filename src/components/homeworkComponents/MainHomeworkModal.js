@@ -10,6 +10,7 @@ import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import MainItemDatePickerModal from '../modals/MainItemDatePickerModal';
+import CustomDateModal from '../modals/CustomDatePicker';
 import ImagePickerAndList from '../ImagePickerAndList';
 import FullPicture from '../FullPicture';
 import ReminderButton from '../ReminderButton';
@@ -18,8 +19,10 @@ import {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
+  cancelNotification,
   defaultHomeworkReminder,
-  //customHomeworkReminder
+  customHomeworkReminder,
+  changeCustomReminder
 } from '../../actions';
 
 class MainHomeworkModal extends Component {
@@ -31,7 +34,8 @@ class MainHomeworkModal extends Component {
       oneDayButtonDisabled: false,
       twoDayButtonDisabled: false,
       threeDayButtonDisabled: false,
-      customButtonDisabled: false
+      customButtonDisabled: false,
+      customReminderPickerVisible: false
     };
   }
   render() {
@@ -92,40 +96,62 @@ class MainHomeworkModal extends Component {
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
               <ReminderButton
                 text='1 Day'
+                reminderType='oneDay'
                 buttonDisabledState={this.state.oneDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ oneDayButtonDisabled: value })}
-                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
+                addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
+                cancelNotification={() => this.props.cancelNotification(item.id, 'oneDay')}
                 isReminderActive={item.oneDayReminder}
-                item
+                date={item.date}
+                isCustomReminder={false}
               />
               <ReminderButton
-                text='2 Day'
+                text='2 Days'
+                reminderType='twoDay'
                 buttonDisabledState={this.state.twoDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ twoDayButtonDisabled: value })}
-                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'twoDay', 2)}
+                addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'twoDay', 2)}
+                cancelNotification={() => this.props.cancelNotification(item.id, 'twoDay')}
                 isReminderActive={item.twoDayReminder}
-                item
+                date={item.date}
+                isCustomReminder={false}
               />
               <ReminderButton
-                text='3 Day'
+                text='3 Days'
+                reminderType='threeDay'
                 buttonDisabledState={this.state.threeDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ threeDayButtonDisabled: value })}
-                //addReminderFunction={this.props.defaultHomeworkReminder(item, 'threeDay', 3)}
+                addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'threeDay', 3)}
+                cancelNotification={() => this.props.cancelNotification(item.id, 'threeDay')}
                 isReminderActive={item.threeDayReminder}
-                item
+                date={item.date}
+                isCustomReminder={false}
               />
               <ReminderButton
                 text='Custom'
+                reminderType='custom'
                 buttonDisabledState={this.state.customButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ customButtonDisabled: value })}
-                //addReminderFunction={this.props.customHomeworkReminder(item)}
+                cancelNotification={() => this.props.cancelNotification(item.id, 'custom')}
                 isReminderActive={item.customReminder}
-                item
+                date={item.date}
+                isCustomReminder
+                customReminderTime={item.customReminderTime}
+                makeDatePickerVisible={() => this.setState({ customReminderPickerVisible: true })}
               />
             </View>
 
           </View>
         </View>
+        <CustomDateModal
+          isVisible={this.state.customReminderPickerVisible}
+          closeHandle={() => {
+            this.setState({ customReminderPickerVisible: false });
+            this.props.customHomeworkReminder(item, item.customReminderTime);
+          }}
+          time={item.customReminderTime}
+          changeDate={(date) => this.props.changeCustomReminder(item.id, date)}
+        />
         {/*{item.itemModalDatePickerVisible ?
           <MainItemDatePickerModal item={item} /> : <View />
         }*/}
@@ -179,6 +205,8 @@ export default connect(null, {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
+  cancelNotification,
   defaultHomeworkReminder,
-  //customHomeworkReminder
+  customHomeworkReminder,
+  changeCustomReminder
 })(MainHomeworkModal);

@@ -151,7 +151,7 @@ function findDueDate(state, className, classes) {
 //schedule reminders
 async function scheduleReminders(dispatch, state, dueDate, id, values) {
   const reminders = {
-    oneDay: false, twoDay: false, threeDay: false, custom: false
+    oneDay: false, twoDay: false, threeDay: false, custom: false, customTime: null
   };
   if (state.oneDayReminder &&
     (moment(dueDate).subtract(1, 'days').isAfter(moment(new Date())) || //check if duedate is at least
@@ -162,7 +162,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
     dispatch({
       type: ADD_NOTIFICATION_ID,
       id,
-      reminderType: 'homeworkOneDay', //use these keys to cancel them from homework item
+      reminderType: 'oneDay', //use these keys to cancel them from homework item
       notificationID
     });
     reminders.oneDay = true;
@@ -176,7 +176,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
     dispatch({
       type: ADD_NOTIFICATION_ID,
       id,
-      reminderType: 'homeworkTwoDay',
+      reminderType: 'twoDay',
       notificationID
     });
     reminders.twoDay = true;
@@ -190,7 +190,7 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
     dispatch({
       type: ADD_NOTIFICATION_ID,
       id,
-      reminderType: 'homeworkThreeDay',
+      reminderType: 'threeDay',
       notificationID
     });
     reminders.threeDay = true;
@@ -201,10 +201,11 @@ async function scheduleReminders(dispatch, state, dueDate, id, values) {
     dispatch({
       type: ADD_NOTIFICATION_ID,
       id,
-      reminderType: 'homeworkCustom',
+      reminderType: 'custom',
       notificationID
     });
     reminders.custom = true;
+    reminders.customTime = state.customReminderDate;
   }
   return reminders;
 }

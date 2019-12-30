@@ -1,11 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
-import { connect } from 'react-redux';
 import moment from 'moment';
-import {
-  cancelNotification,
-} from '../actions';
-
 
 const colors = {
   gunmetal: '#28313b',
@@ -22,15 +17,18 @@ const ReminderButton = (props) => {
         }
       ]}
       disabled={props.buttonDisabledState}
-      onPress={() => { //timeout ensures there's enough time to cancel notif
-        props.changeButtonDisabledState(true);
-        setTimeout(() => props.changeButtonDisabledState(false), 1500);
-        if (props.isReminderActive === false && moment(new Date()).isBefore(props.item.date)) {
+      onPress={() => {
+        if (!props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
           props.addReminderFunction();
         }
-        if (props.isReminderActive) {
-          this.props.cancelNotification(props.item.id, 'start');
+        if (props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
+          props.makeDatePickerVisible();
         }
+        if (props.isReminderActive) {
+          props.cancelNotification();
+        }
+        props.changeButtonDisabledState(true); //timeout ensures there's enough time to cancel notif
+        setTimeout(() => props.changeButtonDisabledState(false), 1500);
       }}
     >
       {props.isCustomReminder && <Text
@@ -38,7 +36,7 @@ const ReminderButton = (props) => {
           { color: props.isReminderActive ? colors.gunmetal : colors.red, padding: 2 }
         ]}
       >
-        {props.isReminderActive ? moment(props.item.date).format('MMM DD h:mm a') : props.text}
+        {props.isReminderActive ? moment(props.customReminderTime).format('MMM DD h:mm a') : props.text}
       </Text>}
 
       {!props.isCustomReminder && <Text
@@ -67,18 +65,7 @@ const styles = StyleSheet.create({
   text: {
     padding: 2,
     fontSize: 18
-  },
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 1,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingBottom: 5
   }
 });
 
-export default connect(null,
-  {
-    cancelNotification,
-  })(ReminderButton);
+export default ReminderButton;

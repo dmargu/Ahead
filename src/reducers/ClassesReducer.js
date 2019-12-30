@@ -4,7 +4,9 @@ import {
   REMOVE_HOMEWORK,
   CHANGE_NOTES,
   ADD_PICTURE,
-  HOMEWORK_REMINDER
+  HOMEWORK_REMINDER,
+  CANCEL_NOTIFICATION,
+  CHANGE_CUSTOM_REMINDER
 } from '../actions/types';
 
 const initialState = {
@@ -45,7 +47,8 @@ const classes = (state = initialState, action) => {
             oneDayReminder: action.reminders.oneDay,
             twoDayReminder: action.reminders.twoDay,
             threeDayReminder: action.reminders.threeDay,
-            customReminder: action.reminders.custom
+            customReminder: action.reminders.custom,
+            customReminderTime: action.reminders.customTime
           }
         ]
       };
@@ -92,11 +95,47 @@ const classes = (state = initialState, action) => {
           return {
             ...state,
             homework: state.homework.map(item => ((item.id === action.id)
+              ? { ...item, customReminder: !item.customReminder, customReminderTime: action.reminderDate }
+                : item))
+          };
+        default:
+          return state;
+      }
+    case CANCEL_NOTIFICATION:
+      switch (action.reminderType) {
+        case 'oneDay':
+          return {
+            ...state,
+            homework: state.homework.map(item => ((item.id === action.id)
+              ? { ...item, oneDayReminder: !item.oneDayReminder } : item))
+          };
+        case 'twoDay':
+          return {
+            ...state,
+            homework: state.homework.map(item => ((item.id === action.id)
+              ? { ...item, twoDayReminder: !item.twoDayReminder } : item))
+          };
+        case 'threeDay':
+          return {
+            ...state,
+            homework: state.homework.map(item => ((item.id === action.id)
+              ? { ...item, threeDayReminder: !item.threeDayReminder } : item))
+          };
+        case 'custom':
+          return {
+            ...state,
+            homework: state.homework.map(item => ((item.id === action.id)
               ? { ...item, customReminder: !item.customReminder } : item))
           };
         default:
           return state;
       }
+    case CHANGE_CUSTOM_REMINDER:
+      return {
+        ...state,
+        homework: state.homework.map(item => ((item.id === action.id)
+          ? { ...item, customReminderTime: action.reminderTime } : item))
+      };
     default:
       return state;
   }
