@@ -51,18 +51,18 @@ const todos = (state = initialState, action) => {
           ? { ...todo, date: action.payload } : todo)),
       };
     case CANCEL_ALL_NOTIFICATIONS:
-    return {
-      todos: state.todos.map(todo => ((todo.id === action.id)
-        ? {
-          ...todo,
-          startReminder: false,
-          tenMinReminder: false,
-          thirtyMinReminder: false,
-          oneHourReminder: false,
-          oneDayReminder: false
-        }
-        : todo))
-    };
+      return {
+        todos: state.todos.map(todo => ((todo.id === action.id)
+          ? {
+            ...todo,
+            startReminder: false,
+            tenMinReminder: false,
+            thirtyMinReminder: false,
+            oneHourReminder: false,
+            oneDayReminder: false
+          }
+          : todo))
+      };
     case CLEAR_DATE:
       return {
         todos: state.todos.map(todo => ((todo.id === action.id)

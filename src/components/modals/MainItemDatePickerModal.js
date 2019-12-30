@@ -3,12 +3,11 @@ import {
   DatePickerIOS,
   View,
   StyleSheet,
-  Modal,
   TouchableOpacity,
   Text,
   Dimensions
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -32,10 +31,15 @@ class MainItemDatePickerModal extends Component {
   render() {
     const item = this.props.item;
     return (
-      <Modal animationType='slide' transparent>
+      <Modal
+        animationType='slide'
+        transparent
+        isVisible={this.props.isVisible}
+        onBackdropPress={() => this.props.closeHandle()}
+      >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 10 }}>
               <TouchableOpacity
                 style={[styles.clearDateButton, { backgroundColor: item.date ? '#db5461' : null }]}
                 onPress={this.onClearDatePress.bind(this)}
@@ -44,13 +48,6 @@ class MainItemDatePickerModal extends Component {
                   Clear Date
                 </Text>
               </TouchableOpacity>
-
-              <Feather
-                name="x-square"
-                size={35}
-                color={'#db5461'}
-                onPress={() => this.props.toggleItemModalDatePicker(item)}
-              />
             </View>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
@@ -71,7 +68,7 @@ const styles = StyleSheet.create({
   pickerModal: {
     position: 'absolute',
     borderRadius: 15,
-    backgroundColor: '#cdd2c9',
+    backgroundColor: '#555B6E',
     bottom: HEIGHT / 3,
     justifyContent: 'center',
     alignSelf: 'center'

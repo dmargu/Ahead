@@ -14,6 +14,12 @@ import MainItemDatePickerModal from './MainItemDatePickerModal';
 import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
 
 class MainItemModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      datePickerVisible: false
+    };
+  }
   onNotesChange(text) { //again this doesn't reset notifications.
     this.props.notesChanged(text, this.props.item);
   }
@@ -27,7 +33,7 @@ class MainItemModal extends Component {
               <View style={{ flexDirection: 'column', flex: 1 }}>
                 <Text style={styles.textStyle}>{item.text}</Text>
                 <TouchableHighlight
-                  onPress={() => this.props.toggleItemModalDatePicker(item)}
+                  onPress={() => this.setState({ datePickerVisible: true })}
                   underlayColor={null}
                 >
                   <Text style={styles.setTime}>
@@ -59,9 +65,11 @@ class MainItemModal extends Component {
             </View>
           </View>
         </View>
-        {item.itemModalDatePickerVisible ?
-          <MainItemDatePickerModal item={item} /> : <View />
-        }
+        <MainItemDatePickerModal
+          item={item}
+          isVisible={this.state.datePickerVisible}
+          closeHandle={() => this.setState({ datePickerVisible: false })}
+        />
       </Modal>
     );
   }

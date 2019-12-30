@@ -32,7 +32,7 @@ const ReminderButton = (props) => {
       }}
     >
       {props.isCustomReminder && <Text
-        style={[styles.text,
+        style={[styles.text, //THIS STYLING NEEDS FIXING
           { color: props.isReminderActive ? colors.gunmetal : colors.red, padding: 2 }
         ]}
       >

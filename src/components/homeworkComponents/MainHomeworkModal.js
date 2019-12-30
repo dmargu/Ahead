@@ -35,7 +35,8 @@ class MainHomeworkModal extends Component {
       twoDayButtonDisabled: false,
       threeDayButtonDisabled: false,
       customButtonDisabled: false,
-      customReminderPickerVisible: false
+      customReminderPickerVisible: false,
+      dueDatePickerVisible: false
     };
   }
   render() {
@@ -59,7 +60,7 @@ class MainHomeworkModal extends Component {
               <Text>{item.assignmentName}</Text>
               {item.className && <Text>{item.className}</Text>}
               <TouchableHighlight
-                onPress={() => console.log('pressed')}
+                onPress={() => this.setState({ dueDatePickerVisible: true })}
                 underlayColor={null}
               >
                 {item.date ?
@@ -127,7 +128,7 @@ class MainHomeworkModal extends Component {
                 date={item.date}
                 isCustomReminder={false}
               />
-              <ReminderButton
+              <ReminderButton //add reminder function moves to custom date modal for this one
                 text='Custom'
                 reminderType='custom'
                 buttonDisabledState={this.state.customButtonDisabled}
@@ -152,9 +153,11 @@ class MainHomeworkModal extends Component {
           time={item.customReminderTime}
           changeDate={(date) => this.props.changeCustomReminder(item.id, date)}
         />
-        {/*{item.itemModalDatePickerVisible ?
-          <MainItemDatePickerModal item={item} /> : <View />
-        }*/}
+        <MainItemDatePickerModal
+          item={item}
+          isVisible={this.state.dueDatePickerVisible}
+          closeHandle={() => this.setState({ dueDatePickerVisible: false })} 
+        />
       </Modal>
     );
   }
