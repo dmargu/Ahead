@@ -98,9 +98,9 @@ class HomeworkSwipeRow extends Component {
         ref={this.updateRef}
         friction={2}
         leftThreshold={70}
-        rightThreshold={40}
+        //rightThreshold={40}
         renderLeftActions={this.renderLeftActions}
-        renderRightActions={this.renderRightActions}
+        //renderRightActions={this.renderRightActions}
         onSwipeableLeftOpen={this.onSwipeableLeftOpen}
       >
         {children}

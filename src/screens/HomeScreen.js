@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Dimensions, Keyboard, InputAccessoryView, StyleSheet, Text } from 'react-native';
+import {
+  View,
+  Dimensions,
+  Keyboard,
+  InputAccessoryView,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
 //import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
@@ -11,6 +18,7 @@ import { registerForPushNotificationsAsync } from '../functions/pushNotification
 import AddTodo from '../components/todoComponents/AddTodo';
 import FloatingPlusButton from '../components/FloatingPlusButton';
 import CreateHomeworkModal from '../components/modals/createModals/CreateHomeworkModal';
+import AssignmentsAndTodosList from '../components/AssignmentsAndTodos';
 import { addTodo, toggleCreateHomeworkModal } from '../actions';
 
 
@@ -60,21 +68,12 @@ class HomeScreen extends Component {
     this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
   }
   render() { //in future change inputAccessory to <KeyboardAccessoryView hideBorder> for android function
-    const headerString = 'To-Do\'s'; //doesn't work right now though for some reason the button won't press
-    return (
+    return ( //doesn't work right now though for some reason the button won't press
       <View style={styles.container}>
         <Header navigation={this.props.navigation} screenName='Home' />
         {/*<TodayIncludes />*/}
 
-        <View style={styles.headerViewStyle}>
-          <Text style={styles.headerTextStyle}>{headerString}</Text>
-        </View>
-        <MainTodo />
-
-        <View style={styles.headerViewStyle}>
-          <Text style={styles.headerTextStyle}>Homework</Text>
-        </View>
-        <HomeworkList />
+        <AssignmentsAndTodosList />
 
         <CreateHomeworkModal
           classNameFromNotification={this.state.classNameFromNotification}
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
       paddingTop: 5,
       paddingBottom: 5,
       paddingLeft: 10,
-      height: 40,
+      //height: 40,
       flexDirection: 'row',
   }
 });
