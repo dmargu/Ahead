@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SectionList } from 'react-native';
 import { FloatingAction } from 'react-native-floating-action';
 import { connect } from 'react-redux';
 import Header from '../../components/common/Header';
@@ -7,9 +7,13 @@ import { classesIcon, homeworkIcon, testIcon } from '../../../assets/InAppIcons'
 import CreateClassModal from '../../components/modals/createModals/CreateClassModal';
 import CreateTestModal from '../../components/modals/createModals/CreateTestModal';
 import CreateHomeworkModal from '../../components/modals/createModals/CreateHomeworkModal';
+import HomeworkItem from '../../components/homeworkComponents/HomeworkItem';
 import { toggleCreateClassModal, toggleCreateTestModal, toggleCreateHomeworkModal } from '../../actions';
 
 class ClassesScreen extends Component {
+  filterAssignments(c, hw) {
+    return hw.filter(item => item.className === c.name);
+  }
   render() {
     const actions = [
       {
@@ -31,21 +35,35 @@ class ClassesScreen extends Component {
         position: 1
       }
     ];
+    const classData = [];
+    for (let x = 0; x < this.props.classes.length; x++) {
+      classData.push({
+        classProps: this.props.classes[x],
+        assignments: this.filterAssignments(this.props.classes[x], this.props.homework).bind(this)
+      });
+    }
     return (
       <View style={{ flex: 1 }}>
         <Header navigation={this.props.navigation} screenName='Classes' />
-        <FlatList
-          data={this.props.classes}
-          extraData={this.props.classes}
-          keyExtractor={item => item.id}
+
+        <SectionList
+          sections={classData}
+          keyExtractor={item => item.class.id}
+          renderSectionHeader={({ section: classProps }) => {
+            return (
+              <Text style={styles.textStyle}>{classProps.name}</Text>
+            );
+          }}
           renderItem={({ item }) => {
             return (
-              <View>
-                <Text style={styles.textStyle}>{item.name}</Text>
-              </View>
+              <HomeworkItem
+                homeworkItem={item}
+                deleteHomework={() => this.props.removeHomework(item)}
+              />
             );
           }}
         />
+
         <FloatingAction
           actions={actions}
           onPressItem={name => {
@@ -81,7 +99,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    classes: state.ClassesReducer.classes
+    classes: state.ClassesReducer.classes,
+    homework: state.ClassesReducer.homework
   };
 }
 
