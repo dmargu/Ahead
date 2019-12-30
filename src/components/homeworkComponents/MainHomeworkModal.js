@@ -91,10 +91,10 @@ class MainHomeworkModal extends Component {
               }}
             />
 
-            <View style={styles.container}>
+            {item.date && <View style={styles.container}>
               <Text style={styles.remindersText}>Reminders</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            </View>}
+            {item.date && <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
               <ReminderButton
                 text='1 Day'
                 reminderType='oneDay'
@@ -140,7 +140,7 @@ class MainHomeworkModal extends Component {
                 customReminderTime={item.customReminderTime}
                 makeDatePickerVisible={() => this.setState({ customReminderPickerVisible: true })}
               />
-            </View>
+            </View>}
 
           </View>
         </View>
@@ -156,7 +156,7 @@ class MainHomeworkModal extends Component {
         <MainItemDatePickerModal
           item={item}
           isVisible={this.state.dueDatePickerVisible}
-          closeHandle={() => this.setState({ dueDatePickerVisible: false })} 
+          closeHandle={() => this.setState({ dueDatePickerVisible: false })}
         />
       </Modal>
     );

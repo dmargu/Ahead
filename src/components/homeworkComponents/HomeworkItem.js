@@ -39,7 +39,9 @@ class HomeworkItem extends Component {
                 }
                 leftAvatar={this.props.todayListItem ? homeworkIcon : null}
                 subtitle={homeworkItem.date ? this.renderDate.bind(this)() : null}
-                rightTitle={homeworkItem.className ? homeworkItem.className : null}
+                rightTitle={
+                  !this.props.forClassesList && homeworkItem.className ? homeworkItem.className : null
+                }
                 rightTitleStyle={styles.dateSubtitle}
               />
             </TouchableHighlight>
