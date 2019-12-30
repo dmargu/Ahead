@@ -172,7 +172,8 @@ export const scheduleNotification = {
               }
             ),
             {
-              time: moment(dueDate).subtract(1, 'days').toDate()
+              time: moment(dueDate).subtract(1, 'days').hour(19).minute(0)
+              .toDate()
             }
           );
           return notificationID;
@@ -191,7 +192,8 @@ export const scheduleNotification = {
               }
             ),
             {
-              time: moment(dueDate).subtract(2, 'days').toDate()
+              time: moment(dueDate).subtract(2, 'days').hour(19).minute(0)
+              .toDate()
             }
           );
           return notificationID;
@@ -210,7 +212,8 @@ export const scheduleNotification = {
               }
             ),
             {
-              time: moment(dueDate).subtract(3, 'days').toDate()
+              time: moment(dueDate).subtract(3, 'days').hour(19).minute(0)
+              .toDate()
             }
           );
           return notificationID;
