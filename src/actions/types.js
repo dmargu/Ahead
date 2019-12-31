@@ -61,3 +61,7 @@ export const ADD_PICTURE = 'addPicture';
 export const HOMEWORK_REMINDER = 'homeworkReminder';
 
 export const CHANGE_CUSTOM_REMINDER = 'changeCustomReminder';
+
+export const CHANGE_LOCATION = 'changeLocation';
+
+export const CHANGE_OFFICE_HOURS = 'changeOfficeHours';

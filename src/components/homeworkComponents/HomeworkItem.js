@@ -30,7 +30,9 @@ class HomeworkItem extends Component {
               onPress={() => this.setState({ homeworkModalVisible: true })}
             >
               <ListItem
-                containerStyle={styles.homeworkItem}
+                containerStyle={[styles.homeworkItem,
+                  { backgroundColor: this.props.changeColor ? this.props.changeColor : '#28313b' }
+                ]}
                 contentContainerStyle={styles.contentStyle}
                 title={
                   <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
@@ -106,7 +108,6 @@ class HomeworkItem extends Component {
 const styles = StyleSheet.create({
   homeworkItem: {
     paddingLeft: 15,
-    backgroundColor: '#28313b'
   },
   container: {
     width: '100%',

@@ -51,8 +51,9 @@ class AssignmentsAndTodosList extends Component {
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 30,
-    color: 'white'
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold'
   }
 });
 

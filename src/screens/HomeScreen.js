@@ -5,15 +5,12 @@ import {
   Keyboard,
   InputAccessoryView,
   StyleSheet,
-  Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
 //import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 import Header from '../components/common/Header';
-//import TodayIncludes from '../components/TodayIncludes';
-import MainTodo from '../components/todoComponents/mainTodo';
-import HomeworkList from '../components/homeworkComponents/HomeworkList';
+import TodayIncludes from '../components/TodayIncludes';
 import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import AddTodo from '../components/todoComponents/AddTodo';
 import FloatingPlusButton from '../components/FloatingPlusButton';
@@ -71,7 +68,7 @@ class HomeScreen extends Component {
     return ( //doesn't work right now though for some reason the button won't press
       <View style={styles.container}>
         <Header navigation={this.props.navigation} screenName='Home' />
-        {/*<TodayIncludes />*/}
+        <TodayIncludes />
 
         <AssignmentsAndTodosList />
 

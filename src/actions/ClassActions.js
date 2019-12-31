@@ -6,7 +6,9 @@ import {
   ADD_NOTIFICATION_ID,
   TOGGLE_CREATE_CLASS_MODAL,
   TOGGLE_CREATE_HOMEWORK_MODAL,
-  REMOVE_HOMEWORK
+  REMOVE_HOMEWORK,
+  CHANGE_LOCATION,
+  CHANGE_OFFICE_HOURS
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -56,6 +58,22 @@ export const removeHomework = (item) => {
   return {
     type: REMOVE_HOMEWORK,
     id: item.id
+  };
+};
+
+export const changeLocation = (item, text) => {
+  return {
+    type: CHANGE_LOCATION,
+    id: item.id,
+    payload: text
+  };
+};
+
+export const changeOfficeHours = (item, text) => {
+  return {
+    type: CHANGE_OFFICE_HOURS,
+    id: item.id,
+    payload: text
   };
 };
 

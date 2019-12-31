@@ -1,13 +1,33 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import ClassItem from './classComponents/ClassItem';
 
-const TodayIncludes = () => { //MAKE SURE YOU CALL THE LISTS WITH THE ITEM ICON TRUE SO IT SHOWS UP
-  return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.textStyle}>Today</Text>
-    </View>
-  );
-};
+class TodayIncludes extends Component {
+  render() {
+    return (
+      <View>
+        <View style={styles.viewStyle}>
+          <Text style={styles.textStyle}>Today</Text>
+        </View>
+        <FlatList
+          data={this.props.classes}
+          extraData={this.props.homework}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => {
+            return (
+              <ClassItem
+                classItem={item}
+                //deleteHomework={() => this.props.removeHomework(item)}
+                todayListItem
+              />
+            );
+          }}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   textStyle: {
@@ -19,9 +39,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
-    right: 5,
-    borderBottomColor: '#6c7a86',
-    borderBottomWidth: 0.25
   }
 });
-export default TodayIncludes;
+
+function mapStateToProps(state) {
+  return {
+    classes: state.ClassesReducer.classes
+  };
+}
+export default connect(mapStateToProps)(TodayIncludes);

@@ -9,7 +9,9 @@ import {
   CHANGE_CUSTOM_REMINDER,
   CHANGE_DATE,
   CANCEL_ALL_NOTIFICATIONS,
-  CLEAR_DATE
+  CLEAR_DATE,
+  CHANGE_LOCATION,
+  CHANGE_OFFICE_HOURS
 } from '../actions/types';
 
 const initialState = {
@@ -32,7 +34,9 @@ const classes = (state = initialState, action) => {
             classEndTime: action.payload.classEndTime,
             afterClassReminders: action.payload.afterClassReminders,
             daysOfWeek: action.daysOfWeek,
-            classDays: action.classDays
+            classDays: action.classDays,
+            location: '',
+            officeHours: ''
           }
         ]
       };
@@ -105,6 +109,18 @@ const classes = (state = initialState, action) => {
         ...state,
         homework: state.homework.map(item => ((item.id === action.id)
           ? { ...item, customReminderTime: action.reminderTime } : item))
+      };
+    case CHANGE_LOCATION:
+      return {
+        ...state,
+        classes: state.classes.map(item => ((item.id === action.id)
+          ? { ...item, location: action.payload } : item))
+      };
+    case CHANGE_OFFICE_HOURS:
+      return {
+        ...state,
+        classes: state.classes.map(item => ((item.id === action.id)
+          ? { ...item, officeHours: action.payload } : item))
       };
     case HOMEWORK_REMINDER:
       switch (action.reminderType) {

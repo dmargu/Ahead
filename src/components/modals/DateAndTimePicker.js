@@ -12,7 +12,7 @@ class DateAndTimePickerModal extends Component {
   render() {
     return (
       <Modal
-        animationType='slide'
+        animationType='fade'
         transparent
         visible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
