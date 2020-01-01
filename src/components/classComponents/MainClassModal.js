@@ -22,7 +22,6 @@ class MainHomeworkModal extends Component {
   }
   render() {
     const item = this.props.item;
-    console.log(item.daysOfWeek);
     return (
       <Modal
         animationType='slide'

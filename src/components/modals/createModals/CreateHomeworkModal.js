@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  Modal,
   Text,
   TextInput,
   TouchableOpacity,
@@ -10,6 +9,7 @@ import {
   Keyboard,
   Alert
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import * as yup from 'yup';

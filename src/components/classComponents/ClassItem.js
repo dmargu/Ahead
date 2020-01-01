@@ -16,14 +16,13 @@ class ClassItem extends Component {
   }
   render() {
     const classItem = this.props.classItem;
-    console.log(this.state.classModalVisible);
     return (
         <View>
           <HomeworkSwipeRow
-            item={classItem}
-            completeItem={() => console.log('remove class')}
+            item={classItem} //need to remove it from day but not delete class, could create items
+            completeItem={() => console.log('remove class')} //when class is created, one for every day
           >
-            <TouchableHighlight
+            <TouchableHighlight //and then remove it like that?
               underlayColor={null}
               onPress={() => this.setState({ classModalVisible: true })}
             >

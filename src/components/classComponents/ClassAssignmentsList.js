@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import HomeworkItem from '../homeworkComponents/HomeworkItem';
+import { removeHomework } from '../../actions';
 
 class ClassAssignmentsList extends Component {
   render() {
@@ -52,4 +53,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ClassAssignmentsList);
+export default connect(mapStateToProps, { removeHomework })(ClassAssignmentsList);
