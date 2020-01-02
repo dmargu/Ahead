@@ -1,6 +1,7 @@
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK,
+  CREATE_TEST,
   REMOVE_HOMEWORK,
   CHANGE_NOTES,
   ADD_PICTURE,
@@ -16,7 +17,8 @@ import {
 
 const initialState = {
   classes: [],
-  homework: []
+  homework: [],
+  tests: []
 };
 
 const classes = (state = initialState, action) => {
@@ -56,6 +58,20 @@ const classes = (state = initialState, action) => {
             threeDayReminder: action.reminders.threeDay,
             customReminder: action.reminders.custom,
             customReminderTime: action.reminders.customTime
+          }
+        ]
+      };
+    case CREATE_TEST:
+      return {
+        ...state,
+        tests: [
+          ...state.tests, {
+            id: action.id,
+            testName: action.values.testName,
+            className: action.values.class,
+            notes: action.values.notes,
+            pictures: action.state.pictures,
+            date: action.state.testDate
           }
         ]
       };

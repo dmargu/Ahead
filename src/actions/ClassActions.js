@@ -3,9 +3,11 @@ import shortid from 'shortid';
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK,
+  CREATE_TEST,
   ADD_NOTIFICATION_ID,
   TOGGLE_CREATE_CLASS_MODAL,
   TOGGLE_CREATE_HOMEWORK_MODAL,
+  TOGGLE_CREATE_TEST_MODAL,
   REMOVE_HOMEWORK,
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS
@@ -50,6 +52,22 @@ export const createHomework = (values, state, classes, actions) => {
     actions.setSubmitting(false);
     dispatch({
       type: TOGGLE_CREATE_HOMEWORK_MODAL
+    });
+  };
+};
+
+export const createTest = (values, state, classes, actions) => {
+  return async (dispatch) => {
+    const id = shortid.generate(); //generating id now se we can use it to schedule reminders
+    dispatch({
+      type: CREATE_TEST,
+      values,
+      state,
+      id,
+    });
+    actions.setSubmitting(false);
+    dispatch({
+      type: TOGGLE_CREATE_TEST_MODAL
     });
   };
 };

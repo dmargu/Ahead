@@ -54,6 +54,8 @@ export const CREATE_CLASS = 'createClass';
 
 export const CREATE_HOMEWORK = 'createHomework';
 
+export const CREATE_TEST = 'createTest';
+
 export const REMOVE_HOMEWORK = 'removeHomework';
 
 export const ADD_PICTURE = 'addPicture';
