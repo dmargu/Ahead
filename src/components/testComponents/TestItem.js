@@ -12,7 +12,7 @@ class HomeworkItem extends Component {
   constructor() {
     super();
     this.state = {
-      homeworkModalVisible: false
+      testModalVisible: false
     };
   }
   render() {
@@ -47,11 +47,11 @@ class HomeworkItem extends Component {
             </TouchableHighlight>
           </HomeworkSwipeRow>
 
-          {/*<MainTestModal
+          <MainTestModal
             item={testItem}
             isVisible={this.state.testModalVisible}
             closeHandle={() => this.setState({ testModalVisible: false })}
-          />*/}
+          />
           {/*<View style={{ paddingTop: 4 }}>
             {testItem.remindersToggled && testItem.date ?
               <ReminderToggleButtons item={testItem} /> : null

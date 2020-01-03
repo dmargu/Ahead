@@ -26,10 +26,10 @@ const validationSchema = yup.object().shape({
   testName: yup.string().required('You need a name.'),
 });
 
-const SetDueDateAndClassFirst = () => {
+const SetDueDateFirst = () => {
   return (
     Alert.alert(
-      'Set A Due Date And A Class First.',
+      'Set A Due Date First.',
       null,
       [
         { text: 'OK' }
@@ -65,6 +65,9 @@ const initialState = { //doing this so you can clear state
   oneDayStudy: false,
   twoDayStudy: false,
   threeDayStudy: false,
+  fourDayStudy: false,
+  fiveDayStudy: false,
+  sixDayStudy: false,
   customStudy: false,
   pictures: [],
   fullPictureVisible: false,
@@ -173,65 +176,6 @@ class CreateTestModal extends Component {
                         />
                       </View>
 
-                      <Text style={{ padding: 2, color: '#fcefef' }}>
-                        {'Put in my day to study:'}
-                      </Text>
-                      <View style={{ flexDirection: 'row' }}>
-                        <CustomButton
-                          text={'1 Day Before'}
-                          onPress={() => {
-                            if (this.state.testDate && formikProps.values.class) {
-                              this.setState({ oneDayStudy: !this.state.oneDayStudy });
-                            } else {
-                              SetDueDateAndClassFirst();
-                            }
-                          }}
-                          isItemActive={this.state.oneDayStudy}
-                        />
-                        <CustomButton
-                          text={'2 Days Before'}
-                          onPress={() => {
-                            if (this.state.testDate && formikProps.values.class) {
-                              this.setState({ twoDayStudy: !this.state.twoDayStudy });
-                            } else {
-                              SetDueDateAndClassFirst();
-                            }
-                          }}
-                          isItemActive={this.state.twoDayStudy}
-                        />
-
-                        <CustomButton
-                          text={'3 Days Before'}
-                          onPress={() => {
-                            if (this.state.testDate && formikProps.values.class) {
-                              this.setState({ threeDayStudy: !this.state.threeDayStudy });
-                            } else {
-                              SetDueDateAndClassFirst();
-                            }
-                          }}
-                          isItemActive={this.state.threeDayStudy}
-                        />
-                      </View>
-                      <View style={{ flexDirection: 'row' }}>
-                        <CustomButton
-                          text={
-                            this.state.customStudyDate ?
-                            moment(this.state.customStudyDate).format('MMM DD h:mm a')
-                            : 'Custom'
-                          }
-                          onPress={() => {
-                            if (!this.state.customStudy) {
-                              this.setState({ customStudyPickerVisible: true });
-                            }
-                            if (this.state.customStudy) {
-                              this.setState({ customStudyDate: null });
-                            }
-                            this.setState({ customStudy: !this.state.customStudy });
-                          }}
-                          isItemActive={this.state.customStudy}
-                        />
-                      </View>
-
                       <DateAndTimePickerModal
                         isVisible={this.state.customStudyPickerVisible}
                         closeHandle={() => {
@@ -253,6 +197,82 @@ class CreateTestModal extends Component {
                           style={styles.notesInput}
                           onChangeText={formikProps.handleChange('notes')}
                           onBlur={formikProps.handleBlur('notes')}
+                        />
+                      </View>
+
+                      <Text style={{ padding: 2, color: '#fcefef' }}>
+                        {'Put in my day to study:'}
+                      </Text>
+                      <View style={{ flexDirection: 'row' }}>
+                        <CustomButton
+                          text={'1 Day Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ oneDayStudy: !this.state.oneDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.oneDayStudy}
+                        />
+                        <CustomButton
+                          text={'2 Days Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ twoDayStudy: !this.state.twoDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.twoDayStudy}
+                        />
+
+                        <CustomButton
+                          text={'3 Days Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ threeDayStudy: !this.state.threeDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.threeDayStudy}
+                        />
+                      </View>
+                      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <CustomButton
+                          text={'4 Days Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ fourDayStudy: !this.state.fourDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.fourDayStudy}
+                        />
+                        <CustomButton
+                          text={'5 Days Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ fiveDayStudy: !this.state.fiveDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.fiveDayStudy}
+                        />
+
+                        <CustomButton
+                          text={'6 Days Before'}
+                          onPress={() => {
+                            if (this.state.testDate) {
+                              this.setState({ sixDayStudy: !this.state.sixDayStudy });
+                            } else {
+                              SetDueDateFirst();
+                            }
+                          }}
+                          isItemActive={this.state.sixDayStudy}
                         />
                       </View>
 

@@ -69,3 +69,5 @@ export const CHANGE_CUSTOM_REMINDER = 'changeCustomReminder';
 export const CHANGE_LOCATION = 'changeLocation';
 
 export const CHANGE_OFFICE_HOURS = 'changeOfficeHours';
+
+export const TOGGLE_ITEM_STUDY_DAY = 'toggleItemStudyDay';

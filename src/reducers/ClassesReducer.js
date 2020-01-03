@@ -13,7 +13,8 @@ import {
   CANCEL_ALL_NOTIFICATIONS,
   CLEAR_DATE,
   CHANGE_LOCATION,
-  CHANGE_OFFICE_HOURS
+  CHANGE_OFFICE_HOURS,
+  TOGGLE_ITEM_STUDY_DAY
 } from '../actions/types';
 
 const initialState = {
@@ -76,8 +77,9 @@ const classes = (state = initialState, action) => {
             oneDayStudy: action.state.oneDayStudy,
             twoDayStudy: action.state.twoDayStudy,
             threeDayStudy: action.state.threeDayStudy,
-            customStudy: action.state.customStudy,
-            customStudyDate: action.state.customStudyDate
+            fourDayStudy: action.state.fourDayStudy,
+            fiveDayStudy: action.state.fiveDayStudy,
+            sixDayStudy: action.state.sixDayStudy
           }
         ]
       };
@@ -99,12 +101,16 @@ const classes = (state = initialState, action) => {
       return {
         ...state,
         homework: state.homework.map(item => ((item.id === action.id)
+          ? { ...item, notes: action.payload } : item)),
+        tests: state.tests.map(item => ((item.id === action.id)
           ? { ...item, notes: action.payload } : item))
       };
     case ADD_PICTURE:
       return {
         ...state,
         homework: state.homework.map(item => ((item.id === action.id)
+          ? { ...item, pictures: action.payload } : item)),
+        tests: state.tests.map(item => ((item.id === action.id)
           ? { ...item, pictures: action.payload } : item))
       };
     case CHANGE_DATE:
@@ -112,6 +118,8 @@ const classes = (state = initialState, action) => {
         ...state,
         homework: state.homework.map(item => ((item.id === action.id)
           ? { ...item, date: action.payload } : item)),
+        tests: state.tests.map(item => ((item.id === action.id)
+          ? { ...item, date: action.payload } : item))
       };
     case CANCEL_ALL_NOTIFICATIONS:
       return {
@@ -132,6 +140,8 @@ const classes = (state = initialState, action) => {
         ...state,
         homework: state.homework.map(item => ((item.id === action.id)
           ? { ...item, date: null } : item)),
+        tests: state.tests.map(item => ((item.id === action.id)
+          ? { ...item, date: null } : item))
       };
     case CHANGE_CUSTOM_REMINDER:
       return {
@@ -209,6 +219,46 @@ const classes = (state = initialState, action) => {
           };
         default:
           return state;
+      }
+    case TOGGLE_ITEM_STUDY_DAY:
+      switch (action.payload) {
+        case 'one':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, oneDayStudy: !item.oneDayStudy } : item))
+          };
+        case 'two':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, twoDayStudy: !item.twoDayStudy } : item))
+          };
+        case 'three':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, threeDayStudy: !item.threeDayStudy } : item))
+          };
+        case 'four':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, fourDayStudy: !item.fourDayStudy } : item))
+          };
+        case 'five':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, fiveDayStudy: !item.fiveDayStudy } : item))
+          };
+        case 'six':
+          return {
+            ...state,
+            tests: state.tests.map(item => ((item.id === action.id)
+              ? { ...item, sixDayStudy: !item.sixDayStudy } : item))
+          };
+        default: return state;
       }
     default:
       return state;

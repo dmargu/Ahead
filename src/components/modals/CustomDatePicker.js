@@ -21,7 +21,7 @@ class CustomDateModal extends Component {
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>
             <View style={{ padding: 5 }}>
-              <DatePickerIOS //need some conditional if its android right here
+              <DatePickerIOS
                 minuteInterval={5}
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
                 onDateChange={(date) => this.props.changeDate(date)}

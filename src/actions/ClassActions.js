@@ -11,7 +11,8 @@ import {
   REMOVE_HOMEWORK,
   REMOVE_TEST,
   CHANGE_LOCATION,
-  CHANGE_OFFICE_HOURS
+  CHANGE_OFFICE_HOURS,
+  TOGGLE_ITEM_STUDY_DAY
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -100,6 +101,14 @@ export const changeOfficeHours = (item, text) => {
     type: CHANGE_OFFICE_HOURS,
     id: item.id,
     payload: text
+  };
+};
+
+export const toggleItemStudyDay = (item, day) => {
+  return {
+    type: TOGGLE_ITEM_STUDY_DAY,
+    id: item.id,
+    payload: day
   };
 };
 

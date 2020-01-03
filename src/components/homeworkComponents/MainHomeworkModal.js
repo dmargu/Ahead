@@ -148,7 +148,9 @@ class MainHomeworkModal extends Component {
           isVisible={this.state.customReminderPickerVisible}
           closeHandle={() => {
             this.setState({ customReminderPickerVisible: false });
-            this.props.customHomeworkReminder(item, item.customReminderTime);
+            if (item.customReminderTime) {
+              this.props.customHomeworkReminder(item, item.customReminderTime);
+            }
           }}
           time={item.customReminderTime}
           changeDate={(date) => this.props.changeCustomReminder(item.id, date)}
