@@ -26,10 +26,10 @@ const validationSchema = yup.object().shape({
   testName: yup.string().required('You need a name.'),
 });
 
-const SetDueDateFirstAlert = () => {
+const SetDueDateAndClassFirst = () => {
   return (
     Alert.alert(
-      'Set A Due Date First.',
+      'Set A Due Date And A Class First.',
       null,
       [
         { text: 'OK' }
@@ -84,7 +84,6 @@ class CreateTestModal extends Component {
         transparent
         animationType='fade'
         visible={this.props.createTestModalVisible}
-        style={{ marginHorizontal: 0 }} //not working at all
       >
         {this.state.fullPictureVisible &&
           <FullPicture
@@ -133,7 +132,7 @@ class CreateTestModal extends Component {
                           onChangeText={formikProps.handleChange('testName')}
                           onBlur={formikProps.handleBlur('testName')}
                           autoCapitalize='sentences'
-                          placeholder='Test Name'
+                          placeholder='Midterm'
                           placeholderTextColor='#fcefef'
                         />
                       </View>
@@ -175,16 +174,16 @@ class CreateTestModal extends Component {
                       </View>
 
                       <Text style={{ padding: 2, color: '#fcefef' }}>
-                        {'Create To-do\'s to study:'}
+                        {'Put in my day to study:'}
                       </Text>
                       <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={'1 Day Before'}
                           onPress={() => {
-                            if (this.state.testDate) {
+                            if (this.state.testDate && formikProps.values.class) {
                               this.setState({ oneDayStudy: !this.state.oneDayStudy });
                             } else {
-                              SetDueDateFirstAlert();
+                              SetDueDateAndClassFirst();
                             }
                           }}
                           isItemActive={this.state.oneDayStudy}
@@ -192,10 +191,10 @@ class CreateTestModal extends Component {
                         <CustomButton
                           text={'2 Days Before'}
                           onPress={() => {
-                            if (this.state.testDate) {
+                            if (this.state.testDate && formikProps.values.class) {
                               this.setState({ twoDayStudy: !this.state.twoDayStudy });
                             } else {
-                              SetDueDateFirstAlert();
+                              SetDueDateAndClassFirst();
                             }
                           }}
                           isItemActive={this.state.twoDayStudy}
@@ -204,10 +203,10 @@ class CreateTestModal extends Component {
                         <CustomButton
                           text={'3 Days Before'}
                           onPress={() => {
-                            if (this.state.testDate) {
+                            if (this.state.testDate && formikProps.values.class) {
                               this.setState({ threeDayStudy: !this.state.threeDayStudy });
                             } else {
-                              SetDueDateFirstAlert();
+                              SetDueDateAndClassFirst();
                             }
                           }}
                           isItemActive={this.state.threeDayStudy}

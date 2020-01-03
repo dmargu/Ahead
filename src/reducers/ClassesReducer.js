@@ -3,6 +3,7 @@ import {
   CREATE_HOMEWORK,
   CREATE_TEST,
   REMOVE_HOMEWORK,
+  REMOVE_TEST,
   CHANGE_NOTES,
   ADD_PICTURE,
   HOMEWORK_REMINDER,
@@ -71,7 +72,12 @@ const classes = (state = initialState, action) => {
             className: action.values.class,
             notes: action.values.notes,
             pictures: action.state.pictures,
-            date: action.state.testDate
+            date: action.state.testDate,
+            oneDayStudy: action.state.oneDayStudy,
+            twoDayStudy: action.state.twoDayStudy,
+            threeDayStudy: action.state.threeDayStudy,
+            customStudy: action.state.customStudy,
+            customStudyDate: action.state.customStudyDate
           }
         ]
       };
@@ -80,6 +86,13 @@ const classes = (state = initialState, action) => {
       return {
         ...state,
         homework: newList
+      };
+    }
+    case REMOVE_TEST: {
+      const newList = state.tests.filter(item => item.id !== action.id);
+      return {
+        ...state,
+        tests: newList
       };
     }
     case CHANGE_NOTES:

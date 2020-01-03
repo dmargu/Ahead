@@ -8,26 +8,38 @@ import {
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import HomeworkItem from '../homeworkComponents/HomeworkItem';
-import { removeHomework } from '../../actions';
+import TestItem from '../testComponents/TestItem';
+import { removeHomework, removeTest } from '../../actions';
 
 class ClassAssignmentsList extends Component {
   render() {
+    const assignmentData = this.props.homework.concat(this.props.tests);
     return (
       <View style={{ maxHeight: 250 }}>
         <View style={{ paddingTop: 5, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.normalText}>Assignments</Text>
         </View>
         <FlatList
-          data={_.sortBy(this.props.homework.filter(hw => hw.className === this.props.item.name), (hw) => {
+          data={_.sortBy(assignmentData.filter(hw => hw.className === this.props.item.name), (hw) => {
             return hw.date;
           })}
-          extraData={this.props.homework}
+          extraData={assignmentData}
           keyExtractor={hw => hw.id}
           renderItem={({ item }) => {
+            if (item.assignmentName) {
+              return (
+                <HomeworkItem
+                  homeworkItem={item}
+                  deleteHomework={() => this.props.removeHomework(item)}
+                  forClassesList
+                  changeColor={'#555B6E'}
+                />
+              );
+            }
             return (
-              <HomeworkItem
-                homeworkItem={item}
-                deleteHomework={() => this.props.removeHomework(item)}
+              <TestItem
+                testItem={item}
+                deleteTest={() => this.props.removeTest(item)}
                 forClassesList
                 changeColor={'#555B6E'}
               />
@@ -49,8 +61,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    homework: state.ClassesReducer.homework
+    homework: state.ClassesReducer.homework,
+    tests: state.ClassesReducer.tests
   };
 }
 
-export default connect(mapStateToProps, { removeHomework })(ClassAssignmentsList);
+export default connect(mapStateToProps, { removeHomework, removeTest })(ClassAssignmentsList);

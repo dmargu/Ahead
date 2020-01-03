@@ -4,9 +4,9 @@ import { ListItem } from 'react-native-elements';
 import moment from 'moment';
 //import NotesModal from '../modals/NotesModal';
 //import DatePickerModal from '../modals/DatePickerModal';
-import MainHomeworkModal from './MainHomeworkModal';
-import HomeworkSwipeRow from './HomeworkItemSwipe';
-import { homeworkIcon } from '../../../assets/InAppIcons';
+import MainTestModal from './MainTestModal';
+import HomeworkSwipeRow from '../homeworkComponents/HomeworkItemSwipe';
+import { testIcon } from '../../../assets/InAppIcons';
 
 class HomeworkItem extends Component {
   constructor() {
@@ -16,87 +16,87 @@ class HomeworkItem extends Component {
     };
   }
   render() {
-    const homeworkItem = this.props.homeworkItem;
+    const testItem = this.props.testItem;
     return (
         <View>
           <HomeworkSwipeRow
-            item={homeworkItem}
-            completeItem={this.props.deleteHomework}
+            item={testItem}
+            completeItem={this.props.deleteTest}
           >
             <TouchableHighlight
               underlayColor={null}
-              onPress={() => this.setState({ homeworkModalVisible: true })}
+              onPress={() => this.setState({ testModalVisible: true })}
             >
               <ListItem
-                containerStyle={[styles.homeworkItem,
+                containerStyle={[styles.testItem,
                   { backgroundColor: this.props.changeColor ? this.props.changeColor : '#28313b' }
                 ]}
                 contentContainerStyle={styles.contentStyle}
                 title={
                   <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
-                    {homeworkItem.assignmentName}
+                    {testItem.testName}
                   </Text>
                 }
-                leftAvatar={this.props.todayListItem ? homeworkIcon : null}
-                subtitle={homeworkItem.date ? this.renderDate.bind(this)() : null}
+                leftAvatar={this.props.todayListItem ? testIcon : null}
+                subtitle={testItem.date ? this.renderDate.bind(this)() : null}
                 rightTitle={
-                  !this.props.forClassesList && homeworkItem.className ? homeworkItem.className : null
+                  !this.props.forClassesList && testItem.className ? testItem.className : null
                 }
                 rightTitleStyle={styles.dateSubtitle}
               />
             </TouchableHighlight>
           </HomeworkSwipeRow>
 
-          <MainHomeworkModal
-            item={homeworkItem}
-            isVisible={this.state.homeworkModalVisible}
-            closeHandle={() => this.setState({ homeworkModalVisible: false })}
-          />
+          {/*<MainTestModal
+            item={testItem}
+            isVisible={this.state.testModalVisible}
+            closeHandle={() => this.setState({ testModalVisible: false })}
+          />*/}
           {/*<View style={{ paddingTop: 4 }}>
-            {homeworkItem.remindersToggled && homeworkItem.date ?
-              <ReminderToggleButtons item={homeworkItem} /> : null
+            {testItem.remindersToggled && testItem.date ?
+              <ReminderToggleButtons item={testItem} /> : null
             }
           </View>
 
-          {homeworkItem.notesModalVisible ?
-            <NotesModal item={homeworkItem} /> : null
+          {testItem.notesModalVisible ?
+            <NotesModal item={testItem} /> : null
           }
 
-          {homeworkItem.dateModalVisible ?
-            <DatePickerModal item={homeworkItem} /> : null
+          {testItem.dateModalVisible ?
+            <DatePickerModal item={testItem} /> : null
           }*/}
 
         </View>
     );
   }
   renderDate() {
-    const date = this.props.homeworkItem.date;
+    const date = this.props.testItem.date;
     if (moment().isSame(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due {moment(date).format('h:mm a')}
+          {moment(date).format('h:mm a')}
         </Text>
       );
     } else if (moment().isAfter(date, 'day')) {
       return (
-        <Text style={styles.overdueSubtitle}>Overdue</Text>
+        <Text style={styles.overdueSubtitle}>Already passed. Need to change the date?</Text>
       );
     } else if (moment().add(1, 'day').isSame(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due Tomorrow {moment(date).format('h:mm a')}
+          Tomorrow {moment(date).format('h:mm a')}
         </Text>
       );
     } else if (moment().add(7, 'day').isAfter(date, 'day')) {
       return (
         <Text style={styles.dateSubtitle}>
-          Due {moment(date).format('dddd h:mm a')}
+          {moment(date).format('dddd h:mm a')}
         </Text>
       );
     }
     return (
       <Text style={styles.dateSubtitle}>
-        Due {moment(date).format('MMM DD h:mm a')}
+        {moment(date).format('MMM DD h:mm a')}
       </Text>
     );
   }
@@ -104,7 +104,7 @@ class HomeworkItem extends Component {
 
 
 const styles = StyleSheet.create({
-  homeworkItem: {
+  testItem: {
     paddingLeft: 15,
   },
   container: {

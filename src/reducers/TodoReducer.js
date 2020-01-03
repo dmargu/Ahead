@@ -16,7 +16,7 @@ import {
   CLEAR_DATE,
   TOGGLE_REMINDERS,
   CANCEL_NOTIFICATION,
-  CANCEL_ALL_NOTIFICATIONS
+  CANCEL_ALL_NOTIFICATIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -31,7 +31,6 @@ const todos = (state = initialState, action) => {
           id: shortid.generate(),
           text: action.text,
           notes: null,
-          completed: false,
           date: null,
           tenMinReminder: false,
           thirtyMinReminder: false,
@@ -71,7 +70,7 @@ const todos = (state = initialState, action) => {
     case REMOVE_TODO: {
       const newList = state.todos.filter(item => item.id !== action.id);
       return {
-      todos: newList
+        todos: newList
       };
     }
     case TOGGLE_DATE_MODAL:

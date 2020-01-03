@@ -9,6 +9,7 @@ import {
   TOGGLE_CREATE_HOMEWORK_MODAL,
   TOGGLE_CREATE_TEST_MODAL,
   REMOVE_HOMEWORK,
+  REMOVE_TEST,
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS
 } from './types';
@@ -75,6 +76,13 @@ export const createTest = (values, state, classes, actions) => {
 export const removeHomework = (item) => {
   return {
     type: REMOVE_HOMEWORK,
+    id: item.id
+  };
+};
+
+export const removeTest = (item) => {
+  return {
+    type: REMOVE_TEST,
     id: item.id
   };
 };
