@@ -15,7 +15,8 @@ import {
   CLEAR_DATE,
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS,
-  TOGGLE_ITEM_STUDY_DAY
+  TOGGLE_ITEM_STUDY_DAY,
+  TOGGLE_AFTER_CLASS_REMINDERS
 } from '../actions/types';
 
 const initialState = {
@@ -32,7 +33,7 @@ const classes = (state = initialState, action) => {
         classes: [
           ...state.classes, {
             id: action.id,
-            name: action.payload.className,
+            name: action.payload.name,
             firstDayOfClass: action.payload.firstDayOfClass,
             lastDayOfClass: action.payload.lastDayOfClass,
             classStartTime: action.payload.classStartTime,
@@ -168,6 +169,12 @@ const classes = (state = initialState, action) => {
         ...state,
         classes: state.classes.map(item => ((item.id === action.id)
           ? { ...item, officeHours: action.payload } : item))
+      };
+    case TOGGLE_AFTER_CLASS_REMINDERS:
+      return {
+        ...state,
+        classes: state.classes.map(item => ((item.id === action.id)
+          ? { ...item, afterClassReminders: action.payload } : item))
       };
     case HOMEWORK_REMINDER:
       switch (action.reminderType) {

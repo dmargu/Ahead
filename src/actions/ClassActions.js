@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Notifications } from 'expo';
 import shortid from 'shortid';
 import {
   CREATE_CLASS,
@@ -13,7 +14,9 @@ import {
   REMOVE_CLASS,
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS,
-  TOGGLE_ITEM_STUDY_DAY
+  TOGGLE_ITEM_STUDY_DAY,
+  CANCEL_ALL_NOTIFICATIONS,
+  TOGGLE_AFTER_CLASS_REMINDERS
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -119,18 +122,45 @@ export const toggleItemStudyDay = (item, day) => {
     payload: day
   };
 };
-/*
+
 export const scheduleAfterClassReminders = (item, makeSwitchVisible) => {
   return async (dispatch) => {
-
+    await scheduleClassReminders(dispatch, item, item.classDays, item.id);
+    dispatch({
+      type: TOGGLE_AFTER_CLASS_REMINDERS,
+      id: item.id,
+      payload: true
+    });
+    makeSwitchVisible();
   };
 };
 
-export const cancelAfterClassReminders = (item, makeSwitchVisible) => {
+export const cancelAfterClassReminders = (item, makeSwitchVisible, notificationIDs) => {
   return async (dispatch) => {
-
+    const notificationData = notificationIDs.filter(
+      obj => (obj.itemID === item.id && obj.reminderType === 'afterClassReminder')
+    );
+    if (notificationData) {
+      for (let x = 0; x < notificationData.length; x++) {
+          await Notifications.cancelScheduledNotificationAsync(notificationData[x].notificationID);
+      }
+      const newList = notificationIDs.filter(obj => obj.itemID !== item.id);
+      dispatch({
+        type: CANCEL_ALL_NOTIFICATIONS,
+        newList,
+        id: item.id
+      });
+    }
+    if (makeSwitchVisible !== null) {
+      dispatch({
+        type: TOGGLE_AFTER_CLASS_REMINDERS,
+        id: item.id,
+        payload: false
+      });
+      makeSwitchVisible();
+    }
   };
-};*/
+};
 
 //days of week
 function findDaysOfWeek(daysOfWeek) {
@@ -185,14 +215,19 @@ function getDates(startDate, stopDate) { //helper function to populate range of 
 
 async function scheduleClassReminders(dispatch, values, classDates, id) {
   for (let x = 0; x < classDates.length; x++) {
-    const notificationID =
-      await scheduleNotification.afterClassReminder(classDates[x], values.classEndTime, values.className);
-    dispatch({
-      type: ADD_NOTIFICATION_ID,
-      id,
-      reminderType: 'afterclassReminder',
-      notificationID
-    });
+    if (moment(classDates[x]).hour(moment(values.classEndTime).hour())
+      .minute(moment(values.classEndTime).minute())
+      .subtract(10, 'minutes')
+      .isAfter(new Date())) {
+      const notificationID =
+        await scheduleNotification.afterClassReminder(classDates[x], values.classEndTime, values.name);
+      dispatch({
+        type: ADD_NOTIFICATION_ID,
+        id,
+        reminderType: 'afterClassReminder',
+        notificationID
+      });
+    }
   }
 }
 

@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import ClassAssignmentsList from './ClassAssignmentsList';
+import { registerForPushNotificationsAsync } from '../../functions/pushNotificationsRegister';
 import {
   changeLocation,
   changeOfficeHours,
@@ -21,18 +22,34 @@ import {
   cancelAfterClassReminders
 } from '../../actions';
 
-const DeleteClassAlert = (deleteClass, item) => {
+const DeleteClassAlert = (deleteClass, item, cancelNotifications, notificationIDs) => {
   return (
     Alert.alert(
       'Are you sure? No going back.',
       null,
       [
         { text: 'Yup. Delete it.',
-          onPress: () => deleteClass(item)
+          onPress: () => {
+            deleteClass(item);
+            cancelNotifications(item, null, notificationIDs);
+          }
         },
         { text: 'Whoops didn\'t mean to press that',
           style: 'cancel'
         }
+      ],
+        { cancelable: false }
+    )
+  );
+};
+
+const CannotSendNotificationsAlert = () => {
+  return (
+    Alert.alert(
+      'Cannot send notifications without permission.',
+      null,
+      [
+        { text: 'OK' }
       ],
         { cancelable: false }
     )
@@ -97,21 +114,27 @@ class MainClassModal extends Component {
               />
             </View>
 
-            {/*{!this.state.switchDisabled &&
-              <View style={styles.spinnerSwitchStyle}>
+            {!this.state.switchDisabled &&
+              <View style={styles.switchStyle}>
                 <Switch
                   value={item.afterClassReminders}
                   trackColor={{ true: '#82ff9e' }}
-                  onValueChange={(bool) => {
+                  onValueChange={async (bool) => {
                     if (bool) {
-                      this.setState({ switchDisabled: true });
-                      this.props.scheduleAfterClassReminders(item,
-                        () => this.setState({ switchDisabled: false })
-                      );
+                      const permission = await registerForPushNotificationsAsync();
+                      if (permission) {
+                        this.setState({ switchDisabled: true });
+                        this.props.scheduleAfterClassReminders(item,
+                          () => this.setState({ switchDisabled: false })
+                        );
+                      } else {
+                        CannotSendNotificationsAlert();
+                      }
                     } else {
                       this.setState({ switchDisabled: true });
                       this.props.cancelAfterClassReminders(item,
-                        () => this.setState({ switchDisabled: false })
+                        () => this.setState({ switchDisabled: false }),
+                        this.props.notificationIDs
                       );
                     }
                   }}
@@ -119,13 +142,19 @@ class MainClassModal extends Component {
               </View>
             }
             {this.state.switchDisabled &&
-              <View style={styles.spinnerSwitchStyle}>
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, color: '#db5461' }}>Please Wait, Do Not Exit The App</Text>
                 <ActivityIndicator size='large' />
               </View>
-            }*/}
+            }
 
             <TouchableOpacity
-              onPress={() => DeleteClassAlert(this.props.removeClass, item)}
+              onPress={() =>
+                DeleteClassAlert(this.props.removeClass,
+                  item,
+                  this.props.cancelAfterClassReminders,
+                  this.props.notificationIDs)
+              }
             >
               <Text>Delete Class</Text>
             </TouchableOpacity>
@@ -171,14 +200,20 @@ const styles = StyleSheet.create({
     color: '#fcefef',
     paddingLeft: 5
   },
-  spinnerSwitchStyle: {
+  switchStyle: {
     justifyContent: 'flex-start',
     flexDirection: 'row',
     padding: 5
   }
 });
 
-export default connect(null,
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
+
+export default connect(mapStateToProps,
   { changeLocation,
     changeOfficeHours,
     removeClass,

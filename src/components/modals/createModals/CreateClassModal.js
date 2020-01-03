@@ -19,11 +19,12 @@ import { CheckBox } from 'react-native-elements';
 import TimePickerModal from '../OnlyTimePickerModal';
 import DatePickerModal from '../OnlyDatePickerModal';
 import DaysInWeekPicker from '../../DaysInWeekPicker';
+import { registerForPushNotificationsAsync } from '../../../functions/pushNotificationsRegister';
 import { toggleCreateClassModal, createClass } from '../../../actions';
 import { Spinner } from '../../common/Spinner';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
-  className: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
+  name: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
   firstDayOfClass: yup.date().required('What day is the first class?'),
   lastDayOfClass: yup.date().required('What day is the last class?'),
   classStartTime: yup.date().required('What time of day does class start?'),
@@ -43,6 +44,19 @@ const ClassTimePicker = (props) => { //also if it's an online class classStartTi
         }
       </TouchableOpacity>
     </View>
+  );
+};
+
+const CannotSendNotificationsAlert = () => {
+  return (
+    Alert.alert(
+      'Cannot send notifications without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    )
   );
 };
 
@@ -102,7 +116,7 @@ class CreateClassModal extends Component {
               </View>
               <Formik
                 initialValues={{
-                  className: '',
+                  name: '',
                   firstDayOfClass: '',
                   lastDayOfClass: '',
                   classStartTime: '',
@@ -127,15 +141,15 @@ class CreateClassModal extends Component {
                       <View style={styles.inputBorder}>
                         <TextInput
                           style={styles.textInput}
-                          onChangeText={formikProps.handleChange('className')}
-                          onBlur={formikProps.handleBlur('className')}
+                          onChangeText={formikProps.handleChange('name')}
+                          onBlur={formikProps.handleBlur('name')}
                           autoCapitalize='sentences'
                           placeholder='Class Name'
                           placeholderTextColor='#fcefef'
                         />
                       </View>
                       <Text style={styles.textError}>
-                        {formikProps.touched.className && formikProps.errors.className}
+                        {formikProps.touched.name && formikProps.errors.name}
                       </Text>
                     </View>
 
@@ -198,9 +212,15 @@ class CreateClassModal extends Component {
                       iconRight
                       containerStyle={styles.checkBox}
                       checkedColor='#82ff9e'
-                      onPress={() => formikProps.setFieldValue(
-                        'afterClassReminders', !formikProps.values.afterClassReminders
-                      )}
+                      onPress={async () => {
+                        const permission = await registerForPushNotificationsAsync();
+                        if (permission) {
+                          formikProps.setFieldValue(
+                            'afterClassReminders', !formikProps.values.afterClassReminders);
+                        } else {
+                          CannotSendNotificationsAlert();
+                        }
+                      }}
                     />
 
                     {formikProps.isSubmitting ? (
