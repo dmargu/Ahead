@@ -6,7 +6,7 @@ import { changeDate, cancelAllNotifications, addNotificationID } from '../../act
 
 class IosDatePicker extends Component {
   async onDateChangeHandle(date) {
-    await this.props.cancelAllNotifications(this.props.item, this.props.notificationIDs);
+    await this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIDs);
     await this.props.changeDate(date, this.props.item.id);
   }
   render() {
