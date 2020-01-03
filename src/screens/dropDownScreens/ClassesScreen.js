@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { FloatingAction } from 'react-native-floating-action';
 import { connect } from 'react-redux';
 import Header from '../../components/common/Header';
@@ -62,10 +62,6 @@ class ClassesScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-
-});
 
 export default connect(null, {
   toggleCreateClassModal,

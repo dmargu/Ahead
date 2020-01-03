@@ -6,7 +6,7 @@ import { changeDate, cancelAllNotifications, addNotificationID } from '../../act
 
 class IosDatePicker extends Component {
   async onDateChangeHandle(date) {
-    await this.props.cancelAllNotifications(this.props.item);
+    await this.props.cancelAllNotifications(this.props.item, this.props.notificationIDs);
     await this.props.changeDate(date, this.props.item.id);
   }
   render() {
@@ -22,4 +22,14 @@ class IosDatePicker extends Component {
   }
 }
 
-export default connect(null, { changeDate, cancelAllNotifications, addNotificationID })(IosDatePicker);
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
+
+export default connect(mapStateToProps, {
+  changeDate,
+  cancelAllNotifications,
+  addNotificationID
+})(IosDatePicker);

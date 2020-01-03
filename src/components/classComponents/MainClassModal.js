@@ -3,15 +3,50 @@ import {
   View,
   StyleSheet,
   Text,
-  TextInput
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Switch,
+  ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import ClassAssignmentsList from './ClassAssignmentsList';
-import { changeLocation, changeOfficeHours } from '../../actions';
+import {
+  changeLocation,
+  changeOfficeHours,
+  removeClass,
+  scheduleAfterClassReminders,
+  cancelAfterClassReminders
+} from '../../actions';
 
-class MainHomeworkModal extends Component {
+const DeleteClassAlert = (deleteClass, item) => {
+  return (
+    Alert.alert(
+      'Are you sure? No going back.',
+      null,
+      [
+        { text: 'Yup. Delete it.',
+          onPress: () => deleteClass(item)
+        },
+        { text: 'Whoops didn\'t mean to press that',
+          style: 'cancel'
+        }
+      ],
+        { cancelable: false }
+    )
+  );
+};
+
+class MainClassModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      deleteAlertVisible: false,
+      switchDisabled: false
+    };
+  }
   classTimeText() {
     const item = this.props.item;
     const weekDays = item.daysOfWeek.join(' ');
@@ -61,6 +96,39 @@ class MainHomeworkModal extends Component {
                 placeholderTextColor='#cdd2c9'
               />
             </View>
+
+            {/*{!this.state.switchDisabled &&
+              <View style={styles.spinnerSwitchStyle}>
+                <Switch
+                  value={item.afterClassReminders}
+                  trackColor={{ true: '#82ff9e' }}
+                  onValueChange={(bool) => {
+                    if (bool) {
+                      this.setState({ switchDisabled: true });
+                      this.props.scheduleAfterClassReminders(item,
+                        () => this.setState({ switchDisabled: false })
+                      );
+                    } else {
+                      this.setState({ switchDisabled: true });
+                      this.props.cancelAfterClassReminders(item,
+                        () => this.setState({ switchDisabled: false })
+                      );
+                    }
+                  }}
+                />
+              </View>
+            }
+            {this.state.switchDisabled &&
+              <View style={styles.spinnerSwitchStyle}>
+                <ActivityIndicator size='large' />
+              </View>
+            }*/}
+
+            <TouchableOpacity
+              onPress={() => DeleteClassAlert(this.props.removeClass, item)}
+            >
+              <Text>Delete Class</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -103,12 +171,17 @@ const styles = StyleSheet.create({
     color: '#fcefef',
     paddingLeft: 5
   },
+  spinnerSwitchStyle: {
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    padding: 5
+  }
 });
 
-function mapStateToProps(state) {
-  return {
-    homework: state.ClassesReducer.homework
-  };
-}
-
-export default connect(mapStateToProps, { changeLocation, changeOfficeHours })(MainHomeworkModal);
+export default connect(null,
+  { changeLocation,
+    changeOfficeHours,
+    removeClass,
+    scheduleAfterClassReminders,
+    cancelAfterClassReminders
+  })(MainClassModal);

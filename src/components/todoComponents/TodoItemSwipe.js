@@ -87,7 +87,7 @@ class TodoSwipeRow extends Component {
 
   onSwipeableLeftOpen = () => {
     this.props.completeItem();
-    this.props.cancelAllNotifications(this.props.item.id);
+    this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIDs);
     this.close();
   }
 
@@ -126,8 +126,13 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   toggleNotesModal,
   toggleDateModal,
   toggleReminders,

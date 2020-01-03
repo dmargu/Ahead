@@ -4,6 +4,7 @@ import {
   CREATE_TEST,
   REMOVE_HOMEWORK,
   REMOVE_TEST,
+  REMOVE_CLASS,
   CHANGE_NOTES,
   ADD_PICTURE,
   HOMEWORK_REMINDER,
@@ -95,6 +96,13 @@ const classes = (state = initialState, action) => {
       return {
         ...state,
         tests: newList
+      };
+    }
+    case REMOVE_CLASS: {
+      const newList = state.classes.filter(item => item.id !== action.id);
+      return {
+        ...state,
+        classes: newList
       };
     }
     case CHANGE_NOTES:

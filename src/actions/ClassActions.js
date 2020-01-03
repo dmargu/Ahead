@@ -10,6 +10,7 @@ import {
   TOGGLE_CREATE_TEST_MODAL,
   REMOVE_HOMEWORK,
   REMOVE_TEST,
+  REMOVE_CLASS,
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS,
   TOGGLE_ITEM_STUDY_DAY
@@ -22,7 +23,7 @@ export const createClass = (values, actions) => { //add after class notification
     const daysOfWeek = findDaysOfWeek(values.daysOfWeek);
     const classDays = findClassDays(values, daysOfWeek);
     if (values.afterClassReminders) {
-      await scheduleAfterClassReminders(dispatch, values, classDays, id);
+      await scheduleClassReminders(dispatch, values, classDays, id);
     }
     dispatch({
       type: CREATE_CLASS,
@@ -88,6 +89,13 @@ export const removeTest = (item) => {
   };
 };
 
+export const removeClass = (item) => {
+  return {
+    type: REMOVE_CLASS,
+    id: item.id
+  };
+};
+
 export const changeLocation = (item, text) => {
   return {
     type: CHANGE_LOCATION,
@@ -111,6 +119,18 @@ export const toggleItemStudyDay = (item, day) => {
     payload: day
   };
 };
+/*
+export const scheduleAfterClassReminders = (item, makeSwitchVisible) => {
+  return async (dispatch) => {
+
+  };
+};
+
+export const cancelAfterClassReminders = (item, makeSwitchVisible) => {
+  return async (dispatch) => {
+
+  };
+};*/
 
 //days of week
 function findDaysOfWeek(daysOfWeek) {
@@ -163,7 +183,7 @@ function getDates(startDate, stopDate) { //helper function to populate range of 
   return dateArray;
 }
 
-async function scheduleAfterClassReminders(dispatch, values, classDates, id) {
+async function scheduleClassReminders(dispatch, values, classDates, id) {
   for (let x = 0; x < classDates.length; x++) {
     const notificationID =
       await scheduleNotification.afterClassReminder(classDates[x], values.classEndTime, values.className);

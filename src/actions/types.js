@@ -60,6 +60,8 @@ export const REMOVE_HOMEWORK = 'removeHomework';
 
 export const REMOVE_TEST = 'removeTest';
 
+export const REMOVE_CLASS = 'removeClass';
+
 export const ADD_PICTURE = 'addPicture';
 
 export const HOMEWORK_REMINDER = 'homeworkReminder';

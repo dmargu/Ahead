@@ -45,7 +45,7 @@ class ReminderToggleButtons extends Component {
               this.props.startReminder(item);
             }
             if (item.startReminder) {
-              this.props.cancelNotification(item.id, 'start');
+              this.props.cancelNotification(item.id, 'start', this.props.notificationIDs);
             }
           }}
         >
@@ -74,7 +74,7 @@ class ReminderToggleButtons extends Component {
               this.props.tenMinReminder(item);
             }
             if (item.tenMinReminder) {
-              this.props.cancelNotification(item.id, 'tenMin');
+              this.props.cancelNotification(item.id, 'tenMin', this.props.notificationIDs);
             }
           }}
         >
@@ -103,7 +103,7 @@ class ReminderToggleButtons extends Component {
               this.props.thirtyMinReminder(item);
             }
             if (item.thirtyMinReminder) {
-              this.props.cancelNotification(item.id, 'thirtyMin');
+              this.props.cancelNotification(item.id, 'thirtyMin', this.props.notificationIDs);
             }
           }}
         >
@@ -132,7 +132,7 @@ class ReminderToggleButtons extends Component {
               this.props.oneHourReminder(item);
             }
             if (item.oneHourReminder) {
-              this.props.cancelNotification(item.id, 'oneHour');
+              this.props.cancelNotification(item.id, 'oneHour', this.props.notificationIDs);
             }
           }}
         >
@@ -161,7 +161,7 @@ class ReminderToggleButtons extends Component {
               this.props.oneDayReminder(item);
             }
             if (item.oneDayReminder) {
-              this.props.cancelNotification(item.id, 'oneDay');
+              this.props.cancelNotification(item.id, 'oneDay', this.props.notificationIDs);
             }
           }}
         >
@@ -204,7 +204,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null,
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
+
+export default connect(mapStateToProps,
   { tenMinReminder,
     thirtyMinReminder,
     oneDayReminder,

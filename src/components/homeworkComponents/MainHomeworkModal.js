@@ -101,7 +101,9 @@ class MainHomeworkModal extends Component {
                 buttonDisabledState={this.state.oneDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ oneDayButtonDisabled: value })}
                 addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'oneDay', 1)}
-                cancelNotification={() => this.props.cancelNotification(item.id, 'oneDay')}
+                cancelNotification={() =>
+                  this.props.cancelNotification(item.id, 'oneDay', this.props.notificationIDs)
+                }
                 isReminderActive={item.oneDayReminder}
                 date={item.date}
                 isCustomReminder={false}
@@ -112,7 +114,9 @@ class MainHomeworkModal extends Component {
                 buttonDisabledState={this.state.twoDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ twoDayButtonDisabled: value })}
                 addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'twoDay', 2)}
-                cancelNotification={() => this.props.cancelNotification(item.id, 'twoDay')}
+                cancelNotification={() =>
+                  this.props.cancelNotification(item.id, 'twoDay', this.props.notificationIDs)
+                }
                 isReminderActive={item.twoDayReminder}
                 date={item.date}
                 isCustomReminder={false}
@@ -123,7 +127,9 @@ class MainHomeworkModal extends Component {
                 buttonDisabledState={this.state.threeDayButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ threeDayButtonDisabled: value })}
                 addReminderFunction={() => this.props.defaultHomeworkReminder(item, 'threeDay', 3)}
-                cancelNotification={() => this.props.cancelNotification(item.id, 'threeDay')}
+                cancelNotification={
+                  () => this.props.cancelNotification(item.id, 'threeDay', this.props.notificationIDs)
+                }
                 isReminderActive={item.threeDayReminder}
                 date={item.date}
                 isCustomReminder={false}
@@ -133,7 +139,9 @@ class MainHomeworkModal extends Component {
                 reminderType='custom'
                 buttonDisabledState={this.state.customButtonDisabled}
                 changeButtonDisabledState={(value) => this.setState({ customButtonDisabled: value })}
-                cancelNotification={() => this.props.cancelNotification(item.id, 'custom')}
+                cancelNotification={
+                  () => this.props.cancelNotification(item.id, 'custom', this.props.notificationIDs)
+                }
                 isReminderActive={item.customReminder}
                 date={item.date}
                 isCustomReminder
@@ -205,7 +213,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, {
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
+
+export default connect(mapStateToProps, {
   toggleItemModal,
   toggleItemModalDatePicker,
   notesChanged,

@@ -1,4 +1,3 @@
-import { Notifications } from 'expo';
 import {
   ADD_NOTIFICATION_ID,
   CANCEL_NOTIFICATION,
@@ -23,24 +22,10 @@ const storage = (state = initialState, action) => {
           }
         ]
       };
-    case CANCEL_NOTIFICATION: {
-      const notificationData = state.notificationIDs.find(
-        obj => (obj.itemID === action.id && obj.reminderType === action.reminderType)
-      );
-      Notifications.cancelScheduledNotificationAsync(notificationData.notificationID);
-      const newList = state.notificationIDs.filter(obj => obj !== notificationData);
-      return { notificationIDs: newList };
-    }
+    case CANCEL_NOTIFICATION:
+      return { notificationIDs: action.newList };
     case CANCEL_ALL_NOTIFICATIONS: {
-      const notificationData = state.notificationIDs.filter(obj => (obj.itemID === action.id));
-      if (notificationData) {
-        for (let x = 0; x < notificationData.length; x++) {
-            Notifications.cancelScheduledNotificationAsync(notificationData[x].notificationID);
-        }
-        const newList = state.notificationIDs.filter(obj => obj.itemID !== action.id);
-        return { notificationIDs: newList };
-      }
-      return { ...state };
+      return { notificationIDs: action.newList };
     }
     default:
       return state;

@@ -21,11 +21,11 @@ const HEIGHT = Dimensions.get('window').height;
 
 class MainItemDatePickerModal extends Component {
   onClearDatePress() {
-    this.props.cancelAllNotifications(this.props.item.id);
+    this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIDs);
     this.props.clearDate(this.props.item);
   }
   async onDateChangeHandle(date) {
-    await this.props.cancelAllNotifications(this.props.item.id);
+    await this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIDs);
     await this.props.changeDate(date, this.props.item.id);
   }
   render() {
@@ -95,7 +95,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {
+function mapStateToProps(state) {
+  return {
+    notificationIDs: state.StorageReducer.notificationIDs
+  };
+}
+
+export default connect(mapStateToProps, {
   changeDate,
   toggleItemModalDatePicker,
   clearDate,

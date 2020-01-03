@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, SectionList } from 'react-native';
+import { View, SectionList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TestItem from './testComponents/TestItem';
@@ -33,7 +33,7 @@ class MainAssignmentsList extends Component {
     if (noClassAssignments.length !== 0) {
       classData.push({
         title: {
-          name: 'No class'
+          noClassTitle: 'No class' //this doesn't really do anything but it works
         },
         data: noClassAssignments
       });
@@ -44,8 +44,13 @@ class MainAssignmentsList extends Component {
           sections={classData}
           keyExtractor={(item) => item.id}
           renderSectionHeader={({ section: item }) => {
+            if (item.title.name) {
+              return (
+                <ClassTouchableHeader item={item.title} />
+              );
+            }
             return (
-              <ClassTouchableHeader item={item.title} />
+              <Text style={styles.textStyle}>No Class</Text>
             );
           }}
           renderItem={({ item }) => {
@@ -73,6 +78,13 @@ class MainAssignmentsList extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 30,
+    color: 'white'
+  }
+});
 
 function mapStateToProps(state) {
   return {
