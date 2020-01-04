@@ -116,29 +116,32 @@ class MainClassModal extends Component {
 
             {!this.state.switchDisabled &&
               <View style={styles.switchStyle}>
-                <Switch
-                  value={item.afterClassReminders}
-                  trackColor={{ true: '#82ff9e' }}
-                  onValueChange={async (bool) => {
-                    if (bool) {
-                      const permission = await registerForPushNotificationsAsync();
-                      if (permission) {
-                        this.setState({ switchDisabled: true });
-                        this.props.scheduleAfterClassReminders(item,
-                          () => this.setState({ switchDisabled: false })
-                        );
+                <Text style={styles.normalText}>After Class Reminders</Text>
+                <View style={{ padding: 5 }}>
+                  <Switch
+                    value={item.afterClassReminders}
+                    trackColor={{ true: '#82ff9e' }}
+                    onValueChange={async (bool) => {
+                      if (bool) {
+                        const permission = await registerForPushNotificationsAsync();
+                        if (permission) {
+                          this.setState({ switchDisabled: true });
+                          this.props.scheduleAfterClassReminders(item,
+                            () => this.setState({ switchDisabled: false })
+                          );
+                        } else {
+                          CannotSendNotificationsAlert();
+                        }
                       } else {
-                        CannotSendNotificationsAlert();
+                        this.setState({ switchDisabled: true });
+                        this.props.cancelAfterClassReminders(item,
+                          () => this.setState({ switchDisabled: false }),
+                          this.props.notificationIDs
+                        );
                       }
-                    } else {
-                      this.setState({ switchDisabled: true });
-                      this.props.cancelAfterClassReminders(item,
-                        () => this.setState({ switchDisabled: false }),
-                        this.props.notificationIDs
-                      );
-                    }
-                  }}
-                />
+                    }}
+                  />
+                </View>
               </View>
             }
             {this.state.switchDisabled &&
@@ -201,9 +204,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   },
   switchStyle: {
-    justifyContent: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
-    padding: 5
+    paddingLeft: 5
   }
 });
 
