@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View,
+  KeyboardAvoidingView,
   Dimensions,
   Keyboard,
   InputAccessoryView,
@@ -8,15 +8,18 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
-//import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
+import { FloatingAction } from 'react-native-floating-action';
+import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 import Header from '../components/common/Header';
 import TodayIncludes from '../components/TodayIncludes';
 import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
+import { todoIcon, homeworkIcon, testIcon } from '../../assets/InAppIcons';
 import AddTodo from '../components/todoComponents/AddTodo';
-import FloatingPlusButton from '../components/FloatingPlusButton';
+//import FloatingPlusButton from '../components/FloatingPlusButton';
 import CreateHomeworkModal from '../components/modals/createModals/CreateHomeworkModal';
+import CreateTestModal from '../components/modals/createModals/CreateTestModal';
 import AssignmentsAndTodosList from '../components/AssignmentsAndTodos';
-import { addTodo, toggleCreateHomeworkModal } from '../actions';
+import { addTodo, toggleCreateHomeworkModal, toggleCreateTestModal } from '../actions';
 
 
 const HEIGHT = Dimensions.get('window').height;
@@ -61,20 +64,52 @@ class HomeScreen extends Component {
     return;
   }
 
-  onFloatingButtonPress() {
-    this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
-  }
   render() { //in future change inputAccessory to <KeyboardAccessoryView hideBorder> for android function
-    return ( //doesn't work right now though for some reason the button won't press
-      <View style={styles.container}>
+    const actions = [ //doesn't work right now though for some reason the button won't press
+      {
+        text: 'To-do',
+        name: 'todo',
+        icon: todoIcon,
+        position: 3
+      },
+      {
+        text: 'Homework',
+        name: 'homework',
+        icon: homeworkIcon,
+        position: 2
+      },
+      {
+        text: 'Test',
+        name: 'test',
+        icon: testIcon,
+        position: 1
+      }
+    ];
+    return (
+      <KeyboardAvoidingView style={styles.container}>
         <Header navigation={this.props.navigation} screenName='Home' />
         <TodayIncludes />
-
         <AssignmentsAndTodosList />
-
-        <CreateHomeworkModal
-          classNameFromNotification={this.state.classNameFromNotification}
-        />
+        { !this.state.inputVisible &&
+          <FloatingAction
+            actions={actions}
+            onPressItem={name => {
+              switch (name) {
+                case 'todo':
+                  this.setState({ inputVisible: true }, () => { this.textInputField.focus(); });
+                  return;
+                case 'test':
+                  this.props.toggleCreateTestModal();
+                  return;
+                case 'homework':
+                  this.props.toggleCreateHomeworkModal();
+                  return;
+                default:
+                  return;
+              }
+            }}
+          />
+        }
         <InputAccessoryView>
           { this.state.inputVisible &&
             <AddTodo
@@ -86,10 +121,11 @@ class HomeScreen extends Component {
             />
           }
         </InputAccessoryView>
-        { !this.state.inputVisible &&
-          <FloatingPlusButton tapToAddEvent={this.onFloatingButtonPress.bind(this)} />
-        }
-      </View>
+        <CreateTestModal />
+        <CreateHomeworkModal
+          classNameFromNotification={this.state.classNameFromNotification}
+        />
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -97,7 +133,7 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: HEIGHT
+    //height: HEIGHT
   },
   headerTextStyle: {
       fontSize: 20,
@@ -113,10 +149,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  return {
-    createHomeworkModalVisible: state.ModalReducer.createHomeworkModalVisible
-  };
-}
-
-export default connect(mapStateToProps, { addTodo, toggleCreateHomeworkModal })(HomeScreen);
+export default connect(null, {
+  addTodo,
+  toggleCreateHomeworkModal,
+  toggleCreateTestModal
+})(HomeScreen);
