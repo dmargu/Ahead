@@ -10,6 +10,7 @@ import _ from 'lodash';
 import HomeworkItem from '../homeworkComponents/HomeworkItem';
 import TestItem from '../testComponents/TestItem';
 import { removeHomework, removeTest } from '../../actions';
+import { colors } from '../../styles';
 
 class ClassAssignmentsList extends Component {
   render() {
@@ -19,33 +20,35 @@ class ClassAssignmentsList extends Component {
         <View style={{ paddingTop: 5, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.normalText}>Assignments</Text>
         </View>
-        <FlatList
-          data={_.sortBy(assignmentData.filter(hw => hw.className === this.props.item.name), (hw) => {
-            return hw.date;
-          })}
-          extraData={assignmentData}
-          keyExtractor={hw => hw.id}
-          renderItem={({ item }) => {
-            if (item.assignmentName) {
+        <View style={styles.listBorder}>
+          <FlatList
+            data={_.sortBy(assignmentData.filter(hw => hw.className === this.props.item.name), (hw) => {
+              return hw.date;
+            })}
+            extraData={assignmentData}
+            keyExtractor={hw => hw.id}
+            renderItem={({ item }) => {
+              if (item.assignmentName) {
+                return (
+                  <HomeworkItem
+                    homeworkItem={item}
+                    deleteHomework={() => this.props.removeHomework(item)}
+                    forClassesList
+                    changeColor={colors.darkGrey}
+                  />
+                );
+              }
               return (
-                <HomeworkItem
-                  homeworkItem={item}
-                  deleteHomework={() => this.props.removeHomework(item)}
+                <TestItem
+                  testItem={item}
+                  deleteTest={() => this.props.removeTest(item)}
                   forClassesList
-                  changeColor={'#555B6E'}
+                  changeColor={colors.darkGrey}
                 />
               );
-            }
-            return (
-              <TestItem
-                testItem={item}
-                deleteTest={() => this.props.removeTest(item)}
-                forClassesList
-                changeColor={'#555B6E'}
-              />
-            );
-          }}
-        />
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -54,8 +57,13 @@ class ClassAssignmentsList extends Component {
 const styles = StyleSheet.create({
   normalText: {
     fontSize: 16,
-    color: '#db5461',
+    color: colors.white,
     fontWeight: 'bold'
+  },
+  listBorder: {
+    borderTopWidth: 0.25,
+    borderBottomWidth: 0.25,
+    borderColor: colors.white,
   }
 });
 

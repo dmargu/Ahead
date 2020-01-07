@@ -10,6 +10,7 @@ import {
   startReminder,
   cancelNotification,
 } from '../actions';
+import { colors } from '../styles';
 
 class ReminderToggleButtons extends Component {
   constructor() {
@@ -24,16 +25,13 @@ class ReminderToggleButtons extends Component {
   }
   render() {
     const item = this.props.item;
-    const colors = {
-      gunmetal: '#28313b',
-      red: '#db5461',
-      green: '#82ff9e'
-    };
+
     return (
       <View style={styles.container}>
         <TouchableOpacity
           style={[styles.button,
-            { borderColor: item.startReminder ? colors.gunmetal : colors.red,
+            { borderColor: item.startReminder ? null : colors.mainRed,
+              borderWidth: item.startReminder ? null : 1,
               backgroundColor: item.startReminder ? colors.green : null
             }
           ]}
@@ -51,7 +49,7 @@ class ReminderToggleButtons extends Component {
         >
           <Text
             style={[styles.text,
-              { color: item.startReminder ? colors.gunmetal : colors.red, padding: 2 }
+              { color: item.startReminder ? colors.mainDark : colors.mainRed, padding: 2 }
             ]}
           >
             Start
@@ -60,7 +58,8 @@ class ReminderToggleButtons extends Component {
 
         <TouchableOpacity
           style={[styles.button,
-            { borderColor: item.tenMinReminder ? colors.gunmetal : colors.red,
+            { borderColor: item.tenMinReminder ? null : colors.mainRed,
+              borderWidth: item.tenMinReminder ? null : 1,
               backgroundColor: item.tenMinReminder ? colors.green : null
             }
           ]}
@@ -80,7 +79,7 @@ class ReminderToggleButtons extends Component {
         >
           <Text
             style={[styles.text,
-              { color: item.tenMinReminder ? colors.gunmetal : colors.red, padding: 2 }
+              { color: item.tenMinReminder ? colors.mainDark : colors.mainRed, padding: 2 }
             ]}
           >
             10 Min
@@ -89,7 +88,8 @@ class ReminderToggleButtons extends Component {
 
         <TouchableOpacity
           style={[styles.button,
-            { borderColor: item.thirtyMinReminder ? colors.gunmetal : colors.red,
+            { borderColor: item.thirtyMinReminder ? colors.mainDark : colors.mainRed,
+              borderWidth: item.thirtyMinReminder ? null : 1,
               backgroundColor: item.thirtyMinReminder ? colors.green : null
             }
           ]}
@@ -109,7 +109,7 @@ class ReminderToggleButtons extends Component {
         >
           <Text
             style={[styles.text,
-              { color: item.thirtyMinReminder ? colors.gunmetal : colors.red, padding: 2 }
+              { color: item.thirtyMinReminder ? colors.mainDark : colors.mainRed, padding: 2 }
             ]}
           >
             30 Min
@@ -118,7 +118,8 @@ class ReminderToggleButtons extends Component {
 
         <TouchableOpacity
           style={[styles.button,
-            { borderColor: item.oneHourReminder ? colors.gunmetal : colors.red,
+            { borderColor: item.oneHourReminder ? colors.mainDark : colors.mainRed,
+              borderWidth: item.oneHourReminder ? null : 1,
               backgroundColor: item.oneHourReminder ? colors.green : null
             }
           ]}
@@ -138,7 +139,7 @@ class ReminderToggleButtons extends Component {
         >
           <Text
             style={[styles.text,
-              { color: item.oneHourReminder ? colors.gunmetal : colors.red, padding: 2 }
+              { color: item.oneHourReminder ? colors.mainDark : colors.mainRed, padding: 2 }
             ]}
           >
             1 Hour
@@ -147,7 +148,8 @@ class ReminderToggleButtons extends Component {
 
         <TouchableOpacity
           style={[styles.button,
-            { borderColor: item.oneDayReminder ? colors.gunmetal : colors.red,
+            { borderColor: item.oneDayReminder ? colors.mainDark : colors.mainRed,
+              borderWidth: item.oneDayReminder ? null : 1,
               backgroundColor: item.oneDayReminder ? colors.green : null
             }
           ]}
@@ -167,7 +169,7 @@ class ReminderToggleButtons extends Component {
         >
           <Text
             style={[styles.text,
-              { color: item.oneDayReminder ? colors.gunmetal : colors.red, padding: 2 }
+              { color: item.oneDayReminder ? colors.mainDark : colors.mainRed, padding: 2 }
             ]}
           >
             1 Day

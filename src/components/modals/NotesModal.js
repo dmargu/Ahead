@@ -3,6 +3,7 @@ import { View, StyleSheet, Modal, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { toggleNotesModal, notesChanged } from '../../actions';
+import { colors } from '../../styles';
 
 class NotesModal extends Component { //right now I don't know how to reschedule notifications after cancelling
   onNotesChange(text) { //the async functions to do that with expo take like a second so it's too much of a
@@ -19,7 +20,7 @@ class NotesModal extends Component { //right now I don't know how to reschedule 
                 <Feather
                   name="x-square"
                   size={35}
-                  color={'#db5461'}
+                  color={colors.lightGrey}
                   onPress={() => this.props.toggleNotesModal(item)}
                 />
               </View>
@@ -27,7 +28,7 @@ class NotesModal extends Component { //right now I don't know how to reschedule 
             <View style={{ padding: 5 }}>
               <TextInput
                 placeholder={'Add notes'}
-                placeholderTextColor='#cdd2c9'
+                placeholderTextColor={colors.mainLightText}
                 value={item.notes}
                 multiline
                 style={styles.notesInput}
@@ -51,16 +52,16 @@ const styles = StyleSheet.create({
     width: '75%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E',
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey,
   },
   notesInput: {
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#cdd2c9',
+    borderColor: colors.mainLightText,
     padding: 10,
-    color: '#fcefef'
+    color: colors.white
   },
 });
 

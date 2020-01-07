@@ -21,6 +21,7 @@ import {
   scheduleAfterClassReminders,
   cancelAfterClassReminders
 } from '../../actions';
+import { colors } from '../../styles';
 
 const DeleteClassAlert = (deleteClass, item, cancelNotifications, notificationIDs) => {
   return (
@@ -61,7 +62,8 @@ class MainClassModal extends Component {
     super();
     this.state = {
       deleteAlertVisible: false,
-      switchDisabled: false
+      switchDisabled: false,
+      schedulingReminders: false
     };
   }
   classTimeText() {
@@ -99,7 +101,7 @@ class MainClassModal extends Component {
                 onChangeText={(text) => this.props.changeLocation(item, text)}
                 autoCapitalize='sentences'
                 placeholder='Building 1 room 100'
-                placeholderTextColor='#cdd2c9'
+                placeholderTextColor={colors.mainLightText}
               />
             </View>
             <View style={styles.inputViewStyle}>
@@ -110,7 +112,7 @@ class MainClassModal extends Component {
                 onChangeText={(text) => this.props.changeOfficeHours(item, text)}
                 autoCapitalize='sentences'
                 placeholder='MW at 4pm'
-                placeholderTextColor='#cdd2c9'
+                placeholderTextColor={colors.mainLightText}
               />
             </View>
 
@@ -120,12 +122,12 @@ class MainClassModal extends Component {
                 <View style={{ padding: 5 }}>
                   <Switch
                     value={item.afterClassReminders}
-                    trackColor={{ true: '#82ff9e' }}
+                    trackColor={{ true: colors.green }}
                     onValueChange={async (bool) => {
                       if (bool) {
                         const permission = await registerForPushNotificationsAsync();
                         if (permission) {
-                          this.setState({ switchDisabled: true });
+                          this.setState({ switchDisabled: true, schedulingReminders: true });
                           this.props.scheduleAfterClassReminders(item,
                             () => this.setState({ switchDisabled: false })
                           );
@@ -133,7 +135,7 @@ class MainClassModal extends Component {
                           CannotSendNotificationsAlert();
                         }
                       } else {
-                        this.setState({ switchDisabled: true });
+                        this.setState({ switchDisabled: true, schedulingReminders: false });
                         this.props.cancelAfterClassReminders(item,
                           () => this.setState({ switchDisabled: false }),
                           this.props.notificationIDs
@@ -146,21 +148,26 @@ class MainClassModal extends Component {
             }
             {this.state.switchDisabled &&
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, color: '#db5461' }}>Please Wait, Do Not Exit The App</Text>
+                <Text style={{ fontSize: 16, color: colors.mainRed }}>
+                  {this.state.schedulingReminders ? 'Please wait, scheduling reminders'
+                  : 'Please wait, cancelling reminders'}
+                </Text>
                 <ActivityIndicator size='large' />
               </View>
             }
-
-            <TouchableOpacity
-              onPress={() =>
-                DeleteClassAlert(this.props.removeClass,
-                  item,
-                  this.props.cancelAfterClassReminders,
-                  this.props.notificationIDs)
-              }
-            >
-              <Text>Delete Class</Text>
-            </TouchableOpacity>
+            <View style={{ padding: 5 }}>
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() =>
+                  DeleteClassAlert(this.props.removeClass,
+                    item,
+                    this.props.cancelAfterClassReminders,
+                    this.props.notificationIDs)
+                }
+              >
+                <Text style={[styles.normalText, { color: colors.mainRed }]}>Delete Class</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -177,17 +184,17 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey
   },
   className: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fcefef'
+    color: colors.white
   },
   normalText: {
     fontSize: 16,
-    color: '#fcefef'
+    color: colors.white
   },
   textSeperator: {
     justifyContent: 'center',
@@ -200,13 +207,20 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 16,
-    color: '#fcefef',
+    color: colors.white,
     paddingLeft: 5
   },
   switchStyle: {
     alignItems: 'center',
     flexDirection: 'row',
     paddingLeft: 5
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 7,
+    borderColor: colors.mainRed,
+    width: 150,
   }
 });
 

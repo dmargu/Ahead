@@ -12,6 +12,7 @@ import { Feather } from '@expo/vector-icons';
 import moment from 'moment';
 import MainItemDatePickerModal from './MainItemDatePickerModal';
 import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
+import { colors } from '../../styles';
 
 class MainItemModal extends Component {
   constructor() {
@@ -48,7 +49,7 @@ class MainItemModal extends Component {
                 <Feather
                   name="x-square"
                   size={35}
-                  color={'#db5461'}
+                  color={colors.lightGrey}
                   onPress={() => this.props.toggleItemModal(item)}
                 />
               </View>
@@ -56,7 +57,7 @@ class MainItemModal extends Component {
             <View style={{ padding: 5 }}>
               <TextInput
                 placeholder={'Add notes'}
-                placeholderTextColor='#cdd2c9'
+                placeholderTextColor={colors.mainLightText}
                 value={item.notes}
                 multiline
                 style={styles.notesInput}
@@ -85,12 +86,12 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey
   },
   remindersText: {
     fontSize: 20,
-    color: '#db5461',
+    color: colors.mainRed,
     fontWeight: 'bold',
     paddingBottom: 5
   },
@@ -98,21 +99,21 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 15,
     fontSize: 18,
-    color: '#fcefef'
+    color: colors.white
   },
   setTime: {
     paddingTop: 10,
     paddingLeft: 15,
     fontSize: 18,
-    color: '#db5461'
+    color: colors.mainRed
   },
   notesInput: {
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#cdd2c9',
+    borderColor: colors.mainLightText,
     padding: 10,
-    color: '#fcefef'
+    color: colors.white
   },
 });
 

@@ -15,6 +15,7 @@ import {
   todoIcon,
   aheadArrow
 } from '../../assets/InAppIcons';
+import { colors } from '../styles';
 
 
 class MenuDrawer extends Component {
@@ -59,7 +60,6 @@ class MenuDrawer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgrey'
   },
   scroller: {
     flex: 1
@@ -67,22 +67,21 @@ const styles = StyleSheet.create({
   link: {
     flex: 1,
     fontSize: 20,
-    padding: 6,
     paddingLeft: 14,
     margin: 5,
     textAlign: 'left',
-    color: '#f5f5f5'
+    color: colors.mainLightText
   },
   topLinks: {
     height: 140,
-    backgroundColor: '#ff5330',
+    backgroundColor: colors.darkRed,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   bottomLinks: {
     flex: 1,
-    backgroundColor: '#0f1626',
+    backgroundColor: colors.mainDark,
     paddingTop: 15,
     paddingBottom: 450
   },
@@ -95,27 +94,27 @@ const styles = StyleSheet.create({
   sloganStyle: {
     paddingLeft: 10,
     fontSize: 25,
-    color: '#f5f5f5'
+    color: colors.mainLightText
   },
   footer: {
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: 'lightgrey',
-    backgroundColor: '#0f1626'
+    borderTopWidth: 0.25,
+    borderTopColor: colors.mainLightText,
+    backgroundColor: colors.mainDark
   },
   description: {
     flex: 1,
     marginLeft: 20,
     fontSize: 16,
-    color: 'lightgrey'
+    color: colors.mainLightText
   },
   version: {
     flex: 1,
     textAlign: 'right',
     marginRight: 20,
-    color: 'lightgrey'
+    color: colors.mainLightText
   }
 });
 

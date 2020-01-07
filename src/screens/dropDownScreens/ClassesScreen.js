@@ -9,6 +9,7 @@ import CreateTestModal from '../../components/modals/createModals/CreateTestModa
 import CreateHomeworkModal from '../../components/modals/createModals/CreateHomeworkModal';
 import MainAssignmentsList from '../../components/MainAssignmentsList';
 import { toggleCreateClassModal, toggleCreateTestModal, toggleCreateHomeworkModal } from '../../actions';
+import { colors } from '../../styles';
 
 class ClassesScreen extends Component {
   render() {
@@ -39,6 +40,7 @@ class ClassesScreen extends Component {
 
         <FloatingAction
           actions={actions}
+          color={colors.mainRed}
           onPressItem={name => {
             switch (name) {
               case 'class':

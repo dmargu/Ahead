@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../styles';
 
 class MenuButton extends Component {
   render() {
@@ -8,7 +9,7 @@ class MenuButton extends Component {
         name="md-menu"
         size={32}
         onPress={() => this.props.navigation.toggleDrawer()}
-        color='#fcefef'
+        color={colors.mainLightText}
       />
     );
   }

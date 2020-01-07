@@ -21,6 +21,7 @@ import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
+import { colors } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -56,14 +57,14 @@ const CustomButton = (props) => {
   return (
     <TouchableOpacity
       style={[styles.buttonStyle,
-        { borderColor: props.isItemActive ? '#28313b' : '#db5461',
-        backgroundColor: props.isItemActive ? '#82ff9e' : null
+        { borderColor: props.isItemActive ? colors.darkGrey : colors.mainRed,
+        backgroundColor: props.isItemActive ? colors.green : null
       }]}
       onPress={props.onPress}
     >
       <Text
         style={{
-        color: props.isItemActive ? '#28313b' : '#fcefef'
+        color: props.isItemActive ? colors.darkGrey : colors.mainRed
         }}
       >
         {props.text}
@@ -114,7 +115,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                   <Feather
                     name="x-square"
                     size={35}
-                    color={'#db5461'}
+                    color={colors.lightGrey}
                     onPress={() => {
                       this.props.toggleCreateHomeworkModal();
                       this.setState(initialState); //clear state to initial state when user exits form
@@ -145,7 +146,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           onBlur={formikProps.handleBlur('assignmentName')}
                           autoCapitalize='sentences'
                           placeholder='Assignment Name'
-                          placeholderTextColor='#fcefef'
+                          placeholderTextColor={colors.mainLightText}
                         />
                       </View>
                       <Text style={styles.textError}>
@@ -157,7 +158,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           <View style={{ flex: 1, bottom: 20 }}>
                             <Dropdown
                               label='Class'
-                              baseColor='#fcefef'
+                              baseColor={colors.mainLightText}
                               data={this.props.classes}
                               valueExtractor={(value) => value.name}
                               value={this.props.classNameFromNotification ?
@@ -258,7 +259,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                         </View>
                       </View>
 
-                      <Text style={{ padding: 2, color: '#fcefef' }}>
+                      <Text style={{ padding: 2, color: colors.white }}>
                         Reminders To Complete Assignment:
                       </Text>
                       <View style={{ flexDirection: 'row' }}>
@@ -335,7 +336,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                       <View style={{ padding: 5 }}>
                         <TextInput
                           placeholder={'Add notes'}
-                          placeholderTextColor='#cdd2c9'
+                          placeholderTextColor={colors.mainLightText}
                           value={formikProps.values.notes}
                           multiline
                           style={styles.notesInput}
@@ -390,17 +391,17 @@ const styles = StyleSheet.create({
     height: 615,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.darkGrey,
+    backgroundColor: colors.darkGrey
   },
   modalTitle: {
     fontSize: 18,
-    color: '#fcefef',
+    color: colors.white,
     fontWeight: 'bold'
   },
   inputBorder: {
     borderBottomWidth: 1,
-    borderColor: '#28313b',
+    borderColor: colors.mainDark,
     left: 5,
     width: 250
   },
@@ -411,14 +412,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 35,
     width: 250,
-    color: '#fcefef',
+    color: colors.white,
   },
   textStyle: {
     fontSize: 16,
-    color: '#fcefef'
+    color: colors.white
   },
   textError: {
-    color: '#db5461',
+    color: colors.darkRed,
     padding: 2
   },
   buttonContainer: {
@@ -429,7 +430,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     width: 250,
     borderRadius: 30,
-    backgroundColor: '#db5461'
+    backgroundColor: colors.mainRed
   },
   createButton: {
     flex: 1,
@@ -449,9 +450,9 @@ const styles = StyleSheet.create({
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#cdd2c9',
+    borderColor: colors.mainLightText,
     padding: 10,
-    color: '#fcefef'
+    color: colors.white
   }
 });
 

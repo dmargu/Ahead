@@ -12,6 +12,7 @@ import AuthScreen from './src/screens/AuthScreen';
 import dropDownMenu from './src/screens/dropDownScreens/dropDownMenu';
 import NavigationService from './src/NavigationService';
 import storeConfiguration from './src/store';
+import { colors } from './src/styles';
 
 export default class App extends Component {
   constructor() {
@@ -57,7 +58,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <LinearGradient colors={['#28313B', '#28313B']} style={{ flex: 1 }}>
+        <LinearGradient colors={[colors.mainDark, colors.mainDark]} style={{ flex: 1 }}>
           <AppContainer
             ref={navigatorRef => {
               NavigationService.setNavigator(navigatorRef);

@@ -22,6 +22,7 @@ import DaysInWeekPicker from '../../DaysInWeekPicker';
 import { registerForPushNotificationsAsync } from '../../../functions/pushNotificationsRegister';
 import { toggleCreateClassModal, createClass } from '../../../actions';
 import { Spinner } from '../../common/Spinner';
+import { colors } from '../../../styles';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
   name: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
@@ -109,7 +110,7 @@ class CreateClassModal extends Component {
                   <Feather
                     name="x-square"
                     size={35}
-                    color={'#db5461'}
+                    color={colors.lightGrey}
                     onPress={() => this.props.toggleCreateClassModal()}
                   />
                 </View>
@@ -145,7 +146,7 @@ class CreateClassModal extends Component {
                           onBlur={formikProps.handleBlur('name')}
                           autoCapitalize='sentences'
                           placeholder='Class Name'
-                          placeholderTextColor='#fcefef'
+                          placeholderTextColor={colors.mainLightText}
                         />
                       </View>
                       <Text style={styles.textError}>
@@ -211,7 +212,7 @@ class CreateClassModal extends Component {
                       checked={formikProps.values.afterClassReminders}
                       iconRight
                       containerStyle={styles.checkBox}
-                      checkedColor='#82ff9e'
+                      checkedColor={colors.green}
                       onPress={async () => {
                         const permission = await registerForPushNotificationsAsync();
                         if (permission) {
@@ -299,13 +300,13 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#555B6E',
+    borderColor: colors.darkGrey,
     height: 575,
-    backgroundColor: '#555B6E'
+    backgroundColor: colors.darkGrey
   },
   modalTitle: {
     fontSize: 18,
-    color: '#fcefef',
+    color: colors.white,
     fontWeight: 'bold'
   },
   inputView: {
@@ -320,25 +321,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 35,
     width: 250,
-    color: '#fcefef',
+    color: colors.white,
   },
   inputBorder: {
     borderBottomWidth: 1,
-    borderColor: '#28313b',
+    borderColor: colors.mainDark,
     left: 5,
     width: 250
   },
   textStyle: {
     fontSize: 16,
-    color: '#fcefef'
+    color: colors.white
   },
   textError: {
-    color: '#db5461',
+    color: colors.darkRed,
     padding: 2
   },
   addTime: {
     fontSize: 16,
-    color: '#82ff9e',
+    color: colors.mainRed,
     left: 5
   },
   datePickerRow: {
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 30,
-    backgroundColor: '#db5461'
+    backgroundColor: colors.mainRed
   },
   createButton: {
     flex: 1,

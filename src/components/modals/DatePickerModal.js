@@ -6,6 +6,7 @@ import { toggleDateModal, clearDate, cancelAllNotifications } from '../../action
 import IosDatePicker from '../common/IosDatePicker';
 import AndroidDatePicker from '../common/AndroidDatePicker';
 import ReminderToggleButtons from '../ReminderToggleButtons';
+import { colors } from '../../styles';
 
 class DatePickerModal extends Component {
   onClearDatePress() {
@@ -21,10 +22,10 @@ class DatePickerModal extends Component {
             <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
               <View style={{ padding: 10 }}>
                 <TouchableOpacity
-                  style={[styles.clearDateButton, { backgroundColor: item.date ? '#db5461' : null }]}
+                  style={[styles.clearDateButton, { backgroundColor: item.date ? colors.mainRed : null }]}
                   onPress={this.onClearDatePress.bind(this)}
                 >
-                  <Text style={[styles.clearDateText, { color: item.date ? '#fcefef' : '#db5461' }]}>
+                  <Text style={[styles.clearDateText, { color: item.date ? colors.white : colors.mainRed }]}>
                     Clear Date
                   </Text>
                 </TouchableOpacity>
@@ -33,7 +34,7 @@ class DatePickerModal extends Component {
                 <Feather
                   name="x-square"
                   size={35}
-                  color={'#db5461'}
+                  color={colors.lightGrey}
                   onPress={() => this.props.toggleDateModal(item)}
                 />
               </View>
@@ -65,12 +66,12 @@ const styles = StyleSheet.create({
     height: 360,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey
   },
   remindersText: {
     fontSize: 20,
-    color: '#db5461',
+    color: colors.mainRed,
     fontWeight: 'bold',
     paddingBottom: 5
   },
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 7,
-    borderColor: '#db5461'
+    borderColor: colors.mainRed
   },
   clearDateText: {
     padding: 2,

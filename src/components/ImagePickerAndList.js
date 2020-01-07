@@ -69,7 +69,7 @@ async function getCameraPermission() {
 const ImagePickerAndList = (props) => {
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={{ left: 2 }}>
+      <View style={{ left: 5 }}>
         <Ionicons
           name='ios-camera'
           size={40}
@@ -84,7 +84,7 @@ const ImagePickerAndList = (props) => {
         />
       </View>
 
-      <View style={{ left: 5, flex: 1 }}>
+      <View style={{ left: 10, flex: 1 }}>
         <FlatList
           data={props.pictures}
           extraData={props.pictures}

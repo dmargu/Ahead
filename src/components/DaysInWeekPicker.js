@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import { colors } from '../styles';
 
 const DaysInWeekPicker = (props) => {
     const daysOfWeek = props.formikProps.values.daysOfWeek;
@@ -11,12 +12,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.m ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.m ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.m ? '#28313b' : '#fcefef'
+                color: daysOfWeek.m ? colors.mainDark : colors.white
               }]}
             >
               M
@@ -30,12 +31,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.t ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.t ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.t ? '#28313b' : '#fcefef'
+                color: daysOfWeek.t ? colors.mainDark : colors.white
               }]}
             >
               T
@@ -49,12 +50,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.w ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.w ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.w ? '#28313b' : '#fcefef'
+                color: daysOfWeek.w ? colors.mainDark : colors.white
               }]}
             >
               W
@@ -68,12 +69,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.r ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.r ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.r ? '#28313b' : '#fcefef'
+                color: daysOfWeek.r ? colors.mainDark : colors.white
               }]}
             >
               R
@@ -87,12 +88,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.f ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.f ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.f ? '#28313b' : '#fcefef'
+                color: daysOfWeek.f ? colors.mainDark : colors.white
               }]}
             >
               F
@@ -106,12 +107,12 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.sa ? '#82ff9e' : null
+              backgroundColor: daysOfWeek.sa ? colors.green : null
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.sa ? '#28313b' : '#fcefef'
+                color: daysOfWeek.sa ? colors.mainDark : colors.white
               }]}
             >
               Sa
@@ -125,13 +126,13 @@ const DaysInWeekPicker = (props) => {
         >
           <View
             style={[styles.dayBox, {
-              backgroundColor: daysOfWeek.su ? '#82ff9e' : null,
+              backgroundColor: daysOfWeek.su ? colors.green : null,
               borderRightWidth: 0
             }]}
           >
             <Text
               style={[styles.textStyle, {
-                color: daysOfWeek.su ? '#28313b' : '#fcefef'
+                color: daysOfWeek.su ? colors.mainDark : colors.white
               }]}
             >
               Su
@@ -145,7 +146,7 @@ const DaysInWeekPicker = (props) => {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: '#fcefef',
+    borderColor: colors.white,
     flexDirection: 'row',
     width: 325,
     height: 35,
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   dayBox: {
     flex: 1,
     borderRightWidth: 1,
-    borderColor: '#fcefef',
+    borderColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },

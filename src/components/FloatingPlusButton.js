@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { colors } from '../styles';
 
 const FloatingPlusButton = (props) => {
     return (
@@ -8,8 +9,8 @@ const FloatingPlusButton = (props) => {
         <TouchableOpacity onPress={props.tapToAddEvent}>
           <MaterialIcons
             name='add'
-            size={45}
-            color='#28313b'
+            size={25}
+            color='#FFFFFF'
           />
         </TouchableOpacity>
       </View>
@@ -19,18 +20,18 @@ const FloatingPlusButton = (props) => {
 const styles = StyleSheet.create({
   buttonStyle: {
     position: 'absolute',
-    width: 60,
-    height: 60,
+    width: 56,
+    height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    right: 20,
-    bottom: 15,
-    backgroundColor: '#db5461',
+    right: 30,
+    bottom: 30,
+    backgroundColor: colors.mainRed,
     borderRadius: 100,
-    shadowColor: 'black',
+    shadowColor: '#BF264C',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowRadius: 5,
     zIndex: 20
   }
 });

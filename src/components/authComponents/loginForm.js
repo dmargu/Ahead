@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
+import { colors } from '../../styles';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().label('Email').required(),
@@ -47,13 +48,13 @@ class LoginForm extends Component {
                   <MaterialCommunityIcons
                     name='email'
                     size={30}
-                    color='#28313b'
+                    color={colors.mainDark}
                   />
                 </View>
                 <TextInput
                   style={styles.inputs}
                   placeholder="Email"
-                  placeholderTextColor='#28313b'
+                  placeholderTextColor={colors.darkGrey}
                   keyboardType="email-address"
                   underlineColorAndroid='transparent'
                   autoCapitalize='none'
@@ -71,13 +72,13 @@ class LoginForm extends Component {
                   <MaterialCommunityIcons
                     name='account-key'
                     size={30}
-                    color='#28313b'
+                    color={colors.mainDark}
                   />
                 </View>
                 <TextInput
                   style={styles.inputs}
                   placeholder="Password"
-                  placeholderTextColor='#28313b'
+                  placeholderTextColor={colors.darkGrey}
                   secureTextEntry
                   underlineColorAndroid='transparent'
                   autoCapitalize='none'
@@ -100,7 +101,7 @@ class LoginForm extends Component {
                 <TouchableHighlight
                   style={styles.buttonContainer}
                   onPress={formikProps.handleSubmit}
-                  underlayColor={'#db5461'} //need this or else it causes bug where underlay becomes color
+                  underlayColor={colors.mainRed} //need this or there's a bug where underlay becomes color
                 >
                   <Text style={styles.signUpText}>Log In/Sign Up</Text>
                 </TouchableHighlight>
@@ -122,8 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-      borderBottomColor: '#F5FCFF',
-      backgroundColor: '#fcefef',
+      backgroundColor: colors.mainGreyBackground,
       borderRadius: 30,
       borderBottomWidth: 1,
       width: 250,
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
   inputs: {
       height: 45,
       marginLeft: 16,
-      borderBottomColor: '#FFFFFF',
       flex: 1,
+      color: colors.mainDark
   },
   inputIcon: {
     width: 30,
@@ -151,13 +151,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 30,
-    backgroundColor: '#db5461'
+    backgroundColor: colors.mainRed
   },
   signUpText: {
-    color: '#fcefef',
+    color: colors.white,
   },
   textError: {
-    color: '#db5461',
+    color: colors.mainRed,
     padding: 5
   }
 });

@@ -10,6 +10,7 @@ import {
   toggleReminders,
   cancelAllNotifications
 } from '../../actions';
+import { colors } from '../../styles';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -31,7 +32,7 @@ class HomeworkSwipeRow extends Component {
       <RectButton style={styles.leftAction}>
         <AnimatedIcon
           name='md-checkmark'
-          color='#28313b'
+          color={colors.mainDark}
           size={45}
           style={[
             styles.actionText,
@@ -64,7 +65,7 @@ class HomeworkSwipeRow extends Component {
           <MaterialCommunityIcons
             name={name}
             size={35}
-            color='#28313b'
+            color={colors.mainDark}
           />
         </RectButton>
       </Animated.View>
@@ -112,7 +113,7 @@ class HomeworkSwipeRow extends Component {
 const styles = StyleSheet.create({
   leftAction: {
     flex: 1,
-    backgroundColor: '#82ff9e',
+    backgroundColor: colors.green,
     justifyContent: 'center',
   },
   rightAction: {

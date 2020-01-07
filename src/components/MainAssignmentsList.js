@@ -5,6 +5,7 @@ import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TestItem from './testComponents/TestItem';
 import ClassTouchableHeader from './classComponents/ClassTouchableHeader';
 import { removeHomework, removeTest } from '../actions';
+import { colors } from '../styles';
 
 class MainAssignmentsList extends Component {
   constructor() {
@@ -82,7 +83,7 @@ class MainAssignmentsList extends Component {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 30,
-    color: 'white'
+    color: colors.mainLightText
   }
 });
 

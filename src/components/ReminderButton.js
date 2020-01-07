@@ -1,18 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 import moment from 'moment';
-
-const colors = {
-  gunmetal: '#28313b',
-  red: '#db5461',
-  green: '#82ff9e'
-};
+import { colors } from '../styles';
 
 const ReminderButton = (props) => {
   return (
     <TouchableOpacity
       style={[styles.button,
-        { borderColor: props.isReminderActive ? colors.gunmetal : colors.red,
+        { borderColor: props.isReminderActive ? null : colors.mainRed,
+          borderWidth: props.isReminderActive ? null : 1,
           backgroundColor: props.isReminderActive ? colors.green : null
         }
       ]}
@@ -33,7 +29,7 @@ const ReminderButton = (props) => {
     >
       {props.isCustomReminder && <Text
         style={[styles.text, //THIS STYLING NEEDS FIXING
-          { color: props.isReminderActive ? colors.gunmetal : colors.red, padding: 2 }
+          { color: props.isReminderActive ? colors.mainDark : colors.mainRed, padding: 2 }
         ]}
       >
         {props.isReminderActive ? moment(props.customReminderTime).format('MMM DD h:mm a') : props.text}
@@ -41,7 +37,7 @@ const ReminderButton = (props) => {
 
       {!props.isCustomReminder && <Text
         style={[styles.text,
-          { color: props.isReminderActive ? colors.gunmetal : colors.red, padding: 2 }
+          { color: props.isReminderActive ? colors.mainDark : colors.mainRed, padding: 2 }
         ]}
       >
         {props.text}
@@ -60,7 +56,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 7,
     width: HEIGHT > 667 ? WIDTH * 0.175 : null,
-    height: 40
+    height: 40,
+    padding: 2
   },
   text: {
     padding: 2,

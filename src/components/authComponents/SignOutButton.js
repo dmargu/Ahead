@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions';
+import { colors } from '../../styles';
 
 class SignOutButton extends Component {
   onButtonPress() {
@@ -37,10 +38,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   signupButton: {
-    backgroundColor: '#db5461',
+    backgroundColor: colors.mainRed,
   },
   signUpText: {
-    color: '#fcefef',
+    color: colors.white,
   }
 });
 

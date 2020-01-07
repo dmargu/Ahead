@@ -24,6 +24,7 @@ import {
   customHomeworkReminder,
   changeCustomReminder
 } from '../../actions';
+import { colors } from '../../styles';
 
 class MainHomeworkModal extends Component {
   constructor() {
@@ -56,18 +57,18 @@ class MainHomeworkModal extends Component {
         }
         <View style={styles.container}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'space-between' }}>
-              <Text>{item.assignmentName}</Text>
-              {item.className && <Text>{item.className}</Text>}
+            <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text style={styles.title}>{item.assignmentName}</Text>
+              {item.className && <Text style={styles.textStyle}>{item.className}</Text>}
               <TouchableHighlight
                 onPress={() => this.setState({ dueDatePickerVisible: true })}
                 underlayColor={null}
               >
                 {item.date ?
-                  <Text>
+                  <Text style={styles.setTime}>
                     Due: {moment(item.date).format('MMM DD h:mm a')}
                   </Text>
-                  : <Text>Set Due Date</Text>
+                  : <Text style={styles.setTime}>Set Due Date</Text>
                 }
               </TouchableHighlight>
             </View>
@@ -182,34 +183,36 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey
   },
   remindersText: {
     fontSize: 20,
-    color: '#db5461',
+    color: colors.mainRed,
     fontWeight: 'bold',
     paddingBottom: 5
   },
   textStyle: {
-    paddingTop: 15,
-    paddingLeft: 15,
-    fontSize: 18,
-    color: '#fcefef'
+    fontSize: 16,
+    color: colors.white
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.white,
   },
   setTime: {
-    paddingTop: 10,
-    paddingLeft: 15,
-    fontSize: 18,
-    color: '#db5461'
+    paddingLeft: 5,
+    fontSize: 16,
+    color: colors.mainRed
   },
   notesInput: {
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#cdd2c9',
+    borderColor: colors.mainLightText,
     padding: 10,
-    color: '#fcefef'
+    color: colors.white
   },
 });
 

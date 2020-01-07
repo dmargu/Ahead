@@ -21,19 +21,21 @@ import {
   addPicture,
   toggleItemStudyDay
 } from '../../actions';
+import { colors } from '../../styles';
+
 
 const CustomButton = (props) => {
   return (
     <TouchableOpacity
       style={[styles.buttonStyle,
-        { borderColor: props.isItemActive ? '#28313b' : '#db5461',
-        backgroundColor: props.isItemActive ? '#82ff9e' : null
+        { borderColor: props.isItemActive ? colors.darkGrey : colors.mainRed,
+        backgroundColor: props.isItemActive ? colors.green : null
       }]}
       onPress={props.onPress}
     >
       <Text
         style={{
-        color: props.isItemActive ? '#28313b' : '#fcefef'
+        color: props.isItemActive ? colors.darkGrey : colors.mainRed
         }}
       >
         {props.text}
@@ -81,25 +83,25 @@ class MainTestModal extends Component {
         }
         <View style={styles.container}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'space-between' }}>
-              <Text>{item.testName}</Text>
-              {item.className && <Text>{item.className}</Text>}
+            <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text style={styles.title}>{item.testName}</Text>
+              {item.className && <Text style={styles.textStyle}>{item.className}</Text>}
               <TouchableHighlight
                 onPress={() => this.setState({ datePickerVisible: true })}
                 underlayColor={null}
               >
                 {item.date ?
-                  <Text>
+                  <Text style={styles.setTime}>
                     Test Date: {moment(item.date).format('MMM DD h:mm a')}
                   </Text>
-                  : <Text>Set Test Date</Text>
+                  : <Text style={styles.setTime}>Set Test Date</Text>
                 }
               </TouchableHighlight>
             </View>
             <View style={{ padding: 5 }}>
               <TextInput
                 placeholder={'Add notes'}
-                placeholderTextColor='#cdd2c9'
+                placeholderTextColor={colors.mainLightText}
                 value={item.notes}
                 multiline
                 style={styles.notesInput}
@@ -214,34 +216,36 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E'
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey
   },
   remindersText: {
     fontSize: 20,
-    color: '#db5461',
+    color: colors.mainRed,
     fontWeight: 'bold',
     paddingBottom: 5
   },
   textStyle: {
-    paddingTop: 15,
-    paddingLeft: 15,
-    fontSize: 18,
-    color: '#fcefef'
+    fontSize: 16,
+    color: colors.white
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.white,
   },
   setTime: {
-    paddingTop: 10,
-    paddingLeft: 15,
-    fontSize: 18,
-    color: '#db5461'
+    paddingLeft: 5,
+    fontSize: 16,
+    color: colors.mainRed
   },
   notesInput: {
     height: 130,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#cdd2c9',
+    borderColor: colors.mainLightText,
     padding: 10,
-    color: '#fcefef'
+    color: colors.white
   },
   buttonStyle: {
     alignItems: 'center',

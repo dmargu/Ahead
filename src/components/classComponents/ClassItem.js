@@ -6,6 +6,7 @@ import moment from 'moment';
 import MainClassModal from './MainClassModal';
 import HomeworkSwipeRow from '../homeworkComponents/HomeworkItemSwipe';
 import { classesIcon } from '../../../assets/InAppIcons';
+import { colors } from '../../styles';
 
 class ClassItem extends Component {
   constructor() {
@@ -30,12 +31,17 @@ class ClassItem extends Component {
                 containerStyle={styles.classItem}
                 contentContainerStyle={styles.contentStyle}
                 title={
-                  <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
+                  <Text
+                    style={{ color: colors.mainLightText, fontSize: 16 }}
+                    ellipsizeMode='tail'
+                    numberOfLines={1}
+                  >
                     {classItem.name}
                   </Text>
                 }
                 leftAvatar={this.props.todayListItem ? classesIcon : null}
                 subtitle={moment(classItem.classStartTime).format('h:mm a')}
+                subtitleStyle={styles.dateSubtitle}
               />
             </TouchableHighlight>
           </HomeworkSwipeRow>
@@ -53,7 +59,7 @@ class ClassItem extends Component {
 const styles = StyleSheet.create({
   classItem: {
     paddingLeft: 15,
-    backgroundColor: '#28313b'
+    backgroundColor: colors.mainDark
   },
   container: {
     width: '100%',
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   dateSubtitle: {
-    color: '#cdd2c9',
+    color: colors.lightGrey,
     fontSize: 16
   },
   overdueSubtitle: {

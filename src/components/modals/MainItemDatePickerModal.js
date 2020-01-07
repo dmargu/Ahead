@@ -16,6 +16,7 @@ import {
   clearDate,
   cancelAllNotifications,
 } from '../../actions';
+import { colors } from '../../styles';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -41,10 +42,10 @@ class MainItemDatePickerModal extends Component {
           <View style={styles.pickerModalConfig}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 10 }}>
               <TouchableOpacity
-                style={[styles.clearDateButton, { backgroundColor: item.date ? '#db5461' : null }]}
+                style={[styles.clearDateButton, { backgroundColor: item.date ? colors.mainRed : null }]}
                 onPress={this.onClearDatePress.bind(this)}
               >
-                <Text style={[styles.clearDateText, { color: item.date ? '#fcefef' : '#db5461' }]}>
+                <Text style={[styles.clearDateText, { color: item.date ? colors.white : colors.mainRed }]}>
                   Clear Date
                 </Text>
               </TouchableOpacity>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   pickerModal: {
     position: 'absolute',
     borderRadius: 15,
-    backgroundColor: '#555B6E',
+    backgroundColor: colors.darkGrey,
     bottom: HEIGHT / 3,
     justifyContent: 'center',
     alignSelf: 'center'
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 35
   },
   dateStyle: {
-    color: '#db5461',
+    color: colors.mainRed,
     fontSize: 20
   },
   clearDateButton: {
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 7,
-    borderColor: '#db5461'
+    borderColor: colors.mainRed
   },
   clearDateText: {
     padding: 2,

@@ -7,6 +7,7 @@ import moment from 'moment';
 import MainTestModal from './MainTestModal';
 import HomeworkSwipeRow from '../homeworkComponents/HomeworkItemSwipe';
 import { testIcon } from '../../../assets/InAppIcons';
+import { colors } from '../../styles';
 
 class HomeworkItem extends Component {
   constructor() {
@@ -29,11 +30,15 @@ class HomeworkItem extends Component {
             >
               <ListItem
                 containerStyle={[styles.testItem,
-                  { backgroundColor: this.props.changeColor ? this.props.changeColor : '#28313b' }
+                  { backgroundColor: this.props.changeColor ? this.props.changeColor : colors.mainDark }
                 ]}
                 contentContainerStyle={styles.contentStyle}
                 title={
-                  <Text style={{ color: '#FCEFEF', fontSize: 16 }} ellipsizeMode='tail' numberOfLines={1}>
+                  <Text
+                    style={styles.textStyle}
+                    ellipsizeMode='tail'
+                    numberOfLines={1}
+                  >
                     {testItem.testName}
                   </Text>
                 }
@@ -71,9 +76,10 @@ class HomeworkItem extends Component {
   }
   renderDate() {
     const date = this.props.testItem.date;
+    const forClasses = this.props.forClassesList;
     if (moment().isSame(date, 'day')) {
       return (
-        <Text style={styles.dateSubtitle}>
+        <Text style={[styles.dateSubtitle, { color: forClasses ? colors.mainLightText : colors.lightGrey }]}>
           {moment(date).format('h:mm a')}
         </Text>
       );
@@ -83,19 +89,19 @@ class HomeworkItem extends Component {
       );
     } else if (moment().add(1, 'day').isSame(date, 'day')) {
       return (
-        <Text style={styles.dateSubtitle}>
+        <Text style={[styles.dateSubtitle, { color: forClasses ? colors.mainLightText : colors.lightGrey }]}>
           Tomorrow {moment(date).format('h:mm a')}
         </Text>
       );
     } else if (moment().add(7, 'day').isAfter(date, 'day')) {
       return (
-        <Text style={styles.dateSubtitle}>
+        <Text style={[styles.dateSubtitle, { color: forClasses ? colors.mainLightText : colors.lightGrey }]}>
           {moment(date).format('dddd h:mm a')}
         </Text>
       );
     }
     return (
-      <Text style={styles.dateSubtitle}>
+      <Text style={[styles.dateSubtitle, { color: forClasses ? colors.mainLightText : colors.lightGrey }]}>
         {moment(date).format('MMM DD h:mm a')}
       </Text>
     );
@@ -114,13 +120,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   dateSubtitle: {
-    color: '#cdd2c9',
-    fontSize: 16
+    fontSize: 16,
+    color: colors.white
   },
   overdueSubtitle: {
-    color: '#db5461',
+    color: colors.mainRed,
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  textStyle: {
+    fontSize: 16,
+    color: colors.white
   }
 });
 

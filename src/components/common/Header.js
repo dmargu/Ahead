@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
 import MenuButton from '../headerComponents/MenuButton';
-//import SettingsButton from '../headerComponents/SettingsButton';
+import { colors } from '../../styles';
 
 class MainHeader extends Component {
   render() {
@@ -11,8 +11,9 @@ class MainHeader extends Component {
         <Header
           leftComponent={<MenuButton navigation={this.props.navigation} />}
           centerComponent={<Text style={styles.screenTitle}>{this.props.screenName}</Text>}
-          backgroundColor={'#db5461'}
+          backgroundColor={colors.mainDark}
           containerStyle={styles.viewStyle}
+          barStyle='light-content'
         />
       </View>
     );
@@ -21,10 +22,8 @@ class MainHeader extends Component {
 
 const styles = StyleSheet.create({
   viewStyle: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0.5, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
+    borderWidth: 0.25,
+    borderColor: colors.mainDark
   },
   textStyle: {
     fontSize: 20
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fcefef'
+    color: '#b6c3cc'
   },
 });
 

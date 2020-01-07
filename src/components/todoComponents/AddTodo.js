@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ListItem } from 'react-native-elements';
+import { colors } from '../../styles';
 
 
 const AddTodo = React.forwardRef((props, ref) => {
@@ -16,7 +17,7 @@ const AddTodo = React.forwardRef((props, ref) => {
             value={props.textInput}
             autoCapitalize='sentences'
             placeholder='I want to...'
-            placeholderTextColor='#fcefef'
+            placeholderTextColor={colors.mainLightText}
             ref={ref}
             onSubmitEditing={props.onSubmitEditing}
           />
@@ -24,13 +25,13 @@ const AddTodo = React.forwardRef((props, ref) => {
         titleNumberOfLines={0}
         rightIcon={
           <TouchableHighlight
-            underlayColor='#ed828d'
+            underlayColor={colors.mainRed}
             onPress={props.addNewTodo}
           >
             <MaterialIcons
               name={props.textInput ? 'add-box' : 'add'}
               size={35}
-              color={'#82ff9e'}
+              color={colors.green}
             />
           </TouchableHighlight>
         }
@@ -56,14 +57,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
     paddingLeft: 15,
-    backgroundColor: '#555B6E',
+    backgroundColor: colors.darkGrey,
     flexGrow: 1
   },
   input: {
     flex: 1,
     fontSize: 16,
     height: 35,
-    color: '#fcefef'
+    color: colors.white
   },
 });
 

@@ -20,6 +20,7 @@ import CreateHomeworkModal from '../components/modals/createModals/CreateHomewor
 import CreateTestModal from '../components/modals/createModals/CreateTestModal';
 import AssignmentsAndTodosList from '../components/AssignmentsAndTodos';
 import { addTodo, toggleCreateHomeworkModal, toggleCreateTestModal } from '../actions';
+import { colors } from '../styles';
 
 
 const HEIGHT = Dimensions.get('window').height;
@@ -70,7 +71,8 @@ class HomeScreen extends Component {
         text: 'To-do',
         name: 'todo',
         icon: todoIcon,
-        position: 3
+        position: 3,
+        color: '#EC4E20'
       },
       {
         text: 'Homework',
@@ -93,6 +95,8 @@ class HomeScreen extends Component {
         { !this.state.inputVisible &&
           <FloatingAction
             actions={actions}
+            color={colors.mainRed}
+            shadow={{ shadowColor: '#BF264C', shadowRadius: 5 }}
             onPressItem={name => {
               switch (name) {
                 case 'todo':

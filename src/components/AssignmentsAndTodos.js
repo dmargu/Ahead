@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TodoItem from './todoComponents/TodoItem';
 import { removeHomework, removeTodo } from '../actions';
+import { colors } from '../styles';
 
 class AssignmentsAndTodosList extends Component {
   render() {
@@ -24,7 +25,9 @@ class AssignmentsAndTodosList extends Component {
           keyExtractor={(item) => item.id}
           renderSectionHeader={({ section: { title } }) => {
             return (
-              <Text style={styles.textStyle}>{title}</Text>
+              <View style={{ paddingLeft: 5 }}>
+                <Text style={styles.textStyle}>{title}</Text>
+              </View>
             );
           }}
           renderItem={({ item }) => {
@@ -52,7 +55,7 @@ class AssignmentsAndTodosList extends Component {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 20,
-    color: 'white',
+    color: colors.mainLightText,
     fontWeight: 'bold'
   }
 });

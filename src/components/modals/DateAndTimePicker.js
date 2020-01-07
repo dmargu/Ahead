@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import moment from 'moment';
+import { colors } from '../../styles';
 
 class DateAndTimePickerModal extends Component {
   render() {
@@ -41,8 +42,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#28313b',
-    backgroundColor: '#555B6E',
+    borderColor: colors.mainDark,
+    backgroundColor: colors.darkGrey,
     bottom: HEIGHT / 3,
     justifyContent: 'center',
     alignSelf: 'center'
@@ -52,21 +53,6 @@ const styles = StyleSheet.create({
     width: 315,
     marginBottom: 35
   },
-  dateStyle: {
-    color: '#db5461',
-    fontSize: 20
-  },
-  clearDateButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 7,
-    borderColor: '#db5461'
-  },
-  clearDateText: {
-    padding: 2,
-    fontSize: 18
-  }
 });
 
 export default DateAndTimePickerModal;
