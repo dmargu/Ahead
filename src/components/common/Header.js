@@ -22,8 +22,8 @@ class MainHeader extends Component {
 
 const styles = StyleSheet.create({
   viewStyle: {
-    borderWidth: 0.25,
-    borderColor: colors.mainDark
+    borderBottomWidth: 0.25,
+    borderBottomColor: colors.darkGrey,
   },
   textStyle: {
     fontSize: 20

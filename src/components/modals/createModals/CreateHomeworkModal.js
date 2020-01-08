@@ -159,6 +159,8 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                             <Dropdown
                               label='Class'
                               baseColor={colors.mainLightText}
+                              selectedItemColor={colors.mainDark}
+                              textColor={colors.white}
                               data={this.props.classes}
                               valueExtractor={(value) => value.name}
                               value={this.props.classNameFromNotification ?
@@ -395,7 +397,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     color: colors.white,
     fontWeight: 'bold'
   },

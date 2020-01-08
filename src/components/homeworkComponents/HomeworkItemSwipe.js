@@ -88,7 +88,7 @@ class HomeworkSwipeRow extends Component {
 
   onSwipeableLeftOpen = () => {
     this.props.completeItem();
-    this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIds);
+    this.props.cancelAllNotifications(this.props.item.id, this.props.notificationIDs);
     this.close();
   }
 

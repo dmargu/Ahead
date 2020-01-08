@@ -72,19 +72,21 @@ class HomeScreen extends Component {
         name: 'todo',
         icon: todoIcon,
         position: 3,
-        color: '#EC4E20'
+        color: colors.darkRed
       },
       {
         text: 'Homework',
         name: 'homework',
         icon: homeworkIcon,
-        position: 2
+        position: 2,
+        color: colors.darkRed
       },
       {
         text: 'Test',
         name: 'test',
         icon: testIcon,
-        position: 1
+        position: 1,
+        color: colors.darkRed
       }
     ];
     return (

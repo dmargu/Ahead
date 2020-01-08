@@ -18,19 +18,22 @@ class ClassesScreen extends Component {
         text: 'Class',
         name: 'class',
         icon: classesIcon,
-        position: 3
+        position: 3,
+        color: colors.darkRed
       },
       {
         text: 'Homework',
         name: 'homework',
         icon: homeworkIcon,
-        position: 2
+        position: 2,
+        color: colors.darkRed
       },
       {
         text: 'Test',
         name: 'test',
         icon: testIcon,
-        position: 1
+        position: 1,
+        color: colors.darkRed
       }
     ];
     return (
@@ -41,6 +44,7 @@ class ClassesScreen extends Component {
         <FloatingAction
           actions={actions}
           color={colors.mainRed}
+          shadow={{ shadowColor: '#BF264C', shadowRadius: 5 }}
           onPressItem={name => {
             switch (name) {
               case 'class':

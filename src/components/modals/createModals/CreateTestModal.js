@@ -148,6 +148,8 @@ class CreateTestModal extends Component {
                           <Dropdown
                             label='Class'
                             baseColor={colors.mainLightText}
+                            selectedItemColor={colors.mainDark}
+                            textColor={colors.white}
                             data={this.props.classes}
                             valueExtractor={(value) => value.name}
                             value={this.props.classNameFromNotification ?

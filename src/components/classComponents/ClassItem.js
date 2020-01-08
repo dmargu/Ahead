@@ -32,7 +32,7 @@ class ClassItem extends Component {
                 contentContainerStyle={styles.contentStyle}
                 title={
                   <Text
-                    style={{ color: colors.mainLightText, fontSize: 16 }}
+                    style={{ color: colors.white, fontSize: 16 }}
                     ellipsizeMode='tail'
                     numberOfLines={1}
                   >

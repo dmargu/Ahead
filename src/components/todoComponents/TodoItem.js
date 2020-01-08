@@ -10,7 +10,7 @@ import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from './TodoItemSwipe';
 import { todoIcon } from '../../../assets/InAppIcons';
 import { toggleItemModal } from '../../actions';
-import { colors } from '../../styles';
+import { colors, scaledSize } from '../../styles';
 
 class TodoItem extends Component {
   render() {
@@ -101,12 +101,13 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
   },
-  contentStyle: {
+  contentStyle: { //Helvetica currently winning
     flex: 1
   },
   dateSubtitle: {
     color: colors.lightGrey,
-    fontSize: 16
+    fontSize: 14,
+    fontFamily: 'Helvetica'
   },
   overdueSubtitle: {
     color: colors.mainRed,
@@ -115,7 +116,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: colors.white,
-    fontSize: 16
+    fontSize: scaledSize(15),
+    fontFamily: 'Helvetica'
   }
 });
 
