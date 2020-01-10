@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Spinner } from '../common/Spinner';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().label('Email').required(),
@@ -135,7 +135,9 @@ const styles = StyleSheet.create({
       height: 45,
       marginLeft: 16,
       flex: 1,
-      color: colors.mainDark
+      color: colors.mainDark,
+      fontSize: fonts.normalText,
+      fontFamily: fonts.fontFamily
   },
   inputIcon: {
     width: 30,
@@ -155,9 +157,13 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: colors.white,
+    fontFamily: fonts.fontFamily,
+    fontSize: fonts.buttonText
   },
   textError: {
     color: colors.mainRed,
+    fontFamily: fonts.fontFamily,
+    fontSize: fonts.subtitleText,
     padding: 5
   }
 });

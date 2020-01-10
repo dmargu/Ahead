@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
 import MenuButton from '../headerComponents/MenuButton';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class MainHeader extends Component {
   render() {
@@ -29,9 +29,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   screenTitle: {
-    fontSize: 18,
+    fontSize: fonts.headerText,
     fontWeight: 'bold',
-    color: '#b6c3cc'
+    color: colors.mainLightText,
+    fontFamily: fonts.fontFamily
   },
 });
 

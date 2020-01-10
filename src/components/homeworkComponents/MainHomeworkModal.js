@@ -24,7 +24,7 @@ import {
   customHomeworkReminder,
   changeCustomReminder
 } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class MainHomeworkModal extends Component {
   constructor() {
@@ -187,24 +187,28 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   remindersText: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     color: colors.mainRed,
     fontWeight: 'bold',
+    fontFamily: fonts.fontFamily,
     paddingBottom: 5
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   title: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     fontWeight: 'bold',
     color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   setTime: {
     paddingLeft: 5,
-    fontSize: 16,
-    color: colors.mainRed
+    fontSize: fonts.normalText,
+    color: colors.mainRed,
+    fontFamily: fonts.fontFamily
   },
   notesInput: {
     height: 130,
@@ -212,7 +216,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   },
 });
 

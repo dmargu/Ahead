@@ -6,7 +6,7 @@ import moment from 'moment';
 import MainClassModal from './MainClassModal';
 import HomeworkSwipeRow from '../homeworkComponents/HomeworkItemSwipe';
 import { classesIcon } from '../../../assets/InAppIcons';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class ClassItem extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class ClassItem extends Component {
                 contentContainerStyle={styles.contentStyle}
                 title={
                   <Text
-                    style={{ color: colors.white, fontSize: 16 }}
+                    style={styles.normalText}
                     ellipsizeMode='tail'
                     numberOfLines={1}
                   >
@@ -69,12 +69,13 @@ const styles = StyleSheet.create({
   },
   dateSubtitle: {
     color: colors.lightGrey,
-    fontSize: 16
+    fontSize: fonts.subtitleText,
+    fontFamily: fonts.fontFamily
   },
-  overdueSubtitle: {
-    color: '#db5461',
-    fontSize: 16,
-    fontWeight: 'bold'
+  normalText: {
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   }
 });
 

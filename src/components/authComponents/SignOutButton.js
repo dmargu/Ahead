@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class SignOutButton extends Component {
   onButtonPress() {
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: colors.white,
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   }
 });
 

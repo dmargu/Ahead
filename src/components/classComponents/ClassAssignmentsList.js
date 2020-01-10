@@ -10,7 +10,7 @@ import _ from 'lodash';
 import HomeworkItem from '../homeworkComponents/HomeworkItem';
 import TestItem from '../testComponents/TestItem';
 import { removeHomework, removeTest } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class ClassAssignmentsList extends Component {
   render() {
@@ -56,9 +56,10 @@ class ClassAssignmentsList extends Component {
 
 const styles = StyleSheet.create({
   normalText: {
-    fontSize: 16,
+    fontSize: fonts.headerText,
     color: colors.white,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   },
   listBorder: {
     borderTopWidth: 0.25,

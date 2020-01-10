@@ -34,5 +34,6 @@ export const fonts = {
   fontFamily: 'Helvetica',
   normalText: scaledSize(15),
   headerText: scaledSize(20),
-  subtitleText: scaledSize(14)
+  subtitleText: scaledSize(14),
+  buttonText: scaledSize(17)
 };

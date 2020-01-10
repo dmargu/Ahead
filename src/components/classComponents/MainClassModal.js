@@ -21,7 +21,7 @@ import {
   scheduleAfterClassReminders,
   cancelAfterClassReminders
 } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 const DeleteClassAlert = (deleteClass, item, cancelNotifications, notificationIDs) => {
   return (
@@ -148,7 +148,7 @@ class MainClassModal extends Component {
             }
             {this.state.switchDisabled &&
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, color: colors.mainRed }}>
+                <Text style={[styles.normalText, { color: colors.mainRed }]}>
                   {this.state.schedulingReminders ? 'Please wait, scheduling reminders'
                   : 'Please wait, cancelling reminders'}
                 </Text>
@@ -188,13 +188,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   className: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     fontWeight: 'bold',
-    color: colors.white
+    color: colors.white,
+    fontFamily: fonts.fontFamily,
   },
   normalText: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textSeperator: {
     justifyContent: 'center',
@@ -206,8 +208,9 @@ const styles = StyleSheet.create({
     padding: 5
   },
   textInput: {
-    fontSize: 16,
+    fontSize: fonts.normalText,
     color: colors.white,
+    fontFamily: fonts.fontFamily,
     paddingLeft: 5
   },
   switchStyle: {

@@ -10,7 +10,7 @@ import ReminderToggleButtons from '../ReminderToggleButtons';
 import ItemSwipeRow from './TodoItemSwipe';
 import { todoIcon } from '../../../assets/InAppIcons';
 import { toggleItemModal } from '../../actions';
-import { colors, scaledSize } from '../../styles';
+import { colors } from '../../styles';
 
 class TodoItem extends Component {
   render() {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: colors.white,
-    fontSize: scaledSize(15),
+    fontSize: 15,
     fontFamily: 'Helvetica'
   }
 });

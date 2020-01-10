@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import MainClassModal from './MainClassModal';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class ClassTouchableHeader extends Component {
   constructor() {
@@ -31,8 +31,9 @@ class ClassTouchableHeader extends Component {
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 30,
-    color: colors.mainLightText
+    fontSize: fonts.headerText,
+    color: colors.mainLightText,
+    fontFamily: fonts.fontFamily
   }
 });
 

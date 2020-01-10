@@ -7,7 +7,7 @@ import moment from 'moment';
 import MainHomeworkModal from './MainHomeworkModal';
 import HomeworkSwipeRow from './HomeworkItemSwipe';
 import { homeworkIcon } from '../../../assets/InAppIcons';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class HomeworkItem extends Component {
   constructor() {
@@ -120,17 +120,20 @@ const styles = StyleSheet.create({
     flex: 1
   },
   dateSubtitle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.subtitleText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   overdueSubtitle: {
     color: colors.mainRed,
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontSize: fonts.subtitleText,
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   }
 });
 
