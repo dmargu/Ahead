@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import moment from 'moment';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class CustomDateModal extends Component {
   render() {
@@ -72,8 +72,9 @@ const styles = StyleSheet.create({
   },
   doneText: {
     padding: 2,
-    fontSize: 18,
-    color: colors.mainRed
+    fontSize: fonts.buttonText,
+    color: colors.mainRed,
+    fontFamily: fonts.fontFamily
   }
 });
 

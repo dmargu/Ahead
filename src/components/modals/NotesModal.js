@@ -3,7 +3,7 @@ import { View, StyleSheet, Modal, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { toggleNotesModal, notesChanged } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class NotesModal extends Component { //right now I don't know how to reschedule notifications after cancelling
   onNotesChange(text) { //the async functions to do that with expo take like a second so it's too much of a
@@ -61,7 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   },
 });
 

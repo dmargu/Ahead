@@ -22,7 +22,7 @@ import DaysInWeekPicker from '../../DaysInWeekPicker';
 import { registerForPushNotificationsAsync } from '../../../functions/pushNotificationsRegister';
 import { toggleCreateClassModal, createClass } from '../../../actions';
 import { Spinner } from '../../common/Spinner';
-import { colors } from '../../../styles';
+import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
   name: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
@@ -235,7 +235,7 @@ class CreateClassModal extends Component {
                     ) :
                     (<View style={styles.createButton}>
                       <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
-                        <Text style={styles.textStyle}>Create</Text>
+                        <Text style={[styles.textStyle, { fontSize: fonts.buttonText }]}>Create</Text>
                       </TouchableOpacity>
                     </View>)}
 
@@ -305,9 +305,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: fonts.headerText,
     color: colors.white,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   },
   inputView: {
     padding: 5,
@@ -318,10 +319,11 @@ const styles = StyleSheet.create({
     left: 5,
   },
   textInput: {
-    fontSize: 16,
+    fontSize: fonts.normalText,
     height: 35,
     width: 250,
     color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   inputBorder: {
     borderBottomWidth: 1,
@@ -330,16 +332,20 @@ const styles = StyleSheet.create({
     width: 250
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textError: {
     color: colors.darkRed,
+    fontSize: fonts.subtitleText,
+    fontFamily: fonts.fontFamily,
     padding: 2
   },
   addTime: {
-    fontSize: 16,
+    fontSize: fonts.normalText,
     color: colors.mainRed,
+    fontFamily: fonts.fontFamily,
     left: 5
   },
   datePickerRow: {

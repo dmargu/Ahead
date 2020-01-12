@@ -21,7 +21,7 @@ import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
-import { colors } from '../../../styles';
+import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -63,9 +63,9 @@ const CustomButton = (props) => {
       onPress={props.onPress}
     >
       <Text
-        style={{
+        style={[styles.textStyle, {
         color: props.isItemActive ? colors.darkGrey : colors.mainRed
-        }}
+        }]}
       >
         {props.text}
       </Text>
@@ -261,7 +261,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                         </View>
                       </View>
 
-                      <Text style={{ padding: 2, color: colors.white }}>
+                      <Text style={[styles.textStyle, { padding: 2 }]}>
                         Reminders To Complete Assignment:
                       </Text>
                       <View style={{ flexDirection: 'row' }}>
@@ -397,9 +397,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     color: colors.white,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   },
   inputBorder: {
     borderBottomWidth: 1,
@@ -411,17 +412,21 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   textInput: {
-    fontSize: 16,
+    fontSize: fonts.normalText,
     height: 35,
     width: 250,
     color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textError: {
     color: colors.darkRed,
+    fontSize: fonts.subtitleText,
+    fontFamily: fonts.fontFamily,
     padding: 2
   },
   buttonContainer: {
@@ -454,7 +459,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   }
 });
 

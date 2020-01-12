@@ -16,7 +16,7 @@ import {
   clearDate,
   cancelAllNotifications,
 } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   },
   dateStyle: {
     color: colors.mainRed,
-    fontSize: 20
+    fontSize: fonts.headerText,
+    fontFamily: fonts.fontFamily
   },
   clearDateButton: {
     alignItems: 'center',
@@ -92,7 +93,8 @@ const styles = StyleSheet.create({
   },
   clearDateText: {
     padding: 2,
-    fontSize: 18
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   }
 });
 

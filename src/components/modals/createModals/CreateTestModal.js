@@ -21,7 +21,7 @@ import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
 import { toggleCreateTestModal, createTest } from '../../../actions';
-import { colors } from '../../../styles';
+import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   testName: yup.string().required('You need a name.'),
@@ -50,9 +50,9 @@ const CustomButton = (props) => {
       onPress={props.onPress}
     >
       <Text
-        style={{
+        style={[styles.textStyle, {
         color: props.isItemActive ? colors.darkGrey : colors.mainRed
-        }}
+        }]}
       >
         {props.text}
       </Text>
@@ -203,7 +203,7 @@ class CreateTestModal extends Component {
                         />
                       </View>
 
-                      <Text style={{ padding: 2, color: colors.white }}>
+                      <Text style={[styles.textStyle, { padding: 2 }]}>
                         {'Put in my day to study:'}
                       </Text>
                       <View style={{ flexDirection: 'row' }}>
@@ -300,7 +300,7 @@ class CreateTestModal extends Component {
                       ) :
                       (<View style={styles.createButton}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={formikProps.handleSubmit}>
-                          <Text style={styles.textStyle}>Create</Text>
+                          <Text style={[styles.textStyle, { fontSize: fonts.buttonText }]}>Create</Text>
                         </TouchableOpacity>
                       </View>)}
                     </View>
@@ -329,9 +329,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: fonts.headerText,
     color: colors.white,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   },
   inputBorder: {
     borderBottomWidth: 1,
@@ -343,17 +344,21 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   textInput: {
-    fontSize: 16,
+    fontSize: fonts.normalText,
     height: 35,
     width: 250,
     color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   textError: {
     color: colors.darkRed,
+    fontSize: fonts.subtitleText,
+    fontFamily: fonts.fontFamily,
     padding: 2
   },
   buttonContainer: {
@@ -386,7 +391,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   }
 });
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TodoItem from './todoComponents/TodoItem';
 import { removeHomework, removeTodo } from '../actions';
-import { colors, scaledSize } from '../styles';
+import { colors, fonts } from '../styles';
 
 class AssignmentsAndTodosList extends Component {
   render() {
@@ -51,13 +51,13 @@ class AssignmentsAndTodosList extends Component {
     );
   }
 }
-console.log(scaledSize(20));
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: scaledSize(20),
+    fontSize: fonts.headerText,
     color: colors.mainLightText,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fonts.fontFamily
   }
 });
 

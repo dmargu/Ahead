@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ListItem } from 'react-native-elements';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 
 const AddTodo = React.forwardRef((props, ref) => {
@@ -62,9 +62,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: fonts.normalText,
     height: 35,
-    color: colors.white
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
 });
 

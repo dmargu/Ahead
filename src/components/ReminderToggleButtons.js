@@ -10,7 +10,7 @@ import {
   startReminder,
   cancelNotification,
 } from '../actions';
-import { colors } from '../styles';
+import { colors, fonts } from '../styles';
 
 class ReminderToggleButtons extends Component {
   constructor() {
@@ -194,7 +194,8 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 2,
-    fontSize: 18
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   },
   container: {
     flexDirection: 'row',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import ClassItem from './classComponents/ClassItem';
-import { colors } from '../styles';
+import { colors, fonts } from '../styles';
 
 class TodayIncludes extends Component {
   render() {
@@ -32,8 +32,9 @@ class TodayIncludes extends Component {
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 25,
+    fontSize: fonts.headerText,
     color: colors.mainLightText,
+    fontFamily: fonts.fontFamily
   },
   viewStyle: {
     justifyContent: 'center',

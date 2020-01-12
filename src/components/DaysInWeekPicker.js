@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
-import { colors } from '../styles';
+import { colors, fonts } from '../styles';
 
 const DaysInWeekPicker = (props) => {
     const daysOfWeek = props.formikProps.values.daysOfWeek;
@@ -163,6 +163,8 @@ const styles = StyleSheet.create({
   textStyle: {
     flex: 1,
     paddingTop: 8,
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   }
 });
 

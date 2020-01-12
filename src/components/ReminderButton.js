@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 import moment from 'moment';
-import { colors } from '../styles';
+import { colors, fonts } from '../styles';
 
 const ReminderButton = (props) => {
   return (
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 2,
-    fontSize: 18
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   }
 });
 

@@ -12,7 +12,7 @@ import { Feather } from '@expo/vector-icons';
 import moment from 'moment';
 import MainItemDatePickerModal from './MainItemDatePickerModal';
 import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class MainItemModal extends Component {
   constructor() {
@@ -90,22 +90,25 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   remindersText: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     color: colors.mainRed,
     fontWeight: 'bold',
+    fontFamily: fonts.fontFamily,
     paddingBottom: 5
   },
   textStyle: {
     paddingTop: 15,
     paddingLeft: 15,
-    fontSize: 18,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   setTime: {
     paddingTop: 10,
     paddingLeft: 15,
-    fontSize: 18,
-    color: colors.mainRed
+    fontSize: fonts.normalText,
+    color: colors.mainRed,
+    fontFamily: fonts.fontFamily
   },
   notesInput: {
     height: 130,
@@ -113,7 +116,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   },
 });
 

@@ -6,7 +6,7 @@ import { toggleDateModal, clearDate, cancelAllNotifications } from '../../action
 import IosDatePicker from '../common/IosDatePicker';
 import AndroidDatePicker from '../common/AndroidDatePicker';
 import ReminderToggleButtons from '../ReminderToggleButtons';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 class DatePickerModal extends Component {
   onClearDatePress() {
@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   remindersText: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
     color: colors.mainRed,
+    fontFamily: fonts.fontFamily,
     fontWeight: 'bold',
     paddingBottom: 5
   },
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
   },
   clearDateText: {
     padding: 2,
-    fontSize: 18
+    fontSize: fonts.buttonText,
+    fontFamily: fonts.fontFamily
   }
 });
 

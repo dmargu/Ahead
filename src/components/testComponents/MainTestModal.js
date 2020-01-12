@@ -21,7 +21,7 @@ import {
   addPicture,
   toggleItemStudyDay
 } from '../../actions';
-import { colors } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 
 const CustomButton = (props) => {
@@ -34,9 +34,9 @@ const CustomButton = (props) => {
       onPress={props.onPress}
     >
       <Text
-        style={{
+        style={[styles.textStyle, {
         color: props.isItemActive ? colors.darkGrey : colors.mainRed
-        }}
+        }]}
       >
         {props.text}
       </Text>
@@ -220,24 +220,28 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkGrey
   },
   remindersText: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
+    fontFamily: fonts.fontFamily,
     color: colors.mainRed,
     fontWeight: 'bold',
     paddingBottom: 5
   },
   textStyle: {
-    fontSize: 16,
-    color: colors.white
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily
   },
   title: {
-    fontSize: 20,
+    fontSize: fonts.headerText,
+    fontFamily: fonts.fontFamily,
     fontWeight: 'bold',
     color: colors.white,
   },
   setTime: {
     paddingLeft: 5,
-    fontSize: 16,
-    color: colors.mainRed
+    fontSize: fonts.normalText,
+    color: colors.mainRed,
+    fontFamily: fonts.fontFamily
   },
   notesInput: {
     height: 130,
@@ -245,7 +249,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.mainLightText,
     padding: 10,
-    color: colors.white
+    color: colors.white,
+    fontSize: fonts.normalText,
+    fontFamily: fonts.fontFamily
   },
   buttonStyle: {
     alignItems: 'center',
