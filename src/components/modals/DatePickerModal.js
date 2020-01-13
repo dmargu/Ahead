@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, Platform, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, Text, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { toggleDateModal, clearDate, cancelAllNotifications } from '../../actions';
 import IosDatePicker from '../common/IosDatePicker';
 import AndroidDatePicker from '../common/AndroidDatePicker';
 import ReminderToggleButtons from '../ReminderToggleButtons';
-import { colors, fonts } from '../../styles';
+import { colors, fonts, dimensions } from '../../styles';
 
 class DatePickerModal extends Component {
   onClearDatePress() {
@@ -16,7 +17,15 @@ class DatePickerModal extends Component {
   render() {
     const item = this.props.item;
     return (
-      <Modal transparent animationType='fade'>
+      <Modal
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        hasBackDrop
+        backdropOpacity={0.9}
+        isVisible
+        style={{ width: dimensions.width, right: 21 }}
+      >
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>

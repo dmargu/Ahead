@@ -1,6 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Dimensions, Alert } from 'react-native';
 import moment from 'moment';
+import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import { colors, fonts } from '../styles';
 
 const ReminderButton = (props) => {
@@ -13,18 +14,30 @@ const ReminderButton = (props) => {
         }
       ]}
       disabled={props.buttonDisabledState}
-      onPress={() => {
-        if (!props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
-          props.addReminderFunction();
+      onPress={async () => {
+        const permission = await registerForPushNotificationsAsync();
+        if (permission) {
+          if (!props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
+            props.addReminderFunction();
+          }
+          if (props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
+            props.makeDatePickerVisible();
+          }
+          if (props.isReminderActive) {
+            props.cancelNotification();
+          }
+          props.changeButtonDisabledState(true); //timeout ensures there's enough time to cancel notif
+          setTimeout(() => props.changeButtonDisabledState(false), 1500);
+        } else {
+          Alert.alert(
+            'Cannot send notifications without permission.',
+            null,
+            [
+              { text: 'OK' }
+            ],
+              { cancelable: false }
+          );
         }
-        if (props.isCustomReminder && !props.isReminderActive && moment(new Date()).isBefore(props.date)) {
-          props.makeDatePickerVisible();
-        }
-        if (props.isReminderActive) {
-          props.cancelNotification();
-        }
-        props.changeButtonDisabledState(true); //timeout ensures there's enough time to cancel notif
-        setTimeout(() => props.changeButtonDisabledState(false), 1500);
       }}
     >
       {props.isCustomReminder && <Text

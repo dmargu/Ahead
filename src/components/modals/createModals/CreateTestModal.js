@@ -21,7 +21,7 @@ import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
 import { toggleCreateTestModal, createTest } from '../../../actions';
-import { colors, fonts } from '../../../styles';
+import { colors, fonts, dimensions } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   testName: yup.string().required('You need a name.'),
@@ -86,8 +86,14 @@ class CreateTestModal extends Component {
     return (
       <Modal
         transparent
-        animationType='fade'
-        visible={this.props.createTestModalVisible}
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        isVisible={this.props.createTestModalVisible}
+        hasBackDrop
+        style={{ width: dimensions.width, right: 20 }}
+        backdropOpacity={0.9}
+        onBackdropPress={() => this.props.toggleCreateTestModal()}
       >
         {this.state.fullPictureVisible &&
           <FullPicture
@@ -317,7 +323,6 @@ class CreateTestModal extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

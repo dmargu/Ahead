@@ -13,10 +13,11 @@ class DateAndTimePickerModal extends Component {
   render() {
     return (
       <Modal
-        animationType='fade'
         transparent
-        visible={this.props.isVisible}
+        isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
+        hasBackDrop
+        backdropOpacity={0.9}
       >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>

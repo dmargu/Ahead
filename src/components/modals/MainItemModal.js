@@ -3,14 +3,14 @@ import {
   View,
   StyleSheet,
   Text,
-  Modal,
   TouchableHighlight,
   TextInput
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
-import { Feather } from '@expo/vector-icons';
 import moment from 'moment';
 import MainItemDatePickerModal from './MainItemDatePickerModal';
+import ReminderToggleButtons from '../ReminderToggleButtons';
 import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
 import { colors, fonts } from '../../styles';
 
@@ -27,7 +27,16 @@ class MainItemModal extends Component {
   render() {
     const item = this.props.item;
     return (
-      <Modal transparent animationType='fade'>
+      <Modal
+        transparent
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        isVisible
+        hasBackDrop
+        backdropOpacity={0.9}
+        onBackdropPress={() => this.props.toggleItemModal(item)}
+      >
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -45,14 +54,6 @@ class MainItemModal extends Component {
                   </Text>
                 </TouchableHighlight>
               </View>
-              <View style={{ paddingTop: 5, paddingRight: 8 }}>
-                <Feather
-                  name="x-square"
-                  size={35}
-                  color={colors.lightGrey}
-                  onPress={() => this.props.toggleItemModal(item)}
-                />
-              </View>
             </View>
             <View style={{ padding: 5 }}>
               <TextInput
@@ -64,6 +65,10 @@ class MainItemModal extends Component {
                 onChangeText={this.onNotesChange.bind(this)}
               />
             </View>
+            {item.date && <View style={styles.containerStyle}>
+              <Text style={styles.remindersText}>Reminders</Text>
+            </View>}
+            {item.date && <ReminderToggleButtons item={item} />}
           </View>
         </View>
         <MainItemDatePickerModal
@@ -78,7 +83,6 @@ class MainItemModal extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

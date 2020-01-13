@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  Modal,
   Text,
   TextInput,
   TouchableOpacity,
@@ -10,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -22,7 +22,7 @@ import DaysInWeekPicker from '../../DaysInWeekPicker';
 import { registerForPushNotificationsAsync } from '../../../functions/pushNotificationsRegister';
 import { toggleCreateClassModal, createClass } from '../../../actions';
 import { Spinner } from '../../common/Spinner';
-import { colors, fonts } from '../../../styles';
+import { colors, fonts, dimensions } from '../../../styles';
 
 const validationSchema = yup.object().shape({ //THIS FORM NEEDS TO BE OPTIMIZED SO IT LOOKS BETTER
   name: yup.string().required('Your class doesn\'t have a name?'), //AND IS QUICKER FOR USER
@@ -98,7 +98,17 @@ class CreateClassModal extends Component {
   }
   render() {
     return (
-      <Modal transparent animationType='fade' visible={this.props.createClassModalVisible}>
+      <Modal
+        transparent
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        isVisible={this.props.createClassModalVisible}
+        hasBackDrop
+        style={{ width: dimensions.width, right: 20 }} //no idea why this isn't working
+        backdropOpacity={0.9}
+        onBackdropPress={() => this.props.toggleCreateClassModal()}
+      >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.containerStyle}>
             <View style={styles.modalContainer}>
@@ -282,7 +292,6 @@ class CreateClassModal extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -297,7 +306,6 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   modalContainer: {
-    width: '100%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.darkGrey,

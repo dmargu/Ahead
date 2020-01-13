@@ -15,9 +15,10 @@ class CustomDateModal extends Component {
   render() {
     return (
       <Modal
-        animationType='slide'
-        transparent
-        visible={this.props.isVisible}
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        isVisible={this.props.isVisible}
+        hasBackDrop
+        backdropOpacity={0.9}
       >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>

@@ -21,7 +21,7 @@ import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
-import { colors, fonts } from '../../../styles';
+import { colors, fonts, dimensions } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -97,7 +97,17 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
   }
   render() { //for now user will be allowed to enter 3 day reminder even if assignment is due before then
     return ( //they can submit it but our action creator won't schedule it
-      <Modal transparent animationType='fade' visible={this.props.createHomeworkModalVisible}>
+      <Modal
+        transparent
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        isVisible={this.props.createHomeworkModalVisible}
+        hasBackDrop
+        style={{ width: dimensions.width, right: 20 }}
+        backdropOpacity={0.9}
+        onBackdropPress={() => this.props.toggleCreateHomeworkModal()}
+      >
         {this.state.fullPictureVisible &&
           <FullPicture
             picture={this.state.selectedPicture}
@@ -385,7 +395,6 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

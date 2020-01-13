@@ -33,10 +33,12 @@ class MainItemDatePickerModal extends Component {
     const item = this.props.item;
     return (
       <Modal
-        animationType='slide'
         transparent
         isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        hasBackDrop
+        backdropOpacity={0.9}
       >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>

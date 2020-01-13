@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import {
   tenMinReminder,
   thirtyMinReminder,
@@ -11,6 +12,19 @@ import {
   cancelNotification,
 } from '../actions';
 import { colors, fonts } from '../styles';
+
+const CannotSendNotificationsAlert = () => {
+  return (
+    Alert.alert(
+      'Cannot send notifications without permission.',
+      null,
+      [
+        { text: 'OK' }
+      ],
+        { cancelable: false }
+    )
+  );
+};
 
 class ReminderToggleButtons extends Component {
   constructor() {
@@ -36,14 +50,19 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           disabled={this.state.startButtonDisabled}
-          onPress={() => {
-            this.setState({ startButtonDisabled: true }); //timeout to make sure there's time to cancel notif
-            setTimeout(() => this.setState({ startButtonDisabled: false }), 1500); //before they set another
-            if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
-              this.props.startReminder(item);
-            }
-            if (item.startReminder) {
-              this.props.cancelNotification(item.id, 'start', this.props.notificationIDs);
+          onPress={async () => {
+            const permission = await registerForPushNotificationsAsync();
+            if (permission) { //timeout to make sure there's time to cancel notif
+              this.setState({ startButtonDisabled: true }); //before they set another
+              setTimeout(() => this.setState({ startButtonDisabled: false }), 1500);
+              if (item.startReminder === false && moment(new Date()).isBefore(item.date)) {
+                this.props.startReminder(item);
+              }
+              if (item.startReminder) {
+                this.props.cancelNotification(item.id, 'start', this.props.notificationIDs);
+              }
+            } else {
+              CannotSendNotificationsAlert();
             }
           }}
         >
@@ -64,16 +83,21 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           disabled={this.state.tenMinButtonDisabled}
-          onPress={() => {
-            this.setState({ tenMinButtonDisabled: true });
-            setTimeout(() => this.setState({ tenMinButtonDisabled: false }), 1500);
-            if (item.tenMinReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate())
-            ) {
-              this.props.tenMinReminder(item);
-            }
-            if (item.tenMinReminder) {
-              this.props.cancelNotification(item.id, 'tenMin', this.props.notificationIDs);
+          onPress={async () => {
+            const permission = await registerForPushNotificationsAsync();
+            if (permission) {
+              this.setState({ tenMinButtonDisabled: true });
+              setTimeout(() => this.setState({ tenMinButtonDisabled: false }), 1500);
+              if (item.tenMinReminder === false
+                && moment(new Date()).isBefore(moment(item.date).subtract(10, 'minutes').toDate())
+              ) {
+                this.props.tenMinReminder(item);
+              }
+              if (item.tenMinReminder) {
+                this.props.cancelNotification(item.id, 'tenMin', this.props.notificationIDs);
+              }
+            } else {
+              CannotSendNotificationsAlert();
             }
           }}
         >
@@ -94,16 +118,21 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           disabled={this.state.thirtyMinButtonDisabled}
-          onPress={() => {
-            this.setState({ thirtyMinButtonDisabled: true });
-            setTimeout(() => this.setState({ thirtyMinButtonDisabled: false }), 1500);
-            if (item.thirtyMinReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate())
-            ) {
-              this.props.thirtyMinReminder(item);
-            }
-            if (item.thirtyMinReminder) {
-              this.props.cancelNotification(item.id, 'thirtyMin', this.props.notificationIDs);
+          onPress={async () => {
+            const permission = await registerForPushNotificationsAsync();
+            if (permission) {
+              this.setState({ thirtyMinButtonDisabled: true });
+              setTimeout(() => this.setState({ thirtyMinButtonDisabled: false }), 1500);
+              if (item.thirtyMinReminder === false
+                && moment(new Date()).isBefore(moment(item.date).subtract(30, 'minutes').toDate())
+              ) {
+                this.props.thirtyMinReminder(item);
+              }
+              if (item.thirtyMinReminder) {
+                this.props.cancelNotification(item.id, 'thirtyMin', this.props.notificationIDs);
+              }
+            } else {
+              CannotSendNotificationsAlert();
             }
           }}
         >
@@ -124,16 +153,21 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           disabled={this.state.oneHourButtonDisabled}
-          onPress={() => {
-            this.setState({ oneHourButtonDisabled: true });
-            setTimeout(() => this.setState({ oneHourButtonDisabled: false }), 1500);
-            if (item.oneHourReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate())
-            ) {
-              this.props.oneHourReminder(item);
-            }
-            if (item.oneHourReminder) {
-              this.props.cancelNotification(item.id, 'oneHour', this.props.notificationIDs);
+          onPress={async () => {
+            const permission = await registerForPushNotificationsAsync();
+            if (permission) {
+              this.setState({ oneHourButtonDisabled: true });
+              setTimeout(() => this.setState({ oneHourButtonDisabled: false }), 1500);
+              if (item.oneHourReminder === false
+                && moment(new Date()).isBefore(moment(item.date).subtract(1, 'hour').toDate())
+              ) {
+                this.props.oneHourReminder(item);
+              }
+              if (item.oneHourReminder) {
+                this.props.cancelNotification(item.id, 'oneHour', this.props.notificationIDs);
+              }
+            } else {
+              CannotSendNotificationsAlert();
             }
           }}
         >
@@ -154,16 +188,21 @@ class ReminderToggleButtons extends Component {
             }
           ]}
           disabled={this.state.oneDayButtonDisabled}
-          onPress={() => {
-            this.setState({ oneDayButtonDisabled: true });
-            setTimeout(() => this.setState({ oneDayButtonDisabled: false }), 1500);
-            if (item.oneDayReminder === false
-              && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate())
-            ) {
-              this.props.oneDayReminder(item);
-            }
-            if (item.oneDayReminder) {
-              this.props.cancelNotification(item.id, 'oneDay', this.props.notificationIDs);
+          onPress={async () => {
+            const permission = await registerForPushNotificationsAsync();
+            if (permission) {
+              this.setState({ oneDayButtonDisabled: true });
+              setTimeout(() => this.setState({ oneDayButtonDisabled: false }), 1500);
+              if (item.oneDayReminder === false
+                && moment(new Date()).isBefore(moment(item.date).subtract(1, 'days').toDate())
+              ) {
+                this.props.oneDayReminder(item);
+              }
+              if (item.oneDayReminder) {
+                this.props.cancelNotification(item.id, 'oneDay', this.props.notificationIDs);
+              }
+            } else {
+              CannotSendNotificationsAlert();
             }
           }}
         >
