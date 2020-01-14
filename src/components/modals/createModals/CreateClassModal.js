@@ -212,7 +212,7 @@ class CreateClassModal extends Component {
                     </View>
 
                     <View style={styles.textContainer}>
-                      <Text style={styles.textStyle}>
+                      <Text style={[styles.textStyle, { padding: 5 }]}>
                         Would you like to be reminded after class to enter your homework?
                       </Text>
                     </View>
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.darkGrey,
-    height: 575,
+    height: 625,
     backgroundColor: colors.darkGrey
   },
   modalTitle: {

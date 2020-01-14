@@ -44,9 +44,13 @@ class MainHomeworkModal extends Component {
     const item = this.props.item;
     return (
       <Modal
-        animationType='fade'
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0}
+        hasBackDrop
+        backdropOpacity={0.9}
         transparent
-        visible={this.props.isVisible}
+        isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
       >
         {this.state.fullPictureVisible && //not working right
@@ -95,7 +99,7 @@ class MainHomeworkModal extends Component {
             {item.date && <View style={styles.container}>
               <Text style={styles.remindersText}>Reminders</Text>
             </View>}
-            {item.date && <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            {item.date && <View style={{ flexDirection: 'row', justifyContent: 'center', paddingBottom: 5 }}>
               <ReminderButton
                 text='1 Day'
                 reminderType='oneDay'

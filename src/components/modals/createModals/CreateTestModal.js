@@ -21,7 +21,7 @@ import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
 import { toggleCreateTestModal, createTest } from '../../../actions';
-import { colors, fonts, dimensions } from '../../../styles';
+import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   testName: yup.string().required('You need a name.'),
@@ -51,7 +51,7 @@ const CustomButton = (props) => {
     >
       <Text
         style={[styles.textStyle, {
-        color: props.isItemActive ? colors.darkGrey : colors.mainRed
+        color: props.isItemActive ? colors.darkGrey : colors.mainRed, fontSize: fonts.subtitleText
         }]}
       >
         {props.text}
@@ -91,7 +91,7 @@ class CreateTestModal extends Component {
         backdropTransitionOutTiming={0} //need this to prevent flicker
         isVisible={this.props.createTestModalVisible}
         hasBackDrop
-        style={{ width: dimensions.width, right: 20 }}
+        //style={{ width: dimensions.width, right: 20 }}
         backdropOpacity={0.9}
         onBackdropPress={() => this.props.toggleCreateTestModal()}
       >
@@ -212,7 +212,7 @@ class CreateTestModal extends Component {
                       <Text style={[styles.textStyle, { padding: 2 }]}>
                         {'Put in my day to study:'}
                       </Text>
-                      <View style={{ flexDirection: 'row' }}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <CustomButton
                           text={'1 Day Before'}
                           onPress={() => {
@@ -328,6 +328,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     height: 615,
+    width: '110%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#28313b',

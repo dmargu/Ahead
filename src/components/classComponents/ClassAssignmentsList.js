@@ -15,41 +15,48 @@ import { colors, fonts } from '../../styles';
 class ClassAssignmentsList extends Component {
   render() {
     const assignmentData = this.props.homework.concat(this.props.tests);
-    return (
-      <View style={{ maxHeight: 250 }}>
-        <View style={{ paddingTop: 5, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.normalText}>Assignments</Text>
-        </View>
-        <View style={styles.listBorder}>
-          <FlatList
-            data={_.sortBy(assignmentData.filter(hw => hw.className === this.props.item.name), (hw) => {
-              return hw.date;
-            })}
-            extraData={assignmentData}
-            keyExtractor={hw => hw.id}
-            renderItem={({ item }) => {
-              if (item.assignmentName) {
+    const classData = assignmentData.filter(hw => hw.className === this.props.item.name);
+    console.log(classData.length);
+    if (classData.length !== 0) {
+      return (
+        <View style={{ maxHeight: 250 }}>
+          <View style={{ paddingTop: 5, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.normalText}>Assignments</Text>
+          </View>
+          <View style={styles.listBorder}>
+            <FlatList
+              data={_.sortBy(classData, (hw) => {
+                return hw.date;
+              })}
+              extraData={assignmentData}
+              keyExtractor={hw => hw.id}
+              renderItem={({ item }) => {
+                if (item.assignmentName) {
+                  return (
+                    <HomeworkItem
+                      homeworkItem={item}
+                      deleteHomework={() => this.props.removeHomework(item)}
+                      forClassesList
+                      changeColor={colors.darkGrey}
+                    />
+                  );
+                }
                 return (
-                  <HomeworkItem
-                    homeworkItem={item}
-                    deleteHomework={() => this.props.removeHomework(item)}
+                  <TestItem
+                    testItem={item}
+                    deleteTest={() => this.props.removeTest(item)}
                     forClassesList
                     changeColor={colors.darkGrey}
                   />
                 );
-              }
-              return (
-                <TestItem
-                  testItem={item}
-                  deleteTest={() => this.props.removeTest(item)}
-                  forClassesList
-                  changeColor={colors.darkGrey}
-                />
-              );
-            }}
-          />
+              }}
+            />
+          </View>
         </View>
-      </View>
+      );
+    }
+    return (
+      <View />
     );
   }
 }

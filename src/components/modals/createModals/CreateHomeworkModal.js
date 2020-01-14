@@ -21,7 +21,7 @@ import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
-import { colors, fonts, dimensions } from '../../../styles';
+import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({
   assignmentName: yup.string().required('You need a name.'),
@@ -104,7 +104,6 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
         backdropTransitionOutTiming={0} //need this to prevent flicker
         isVisible={this.props.createHomeworkModalVisible}
         hasBackDrop
-        style={{ width: dimensions.width, right: 20 }}
         backdropOpacity={0.9}
         onBackdropPress={() => this.props.toggleCreateHomeworkModal()}
       >
@@ -299,7 +298,8 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           }}
                           isItemActive={this.state.twoDayReminder}
                         />
-
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
                         <CustomButton
                           text={'3 Days Before'}
                           onPress={() => {
@@ -312,8 +312,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           }}
                           isItemActive={this.state.threeDayReminder}
                         />
-                      </View>
-                      <View style={{ flexDirection: 'row' }}>
+                        
                         <CustomButton
                           text={
                             this.state.customReminderDate ?
@@ -400,6 +399,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     height: 615,
+    width: '110%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.darkGrey,

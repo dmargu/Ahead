@@ -11,14 +11,18 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import MainItemDatePickerModal from './MainItemDatePickerModal';
 import ReminderToggleButtons from '../ReminderToggleButtons';
-import { toggleItemModal, toggleItemModalDatePicker, notesChanged } from '../../actions';
+import ImagePickerAndList from '../ImagePickerAndList';
+import FullPicture from '../FullPicture';
+import { toggleItemModal, toggleItemModalDatePicker, notesChanged, addPicture } from '../../actions';
 import { colors, fonts } from '../../styles';
 
 class MainItemModal extends Component {
   constructor() {
     super();
     this.state = {
-      datePickerVisible: false
+      datePickerVisible: false,
+      fullPictureVisible: false,
+      selectedPicture: null,
     };
   }
   onNotesChange(text) { //again this doesn't reset notifications.
@@ -37,23 +41,27 @@ class MainItemModal extends Component {
         backdropOpacity={0.9}
         onBackdropPress={() => this.props.toggleItemModal(item)}
       >
+        {this.state.fullPictureVisible && //not working right
+            <FullPicture
+              picture={this.state.selectedPicture}
+              closeImage={() => this.setState({ fullPictureVisible: false })}
+            />
+        }
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-              <View style={{ flexDirection: 'column', flex: 1 }}>
-                <Text style={styles.textStyle}>{item.text}</Text>
-                <TouchableHighlight
-                  onPress={() => this.setState({ datePickerVisible: true })}
-                  underlayColor={null}
-                >
-                  <Text style={styles.setTime}>
-                    {item.date
-                      ? moment(item.date).format('MMM DD h:mm a')
-                      : 'Set Time'
-                    }
-                  </Text>
-                </TouchableHighlight>
-              </View>
+            <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text style={styles.textStyle}>{item.text}</Text>
+              <TouchableHighlight
+                onPress={() => this.setState({ datePickerVisible: true })}
+                underlayColor={null}
+              >
+                <Text style={styles.setTime}>
+                  {item.date
+                    ? moment(item.date).format('MMM DD h:mm a')
+                    : 'Set Time'
+                  }
+                </Text>
+              </TouchableHighlight>
             </View>
             <View style={{ padding: 5 }}>
               <TextInput
@@ -65,10 +73,21 @@ class MainItemModal extends Component {
                 onChangeText={this.onNotesChange.bind(this)}
               />
             </View>
+            <ImagePickerAndList
+              pictures={item.pictures}
+              addPicture={(newArr) => this.props.addPicture(newArr, item)}
+              fullPictureVisible={this.state.fullPictureVisible}
+              fullPictureOpenHandle={(picture) => {
+                this.setState({ fullPictureVisible: true });
+                this.setState({ selectedPicture: picture });
+              }}
+            />
             {item.date && <View style={styles.containerStyle}>
               <Text style={styles.remindersText}>Reminders</Text>
             </View>}
-            {item.date && <ReminderToggleButtons item={item} />}
+            {item.date && <View style={{ paddingBottom: 40 }}>
+              <ReminderToggleButtons item={item} />
+            </View>}
           </View>
         </View>
         <MainItemDatePickerModal
@@ -87,7 +106,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '90%',
+    width: '100%',
+    //height: 270,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.mainDark,
@@ -101,15 +121,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   textStyle: {
-    paddingTop: 15,
-    paddingLeft: 15,
+    paddingTop: 5,
     fontSize: fonts.normalText,
     color: colors.white,
-    fontFamily: fonts.fontFamily
+    fontFamily: fonts.fontFamily,
+    fontWeight: 'bold'
   },
   setTime: {
-    paddingTop: 10,
-    paddingLeft: 15,
+    paddingTop: 5,
     fontSize: fonts.normalText,
     color: colors.mainRed,
     fontFamily: fonts.fontFamily
@@ -126,4 +145,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { toggleItemModal, toggleItemModalDatePicker, notesChanged })(MainItemModal);
+export default connect(null, {
+  toggleItemModal,
+  toggleItemModalDatePicker,
+  notesChanged,
+  addPicture
+})(MainItemModal);

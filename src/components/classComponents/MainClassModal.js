@@ -78,9 +78,13 @@ class MainClassModal extends Component {
     const item = this.props.item;
     return (
       <Modal
-        animationType='slide'
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0}
+        hasBackDrop
+        backdropOpacity={0.9}
         transparent
-        visible={this.props.isVisible}
+        isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
         avoidKeyboard
       >

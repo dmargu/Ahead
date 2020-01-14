@@ -17,6 +17,9 @@ const scale = Math.min(scaleWidth, scaleHeight);
 
 export const scaledSize = (size) => Math.ceil((size * scale));
 
+export const containerSizes = {
+  halfHeight: dimensions.height / 2
+};
 
 export const colors = {
   mainDark: '#0c1419',

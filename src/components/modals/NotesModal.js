@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Modal, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput, Text } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
-import { Feather } from '@expo/vector-icons';
 import { toggleNotesModal, notesChanged } from '../../actions';
-import { colors, fonts } from '../../styles';
+import { colors, fonts, dimensions } from '../../styles';
 
 class NotesModal extends Component { //right now I don't know how to reschedule notifications after cancelling
   onNotesChange(text) { //the async functions to do that with expo take like a second so it's too much of a
@@ -12,18 +12,19 @@ class NotesModal extends Component { //right now I don't know how to reschedule 
   render() {
     const item = this.props.item;
     return (
-      <Modal transparent animationType='fade'>
+      <Modal
+        transparent
+        animationType='fade'
+        onBackdropPress={() => this.props.toggleNotesModal(item)}
+        backdropTransitionOutTiming={0} //need this to prevent flicker
+        hasBackDrop
+        backdropOpacity={0.9}
+        isVisible
+      >
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
-              <View style={{ padding: 5 }}>
-                <Feather
-                  name="x-square"
-                  size={35}
-                  color={colors.lightGrey}
-                  onPress={() => this.props.toggleNotesModal(item)}
-                />
-              </View>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.textStyle}>{item.text}</Text>
             </View>
             <View style={{ padding: 5 }}>
               <TextInput
@@ -44,16 +45,26 @@ class NotesModal extends Component { //right now I don't know how to reschedule 
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    width: '75%',
-    borderRadius: 10,
+    position: 'absolute',
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: colors.mainDark,
     backgroundColor: colors.darkGrey,
+    bottom: dimensions.height / 3,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  modalContainer: {
+    height: 125,
+    width: 315,
+    marginBottom: 35
+  },
+  textStyle: {
+    paddingTop: 5,
+    fontSize: fonts.normalText,
+    color: colors.white,
+    fontFamily: fonts.fontFamily,
+    fontWeight: 'bold'
   },
   notesInput: {
     height: 130,

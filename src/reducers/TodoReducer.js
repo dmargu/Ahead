@@ -8,6 +8,7 @@ import {
   ONE_HOUR_REMINDER,
   ONE_DAY_REMINDER,
   START_REMINDER,
+  ADD_PICTURE,
   CHANGE_NOTES,
   TOGGLE_NOTES_MODAL,
   TOGGLE_DATE_MODAL,
@@ -32,6 +33,7 @@ const todos = (state = initialState, action) => {
           text: action.text,
           notes: null,
           date: null,
+          pictures: [],
           tenMinReminder: false,
           thirtyMinReminder: false,
           oneHourReminder: false,
@@ -73,6 +75,11 @@ const todos = (state = initialState, action) => {
         todos: newList
       };
     }
+    case ADD_PICTURE:
+      return {
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, pictures: action.payload } : item))
+      };
     case TOGGLE_DATE_MODAL:
       return {
         todos: state.todos.map(item => ((item.id === action.id)

@@ -35,7 +35,8 @@ const CustomButton = (props) => {
     >
       <Text
         style={[styles.textStyle, {
-        color: props.isItemActive ? colors.darkGrey : colors.mainRed
+        color: props.isItemActive ? colors.darkGrey : colors.mainRed,
+        fontSize: fonts.subtitleText
         }]}
       >
         {props.text}
@@ -70,9 +71,13 @@ class MainTestModal extends Component {
     const item = this.props.item;
     return (
       <Modal
-        animationType='fade'
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0}
+        hasBackDrop
+        backdropOpacity={0.9}
         transparent
-        visible={this.props.isVisible}
+        isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
       >
         {this.state.fullPictureVisible && //not working right
@@ -213,7 +218,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '90%',
+    width: '110%',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.mainDark,

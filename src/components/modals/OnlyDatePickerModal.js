@@ -3,10 +3,9 @@ import {
   DatePickerIOS,
   View,
   StyleSheet,
-  Modal,
   Dimensions
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
 import moment from 'moment';
 import { colors } from '../../styles';
 
@@ -15,17 +14,18 @@ const HEIGHT = Dimensions.get('window').height;
 class DatePickerModal extends Component {
   render() {
     return (
-      <Modal animationType='slide' transparent visible={this.props.isVisible}>
+      <Modal
+        transparent
+        isVisible={this.props.isVisible}
+        onBackdropPress={() => this.props.closeHandle()}
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0}
+        hasBackDrop
+        backdropOpacity={0.9}
+      >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 10 }}>
-              <Feather
-                name="x-square"
-                size={35}
-                color={colors.lightGrey}
-                onPress={() => this.props.closeHandle()}
-              />
-            </View>
             <View style={{ padding: 5 }}>
               <DatePickerIOS //need some conditional if its android right here
                 mode={'date'} //maximum date to make sure we don't let them make infinite data
@@ -47,15 +47,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#28313b',
+    borderColor: colors.mainDark,
     backgroundColor: colors.darkGrey,
     bottom: HEIGHT / 3,
     justifyContent: 'center',
     alignSelf: 'center'
   },
   pickerModalConfig: {
-    height: 250,
-    width: 250,
+    height: 200,
+    width: 270,
     marginBottom: 35
   },
 });

@@ -15,10 +15,14 @@ class TimePickerModal extends Component {
   render() {
     return (
       <Modal
-        animationType='slide'
         transparent
-        visible={this.props.isVisible}
+        isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        backdropTransitionOutTiming={0}
+        hasBackDrop
+        backdropOpacity={0.9}
       >
         <View style={styles.pickerModal}>
           <View style={styles.pickerModalConfig}>

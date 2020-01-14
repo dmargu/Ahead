@@ -12,7 +12,7 @@ class ClassTouchableHeader extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{ padding: 5 }}>
         <TouchableOpacity
           onPress={() => this.setState({ classModalVisible: true })}
         >
