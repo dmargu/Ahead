@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import { ListItem } from 'react-native-elements';
 import moment from 'moment';
 import MainClassModal from './MainClassModal';
@@ -20,10 +20,10 @@ class ClassItem extends Component {
     return (
         <View>
           <HomeworkSwipeRow
-            item={classItem} //need to remove it from day but not delete class, could create items
-            completeItem={() => console.log('remove class')} //when class is created, one for every day
+            item={classItem}
+            completeItem={() => this.props.removeClassDay()}
           >
-            <TouchableHighlight //and then remove it like that?
+            <TouchableHighlight
               underlayColor={null}
               onPress={() => this.setState({ classModalVisible: true })}
             >
@@ -59,7 +59,7 @@ class ClassItem extends Component {
 const styles = StyleSheet.create({
   classItem: {
     paddingLeft: 15,
-    backgroundColor: colors.mainDark
+    backgroundColor: colors.mainDark,
   },
   container: {
     width: '100%',
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null)(ClassItem);
+export default ClassItem;

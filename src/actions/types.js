@@ -75,3 +75,5 @@ export const CHANGE_OFFICE_HOURS = 'changeOfficeHours';
 export const TOGGLE_ITEM_STUDY_DAY = 'toggleItemStudyDay';
 
 export const TOGGLE_AFTER_CLASS_REMINDERS = 'toggleAfterClassReminders';
+
+export const REMOVE_CLASS_DAY = 'removeClassDay';

@@ -96,12 +96,12 @@ class TodoItem extends Component {
 const styles = StyleSheet.create({
   todoItem: {
     paddingLeft: 15,
-    backgroundColor: '#0c1419'
+    backgroundColor: '#0c1419',
   },
   container: {
     width: '100%',
   },
-  contentStyle: { //Helvetica currently winning
+  contentStyle: {
     flex: 1
   },
   dateSubtitle: {

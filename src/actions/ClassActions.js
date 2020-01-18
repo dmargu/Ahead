@@ -16,7 +16,8 @@ import {
   CHANGE_OFFICE_HOURS,
   TOGGLE_ITEM_STUDY_DAY,
   CANCEL_ALL_NOTIFICATIONS,
-  TOGGLE_AFTER_CLASS_REMINDERS
+  TOGGLE_AFTER_CLASS_REMINDERS,
+  REMOVE_CLASS_DAY
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -159,6 +160,13 @@ export const cancelAfterClassReminders = (item, makeSwitchVisible, notificationI
       });
       makeSwitchVisible();
     }
+  };
+};
+
+export const removeClassDay = (item) => {
+  return {
+    type: REMOVE_CLASS_DAY,
+    id: item.id
   };
 };
 

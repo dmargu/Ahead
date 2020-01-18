@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   CREATE_CLASS,
   CREATE_HOMEWORK,
@@ -16,7 +17,8 @@ import {
   CHANGE_LOCATION,
   CHANGE_OFFICE_HOURS,
   TOGGLE_ITEM_STUDY_DAY,
-  TOGGLE_AFTER_CLASS_REMINDERS
+  TOGGLE_AFTER_CLASS_REMINDERS,
+  REMOVE_CLASS_DAY
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +43,7 @@ const classes = (state = initialState, action) => {
             afterClassReminders: action.payload.afterClassReminders,
             daysOfWeek: action.daysOfWeek,
             classDays: action.classDays,
+            remainingClassDays: action.classDays,
             location: '',
             officeHours: ''
           }
@@ -104,6 +107,14 @@ const classes = (state = initialState, action) => {
       return {
         ...state,
         classes: newList
+      };
+    }
+    case REMOVE_CLASS_DAY: {
+      const selectedClass = state.classes.find(item => item.id === action.id);
+      const newList = selectedClass.remainingClassDays.filter(c => (moment(c).isAfter(new Date(), 'day')));
+      return {
+        ...state,
+        classes: state.classes.map(c => ((c.id === action.id) ? { ...c, remainingClassDays: newList } : c))
       };
     }
     case CHANGE_NOTES:

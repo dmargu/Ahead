@@ -51,7 +51,7 @@ class MainAssignmentsList extends Component {
               );
             }
             return (
-              <Text style={styles.textStyle}>No Class</Text>
+              <Text style={[styles.textStyle, { padding: 5 }]}>No Class</Text>
             );
           }}
           renderItem={({ item }) => {
