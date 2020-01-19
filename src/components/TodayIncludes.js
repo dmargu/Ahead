@@ -9,6 +9,7 @@ import TodoItem from './todoComponents/TodoItem';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TestItem from './testComponents/TestItem';
 import StudyItem from './testComponents/StudyItem';
+import EmptyListComponent from './EmptyListComponent';
 import { colors, fonts } from '../styles';
 import { removeTest, removeTodo, removeHomework, removeClassDay, toggleStudyReminder } from '../actions';
 
@@ -81,6 +82,7 @@ class TodayIncludes extends Component {
           data={todayData}
           extraData={todayData}
           keyExtractor={item => item.id}
+          ListEmptyComponent={<EmptyListComponent text={'Nothing for now! Do something memorable.'} />}
           renderItem={({ item }) => {
             if (item.name) { //each attribute is unique to the type (ex. only class has item.name)
               return (

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TestItem from './testComponents/TestItem';
 import ClassTouchableHeader from './classComponents/ClassTouchableHeader';
+import EmptyListComponent from './EmptyListComponent';
 import { removeHomework, removeTest } from '../actions';
 import { colors, fonts } from '../styles';
 
@@ -17,13 +18,20 @@ class MainAssignmentsList extends Component {
   filterAssignments(c, hw) {
     return hw.filter(item => item.className === c.name);
   }
+
+  renderNoContent = (section) => {
+   if (section.data.length === 0) {
+      return <EmptyListComponent text='No assignments to add? Dont fall behind.' />;
+   }
+   return null;
+}
   render() {
     const assignmentData = this.props.homework.concat(this.props.tests);
     const classData = [];
     for (let x = 0; x < this.props.classes.length; x++) {
       classData.push({
         title: this.props.classes[x],
-        data: this.filterAssignments(this.props.classes[x], assignmentData)
+        data: this.filterAssignments(this.props.classes[x], assignmentData),
       });
     }
     const classNames = [];
@@ -40,10 +48,12 @@ class MainAssignmentsList extends Component {
       });
     }
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <SectionList
           sections={classData}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={<EmptyListComponent text='Add your classes for the semester!' />}
+          renderSectionFooter={({ section }) => this.renderNoContent(section)}
           renderSectionHeader={({ section: item }) => {
             if (item.title.name) {
               return (

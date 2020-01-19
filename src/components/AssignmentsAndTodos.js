@@ -3,10 +3,19 @@ import { View, Text, StyleSheet, SectionList } from 'react-native';
 import { connect } from 'react-redux';
 import HomeworkItem from './homeworkComponents/HomeworkItem';
 import TodoItem from './todoComponents/TodoItem';
+import EmptyListComponent from './EmptyListComponent';
 import { removeHomework, removeTodo } from '../actions';
 import { colors, fonts } from '../styles';
 
 class AssignmentsAndTodosList extends Component {
+  renderNoContent = (section) => {
+   if (section.data.length === 0 && section.title === 'Homework') {
+      return <EmptyListComponent text='No assignments to add? Dont fall behind.' />;
+   } else if (section.data.length === 0 && section.title === 'To-Do\'s') {
+      return <EmptyListComponent text='Nothing to do! Congrats, what else you got?' />;
+   }
+   return null;
+  }
   render() {
     const data = [
       {
@@ -23,6 +32,7 @@ class AssignmentsAndTodosList extends Component {
         <SectionList
           sections={data}
           keyExtractor={(item) => item.id}
+          renderSectionFooter={({ section }) => this.renderNoContent(section)}
           renderSectionHeader={({ section: { title } }) => {
             return (
               <View style={{ paddingLeft: 5 }}>

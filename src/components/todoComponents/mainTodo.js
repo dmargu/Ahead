@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import TodoItem from './TodoItem';
+import EmptyListComponent from '../EmptyListComponent';
 import { removeTodo } from '../../actions';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -22,6 +23,7 @@ class MainTodo extends Component {
           })}
           extraData={this.props.todos}
           keyExtractor={item => item.id}
+          ListEmptyComponent={<EmptyListComponent text='Nothing to do! Congrats, what else you got?' />}
           renderItem={({ item }) => {
             return (
               <TodoItem

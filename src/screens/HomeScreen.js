@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   KeyboardAvoidingView,
-  Dimensions,
   Keyboard,
   InputAccessoryView,
   StyleSheet,
@@ -9,21 +8,18 @@ import {
 import { connect } from 'react-redux';
 import { Notifications } from 'expo';
 import { FloatingAction } from 'react-native-floating-action';
-import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
+//import { KeyboardAccessoryView } from 'react-native-keyboard-accessory';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/common/Header';
 import TodayIncludes from '../components/TodayIncludes';
 import { registerForPushNotificationsAsync } from '../functions/pushNotificationsRegister';
 import { todoIcon, homeworkIcon, testIcon } from '../../assets/InAppIcons';
 import AddTodo from '../components/todoComponents/AddTodo';
-//import FloatingPlusButton from '../components/FloatingPlusButton';
 import CreateHomeworkModal from '../components/modals/createModals/CreateHomeworkModal';
 import CreateTestModal from '../components/modals/createModals/CreateTestModal';
 import AssignmentsAndTodosList from '../components/AssignmentsAndTodos';
 import { addTodo, toggleCreateHomeworkModal, toggleCreateTestModal } from '../actions';
 import { colors } from '../styles';
-
-
-const HEIGHT = Dimensions.get('window').height;
 
 class HomeScreen extends Component {
   constructor() {
@@ -91,9 +87,11 @@ class HomeScreen extends Component {
     ];
     return (
       <KeyboardAvoidingView style={styles.container}>
-        <Header navigation={this.props.navigation} screenName='Home' />
-        <TodayIncludes />
-        <AssignmentsAndTodosList />
+        <KeyboardAwareScrollView>
+          <Header navigation={this.props.navigation} screenName='Home' />
+          <TodayIncludes />
+          <AssignmentsAndTodosList />
+        </KeyboardAwareScrollView>
         { !this.state.inputVisible &&
           <FloatingAction
             actions={actions}
@@ -139,7 +137,6 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //height: HEIGHT
   },
   headerTextStyle: {
       fontSize: 20,

@@ -31,7 +31,8 @@ class DatePickerModal extends Component {
                 mode={'date'} //maximum date to make sure we don't let them make infinite data
                 date={this.props.time ? moment(this.props.time).toDate() : new Date()}
                 onDateChange={(date) => this.props.formikProps.setFieldValue(this.props.value, date)}
-                minimumDate={(this.props.value === 'lastDayOfClass') ? this.props.startTime : new Date()}
+                minimumDate={(this.props.value === 'lastDayOfClass') ? this.props.startTime :
+                  moment(new Date()).subtract(6, 'months').toDate()}
                 maximumDate={moment().add(3, 'years').toDate()}
               />
             </View>
