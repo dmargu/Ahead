@@ -17,7 +17,8 @@ import {
   TOGGLE_ITEM_STUDY_DAY,
   CANCEL_ALL_NOTIFICATIONS,
   TOGGLE_AFTER_CLASS_REMINDERS,
-  REMOVE_CLASS_DAY
+  REMOVE_CLASS_DAY,
+  TOGGLE_STUDY_REMINDER
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -169,6 +170,16 @@ export const removeClassDay = (item) => {
     id: item.id
   };
 };
+
+export const toggleStudyReminder = (item) => {
+  return {
+    type: TOGGLE_STUDY_REMINDER,
+    id: item.test.id,
+    studyType: item.type
+  };
+};
+
+//HELPER FUNCTIONS START HERE
 
 //days of week
 function findDaysOfWeek(daysOfWeek) {

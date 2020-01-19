@@ -18,7 +18,8 @@ import {
   CHANGE_OFFICE_HOURS,
   TOGGLE_ITEM_STUDY_DAY,
   TOGGLE_AFTER_CLASS_REMINDERS,
-  REMOVE_CLASS_DAY
+  REMOVE_CLASS_DAY,
+  TOGGLE_STUDY_REMINDER
 } from '../actions/types';
 
 const initialState = {
@@ -187,6 +188,47 @@ const classes = (state = initialState, action) => {
         classes: state.classes.map(item => ((item.id === action.id)
           ? { ...item, afterClassReminders: action.payload } : item))
       };
+    case TOGGLE_STUDY_REMINDER:
+      switch (action.studyType) {
+        case 'oneDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, oneDayStudy: false } : test))
+          };
+        case 'twoDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, twoDayStudy: false } : test))
+          };
+        case 'threeDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, threeDayStudy: false } : test))
+          };
+        case 'fourDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, fourDayStudy: false } : test))
+          };
+        case 'fiveDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, fiveDayStudy: false } : test))
+          };
+        case 'sixDay':
+          return {
+            ...state,
+            tests: state.tests.map(test => ((test.id === action.id)
+              ? { ...test, sixDayStudy: false } : test))
+          };
+        default:
+          return state;
+      }
     case HOMEWORK_REMINDER:
       switch (action.reminderType) {
         case 'oneDay':
