@@ -127,9 +127,9 @@ class CreateClassModal extends Component {
               </View>
               <Formik
                 initialValues={{
-                  name: '',
-                  firstDayOfClass: '2020-01-13T20:29:27.000Z', //first day of tulane spring semester class
-                  lastDayOfClass: '2020-04-28T19:29:30.000Z', //last day of spring semester class
+                  name: '', //first day of tulane spring semester class
+                  firstDayOfClass: moment().year(2020).month(0).date(13),
+                  lastDayOfClass: moment().year(2020).month(3).date(28), //last day of spring semester class
                   classStartTime: '',
                   classEndTime: '',
                   afterClassReminders: false,

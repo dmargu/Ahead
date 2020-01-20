@@ -253,18 +253,12 @@ async function scheduleClassReminders(dispatch, values, classDates, id) {
 //find due date for Homework
 function findDueDate(state, className, classes) {
   if (state.dueNextClass) {
-    const targetClass = classes.find((c) => c.name === className);
-    const dueDate = targetClass.classDays.find((day) =>
-      moment(day).isSame(moment(new Date(), 'day')) ||
-      moment(day).isAfter(moment(new Date(), 'day'))
-    );
+    const targetClass = classes.find((c) => c.name === className); //dueDate is next class after today
+    const dueDate = targetClass.classDays.find((day) => moment(day).isAfter(moment(new Date(), 'day')));
     return dueDate;
   } else if (state.dueNightBefore) {
     const targetClass = classes.find((c) => c.name === className);
-    const classDue = targetClass.classDays.find((day) =>
-      moment(day).isSame(moment(new Date(), 'day')) ||
-      moment(day).isAfter(moment(new Date(), 'day'))
-    );
+    const classDue = targetClass.classDays.find((day) => moment(day).isAfter(moment(new Date(), 'day')));
     const rightDueDayWrongTime = moment(classDue).subtract(1, 'days'); //finds next class and makes it
     const dueDate = moment(rightDueDayWrongTime).hour(23).minute(59); //night before at 11:59pm
     return dueDate;

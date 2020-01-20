@@ -18,7 +18,12 @@ import AddTodo from '../components/todoComponents/AddTodo';
 import CreateHomeworkModal from '../components/modals/createModals/CreateHomeworkModal';
 import CreateTestModal from '../components/modals/createModals/CreateTestModal';
 import AssignmentsAndTodosList from '../components/AssignmentsAndTodos';
-import { addTodo, toggleCreateHomeworkModal, toggleCreateTestModal } from '../actions';
+import {
+  addTodo,
+  toggleCreateHomeworkModal,
+  toggleCreateTestModal,
+  afterClassNotificationReceived
+} from '../actions';
 import { colors } from '../styles';
 
 class HomeScreen extends Component {
@@ -27,7 +32,6 @@ class HomeScreen extends Component {
     this.state = {
       textInput: '',
       inputVisible: true,
-      classNameFromNotification: ''
     };
   }
   componentDidMount() {
@@ -39,7 +43,7 @@ class HomeScreen extends Component {
 
   handleNotification(n) {
     if (n.origin === 'selected' && n.data.type === 'afterClassReminder') {
-      this.setState({ classNameFromNotification: n.data.className });
+      this.props.afterClassNotificationReceived(n.data.className);
       this.props.toggleCreateHomeworkModal();
     }
   }
@@ -127,7 +131,7 @@ class HomeScreen extends Component {
         </InputAccessoryView>
         <CreateTestModal />
         <CreateHomeworkModal
-          classNameFromNotification={this.state.classNameFromNotification}
+          classNameFromNotification={this.props.classNameFromNotification}
         />
       </KeyboardAvoidingView>
     );
@@ -152,8 +156,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {
+function mapStateToProps(state) {
+  return {
+    classNameFromNotification: state.StorageReducer.classNameFromNotification
+  };
+}
+
+export default connect(mapStateToProps, {
   addTodo,
   toggleCreateHomeworkModal,
-  toggleCreateTestModal
+  toggleCreateTestModal,
+  afterClassNotificationReceived
 })(HomeScreen);

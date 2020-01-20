@@ -3,6 +3,7 @@ import {
   ADD_NOTIFICATION_ID,
   CANCEL_NOTIFICATION,
   CANCEL_ALL_NOTIFICATIONS,
+  AFTER_CLASS_NOTIFICATION_RECEIVED
 } from './types';
 
 export const addNotificationID = (id, reminderType, notificationID) => {
@@ -45,4 +46,11 @@ export const cancelAllNotifications = (id, notificationIDs) => {
       });
     }
   };
+};
+
+export const afterClassNotificationReceived = (className) => {
+    return {
+      type: AFTER_CLASS_NOTIFICATION_RECEIVED,
+      payload: className
+    };
 };

@@ -170,4 +170,41 @@ const todos = (state = initialState, action) => {
   }
 };
 
+/*const tutorialTodos = [
+  {
+    id: shortid.generate(),
+    text: 'shit',
+    notes: null,
+    date: null,
+    pictures: [],
+    tenMinReminder: false,
+    thirtyMinReminder: false,
+    oneHourReminder: false,
+    oneDayReminder: false,
+    startReminder: false,
+    dateModalVisible: false,
+    notesModalVisible: false,
+    itemModalVisible: false,
+    itemModalDatePickerVisible: false,
+    remindersToggled: false
+  },
+  {
+    id: shortid.generate(),
+    text: 'fuck',
+    notes: null,
+    date: null,
+    pictures: [],
+    tenMinReminder: false,
+    thirtyMinReminder: false,
+    oneHourReminder: false,
+    oneDayReminder: false,
+    startReminder: false,
+    dateModalVisible: false,
+    notesModalVisible: false,
+    itemModalVisible: false,
+    itemModalDatePickerVisible: false,
+    remindersToggled: false
+  }
+];*/
+
 export default todos;

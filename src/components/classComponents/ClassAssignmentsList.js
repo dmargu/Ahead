@@ -16,7 +16,6 @@ class ClassAssignmentsList extends Component {
   render() {
     const assignmentData = this.props.homework.concat(this.props.tests);
     const classData = assignmentData.filter(hw => hw.className === this.props.item.name);
-    console.log(classData.length);
     if (classData.length !== 0) {
       return (
         <View style={{ maxHeight: 250 }}>

@@ -16,11 +16,11 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import moment from 'moment';
 import { Dropdown } from 'react-native-material-dropdown';
-import { toggleCreateHomeworkModal, createHomework } from '../../../actions';
 import ImagePickerAndList from '../../ImagePickerAndList';
 import FullPicture from '../../FullPicture';
 import DateAndTimePickerModal from '../DateAndTimePicker';
 import { Spinner } from '../../common/Spinner';
+import { toggleCreateHomeworkModal, createHomework, afterClassNotificationReceived } from '../../../actions';
 import { colors, fonts } from '../../../styles';
 
 const validationSchema = yup.object().shape({
@@ -128,6 +128,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                     onPress={() => {
                       this.props.toggleCreateHomeworkModal();
                       this.setState(initialState); //clear state to initial state when user exits form
+                      this.props.afterClassNotificationReceived(''); //reset it to empty
                     }}
                   />
                 </View>
@@ -143,6 +144,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                 onSubmit={(values, actions) => {
                   this.props.createHomework(values, this.state, this.props.classes, actions);
                   this.setState(initialState);
+                  this.props.afterClassNotificationReceived('');
                 }}
               >
                 {formikProps => (
@@ -312,7 +314,7 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                           }}
                           isItemActive={this.state.threeDayReminder}
                         />
-                        
+
                         <CustomButton
                           text={
                             this.state.customReminderDate ?
@@ -481,4 +483,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { toggleCreateHomeworkModal, createHomework })(CreateHomeworkModal);
+export default connect(mapStateToProps, {
+  toggleCreateHomeworkModal,
+  createHomework,
+  afterClassNotificationReceived
+})(CreateHomeworkModal);

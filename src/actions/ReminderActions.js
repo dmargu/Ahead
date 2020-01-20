@@ -110,8 +110,8 @@ export const changeCustomReminder = (id, date) => {
 
 export const defaultHomeworkReminder = (item, reminderType, reminderDays) => {
   return async (dispatch) => {
-    if (moment(item.date).subtract(reminderDays, 'days').isAfter(moment(new Date())) ||
-      moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date()))
+    if (moment(item.date).subtract(reminderDays, 'days').isAfter(moment(new Date(), 'day')) ||
+      moment(item.date).subtract(reminderDays, 'days').isSame(moment(new Date(), 'day'))
     ) {
       dispatch({
         type: HOMEWORK_REMINDER,

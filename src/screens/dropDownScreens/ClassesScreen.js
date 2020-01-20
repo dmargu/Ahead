@@ -63,13 +63,21 @@ class ClassesScreen extends Component {
         />
         <CreateClassModal />
         <CreateTestModal />
-        <CreateHomeworkModal />
+        <CreateHomeworkModal
+          classNameFromNotification={this.props.classNameFromNotification}
+        />
       </View>
     );
   }
 }
 
-export default connect(null, {
+function mapStateToProps(state) {
+  return {
+    classNameFromNotification: state.StorageReducer.classNameFromNotification
+  };
+}
+
+export default connect(mapStateToProps, {
   toggleCreateClassModal,
   toggleCreateTestModal,
   toggleCreateHomeworkModal

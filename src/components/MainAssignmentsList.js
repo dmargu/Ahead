@@ -24,7 +24,7 @@ class MainAssignmentsList extends Component {
       return <EmptyListComponent text='No assignments to add? Dont fall behind.' />;
    }
    return null;
-}
+  }
   render() {
     const assignmentData = this.props.homework.concat(this.props.tests);
     const classData = [];

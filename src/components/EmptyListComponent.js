@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textStyle: {
-    fontSize: fonts.buttonText,
-    color: colors.mainLightText,
+    fontSize: fonts.normalText,
+    color: colors.lightGrey,
     fontFamily: fonts.fontFamily,
   }
 });

@@ -79,3 +79,5 @@ export const TOGGLE_AFTER_CLASS_REMINDERS = 'toggleAfterClassReminders';
 export const REMOVE_CLASS_DAY = 'removeClassDay';
 
 export const TOGGLE_STUDY_REMINDER = 'toggleStudyReminder';
+
+export const AFTER_CLASS_NOTIFICATION_RECEIVED = 'afterClassNotificationReceived';
