@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>281124008705-86vdvglchmpltfoi50bl09aruhohnc81.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.281124008705-86vdvglchmpltfoi50bl09aruhohnc81</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB-HI6mNDy4_9e2kxYY1G-gvLVCcrJ2WZM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>281124008705</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>app.Ahead.Ahead</string>
+	<key>PROJECT_ID</key>
+	<string>ahead-d1dba</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ahead-d1dba.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:281124008705:ios:89fe3f0152ebf62287a100</string>
+	<key>DATABASE_URL</key>
+	<string>https://ahead-d1dba.firebaseio.com</string>
+</dict>
+</plist>

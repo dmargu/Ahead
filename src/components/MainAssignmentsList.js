@@ -21,7 +21,7 @@ class MainAssignmentsList extends Component {
 
   renderNoContent = (section) => {
    if (section.data.length === 0) {
-      return <EmptyListComponent text='No assignments to add? Dont fall behind.' />;
+      return <EmptyListComponent text='No assignments to add? Stay ahead.' />;
    }
    return null;
   }
