@@ -30,7 +30,8 @@ export const colors = {
   lightGrey: '#677e8c',
   darkGrey: '#4c6472',
   mainGreyBackground: '#e2e8ed',
-  white: '#FFFFFF'
+  white: '#FFFFFF',
+  blue: '#30C5FF'
 };
 
 export const fonts = {

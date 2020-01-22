@@ -26,16 +26,16 @@ import { colors, fonts } from '../../styles';
 const DeleteClassAlert = (deleteClass, item, cancelNotifications, notificationIDs) => {
   return (
     Alert.alert(
-      'Are you sure? No going back.',
+      'Are you sure?',
       null,
       [
-        { text: 'Yup. Delete it.',
+        { text: 'Yes',
           onPress: () => {
             deleteClass(item);
             cancelNotifications(item, null, notificationIDs);
           }
         },
-        { text: 'Whoops didn\'t mean to press that',
+        { text: 'No',
           style: 'cancel'
         }
       ],

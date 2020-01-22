@@ -49,23 +49,23 @@ class TodayIncludes extends Component {
           studyObject.type = 'oneDay';
           todayTestStudy.push(studyObject);
         } else if (moment(test.date).isSame(moment(new Date()).add(2, 'days'), 'day') && test.twoDayStudy) {
-          studyObject.studyName = `${test.testName} is in two days. Study!!!`;
+          studyObject.studyName = `${test.testName} in two days. Study!!!`;
           studyObject.type = 'twoDay';
           todayTestStudy.push(studyObject);
         } else if (moment(test.date).isSame(moment(new Date()).add(3, 'days'), 'day') && test.threeDayStudy) {
-          studyObject.studyName = `${test.testName} is in three days. Study!!!`;
+          studyObject.studyName = `${test.testName} in three days. Study!!!`;
           studyObject.type = 'threeDay';
           todayTestStudy.push(studyObject);
         } else if (moment(test.date).isSame(moment(new Date()).add(4, 'days'), 'day') && test.fourDayStudy) {
-          studyObject.studyName = `${test.testName} is in four days. Study!!!`;
+          studyObject.studyName = `${test.testName} in four days. Study!!!`;
           studyObject.type = 'fourDay';
           todayTestStudy.push(studyObject);
         } else if (moment(test.date).isSame(moment(new Date()).add(5, 'days'), 'day') && test.fiveDayStudy) {
-          studyObject.studyName = `${test.testName} is in five days. Study!!!`;
+          studyObject.studyName = `${test.testName} in five days. Study!!!`;
           studyObject.type = 'fiveDay';
           todayTestStudy.push(studyObject);
         } else if (moment(test.date).isSame(moment(new Date()).add(6, 'days'), 'day') && test.sixDayStudy) {
-          studyObject.studyName = `${test.testName} is in six days. Study!!!`;
+          studyObject.studyName = `${test.testName} in six days. Study!!!`;
           studyObject.type = 'sixDay';
           todayTestStudy.push(studyObject);
         }
