@@ -13,7 +13,13 @@ import MainItemDatePickerModal from './MainItemDatePickerModal';
 import ReminderToggleButtons from '../ReminderToggleButtons';
 import ImagePickerAndList from '../ImagePickerAndList';
 import FullPicture from '../FullPicture';
-import { toggleItemModal, toggleItemModalDatePicker, notesChanged, addPicture } from '../../actions';
+import {
+  toggleItemModal,
+  toggleItemModalDatePicker,
+  notesChanged,
+  addPicture,
+  changeTodoName
+} from '../../actions';
 import { colors, fonts } from '../../styles';
 
 class MainItemModal extends Component {
@@ -23,10 +29,21 @@ class MainItemModal extends Component {
       datePickerVisible: false,
       fullPictureVisible: false,
       selectedPicture: null,
+      todoName: ''
     };
   }
   onNotesChange(text) { //again this doesn't reset notifications.
     this.props.notesChanged(text, this.props.item);
+  }
+  componentDidMount() {
+    this.setState({ todoName: this.props.item.text });
+  }
+  handleTitleChange() {
+    if (this.state.todoName !== '') {
+      this.props.changeTodoName(this.props.item, this.state.todoName);
+    } else {
+      this.setState({ todoName: this.props.item.text });
+    }
   }
   render() {
     const item = this.props.item;
@@ -50,7 +67,12 @@ class MainItemModal extends Component {
         <View style={styles.containerStyle}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={styles.textStyle}>{item.text}</Text>
+              <TextInput
+                style={styles.textStyle}
+                value={this.state.todoName}
+                onChangeText={(text) => this.setState({ todoName: text })}
+                onBlur={() => this.handleTitleChange()}
+              />
               <TouchableHighlight
                 onPress={() => this.setState({ datePickerVisible: true })}
                 underlayColor={null}
@@ -149,5 +171,6 @@ export default connect(null, {
   toggleItemModal,
   toggleItemModalDatePicker,
   notesChanged,
-  addPicture
+  addPicture,
+  changeTodoName
 })(MainItemModal);

@@ -5,7 +5,8 @@ import {
   CHANGE_DATE,
   CHANGE_NOTES,
   CLEAR_DATE,
-  ADD_PICTURE
+  ADD_PICTURE,
+  CHANGE_TODO_NAME
 } from './types';
 
 export const addTodo = (text) => {
@@ -57,5 +58,13 @@ export const addPicture = (newArr, item) => {
     type: ADD_PICTURE,
     payload: newArr,
     id: item.id
+  };
+};
+
+export const changeTodoName = (item, text) => {
+  return {
+    type: CHANGE_TODO_NAME,
+    id: item.id,
+    payload: text
   };
 };

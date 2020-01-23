@@ -19,7 +19,10 @@ import {
   TOGGLE_ITEM_STUDY_DAY,
   TOGGLE_AFTER_CLASS_REMINDERS,
   REMOVE_CLASS_DAY,
-  TOGGLE_STUDY_REMINDER
+  TOGGLE_STUDY_REMINDER,
+  CHANGE_CLASS_NAME,
+  CHANGE_HOMEWORK_NAME,
+  CHANGE_TEST_NAME
 } from '../actions/types';
 
 const initialState = {
@@ -181,6 +184,31 @@ const classes = (state = initialState, action) => {
         ...state,
         classes: state.classes.map(item => ((item.id === action.id)
           ? { ...item, officeHours: action.payload } : item))
+      };
+    case CHANGE_CLASS_NAME: {
+      const c = state.classes.find(item => (item.id === action.id));
+      const oldName = c.name;
+      return {
+        ...state,
+        classes: state.classes.map(item => ((item.id === action.id)
+          ? { ...item, name: action.payload } : item)),
+        tests: state.tests.map(test => ((test.className === oldName)
+          ? { ...test, className: action.payload } : test)),
+        homework: state.homework.map(hw => ((hw.className === oldName)
+          ? { ...hw, className: action.payload } : hw))
+      };
+    }
+    case CHANGE_HOMEWORK_NAME:
+      return {
+        ...state,
+        homework: state.homework.map(hw => ((hw.id === action.id)
+          ? { ...hw, assignmentName: action.payload } : hw))
+      };
+    case CHANGE_TEST_NAME:
+      return {
+        ...state,
+        tests: state.tests.map(test => ((test.id === action.id)
+          ? { ...test, testName: action.payload } : test))
       };
     case TOGGLE_AFTER_CLASS_REMINDERS:
       return {

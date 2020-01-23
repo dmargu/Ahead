@@ -81,3 +81,11 @@ export const REMOVE_CLASS_DAY = 'removeClassDay';
 export const TOGGLE_STUDY_REMINDER = 'toggleStudyReminder';
 
 export const AFTER_CLASS_NOTIFICATION_RECEIVED = 'afterClassNotificationReceived';
+
+export const CHANGE_CLASS_NAME = 'changeClassName';
+
+export const CHANGE_HOMEWORK_NAME = 'changeHomeworkName';
+
+export const CHANGE_TODO_NAME = 'changeTodoName';
+
+export const CHANGE_TEST_NAME = 'changeTestName';

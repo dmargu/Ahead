@@ -8,8 +8,8 @@ import { colors, fonts } from '../styles';
 
 class CalendarScreen extends Component {
   render() {
-    const homework = this.props.homework.map(hw => (hw.date ? { ...hw, text: hw.assignmentName } : null));
-    const tests = this.props.tests.map(test => (test.date ? { ...test, text: test.testName } : null));
+    const homework = this.props.homework.filter(hw => (hw.date ? { ...hw, text: hw.assignmentName } : null));
+    const tests = this.props.tests.filter(test => (test.date ? { ...test, text: test.testName } : null));
     const classDates = [];
     for (let x = 0; x < this.props.classes.length; x++) {
       const c = this.props.classes[x];
@@ -54,7 +54,7 @@ class CalendarScreen extends Component {
         renderItem={this.renderItem.bind(this)} //check github issues for solution it's there
         rowHasChanged={this.rowHasChanged.bind(this)}
         renderKnob={this.renderKnob.bind(this)}
-        //renderEmptyData={this.renderEmptyDate.bind(this)}
+        renderEmptyData={this.renderEmptyDate.bind(this)}
         theme={calendarTheme}
       />
     );
@@ -77,7 +77,9 @@ class CalendarScreen extends Component {
 
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}><Text>This is an empty day!</Text></View>
+      <View style={styles.emptyDate}>
+        <Text style={styles.text}>Nothing today. Expand the calendar to view other days.</Text>
+      </View>
     );
   }
 
@@ -115,8 +117,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: colors.mainRed,
-    borderRadius: 10,
-    flex: 1
+    borderRadius: 8,
   }
 });
 

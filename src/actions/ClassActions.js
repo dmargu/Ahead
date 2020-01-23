@@ -18,7 +18,10 @@ import {
   CANCEL_ALL_NOTIFICATIONS,
   TOGGLE_AFTER_CLASS_REMINDERS,
   REMOVE_CLASS_DAY,
-  TOGGLE_STUDY_REMINDER
+  TOGGLE_STUDY_REMINDER,
+  CHANGE_CLASS_NAME,
+  CHANGE_HOMEWORK_NAME,
+  CHANGE_TEST_NAME
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
@@ -112,6 +115,30 @@ export const changeLocation = (item, text) => {
 export const changeOfficeHours = (item, text) => {
   return {
     type: CHANGE_OFFICE_HOURS,
+    id: item.id,
+    payload: text
+  };
+};
+
+export const changeItemName = (item, text) => {
+  return {
+    type: CHANGE_CLASS_NAME,
+    id: item.id,
+    payload: text
+  };
+};
+
+export const changeHomeworkName = (item, text) => {
+  return {
+    type: CHANGE_HOMEWORK_NAME,
+    id: item.id,
+    payload: text
+  };
+};
+
+export const changeTestName = (item, text) => {
+  return {
+    type: CHANGE_TEST_NAME,
     id: item.id,
     payload: text
   };

@@ -19,7 +19,8 @@ import {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
-  toggleItemStudyDay
+  toggleItemStudyDay,
+  changeTestName
 } from '../../actions';
 import { colors, fonts } from '../../styles';
 
@@ -64,8 +65,19 @@ class MainTestModal extends Component {
     this.state = {
       fullPictureVisible: false,
       selectedPicture: null,
-      datePickerVisible: false
+      datePickerVisible: false,
+      testName: ''
     };
+  }
+  handleTitleChange() {
+    if (this.state.testName !== '') {
+      this.props.changeTestName(this.props.item, this.state.testName);
+    } else {
+      this.setState({ testName: this.props.item.testName });
+    }
+  }
+  componentDidMount() {
+    this.setState({ testName: this.props.item.testName });
   }
   render() {
     const item = this.props.item;
@@ -89,7 +101,12 @@ class MainTestModal extends Component {
         <View style={styles.container}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={styles.title}>{item.testName}</Text>
+              <TextInput
+                style={styles.title}
+                value={this.state.testName}
+                onChangeText={(text) => this.setState({ testName: text })}
+                onBlur={() => this.handleTitleChange()}
+              />
               {item.className && <Text style={styles.textStyle}>{item.className}</Text>}
               <TouchableHighlight
                 onPress={() => this.setState({ datePickerVisible: true })}
@@ -272,5 +289,6 @@ export default connect(null, {
   toggleItemModalDatePicker,
   notesChanged,
   addPicture,
-  toggleItemStudyDay
+  toggleItemStudyDay,
+  changeTestName
 })(MainTestModal);

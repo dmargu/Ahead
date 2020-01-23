@@ -19,7 +19,8 @@ import {
   changeOfficeHours,
   removeClass,
   scheduleAfterClassReminders,
-  cancelAfterClassReminders
+  cancelAfterClassReminders,
+  changeClassName
 } from '../../actions';
 import { colors, fonts } from '../../styles';
 
@@ -63,7 +64,8 @@ class MainClassModal extends Component {
     this.state = {
       deleteAlertVisible: false,
       switchDisabled: false,
-      schedulingReminders: false
+      schedulingReminders: false,
+      className: ''
     };
   }
   classTimeText() {
@@ -73,6 +75,16 @@ class MainClassModal extends Component {
     const endTime = moment(item.classEndTime).format('h:mm a');
     const finalString = weekDays.concat(startTime, endTime);
     return (finalString);
+  }
+  handleTitleChange() {
+    if (this.state.className !== '') {
+      this.props.changeClassName(this.props.item, this.state.className);
+    } else {
+      this.setState({ className: this.props.item.name });
+    }
+  }
+  componentDidMount() {
+    this.setState({ className: this.props.item.name });
   }
   render() {
     const item = this.props.item;
@@ -91,7 +103,12 @@ class MainClassModal extends Component {
         <View style={styles.container}>
           <View style={styles.modalContainer}>
             <View style={styles.textSeperator}>
-              <Text style={styles.className}>{item.name}</Text>
+              <TextInput
+                style={styles.className}
+                value={this.state.className}
+                onChangeText={(text) => this.setState({ className: text })}
+                onBlur={() => this.handleTitleChange()}
+              />
             </View>
             <View style={styles.textSeperator}>
               <Text style={styles.normalText}>{this.classTimeText()}</Text>
@@ -242,5 +259,6 @@ export default connect(mapStateToProps,
     changeOfficeHours,
     removeClass,
     scheduleAfterClassReminders,
-    cancelAfterClassReminders
+    cancelAfterClassReminders,
+    changeClassName
   })(MainClassModal);

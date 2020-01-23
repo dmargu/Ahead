@@ -22,7 +22,8 @@ import {
   cancelNotification,
   defaultHomeworkReminder,
   customHomeworkReminder,
-  changeCustomReminder
+  changeCustomReminder,
+  changeHomeworkName
 } from '../../actions';
 import { colors, fonts } from '../../styles';
 
@@ -37,8 +38,19 @@ class MainHomeworkModal extends Component {
       threeDayButtonDisabled: false,
       customButtonDisabled: false,
       customReminderPickerVisible: false,
-      dueDatePickerVisible: false
+      dueDatePickerVisible: false,
+      assignmentName: ''
     };
+  }
+  handleTitleChange() {
+    if (this.state.assignmentName !== '') {
+      this.props.changeHomeworkName(this.props.item, this.state.assignmentName);
+    } else {
+      this.setState({ assignmentName: this.props.item.assignmentName });
+    }
+  }
+  componentDidMount() {
+    this.setState({ assignmentName: this.props.item.assignmentName });
   }
   render() {
     const item = this.props.item;
@@ -62,7 +74,12 @@ class MainHomeworkModal extends Component {
         <View style={styles.container}>
           <View style={styles.modalContainer}>
             <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={styles.title}>{item.assignmentName}</Text>
+              <TextInput
+                style={styles.title}
+                value={this.state.assignmentName}
+                onChangeText={(text) => this.setState({ assignmentName: text })}
+                onBlur={() => this.handleTitleChange()}
+              />
               {item.className && <Text style={styles.textStyle}>{item.className}</Text>}
               <TouchableHighlight
                 onPress={() => this.setState({ dueDatePickerVisible: true })}
@@ -240,5 +257,6 @@ export default connect(mapStateToProps, {
   cancelNotification,
   defaultHomeworkReminder,
   customHomeworkReminder,
-  changeCustomReminder
+  changeCustomReminder,
+  changeHomeworkName
 })(MainHomeworkModal);

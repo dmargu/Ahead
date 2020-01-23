@@ -18,6 +18,7 @@ import {
   TOGGLE_REMINDERS,
   CANCEL_NOTIFICATION,
   CANCEL_ALL_NOTIFICATIONS,
+  CHANGE_TODO_NAME
 } from '../actions/types';
 
 const initialState = {
@@ -79,6 +80,11 @@ const todos = (state = initialState, action) => {
       return {
         todos: state.todos.map(item => ((item.id === action.id)
           ? { ...item, pictures: action.payload } : item))
+      };
+    case CHANGE_TODO_NAME:
+      return {
+        todos: state.todos.map(item => ((item.id === action.id)
+          ? { ...item, text: action.payload } : item))
       };
     case TOGGLE_DATE_MODAL:
       return {
