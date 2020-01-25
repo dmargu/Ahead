@@ -76,6 +76,7 @@ class MainHomeworkModal extends Component {
             <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
               <TextInput
                 style={styles.title}
+                multiline
                 value={this.state.assignmentName}
                 onChangeText={(text) => this.setState({ assignmentName: text })}
                 onBlur={() => this.handleTitleChange()}

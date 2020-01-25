@@ -120,7 +120,7 @@ export const changeOfficeHours = (item, text) => {
   };
 };
 
-export const changeItemName = (item, text) => {
+export const changeClassName = (item, text) => {
   return {
     type: CHANGE_CLASS_NAME,
     id: item.id,

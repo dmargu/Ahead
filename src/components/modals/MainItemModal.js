@@ -70,6 +70,7 @@ class MainItemModal extends Component {
               <TextInput
                 style={styles.textStyle}
                 value={this.state.todoName}
+                multiline
                 onChangeText={(text) => this.setState({ todoName: text })}
                 onBlur={() => this.handleTitleChange()}
               />

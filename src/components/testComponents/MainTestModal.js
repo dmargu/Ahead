@@ -104,6 +104,7 @@ class MainTestModal extends Component {
               <TextInput
                 style={styles.title}
                 value={this.state.testName}
+                multiline
                 onChangeText={(text) => this.setState({ testName: text })}
                 onBlur={() => this.handleTitleChange()}
               />

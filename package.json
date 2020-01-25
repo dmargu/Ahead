@@ -46,7 +46,8 @@
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.15",
     "ws": "^7.2.0",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "expo-calendar": "~8.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.1.0",

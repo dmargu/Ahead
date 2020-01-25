@@ -22,7 +22,7 @@ class ClassAssignmentsList extends Component {
           <View style={{ paddingTop: 5, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.normalText}>Assignments</Text>
           </View>
-          <View style={styles.listBorder}>
+          <View>
             <FlatList
               data={_.sortBy(classData, (hw) => {
                 return hw.date;
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontFamily
   },
   listBorder: {
-    borderTopWidth: 0.25,
+    //borderTopWidth: 0.25,
     borderBottomWidth: 0.25,
     borderColor: colors.white,
   }

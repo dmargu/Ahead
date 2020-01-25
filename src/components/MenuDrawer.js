@@ -49,7 +49,7 @@ class MenuDrawer extends Component {
         </ScrollView>
           <View style={styles.footer}>
             <Text style={styles.description}>Ahead</Text>
-            <Text style={styles.version}>v1.0.9</Text>
+            <Text style={styles.version}>v1.1.0</Text>
           </View>
       </View>
 

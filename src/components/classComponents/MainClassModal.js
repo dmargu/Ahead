@@ -65,7 +65,8 @@ class MainClassModal extends Component {
       deleteAlertVisible: false,
       switchDisabled: false,
       schedulingReminders: false,
-      className: ''
+      className: '',
+      avoidKeyboard: true
     };
   }
   classTimeText() {
@@ -98,7 +99,7 @@ class MainClassModal extends Component {
         transparent
         isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
-        avoidKeyboard
+        avoidKeyboard={this.state.avoidKeyboard}
       >
         <View style={styles.container}>
           <View style={styles.modalContainer}>
@@ -106,15 +107,20 @@ class MainClassModal extends Component {
               <TextInput
                 style={styles.className}
                 value={this.state.className}
+                multiline
                 onChangeText={(text) => this.setState({ className: text })}
-                onBlur={() => this.handleTitleChange()}
+                onFocus={() => this.setState({ avoidKeyboard: false })}
+                onBlur={() => { //can just make it a modal so it works
+                  this.handleTitleChange();
+                  this.setState({ avoidKeyboard: true });
+                }}
               />
             </View>
             <View style={styles.textSeperator}>
               <Text style={styles.normalText}>{this.classTimeText()}</Text>
             </View>
             <ClassAssignmentsList item={item} />
-            <View style={styles.inputViewStyle}>
+            <View style={[styles.inputViewStyle, { paddingTop: 35 }]}>
               <Text style={styles.normalText}>Location:</Text>
               <TextInput
                 style={styles.textInput}
