@@ -89,3 +89,7 @@ export const CHANGE_HOMEWORK_NAME = 'changeHomeworkName';
 export const CHANGE_TODO_NAME = 'changeTodoName';
 
 export const CHANGE_TEST_NAME = 'changeTestName';
+
+export const ADD_ICAL_EVENTS = 'addIcalEvents';
+
+export const CONNECT_TO_ICAL = 'connectToIcal';

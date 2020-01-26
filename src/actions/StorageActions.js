@@ -1,9 +1,12 @@
 import { Notifications } from 'expo';
+import { getIcalEvents } from '../functions/GetIcalEvents';
 import {
   ADD_NOTIFICATION_ID,
   CANCEL_NOTIFICATION,
   CANCEL_ALL_NOTIFICATIONS,
-  AFTER_CLASS_NOTIFICATION_RECEIVED
+  AFTER_CLASS_NOTIFICATION_RECEIVED,
+  ADD_ICAL_EVENTS,
+  CONNECT_TO_ICAL
 } from './types';
 
 export const addNotificationID = (id, reminderType, notificationID) => {
@@ -53,4 +56,20 @@ export const afterClassNotificationReceived = (className) => {
       type: AFTER_CLASS_NOTIFICATION_RECEIVED,
       payload: className
     };
+};
+
+export const addIcalEvents = () => {
+  return async (dispatch) => {
+    const events = await getIcalEvents();
+    dispatch({
+      type: ADD_ICAL_EVENTS,
+      payload: events
+    });
+  };
+};
+
+export const connectToIcal = () => {
+  return {
+    type: CONNECT_TO_ICAL
+  };
 };

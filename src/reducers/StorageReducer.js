@@ -2,12 +2,16 @@ import {
   ADD_NOTIFICATION_ID,
   CANCEL_NOTIFICATION,
   CANCEL_ALL_NOTIFICATIONS,
-  AFTER_CLASS_NOTIFICATION_RECEIVED
+  AFTER_CLASS_NOTIFICATION_RECEIVED,
+  ADD_ICAL_EVENTS,
+  CONNECT_TO_ICAL
 } from '../actions/types';
 
 const initialState = {
   notificationIDs: [],
-  classNameFromNotification: ''
+  classNameFromNotification: '',
+  shouldConnectToIcal: false,
+  iCalEvents: []
 };
 
 const storage = (state = initialState, action) => {
@@ -32,6 +36,10 @@ const storage = (state = initialState, action) => {
     }
     case AFTER_CLASS_NOTIFICATION_RECEIVED:
       return { ...state, classNameFromNotification: action.payload };
+    case ADD_ICAL_EVENTS:
+      return { ...state, iCalEvents: action.payload };
+    case CONNECT_TO_ICAL:
+      return { ...state, shouldConnectToIcal: true };
     default:
       return state;
   }

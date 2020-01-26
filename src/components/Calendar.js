@@ -8,14 +8,20 @@ import { colors, fonts } from '../styles';
 
 class CalendarScreen extends Component {
   render() {
-    const homework = this.props.homework.filter(hw => (hw.date ? { ...hw, text: hw.assignmentName } : null));
-    const tests = this.props.tests.filter(test => (test.date ? { ...test, text: test.testName } : null));
+    const homework = this.props.homework.filter(hw => hw.date);
+    /*eslint-disable no-param-reassign*/
+    homework.forEach(hw => (hw.text = hw.assignmentName));
+    const tests = this.props.tests.filter(test => test.date);
+    tests.forEach(test => (test.text = test.testName));
+    /*eslint-enable no-param-reassign*/
     const classDates = [];
     for (let x = 0; x < this.props.classes.length; x++) {
       const c = this.props.classes[x];
       c.classDays.map(day => (classDates.push({ text: c.name, date: day })));
     }
-    let allItems = homework.concat(this.props.todos, tests, classDates);
+    const iCalEvents = this.props.iCalEvents;
+
+    let allItems = homework.concat(this.props.todos, tests, classDates, iCalEvents);
     allItems = _.sortBy(allItems, (item) => { return item.date; }); //not working right
 
     const calItemsArray = allItems.reduce((acc, item) => {
@@ -126,7 +132,8 @@ function mapStateToProps(state) {
     classes: state.ClassesReducer.classes,
     homework: state.ClassesReducer.homework,
     todos: state.TodoReducer.todos,
-    tests: state.ClassesReducer.tests
+    tests: state.ClassesReducer.tests,
+    iCalEvents: state.StorageReducer.iCalEvents
   };
 }
 

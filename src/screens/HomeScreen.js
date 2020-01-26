@@ -22,7 +22,8 @@ import {
   addTodo,
   toggleCreateHomeworkModal,
   toggleCreateTestModal,
-  afterClassNotificationReceived
+  afterClassNotificationReceived,
+  addIcalEvents
 } from '../actions';
 import { colors } from '../styles';
 
@@ -36,6 +37,9 @@ class HomeScreen extends Component {
   }
   componentDidMount() {
     registerForPushNotificationsAsync();
+    if (this.props.shouldConnectToIcal) {
+      this.props.addIcalEvents();
+    }
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
     this.setState({ inputVisible: false });
     this.notificationSubscription = Notifications.addListener(n => this.handleNotification(n));
@@ -158,7 +162,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    classNameFromNotification: state.StorageReducer.classNameFromNotification
+    classNameFromNotification: state.StorageReducer.classNameFromNotification,
+    shouldConnectToIcal: state.StorageReducer.shouldConnectToIcal
   };
 }
 
@@ -166,5 +171,6 @@ export default connect(mapStateToProps, {
   addTodo,
   toggleCreateHomeworkModal,
   toggleCreateTestModal,
-  afterClassNotificationReceived
+  afterClassNotificationReceived,
+  addIcalEvents
 })(HomeScreen);

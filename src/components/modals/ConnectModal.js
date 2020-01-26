@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Modal from 'react-native-modal';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import * as Calendar from 'expo-calendar';
-import moment from 'moment';
+import Modal from 'react-native-modal';
+import { addIcalEvents, connectToIcal } from '../../actions';
 import { colors, fonts } from '../../styles';
 
 class ConnectModal extends Component {
   async connectToIcal() {
+    //some if() the bool is false first, if true alert 'already connected to iCal!'
     const { status } = await Calendar.requestCalendarPermissionsAsync();
     if (status === 'granted') {
-        const calendars = await Calendar.getCalendarsAsync();
-        const calendarIds = [];
-        for (let x = 0; x < calendars.length; x++) {
-          calendarIds.push(calendars[x].source.id);
-        }
-        const events = await Calendar.getEventsAsync(
-          calendarIds, moment(new Date()).subtract(1, 'months').toDate()
-          , moment(new Date()).add(1, 'years').toDate());
-        console.log(events);
-      }
+      this.props.connectToIcal();
+      this.props.addIcalEvents();
+      //createAheadIcalFunction()
+    } else {
+      Alert.alert(
+        'Cannot connect to iCal without permission.',
+        null,
+        [
+          { text: 'OK' }
+        ],
+          { cancelable: false }
+      );
+    }
+    this.props.closeHandle();
   }
   render() {
     return (
@@ -34,7 +40,7 @@ class ConnectModal extends Component {
       >
         <View style={styles.container}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 80 }}>
               <TouchableOpacity
                 style={styles.buttonContainer}
                 onPress={this.connectToIcal.bind(this)}
@@ -86,4 +92,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ConnectModal;
+export default connect(null, { addIcalEvents, connectToIcal })(ConnectModal);

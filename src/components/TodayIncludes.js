@@ -73,6 +73,10 @@ class TodayIncludes extends Component {
     }
     let todayData = todayTodos.concat(todayClasses, todayTests, todayHomework, todayTestStudy);
     todayData = _.orderBy(todayData, (item) => item.date, ['desc']);
+
+    const todayiCal = [];
+    this.props.iCalEvents.map(event => ((moment(event.date).isSame(new Date(), 'day'))
+    ? todayiCal.push(event) : null));
     return (
       <View>
         <View style={styles.viewStyle}>
@@ -126,6 +130,23 @@ class TodayIncludes extends Component {
             }
           }}
         />
+        {/*todayiCal.length !== 0 &&
+          <View>
+            <Text>iCal Events</Text>
+            <FlatList
+              data={todayiCal}
+              extraData={todayiCal}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => {
+                return (
+                  <View>
+                    <Text>{item.text}</Text>
+                  </View>
+                );
+              }}
+            />
+          </View>
+        */}
       </View>
     );
   }
@@ -150,7 +171,8 @@ function mapStateToProps(state) {
     classes: state.ClassesReducer.classes,
     homework: state.ClassesReducer.homework,
     todos: state.TodoReducer.todos,
-    tests: state.ClassesReducer.tests
+    tests: state.ClassesReducer.tests,
+    iCalEvents: state.StorageReducer.iCalEvents
   };
 }
 export default connect(mapStateToProps, {

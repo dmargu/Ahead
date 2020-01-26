@@ -24,7 +24,7 @@ const todoPersistConfig = {
 const storageConfig = {
   key: 'StorageReducer',
   storage: AsyncStorage,
-  whitelist: ['notificationIDs'],
+  whitelist: ['notificationIDs', 'shouldConnectToIcal'],
   stateReconciler: autoMergeLevel2
 };
 
