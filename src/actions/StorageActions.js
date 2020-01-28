@@ -62,6 +62,7 @@ export const afterClassNotificationReceived = (className) => {
 export const addIcalEvents = () => { //when user first connects adds ical events and stores source id
   return async (dispatch) => {
     const { iCalEvents, sourceID } = await getIcalEvents();
+    console.log(iCalEvents);
     dispatch({
       type: ADD_ICAL_EVENTS,
       payload: iCalEvents

@@ -8,7 +8,9 @@ export async function getIcalEvents() {
   if (status === 'granted') {
       const calendars = await Calendar.getCalendarsAsync(); //caldav calendar will contain the sourceID
       const caldavCalendar = calendars.find(calendar => calendar.source.type === 'caldav');
-      sourceID = caldavCalendar.source.id;
+      if (caldavCalendar) {
+        sourceID = caldavCalendar.source.id;
+      }
       const calendarIds = [];
       for (let x = 0; x < calendars.length; x++) {
         calendarIds.push(calendars[x].id);

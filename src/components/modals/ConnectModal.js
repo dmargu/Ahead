@@ -9,25 +9,26 @@ import { colors, fonts } from '../../styles';
 
 class ConnectModal extends Component {
   async connectToIcal() {
+    /*console.log(this.props.iCalSourceID);
     const iCalID = await Calendar.createCalendarAsync({
       title: 'Ahead',
       color: colors.mainRed,
       entityType: Calendar.EntityTypes.EVENT,
       sourceID: this.props.iCalSourceID
     });
-    console.log(iCalID);
+    console.log(iCalID);*/
     if (!this.props.shouldConnectToIcal) {
       const { status } = await Calendar.requestCalendarPermissionsAsync();
       if (status === 'granted') {
-        this.props.connectToIcal();
         this.props.addIcalEvents();
+        this.props.connectToIcal();
         //create the calendar and get the id of the calendar (need to save it)
-        const iCalID = await Calendar.createCalendarAsync({
+        /*const iCalID = await Calendar.createCalendarAsync({
           title: 'Ahead',
           color: colors.mainRed,
           entityType: 'event',
           sourceID: this.props.iCalSourceID
-        });
+        });*/
         //get all of the events they already have and put it in the calendar
         const homework = this.props.homework.filter(hw => hw.date);
         const todos = this.props.todos.filter(todo => todo.date);
@@ -38,25 +39,25 @@ class ConnectModal extends Component {
         /*eslint-enable no-param-reassign*/
         const classDates = [];
         /*eslint-disable no-loop-func*/
-        for (let x = 0; x < this.props.classes.length; x++) {
+        /*for (let x = 0; x < this.props.classes.length; x++) {
           const c = this.props.classes[x];
           c.classDays.map(day => (classDates.push({
             text: c.name,
             date: day,
             endDate: moment(day).hour(moment(c.classEndTime.hour())).minute(moment(c.classEndTime.minute()))
           })));
-        }
+        }*/
         /*eslint-enable no-loop-func*/
         const allItems = homework.concat(todos, tests, classDates);
         //for loop to put all current events in the calendar
-        for (let x = 0; x < allItems.length; x++) {
+        /*for (let x = 0; x < allItems.length; x++) {
           Calendar.createEventAsync(iCalID, {
             title: allItems[x].text,
             startDate: allItems[x].date,
             endDate: allItems[x].endDate ? allItems[x].endDate : allItems[x].date,
             notes: allItems[x].notes ? allItems[x].notes : null
           });
-        }
+        }*/
 
         //do it in the action and pass it into function in action as props, pass it into action as props
         //then need conditional every time they add or delete something if the shouldConnectToIcal prop

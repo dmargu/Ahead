@@ -130,23 +130,25 @@ class TodayIncludes extends Component {
             }
           }}
         />
-        {/*todayiCal.length !== 0 &&
+        {todayiCal.length !== 0 &&
           <View>
-            <Text>iCal Events</Text>
+            <Text style={[styles.textStyle, { paddingLeft: 10 }]}>
+              iCal Events
+            </Text>
             <FlatList
               data={todayiCal}
               extraData={todayiCal}
               keyExtractor={item => item.id}
               renderItem={({ item }) => {
                 return (
-                  <View>
-                    <Text>{item.text}</Text>
-                  </View>
+                  <TodoItem
+                    todoItem={item}
+                    deleteTodo={() => {}}
+                  />
                 );
               }}
             />
-          </View>
-        */}
+          </View>}
       </View>
     );
   }
