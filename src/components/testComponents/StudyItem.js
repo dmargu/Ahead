@@ -33,11 +33,7 @@ class StudyItem extends Component {
                 ]}
                 contentContainerStyle={styles.contentStyle}
                 title={
-                  <Text
-                    style={styles.textStyle}
-                    ellipsizeMode='tail'
-                    numberOfLines={1}
-                  >
+                  <Text style={styles.textStyle}>
                     {item.studyName}
                   </Text>
                 }

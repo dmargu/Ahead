@@ -24,7 +24,7 @@ const todoPersistConfig = {
 const storageConfig = {
   key: 'StorageReducer',
   storage: AsyncStorage,
-  whitelist: ['notificationIDs', 'shouldConnectToIcal'],
+  whitelist: ['notificationIDs', 'shouldConnectToIcal', 'iCalSourceID'],
   stateReconciler: autoMergeLevel2
 };
 
@@ -53,7 +53,7 @@ export default function storeConfiguration() {
   );
 
   const persistor = persistStore(store);
-  //persistor.purge();
+  persistor.purge();
 
   return { persistor, store };
 }

@@ -2,21 +2,79 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import * as Calendar from 'expo-calendar';
+import moment from 'moment';
 import Modal from 'react-native-modal';
 import { addIcalEvents, connectToIcal } from '../../actions';
 import { colors, fonts } from '../../styles';
 
 class ConnectModal extends Component {
   async connectToIcal() {
-    //some if() the bool is false first, if true alert 'already connected to iCal!'
-    const { status } = await Calendar.requestCalendarPermissionsAsync();
-    if (status === 'granted') {
-      this.props.connectToIcal();
-      this.props.addIcalEvents();
-      //createAheadIcalFunction()
+    const iCalID = await Calendar.createCalendarAsync({
+      title: 'Ahead',
+      color: colors.mainRed,
+      entityType: Calendar.EntityTypes.EVENT,
+      sourceID: this.props.iCalSourceID
+    });
+    console.log(iCalID);
+    if (!this.props.shouldConnectToIcal) {
+      const { status } = await Calendar.requestCalendarPermissionsAsync();
+      if (status === 'granted') {
+        this.props.connectToIcal();
+        this.props.addIcalEvents();
+        //create the calendar and get the id of the calendar (need to save it)
+        const iCalID = await Calendar.createCalendarAsync({
+          title: 'Ahead',
+          color: colors.mainRed,
+          entityType: 'event',
+          sourceID: this.props.iCalSourceID
+        });
+        //get all of the events they already have and put it in the calendar
+        const homework = this.props.homework.filter(hw => hw.date);
+        const todos = this.props.todos.filter(todo => todo.date);
+        /*eslint-disable no-param-reassign*/
+        homework.forEach(hw => (hw.text = hw.assignmentName));
+        const tests = this.props.tests.filter(test => test.date);
+        tests.forEach(test => (test.text = test.testName));
+        /*eslint-enable no-param-reassign*/
+        const classDates = [];
+        /*eslint-disable no-loop-func*/
+        for (let x = 0; x < this.props.classes.length; x++) {
+          const c = this.props.classes[x];
+          c.classDays.map(day => (classDates.push({
+            text: c.name,
+            date: day,
+            endDate: moment(day).hour(moment(c.classEndTime.hour())).minute(moment(c.classEndTime.minute()))
+          })));
+        }
+        /*eslint-enable no-loop-func*/
+        const allItems = homework.concat(todos, tests, classDates);
+        //for loop to put all current events in the calendar
+        for (let x = 0; x < allItems.length; x++) {
+          Calendar.createEventAsync(iCalID, {
+            title: allItems[x].text,
+            startDate: allItems[x].date,
+            endDate: allItems[x].endDate ? allItems[x].endDate : allItems[x].date,
+            notes: allItems[x].notes ? allItems[x].notes : null
+          });
+        }
+
+        //do it in the action and pass it into function in action as props, pass it into action as props
+        //then need conditional every time they add or delete something if the shouldConnectToIcal prop
+        //is true then it needs to add or delete it from the iCal with the ahead calendarID that is saved
+      } else {
+        Alert.alert(
+          'Cannot connect to iCal without permission.',
+          null,
+          [
+            { text: 'OK' }
+          ],
+            { cancelable: false }
+        );
+      }
+      this.props.closeHandle();
     } else {
       Alert.alert(
-        'Cannot connect to iCal without permission.',
+        'Aleady connected to iCal. If you\'re having an issue with it please let me know.',
         null,
         [
           { text: 'OK' }
@@ -24,7 +82,6 @@ class ConnectModal extends Component {
           { cancelable: false }
       );
     }
-    this.props.closeHandle();
   }
   render() {
     return (
@@ -92,4 +149,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { addIcalEvents, connectToIcal })(ConnectModal);
+function mapStateToProps(state) {
+  return {
+    shouldConnectToIcal: state.StorageReducer.shouldConnectToIcal,
+    iCalSourceID: state.StorageReducer.iCalSourceID,
+    classes: state.ClassesReducer.classes,
+    homework: state.ClassesReducer.homework,
+    todos: state.TodoReducer.todos,
+    tests: state.ClassesReducer.tests,
+  };
+}
+
+export default connect(mapStateToProps, { addIcalEvents, connectToIcal })(ConnectModal);

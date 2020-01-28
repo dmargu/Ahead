@@ -93,3 +93,5 @@ export const CHANGE_TEST_NAME = 'changeTestName';
 export const ADD_ICAL_EVENTS = 'addIcalEvents';
 
 export const CONNECT_TO_ICAL = 'connectToIcal';
+
+export const STORE_SOURCE_ID = 'storeSourceID';

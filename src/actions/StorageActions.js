@@ -6,7 +6,8 @@ import {
   CANCEL_ALL_NOTIFICATIONS,
   AFTER_CLASS_NOTIFICATION_RECEIVED,
   ADD_ICAL_EVENTS,
-  CONNECT_TO_ICAL
+  CONNECT_TO_ICAL,
+  STORE_SOURCE_ID
 } from './types';
 
 export const addNotificationID = (id, reminderType, notificationID) => {
@@ -58,12 +59,28 @@ export const afterClassNotificationReceived = (className) => {
     };
 };
 
-export const addIcalEvents = () => {
+export const addIcalEvents = () => { //when user first connects adds ical events and stores source id
   return async (dispatch) => {
-    const events = await getIcalEvents();
+    const { iCalEvents, sourceID } = await getIcalEvents();
     dispatch({
       type: ADD_ICAL_EVENTS,
-      payload: events
+      payload: iCalEvents
+    });
+
+    dispatch({
+      type: STORE_SOURCE_ID,
+      payload: sourceID
+    });
+  };
+};
+
+export const rehydrateIcalEvents = () => { //don't want to keep changing source id so this only
+  return async (dispatch) => { //adds the ical events back to the application state
+    const { iCalEvents } = await getIcalEvents();
+
+    dispatch({
+      type: ADD_ICAL_EVENTS,
+      payload: iCalEvents
     });
   };
 };

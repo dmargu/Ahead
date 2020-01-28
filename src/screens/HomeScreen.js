@@ -23,7 +23,7 @@ import {
   toggleCreateHomeworkModal,
   toggleCreateTestModal,
   afterClassNotificationReceived,
-  addIcalEvents
+  rehydrateIcalEvents
 } from '../actions';
 import { colors } from '../styles';
 
@@ -38,7 +38,7 @@ class HomeScreen extends Component {
   componentDidMount() {
     registerForPushNotificationsAsync();
     if (this.props.shouldConnectToIcal) {
-      this.props.addIcalEvents();
+      this.props.rehydrateIcalEvents();
     }
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
     this.setState({ inputVisible: false });
@@ -172,5 +172,5 @@ export default connect(mapStateToProps, {
   toggleCreateHomeworkModal,
   toggleCreateTestModal,
   afterClassNotificationReceived,
-  addIcalEvents
+  rehydrateIcalEvents
 })(HomeScreen);

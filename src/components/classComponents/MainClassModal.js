@@ -66,7 +66,7 @@ class MainClassModal extends Component {
       switchDisabled: false,
       schedulingReminders: false,
       className: '',
-      avoidKeyboard: true
+      showInputModal: false
     };
   }
   classTimeText() {
@@ -99,22 +99,42 @@ class MainClassModal extends Component {
         transparent
         isVisible={this.props.isVisible}
         onBackdropPress={() => this.props.closeHandle()}
-        avoidKeyboard={this.state.avoidKeyboard}
+        avoidKeyboard
       >
         <View style={styles.container}>
           <View style={styles.modalContainer}>
+
+            <Modal
+              animationIn='fadeIn'
+              animationOut='fadeOut'
+              backdropTransitionOutTiming={0}
+              hasBackDrop
+              backdropOpacity={0.99}
+              transparent
+              isVisible={this.state.showInputModal}
+              onBackdropPress={() => this.setState({ showInputModal: false })}
+            >
+              <View style={styles.container}>
+                <View style={styles.modalContainer}>
+                  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TextInput
+                      style={styles.className}
+                      value={this.state.className}
+                      multiline
+                      onChangeText={(text) => this.setState({ className: text })}
+                      onBlur={() => {
+                        this.handleTitleChange();
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
+
             <View style={styles.textSeperator}>
-              <TextInput
-                style={styles.className}
-                value={this.state.className}
-                multiline
-                onChangeText={(text) => this.setState({ className: text })}
-                onFocus={() => this.setState({ avoidKeyboard: false })}
-                onBlur={() => { //can just make it a modal so it works
-                  this.handleTitleChange();
-                  this.setState({ avoidKeyboard: true });
-                }}
-              />
+              <TouchableOpacity onPress={() => this.setState({ showInputModal: true })}>
+                <Text style={styles.className}>{this.state.className}</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.textSeperator}>
               <Text style={styles.normalText}>{this.classTimeText()}</Text>
