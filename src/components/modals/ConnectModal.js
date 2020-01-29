@@ -109,6 +109,20 @@ class ConnectModal extends Component {
       );
     }
   }
+
+  gCalAlert() {
+    return (
+      Alert.alert(
+        /*eslint-disable-next-line */
+        'To sync to gCal, first follow the directions for syncing to iCal. Then make the iCal calendar public and get the shareable link. From there add it into google calendar by adding a calendar through a URL.',
+        null,
+        [
+          { text: 'OK' }
+        ],
+          { cancelable: false }
+      )
+    );
+  }
   render() {
     return (
       <Modal
@@ -123,7 +137,7 @@ class ConnectModal extends Component {
       >
         <View style={styles.container}>
           <View style={styles.modalContainer}>
-            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 80 }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 40 }}>
               <TouchableOpacity
                 style={styles.buttonContainer}
                 onPress={this.connectToIcal.bind(this)}
@@ -132,13 +146,14 @@ class ConnectModal extends Component {
                 {!this.state.syncingToIcal && <Text style={styles.text}>Connect To iCal</Text>}
                 {this.state.syncingToIcal && <Spinner size='large' />}
               </TouchableOpacity>
-
-              {/*<TouchableOpacity
+            </View>
+            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 40 }}>
+              <TouchableOpacity
                 style={styles.buttonContainer}
-                //onPress={this.onButtonPress.bind(this)}
+                onPress={this.gCalAlert.bind(this)}
               >
                 <Text style={styles.text}>Connect To gCal</Text>
-              </TouchableOpacity>*/}
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -167,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 200,
     borderRadius: 30,
-    backgroundColor: colors.mainRed
+    backgroundColor: colors.mainRed,
   },
   text: {
     color: colors.white,
