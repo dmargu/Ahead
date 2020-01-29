@@ -16,9 +16,11 @@ export async function getIcalEvents() {
       if (localCalendar) {
         localiCalID = localCalendar.id;
       }
-      const calendarIds = [];
-      for (let x = 0; x < calendars.length; x++) {
-        calendarIds.push(calendars[x].id);
+
+      const calsWithoutAhead = calendars.filter(calendar => calendar.title !== 'Ahead');
+      const calendarIds = []; //add those events to our app (would just be duplicates)
+      for (let x = 0; x < calsWithoutAhead.length; x++) {
+        calendarIds.push(calsWithoutAhead[x].id);
       }
       const events = await Calendar.getEventsAsync(
         calendarIds, moment(new Date()).subtract(1, 'months').toDate()

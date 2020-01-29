@@ -38,14 +38,12 @@ class ConnectModal extends Component {
         const allItems = homework.concat(todos, tests, classDates);
         //for loop to put all current events in the calendar
         for (let x = 0; x < allItems.length; x++) {
-          console.log('scheduling ', allItems[x].text);
           await Calendar.createEventAsync(this.props.localiCalID, {
             title: allItems[x].text,
             startDate: allItems[x].date,
             endDate: allItems[x].endDate ? allItems[x].endDate : allItems[x].date,
             notes: allItems[x].notes ? allItems[x].notes : ''
           });
-          console.log('finished', allItems[x].text);
         }
 
         //do it in the action and pass it into function in action as props, pass it into action as props
