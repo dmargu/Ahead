@@ -5,7 +5,7 @@ import * as Calendar from 'expo-calendar';
 import moment from 'moment';
 import Modal from 'react-native-modal';
 import { Spinner } from '../common/Spinner';
-import { addIcalEvents, connectToIcal } from '../../actions';
+import { addIcalEvents, connectToIcal, disconnectFromIcal } from '../../actions';
 import { colors, fonts } from '../../styles';
 
 class ConnectModal extends Component {
@@ -76,7 +76,7 @@ class ConnectModal extends Component {
         const c = this.props.classes[x];
         c.classDays.map(day => (classDates.push({
           text: c.name,
-          date: day.toDate(),
+          date: day,
           endDate: moment(day).hour(moment(c.classEndTime).hour()).minute(moment(c.classEndTime).minute())
           .toDate()
         })));
@@ -155,6 +155,25 @@ class ConnectModal extends Component {
                 <Text style={styles.text}>Connect To gCal</Text>
               </TouchableOpacity>
             </View>
+
+            <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 40 }}>
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => {
+                  this.props.disconnectFromIcal();
+                  Alert.alert(
+                    'You are disconnected from iCal.',
+                    null,
+                    [
+                      { text: 'OK' }
+                    ],
+                      { cancelable: false }
+                  );
+                }}
+              >
+                <Text style={styles.text}>Disconnect from iCal</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -169,7 +188,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '80%',
-    height: 200,
+    height: 300,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.mainDark,
@@ -202,4 +221,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { addIcalEvents, connectToIcal })(ConnectModal);
+export default connect(mapStateToProps, { addIcalEvents, connectToIcal, disconnectFromIcal })(ConnectModal);

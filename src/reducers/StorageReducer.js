@@ -5,7 +5,8 @@ import {
   AFTER_CLASS_NOTIFICATION_RECEIVED,
   ADD_ICAL_EVENTS,
   CONNECT_TO_ICAL,
-  STORE_SOURCE_ID
+  STORE_SOURCE_ID,
+  DISCONNECT_FROM_ICAL
 } from '../actions/types';
 
 const initialState = {
@@ -43,6 +44,8 @@ const storage = (state = initialState, action) => {
       return { ...state, iCalEvents: action.payload };
     case CONNECT_TO_ICAL:
       return { ...state, shouldConnectToIcal: true };
+    case DISCONNECT_FROM_ICAL:
+      return { ...state, shouldConnectToIcal: false };
     case STORE_SOURCE_ID:
       return { ...state, iCalSourceID: action.sourceID, localiCalID: action.localiCalID };
     default:

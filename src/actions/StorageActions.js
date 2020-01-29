@@ -7,7 +7,8 @@ import {
   AFTER_CLASS_NOTIFICATION_RECEIVED,
   ADD_ICAL_EVENTS,
   CONNECT_TO_ICAL,
-  STORE_SOURCE_ID
+  STORE_SOURCE_ID,
+  DISCONNECT_FROM_ICAL
 } from './types';
 
 export const addNotificationID = (id, reminderType, notificationID) => {
@@ -89,5 +90,11 @@ export const rehydrateIcalEvents = () => { //don't want to keep changing source 
 export const connectToIcal = () => {
   return {
     type: CONNECT_TO_ICAL
+  };
+};
+
+export const disconnectFromIcal = () => {
+  return {
+    type: DISCONNECT_FROM_ICAL
   };
 };
