@@ -129,7 +129,9 @@ class CreateTestModal extends Component {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
-                  this.props.createTest(values, this.state, this.props.classes, actions);
+                  this.props.createTest(values, this.state,
+                    this.props.classes, actions, this.props.shouldConnectToIcal, this.props.localiCalID
+                  );
                   this.setState(initialState);
                 }}
               >
@@ -406,7 +408,9 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     createTestModalVisible: state.ModalReducer.createTestModalVisible,
-    classes: state.ClassesReducer.classes
+    classes: state.ClassesReducer.classes,
+    shouldConnectToIcal: state.StorageReducer.shouldConnectToIcal,
+    localiCalID: state.StorageReducer.localiCalID
   };
 }
 

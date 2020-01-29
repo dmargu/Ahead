@@ -142,7 +142,9 @@ class CreateHomeworkModal extends Component { //this class has a bunch of warnin
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
-                  this.props.createHomework(values, this.state, this.props.classes, actions);
+                  this.props.createHomework(values, this.state,
+                    this.props.classes, actions, this.props.shouldConnectToIcal, this.props.localiCalID
+                  );
                   this.setState(initialState);
                   this.props.afterClassNotificationReceived('');
                 }}
@@ -479,7 +481,9 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     createHomeworkModalVisible: state.ModalReducer.createHomeworkModalVisible,
-    classes: state.ClassesReducer.classes
+    classes: state.ClassesReducer.classes,
+    shouldConnectToIcal: state.StorageReducer.shouldConnectToIcal,
+    localiCalID: state.StorageReducer.localiCalID
   };
 }
 

@@ -146,7 +146,10 @@ class CreateClassModal extends Component {
                   },
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values, actions) => this.props.createClass(values, actions)}
+                onSubmit={(values, actions) =>
+                  this.props.createClass(values, actions,
+                    this.props.shouldConnectToIcal, this.props.localiCalID
+                  )}
               >
                 {formikProps => (
                   <View>
@@ -389,7 +392,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    createClassModalVisible: state.ModalReducer.createClassModalVisible
+    createClassModalVisible: state.ModalReducer.createClassModalVisible,
+    shouldConnectToIcal: state.StorageReducer.shouldConnectToIcal,
+    localiCalID: state.StorageReducer.localiCalID
   };
 }
 

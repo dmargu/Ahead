@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { Notifications } from 'expo';
+import * as Calendar from 'expo-calendar';
 import shortid from 'shortid';
 import {
   CREATE_CLASS,
@@ -25,7 +26,7 @@ import {
 } from './types';
 import { scheduleNotification } from '../functions/ScheduleNotification';
 
-export const createClass = (values, actions) => { //add after class notifications
+export const createClass = (values, actions, shouldConnectToIcal, localiCalID) => {
   return async (dispatch) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     const daysOfWeek = findDaysOfWeek(values.daysOfWeek);
@@ -40,6 +41,24 @@ export const createClass = (values, actions) => { //add after class notification
       classDays,
       id
     });
+    if (shouldConnectToIcal) {
+      const classDates = [];
+      classDays.map(day => (classDates.push({
+        text: values.name,
+        date: day.toDate(),
+        endDate: moment(day).hour(moment(values.classEndTime).hour())
+        .minute(moment(values.classEndTime).minute())
+        .toDate()
+      })));
+      for (let x = 0; x < classDates.length; x++) {
+        await Calendar.createEventAsync(localiCalID, {
+          title: classDates[x].text,
+          startDate: classDates[x].date,
+          endDate: classDates[x].endDate ? classDates[x].endDate : classDates[x].date,
+          notes: classDates[x].notes ? classDates[x].notes : ''
+        });
+      }
+    }
     actions.setSubmitting(false);
     dispatch({
       type: TOGGLE_CREATE_CLASS_MODAL
@@ -47,7 +66,7 @@ export const createClass = (values, actions) => { //add after class notification
   };
 };
 
-export const createHomework = (values, state, classes, actions) => {
+export const createHomework = (values, state, classes, actions, shouldConnectToIcal, localiCalID) => {
   return async (dispatch) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     const dueDate = findDueDate(state, values.class, classes);
@@ -60,6 +79,14 @@ export const createHomework = (values, state, classes, actions) => {
       dueDate,
       reminders
     });
+    if (shouldConnectToIcal && dueDate) {
+      await Calendar.createEventAsync(localiCalID, {
+        title: values.assignmentName,
+        startDate: dueDate,
+        endDate: dueDate,
+        notes: values.notes
+      });
+    }
     actions.setSubmitting(false);
     dispatch({
       type: TOGGLE_CREATE_HOMEWORK_MODAL
@@ -67,7 +94,7 @@ export const createHomework = (values, state, classes, actions) => {
   };
 };
 
-export const createTest = (values, state, classes, actions) => {
+export const createTest = (values, state, classes, actions, shouldConnectToIcal, localiCalID) => {
   return async (dispatch) => {
     const id = shortid.generate(); //generating id now se we can use it to schedule reminders
     dispatch({
@@ -76,6 +103,14 @@ export const createTest = (values, state, classes, actions) => {
       state,
       id,
     });
+    if (shouldConnectToIcal && state.testDate) {
+      await Calendar.createEventAsync(localiCalID, {
+        title: values.testName,
+        startDate: state.testDate,
+        endDate: state.testDate,
+        notes: values.notes
+      });
+    }
     actions.setSubmitting(false);
     dispatch({
       type: TOGGLE_CREATE_TEST_MODAL
