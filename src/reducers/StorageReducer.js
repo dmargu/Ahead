@@ -13,6 +13,7 @@ const initialState = {
   classNameFromNotification: '',
   shouldConnectToIcal: false,
   iCalSourceID: '',
+  localiCalID: '',
   iCalEvents: []
 };
 
@@ -43,7 +44,7 @@ const storage = (state = initialState, action) => {
     case CONNECT_TO_ICAL:
       return { ...state, shouldConnectToIcal: true };
     case STORE_SOURCE_ID:
-      return { ...state, iCalSourceID: action.payload };
+      return { ...state, iCalSourceID: action.sourceID, localiCalID: action.localiCalID };
     default:
       return state;
   }

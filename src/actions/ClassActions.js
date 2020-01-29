@@ -282,13 +282,13 @@ function findDueDate(state, className, classes) {
   if (state.dueNextClass) {
     const targetClass = classes.find((c) => c.name === className); //dueDate is next class after today
     const dueDate = targetClass.classDays.find((day) => moment(day).isAfter(moment(new Date(), 'day')));
-    return dueDate;
+    return dueDate.toDate();
   } else if (state.dueNightBefore) {
     const targetClass = classes.find((c) => c.name === className);
     const classDue = targetClass.classDays.find((day) => moment(day).isAfter(moment(new Date(), 'day')));
     const rightDueDayWrongTime = moment(classDue).subtract(1, 'days'); //finds next class and makes it
     const dueDate = moment(rightDueDayWrongTime).hour(23).minute(59); //night before at 11:59pm
-    return dueDate;
+    return dueDate.toDate();
   } else if (state.dueCustomTime) { //if custom date they enter date and time and we take that state
     const dueDate = state.customDueDate; //and just return it
     return dueDate;
